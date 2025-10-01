@@ -25,13 +25,13 @@
 #include <Adafruit_ST7735.h>
 
 // ST7735S connections to Pico 1.8 inch 120x160 Pixel Lcd (Waveshare)
-#define TFT_CS   17   // CS  -> GP17
-#define TFT_RST  16   // RST -> GP16  
-#define TFT_DC   15   // DC  -> GP15
-#define TFT_DIN  19   // DIN -> GP19 (SPI MOSI)
-#define TFT_CLK  18   // CLK -> GP18 (SPI SCLK)
-#define TFT_BL   20   // BL  -> GP20 (backlight control)
-// VCC -> 3.3V, GND -> GND
+#define TFT_CS   17   // CS  -> GP17                     Yellow
+#define TFT_RST  16   // RST -> GP16                     Brown/Red
+#define TFT_DC   21   // DC  -> GP21                     Blue
+#define TFT_DIN  19   // DIN -> GP19 (SPI MOSI).         Green
+#define TFT_CLK  18   // CLK -> GP18 (SPI SCLK)          Orange
+#define TFT_BL   20   // BL  -> GP20 (backlight control) Grey
+// VCC Purple -> 3.3V, GND WHite -> GND
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 /* ------------------------
