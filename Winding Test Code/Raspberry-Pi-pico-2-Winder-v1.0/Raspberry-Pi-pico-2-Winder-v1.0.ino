@@ -38,25 +38,25 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
    Pin Configuration for Pico 2
    ------------------------ */
 // Motor pins
-#define RPWM 2
-#define LPWM 3
-#define REN  4
-#define LEN  5
+#define RPWM 3
+#define LPWM 2
+#define REN  5
+#define LEN  4
 
 // Stepper pins
-#define STEP_PIN 6
+#define STEP_PIN 8
 #define DIR_PIN  7
-#define EN_PIN   8
-#define ENDSTOP_PIN 14
+#define EN_PIN   6
+#define ENDSTOP_PIN 15
 
 // Encoder pins
-#define ENC_A 9       // Hardware counter input
-#define ENC_B 10      // Direction sensing
-#define ENC_Z 11      // Index pulse interrupt
+#define ENC_A 10       // Hardware counter input
+#define ENC_B 11      // Direction sensing
+#define ENC_Z 12      // Index pulse interrupt
 
 // Control buttons
-#define ESTOP_PIN 12
-#define RESUME_PIN 13
+#define ESTOP_PIN 14
+#define RESUME_PIN 9
 
 // Sensor pins (ADC)
 #define CURRENT_SENSE_PIN 26  // ADC0
