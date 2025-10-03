@@ -6,15 +6,8 @@
   - MotorController for spindle motor
   - High-frequency PWM to eliminate motor whining
   
-  Pin Mapping for Pico 2:
-  Motor: GP2 (RPWM), GP3 (LPWM), GP4 (REN), GP5 (LEN)
-  Stepper: GP6 (STEP), GP7 (DIR), GP8 (EN)
-  Encoder: GP9 (ENC_A), GP10 (ENC_B), GP11 (ENC_Z)
-  Buttons: GP12 (ESTOP), GP13 (RESUME)
-  Endstop: GP14
-  Sensors: GP26 (Current), GP27 (Voltage), GP28 (Temp)
 */
-
+//#include "pico/stdlib.h"
 #include <AccelStepper.h>
 #include "MotorController.h"
 #include <hardware/pwm.h>
@@ -50,9 +43,9 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 #define ENDSTOP_PIN 15
 
 // Encoder pins
-#define ENC_A 10       // Hardware counter input
-#define ENC_B 11      // Direction sensing
-#define ENC_Z 12      // Index pulse interrupt
+#define ENC_A 10      // yellow/black
+#define ENC_B 11      // white
+#define ENC_Z 12      // orange
 
 // Control buttons
 #define ESTOP_PIN 14
