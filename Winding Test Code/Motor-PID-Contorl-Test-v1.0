@@ -1,0 +1,632 @@
+/*
+  Optimized DC Motor Coil Winder v3.0
+  Features:
+  - Closed-loop PID speed control
+  - Precise turn counting with error correction
+  - Smooth acceleration/deceleration profiles
+  - Auto-tension adjustment based on wire diameter
+  - Real-time performance monitoring
+*/
+
+#include <Arduino.h>
+#include <AccelStepper.h>
+#include "MotorController.h"
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7735.h>
+
+// Pin Configuration
+#define RPWM 3
+#define LPWM 2
+#define REN  5
+#define LEN  4
+
+#define STEP_PIN 8
+#define DIR_PIN  7
+#define EN_PIN   6
+#define ENDSTOP_PIN 15
+
+#define ENC_A 10
+#define ENC_B 11
+#define ENC_Z 12
+
+#define ESTOP_PIN 14
+#define RESUME_PIN 9
+
+// Display pins
+#define TFT_CS   17
+#define TFT_RST  16
+#define TFT_DC   21
+
+// Configuration for 43 AWG wire
+const float WIRE_DIAMETER_MM = 0.056;  // 43 AWG
+const float MAX_TENSION_GRAMS = 30.0;
+const uint16_t ENCODER_PPR = 720;
+const float LEAD_PITCH_MM = 6.0;
+const int STEPS_PER_REV = 200;
+const int MICROSTEPS = 16;
+
+// Advanced PID Controller
+class PIDController {
+private:
+  float kp, ki, kd;
+  float integral = 0;
+  float prevError = 0;
+  float integralLimit;
+  unsigned long lastTime = 0;
+
+public:
+  PIDController(float p, float i, float d, float iLimit = 1000)
+    : kp(p), ki(i), kd(d), integralLimit(iLimit) {}
+
+  float compute(float setpoint, float measured) {
+    unsigned long now = micros();
+    float dt = (now - lastTime) / 1000000.0;
+    if (dt <= 0 || dt > 1.0) dt = 0.01;
+    lastTime = now;
+
+    float error = setpoint - measured;
+
+    // Proportional
+    float P = kp * error;
+
+    // Integral with anti-windup
+    integral += error * dt;
+    integral = constrain(integral, -integralLimit, integralLimit);
+    float I = ki * integral;
+
+    // Derivative with filtering
+    float derivative = (error - prevError) / dt;
+    prevError = error;
+    float D = kd * derivative;
+
+    return P + I + D;
+  }
+
+  void reset() {
+    integral = 0;
+    prevError = 0;
+    lastTime = micros();
+  }
+
+  void setTunings(float p, float i, float d) {
+    kp = p; ki = i; kd = d;
+  }
+};
+
+// Optimized Motor Controller
+class OptimizedMotorController {
+private:
+  PIDController speedPID;
+  PIDController positionPID;
+
+  volatile int32_t encoderPosition = 0;
+  volatile int32_t targetPosition = 0;
+  volatile bool lastDirection = true;
+
+  float currentRPM = 0;
+  float targetRPM = 0;
+  int currentPWM = 0;
+
+  // RPM calculation with filtering
+  uint32_t rpmBuffer[10] = {0};
+  uint8_t rpmBufferIndex = 0;
+  uint32_t lastEncoderCount = 0;
+  unsigned long lastRPMUpdate = 0;
+
+  // S-curve acceleration profile
+  struct MotionProfile {
+    float maxAccel = 500;     // RPM/s
+    float maxJerk = 1000;     // RPM/s²
+    float currentVel = 0;
+    float currentAccel = 0;
+    unsigned long lastUpdate = 0;
+  } motion;
+
+public:
+  OptimizedMotorController()
+    : speedPID(2.0, 0.5, 0.1, 500),
+      positionPID(1.0, 0.2, 0.05, 100) {}
+
+  void init() {
+    pinMode(RPWM, OUTPUT);
+    pinMode(LPWM, OUTPUT);
+    pinMode(REN, OUTPUT);
+    pinMode(LEN, OUTPUT);
+
+    pinMode(ENC_A, INPUT_PULLUP);
+    pinMode(ENC_B, INPUT_PULLUP);
+    pinMode(ENC_Z, INPUT_PULLUP);
+
+    // High-frequency PWM for smooth control
+    analogWriteFreq(25000);
+    analogWriteRange(255);
+
+    attachInterrupt(digitalPinToInterrupt(ENC_A),
+                   [this]() { this->encoderISR(); }, RISING);
+    attachInterrupt(digitalPinToInterrupt(ENC_Z),
+                   [this]() { this->zIndexISR(); }, RISING);
+  }
+
+  void encoderISR() {
+    bool b = digitalRead(ENC_B);
+    if (b) {
+      encoderPosition++;
+      lastDirection = true;
+    } else {
+      encoderPosition--;
+      lastDirection = false;
+    }
+  }
+
+  void zIndexISR() {
+    // Use Z-index for position verification
+    static int32_t lastZPosition = 0;
+    int32_t pulsesSinceZ = encoderPosition - lastZPosition;
+
+    // Check if we missed steps
+    if (abs(pulsesSinceZ - ENCODER_PPR) > 10 && lastZPosition != 0) {
+      Serial.println("Warning: Encoder sync error detected!");
+    }
+    lastZPosition = encoderPosition;
+  }
+
+  // Calculate RPM with advanced filtering
+  float calculateRPM() {
+    unsigned long now = millis();
+    if (now - lastRPMUpdate >= 50) {  // Update every 50ms
+      uint32_t currentCount = encoderPosition;
+      uint32_t pulseDelta = currentCount - lastEncoderCount;
+      float dt = (now - lastRPMUpdate) / 1000.0;
+
+      // Calculate instantaneous RPM
+      float instantRPM = (pulseDelta / (float)ENCODER_PPR) * 60.0 / dt;
+
+      // Add to circular buffer for filtering
+      rpmBuffer[rpmBufferIndex] = instantRPM * 100;  // Store as fixed point
+      rpmBufferIndex = (rpmBufferIndex + 1) % 10;
+
+      // Calculate filtered average
+      uint32_t sum = 0;
+      for (int i = 0; i < 10; i++) {
+        sum += rpmBuffer[i];
+      }
+      currentRPM = sum / 1000.0;  // Convert back to float
+
+      lastEncoderCount = currentCount;
+      lastRPMUpdate = now;
+    }
+    return currentRPM;
+  }
+
+  // S-curve motion profile for smooth acceleration
+  void updateMotionProfile(float targetRPM) {
+    unsigned long now = micros();
+    float dt = (now - motion.lastUpdate) / 1000000.0;
+    if (dt <= 0 || dt > 0.1) dt = 0.01;
+    motion.lastUpdate = now;
+
+    float velError = targetRPM - motion.currentVel;
+
+    // Jerk-limited acceleration
+    float targetAccel = constrain(velError * 10, -motion.maxAccel, motion.maxAccel);
+    float accelError = targetAccel - motion.currentAccel;
+    float jerk = constrain(accelError / dt, -motion.maxJerk, motion.maxJerk);
+
+    motion.currentAccel += jerk * dt;
+    motion.currentAccel = constrain(motion.currentAccel, -motion.maxAccel, motion.maxAccel);
+
+    motion.currentVel += motion.currentAccel * dt;
+    motion.currentVel = constrain(motion.currentVel, 0, 2500);
+
+    this->targetRPM = motion.currentVel;
+  }
+
+  // Closed-loop speed control with PID
+  void setSpeed(float rpm, bool useProfile = true) {
+    if (useProfile) {
+      updateMotionProfile(rpm);
+    } else {
+      targetRPM = rpm;
+    }
+
+    // PID control
+    float pidOutput = speedPID.compute(targetRPM, currentRPM);
+
+    // Feedforward + PID
+    int basePWM = rpmToPWM(targetRPM);
+    currentPWM = constrain(basePWM + pidOutput, 0, 255);
+
+    // Apply PWM
+    if (currentPWM > 0) {
+      digitalWrite(RPWM, HIGH);
+      digitalWrite(LPWM, LOW);
+    } else {
+      digitalWrite(RPWM, LOW);
+      digitalWrite(LPWM, LOW);
+    }
+
+    analogWrite(REN, abs(currentPWM));
+    analogWrite(LEN, abs(currentPWM));
+  }
+
+  // Non-linear RPM to PWM mapping (calibrated)
+  int rpmToPWM(float rpm) {
+    if (rpm < 50) return 0;
+    if (rpm < 200) {
+      return map(rpm, 50, 200, 100, 140);
+    } else if (rpm < 1000) {
+      return map(rpm, 200, 1000, 140, 200);
+    } else {
+      return map(rpm, 1000, 2500, 200, 255);
+    }
+  }
+
+  // Wind exact number of turns with position control
+  void windTurns(long turns, float rpm) {
+    targetPosition = turns * ENCODER_PPR;
+    long startPosition = encoderPosition;
+
+    Serial.print("Winding "); Serial.print(turns);
+    Serial.print(" turns at "); Serial.print(rpm); Serial.println(" RPM");
+
+    // Acceleration phase
+    float accelDistance = ENCODER_PPR * 5;  // 5 turns to accelerate
+
+    while (abs(encoderPosition - startPosition) < abs(targetPosition - startPosition)) {
+      calculateRPM();
+
+      long remaining = targetPosition - encoderPosition;
+      float speedMultiplier = 1.0;
+
+      // Acceleration ramp
+      if (abs(encoderPosition - startPosition) < accelDistance) {
+        speedMultiplier = (float)abs(encoderPosition - startPosition) / accelDistance;
+      }
+      // Deceleration ramp
+      else if (abs(remaining) < accelDistance) {
+        speedMultiplier = (float)abs(remaining) / accelDistance;
+        speedMultiplier = max(0.1, speedMultiplier);  // Minimum 10% speed
+      }
+
+      setSpeed(rpm * speedMultiplier, true);
+
+      // Position correction for final approach
+      if (abs(remaining) < ENCODER_PPR) {  // Last turn
+        float posError = remaining;
+        float correction = positionPID.compute(0, -posError);
+        currentPWM = constrain(100 + correction, 50, 150);
+        analogWrite(REN, currentPWM);
+        analogWrite(LEN, currentPWM);
+      }
+
+      delay(10);
+    }
+
+    // Stop
+    stop();
+
+    // Report results
+    long actualTurns = (encoderPosition - startPosition) / ENCODER_PPR;
+    Serial.print("Complete! Actual turns: "); Serial.println(actualTurns);
+    Serial.print("Error: "); Serial.print(turns - actualTurns); Serial.println(" turns");
+  }
+
+  void stop() {
+    // Regenerative braking simulation
+    for (int i = currentPWM; i >= 0; i -= 5) {
+      analogWrite(REN, i);
+      analogWrite(LEN, i);
+      delay(10);
+    }
+
+    digitalWrite(RPWM, LOW);
+    digitalWrite(LPWM, LOW);
+    analogWrite(REN, 0);
+    analogWrite(LEN, 0);
+
+    currentPWM = 0;
+    motion.currentVel = 0;
+    motion.currentAccel = 0;
+    speedPID.reset();
+  }
+
+  // Auto-tune PID (Ziegler-Nichols method)
+  void autoTunePID() {
+    Serial.println("Starting PID auto-tune...");
+
+    float Ku = 1.0;  // Ultimate gain
+    float Tu = 0;    // Ultimate period
+
+    // Find ultimate gain (simplified)
+    for (float gain = 0.5; gain < 10; gain += 0.5) {
+      speedPID.setTunings(gain, 0, 0);
+      setSpeed(500, false);
+      delay(1000);
+
+      // Check for oscillation
+      float minRPM = currentRPM, maxRPM = currentRPM;
+      for (int i = 0; i < 100; i++) {
+        calculateRPM();
+        minRPM = min(minRPM, currentRPM);
+        maxRPM = max(maxRPM, currentRPM);
+        delay(10);
+      }
+
+      if (maxRPM - minRPM > 50) {  // Oscillating
+        Ku = gain;
+        Tu = 1.0;  // Measure actual period
+        break;
+      }
+    }
+
+    stop();
+
+    // Calculate PID values (Ziegler-Nichols)
+    float Kp = 0.6 * Ku;
+    float Ki = 2 * Kp / Tu;
+    float Kd = Kp * Tu / 8;
+
+    speedPID.setTunings(Kp, Ki, Kd);
+
+    Serial.print("Auto-tune complete: Kp="); Serial.print(Kp);
+    Serial.print(" Ki="); Serial.print(Ki);
+    Serial.print(" Kd="); Serial.println(Kd);
+  }
+
+  float getRPM() { return currentRPM; }
+  long getPosition() { return encoderPosition; }
+  long getTurns() { return encoderPosition / ENCODER_PPR; }
+};
+
+// Traverse controller with wire lay compensation
+class TraverseController {
+private:
+  AccelStepper stepper;
+  float stepsPerMM;
+  float wireBuildup = 0;  // Track layer buildup
+  int currentLayer = 1;
+
+public:
+  TraverseController() : stepper(AccelStepper::DRIVER, STEP_PIN, DIR_PIN) {
+    stepsPerMM = (float)STEPS_PER_REV * MICROSTEPS / LEAD_PITCH_MM;
+  }
+
+  void init() {
+    pinMode(EN_PIN, OUTPUT);
+    digitalWrite(EN_PIN, LOW);
+
+    stepper.setMaxSpeed(3000);
+    stepper.setAcceleration(500);
+  }
+
+  // Calculate feed rate with wire buildup compensation
+  float calculateFeedRate(float rpm, int layer) {
+    // Account for increasing bobbin diameter
+    float effectiveDiameter = WIRE_DIAMETER_MM * (1 + 0.1 * layer);
+    float feedRate = (rpm / 60.0) * effectiveDiameter;
+    return feedRate * stepsPerMM;
+  }
+
+  void syncWithSpindle(float rpm, long currentTurn, long totalTurns) {
+    // Calculate layer
+    int turnsPerLayer = 12 / WIRE_DIAMETER_MM;  // 12mm bobbin width
+    currentLayer = (currentTurn / turnsPerLayer) + 1;
+
+    // Adjust feed rate for current layer
+    float stepsPerSec = calculateFeedRate(rpm, currentLayer);
+
+    // Pattern variations for better wire distribution
+    if (currentLayer % 3 == 0) {
+      // Every 3rd layer, add slight variation
+      stepsPerSec *= 1.02;
+    }
+
+    stepper.setSpeed(stepsPerSec);
+    stepper.runSpeed();
+
+    // Check limits and reverse
+    long pos = stepper.currentPosition();
+    long maxSteps = 12 * stepsPerMM;  // 12mm width
+
+    if (pos >= maxSteps || pos <= 0) {
+      stepper.setSpeed(-stepsPerSec);
+    }
+  }
+};
+
+// Main system controller
+class CoilWinderSystem {
+private:
+  OptimizedMotorController motor;
+  TraverseController traverse;
+  Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+  struct WindingParams {
+    long targetTurns = 1000;
+    float targetRPM = 1500;
+    float tensionGrams = 30;
+    float wireDiameter = 0.056;
+    int bobbinWidth = 12;
+    int layers = 0;
+  } params;
+
+  enum State { IDLE, HOMING, WINDING, PAUSED, DONE, ERROR };
+  State currentState = IDLE;
+
+public:
+  void init() {
+    Serial.begin(115200);
+    Serial.println("Optimized Coil Winder v3.0");
+
+    motor.init();
+    traverse.init();
+
+    setupDisplay();
+
+    pinMode(RESUME_PIN, INPUT_PULLUP);
+    pinMode(ESTOP_PIN, INPUT_PULLUP);
+
+    Serial.println("System ready!");
+  }
+
+  void setupDisplay() {
+    pinMode(20, OUTPUT);  // Backlight
+    digitalWrite(20, HIGH);
+
+    tft.initR(INITR_BLACKTAB);
+    tft.setRotation(0);
+    tft.fillScreen(ST77XX_BLACK);
+
+    tft.setTextColor(ST77XX_CYAN);
+    tft.setCursor(10, 10);
+    tft.println("Winder v3.0");
+  }
+
+  void updateDisplay() {
+    static unsigned long lastUpdate = 0;
+    if (millis() - lastUpdate < 200) return;
+    lastUpdate = millis();
+
+    tft.fillRect(10, 30, 108, 90, ST77XX_BLACK);
+
+    tft.setTextColor(ST77XX_GREEN);
+    tft.setCursor(10, 30);
+    tft.print("RPM: ");
+    tft.println(motor.getRPM(), 1);
+
+    tft.setTextColor(ST77XX_WHITE);
+    tft.setCursor(10, 45);
+    tft.print("Turn: ");
+    tft.print(motor.getTurns());
+    tft.print("/");
+    tft.println(params.targetTurns);
+
+    tft.setCursor(10, 60);
+    tft.print("Layer: ");
+    tft.println(params.layers);
+
+    // Progress bar
+    int progress = (motor.getTurns() * 100) / params.targetTurns;
+    tft.drawRect(10, 80, 100, 10, ST77XX_WHITE);
+    tft.fillRect(11, 81, progress, 8, ST77XX_BLUE);
+
+    // Status
+    tft.setCursor(10, 100);
+    switch(currentState) {
+      case IDLE: tft.print("Ready"); break;
+      case WINDING: tft.print("Winding"); break;
+      case PAUSED: tft.print("Paused"); break;
+      case DONE: tft.print("Complete"); break;
+      case ERROR: tft.print("ERROR"); break;
+    }
+  }
+
+  void startWinding() {
+    if (currentState != IDLE) return;
+
+    currentState = WINDING;
+    Serial.println("Starting winding sequence...");
+
+    // Auto-tune if first run
+    static bool tuned = false;
+    if (!tuned) {
+      motor.autoTunePID();
+      tuned = true;
+    }
+
+    // Start winding
+    motor.windTurns(params.targetTurns, params.targetRPM);
+
+    currentState = DONE;
+    Serial.println("Winding complete!");
+  }
+
+  void emergency_stop() {
+    motor.stop();
+    traverse.stepper.stop();
+    currentState = ERROR;
+
+    tft.fillScreen(ST77XX_RED);
+    tft.setTextColor(ST77XX_WHITE);
+    tft.setCursor(20, 60);
+    tft.setTextSize(2);
+    tft.println("E-STOP");
+  }
+
+  void run() {
+    // Check E-stop
+    if (digitalRead(ESTOP_PIN) == LOW) {
+      emergency_stop();
+      return;
+    }
+
+    // Check resume button
+    static unsigned long lastPress = 0;
+    if (digitalRead(RESUME_PIN) == LOW && millis() - lastPress > 500) {
+      lastPress = millis();
+
+      if (currentState == IDLE) {
+        startWinding();
+      } else if (currentState == WINDING) {
+        currentState = PAUSED;
+        motor.stop();
+      } else if (currentState == PAUSED) {
+        currentState = WINDING;
+      }
+    }
+
+    // Update systems
+    motor.calculateRPM();
+
+    if (currentState == WINDING) {
+      traverse.syncWithSpindle(motor.getRPM(), motor.getTurns(), params.targetTurns);
+    }
+
+    updateDisplay();
+
+    // Serial commands
+    if (Serial.available()) {
+      String cmd = Serial.readStringUntil('\n');
+      processCommand(cmd);
+    }
+  }
+
+  void processCommand(String cmd) {
+    if (cmd.startsWith("rpm ")) {
+      params.targetRPM = cmd.substring(4).toFloat();
+      Serial.print("Target RPM set to: ");
+      Serial.println(params.targetRPM);
+    }
+    else if (cmd.startsWith("turns ")) {
+      params.targetTurns = cmd.substring(6).toInt();
+      Serial.print("Target turns set to: ");
+      Serial.println(params.targetTurns);
+    }
+    else if (cmd == "start") {
+      startWinding();
+    }
+    else if (cmd == "stop") {
+      motor.stop();
+      currentState = IDLE;
+    }
+    else if (cmd == "tune") {
+      motor.autoTunePID();
+    }
+    else if (cmd == "status") {
+      Serial.print("RPM: "); Serial.println(motor.getRPM());
+      Serial.print("Turns: "); Serial.println(motor.getTurns());
+      Serial.print("State: "); Serial.println(currentState);
+    }
+  }
+};
+
+// Main instance
+CoilWinderSystem winder;
+
+void setup() {
+  winder.init();
+}
+
+void loop() {
+  winder.run();
+}

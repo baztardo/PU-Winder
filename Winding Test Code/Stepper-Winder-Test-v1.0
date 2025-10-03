@@ -1,0 +1,181 @@
+/*
+  LDO-42STH48-2804 High-Speed Coil Winder
+  Optimized for 1500-2000 RPM operation with TMC2209
+
+  Motor Specs:
+  - LDO-42STH48-2804AC
+  - 2.8A rated current
+  - 1.5mH inductance (excellent for high speed)
+  - 0.9 Ohm resistance
+  - Capable of 2000+ RPM with proper driver settings
+
+  Wire: 43 AWG (0.056mm)
+  Tension: 30 grams max
+*/
+
+#include <Arduino.h>
+#include <TMCStepper.h>
+#include <AccelStepper.h>
+
+// TMC2209 UART Configuration
+#define EN_PIN           6
+#define STEP_PIN         8
+#define DIR_PIN          7
+#define SERIAL_PORT      Serial1
+#define DRIVER_ADDRESS   0b00
+#define R_SENSE          0.11f
+
+// Encoder for feedback
+#define ENC_A 10
+#define ENC_B 11
+#define ENC_Z 12
+
+// Traverse stepper
+#define TRAVERSE_STEP 26
+#define TRAVERSE_DIR  27
+#define TRAVERSE_EN   28
+
+// Controls
+#define RESUME_PIN 9
+#define ESTOP_PIN 14
+
+// Motor and system configuration
+const int STEPS_PER_REV = 200;
+const int MICROSTEPS = 16;  // Can reduce to 8 for even higher speed
+const int ENCODER_PPR = 720;
+const float WIRE_DIAMETER = 0.056;  // 43 AWG in mm
+
+TMC2209Stepper driver(&SERIAL_PORT, R_SENSE, DRIVER_ADDRESS);
+
+// High-performance step generator using Pico PIO or Timer
+class FastStepGenerator {
+private:
+  volatile uint32_t stepCounter = 0;
+  volatile uint32_t targetSteps = 0;
+  volatile bool running = false;
+  uint32_t currentSpeed = 0;  // Steps per second
+
+  // Timer variables for Pico
+  struct repeating_timer timer;
+  static FastStepGenerator* instance;
+
+public:
+  FastStepGenerator() {
+    instance = this;
+  }
+
+  // Static callback for timer
+  static bool timerCallback(struct repeating_timer *t) {
+    if (instance->running && instance->stepCounter < instance->targetSteps) {
+      digitalWrite(STEP_PIN, HIGH);
+      delayMicroseconds(2);
+      digitalWrite(STEP_PIN, LOW);
+      instance->stepCounter++;
+    } else if (instance->stepCounter >= instance->targetSteps) {
+      instance->running = false;
+    }
+    return true;
+  }
+
+  void init() {
+    pinMode(STEP_PIN, OUTPUT);
+    pinMode(DIR_PIN, OUTPUT);
+
+    // Initialize high-speed timer (Pico specific)
+    // Timer frequency = step frequency
+  }
+
+  void setSpeed(float rpm) {
+    // Convert RPM to steps per second
+    currentSpeed = (rpm / 60.0) * STEPS_PER_REV * MICROSTEPS;
+
+    // Cancel existing timer
+    cancel_repeating_timer(&timer);
+
+    if (currentSpeed > 0) {
+      // Period in microseconds
+      int64_t period = -1000000 / currentSpeed;  // Negative for microseconds
+
+      // Start new timer
+      add_repeating_timer_us(period, timerCallback, NULL, &timer);
+    }
+  }
+
+  void startRotation(long turns, bool direction) {
+    targetSteps = turns * STEPS_PER_REV * MICROSTEPS;
+    stepCounter = 0;
+    digitalWrite(DIR_PIN, direction);
+    running = true;
+  }
+
+  void stop() {
+    running = false;
+    cancel_repeating_timer(&timer);
+  }
+
+  uint32_t getSteps() { return stepCounter; }
+  bool isRunning() { return running; }
+};
+
+FastStepGenerator* FastStepGenerator::instance = nullptr;
+
+// Optimized TMC2209 configuration for LDO motor
+class TMC2209Controller {
+private:
+  TMC2209Stepper* driver;
+  float currentRPM = 0;
+
+  // Encoder tracking
+  volatile int32_t encoderPosition = 0;
+  volatile int32_t revolutionCount = 0;
+
+public:
+  TMC2209Controller(TMC2209Stepper* drv) : driver(drv) {}
+
+  void init() {
+    Serial.println("Initializing TMC2209 for LDO-42STH48-2804...");
+
+    pinMode(EN_PIN, OUTPUT);
+    digitalWrite(EN_PIN, LOW);  // Enable driver
+
+    SERIAL_PORT.begin(115200);
+
+    driver->begin();
+
+    // Optimal settings for LDO-42STH48-2804 at high speed
+    driver->rms_current(2000);      // 2.0A RMS (2.8A peak)
+    driver->microsteps(MICROSTEPS);
+
+    // CRITICAL: Settings for high-speed operation
+    driver->en_spreadCycle(true);   // SpreadCycle for high speed
+    driver->blank_time(24);         // Optimal for low inductance
+    driver->toff(3);                // Fast decay for high speed
+    driver->hysteresis_start(4);    // Tuned for 1.5mH inductance
+    driver->hysteresis_end(-2);
+
+    // Disable StealthChop (too slow for high RPM)
+    driver->TPWMTHRS(0);
+    driver->pwm_autoscale(false);
+
+    // CoolStep configuration (adaptive current)
+    driver->TCOOLTHRS(0xFFFFF);     // Always enabled
+    driver->semin(5);                // Minimum current
+    driver->semax(2);                // Current increment
+    driver->sedn(1);                 // Fast decay
+
+    // StallGuard for stall detection
+    driver->sgt(10);                 // Sensitivity
+
+    // Advanced settings for low-inductance motor
+    driver->chm(0);                  // SpreadCycle mode
+    driver->intpol(true);            // 256 microstep interpolation
+    driver->dedge(false);            // Single edge steps
+    driver->diss2g(false);           // Short to ground protection on
+    driver->diss2vs(false);          // Short to supply protection on
+
+    Serial.println("TMC2209 configured for high-speed operation");
+
+    // Setup encoder interrupts
+    pinMode(ENC_A, INPUT_PULLUP);
+    pinMode(ENC_B, INPUT_PULLUP);
+    pinMode(ENC_Z, INPUT_PULLUP);
