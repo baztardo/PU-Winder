@@ -2,126 +2,164 @@
 #include "config.h"
 #include "hardware/uart.h"
 #include "hardware/gpio.h"
-#include "pico/time.h"
+#include "pico/stdlib.h"
+#include <cstdio>
+#include <cstdint>
+#include <cmath>
 #include <algorithm>
 
-// Constructor
-TMC2209_UART::TMC2209_UART(uart_inst_t* uart, uint8_t slave_addr, uint tx_pin, uint rx_pin)
-    : uart_instance(uart), slave_addr(slave_addr), tx_pin(tx_pin), rx_pin(rx_pin) {
-}
+// =============================================================================
+// Configuration constants
+// =============================================================================
+#define TMC_BAUDRATE 115200
+#define BIT_DELAY_US (1000000 / TMC_BAUDRATE)
 
-// CRC8 calculation
-uint8_t TMC2209_UART::crc8(const uint8_t* data, size_t len) {
+// =============================================================================
+// CRC helper
+// =============================================================================
+static uint8_t tmc_crc8(const uint8_t *data, uint8_t len) {
     uint8_t crc = 0;
-    for (size_t i = 0; i < len; i++) {
-        crc ^= data[i];
-        for (int j = 0; j < 8; j++) {
-            if (crc & 0x80) {
-                crc = (crc << 1) ^ 0x07;
-            } else {
-                crc <<= 1;
-            }
+    for (uint8_t i = 0; i < len; i++) {
+        uint8_t c = data[i];
+        for (uint8_t j = 0; j < 8; j++) {
+            uint8_t mix = (crc ^ c) & 0x80;
+            crc <<= 1;
+            if (mix) crc ^= 0x07;
+            c <<= 1;
         }
     }
     return crc;
 }
 
-// Initialize UART
-bool TMC2209_UART::begin(uint32_t baud) {
-    uart_init(uart_instance, baud);
-    gpio_set_function(tx_pin, GPIO_FUNC_UART);
-    gpio_set_function(rx_pin, GPIO_FUNC_UART);
-    
-    uart_set_format(uart_instance, 8, 1, UART_PARITY_NONE);
-    uart_set_fifo_enabled(uart_instance, true);
-    
-    sleep_ms(100);
-    
-    // Flush RX buffer
-    while (uart_is_readable(uart_instance)) {
-        uart_getc(uart_instance);
+// =============================================================================
+// Software UART (bit-banged, single-wire) helpers
+// =============================================================================
+static inline void sw_uart_tx_byte(uint8_t pin, uint8_t b) {
+    gpio_put(pin, 0); sleep_us(BIT_DELAY_US);
+    for (int i = 0; i < 8; i++) {
+        gpio_put(pin, (b >> i) & 1);
+        sleep_us(BIT_DELAY_US);
     }
-    
-    return true;
+    gpio_put(pin, 1); sleep_us(BIT_DELAY_US);
 }
 
-// Write register
-bool TMC2209_UART::write_reg(uint8_t reg, uint32_t value) {
-    // Clear RX buffer
-    while (uart_is_readable(uart_instance)) {
-        uart_getc(uart_instance);
+static inline uint8_t sw_uart_rx_byte(uint8_t pin) {
+    uint8_t v = 0;
+    while (gpio_get(pin)) tight_loop_contents();  // wait start bit
+    sleep_us(BIT_DELAY_US + BIT_DELAY_US / 2);
+    for (int i = 0; i < 8; i++) {
+        v |= (gpio_get(pin) << i);
+        sleep_us(BIT_DELAY_US);
     }
-    
-    uint8_t pkt[8];
-    pkt[0] = 0x05;
-    pkt[1] = slave_addr;
-    pkt[2] = 0x80 | (reg & 0x7F);
-    pkt[3] = (value >> 24) & 0xFF;
-    pkt[4] = (value >> 16) & 0xFF;
-    pkt[5] = (value >> 8) & 0xFF;
-    pkt[6] = value & 0xFF;
-    pkt[7] = crc8(pkt, 7);
-    
-    uart_write_blocking(uart_instance, pkt, 8);
-    uart_tx_wait_blocking(uart_instance);
-    sleep_us(100);
-    
-    return true;
+    sleep_us(BIT_DELAY_US);  // stop bit
+    return v;
 }
 
-// Read register
-bool TMC2209_UART::read_reg(uint8_t reg, uint32_t* value, uint32_t timeout_us) {
-    // Clear RX buffer
-    while (uart_is_readable(uart_instance)) {
-        uart_getc(uart_instance);
+// =============================================================================
+// Class implementation
+// =============================================================================
+TMC2209_UART::TMC2209_UART(uart_inst_t* uart_port,
+                           int tx_pin, int rx_pin,
+                           uint8_t slave_addr)
+    : uart_inst(uart_port),
+      tx(tx_pin), rx(rx_pin),
+      pin_mode(false), addr(slave_addr)
+{
+    if (uart_port) {
+        // Hardware UART mode
+        uart_init(uart_port, TMC_BAUDRATE);
+        gpio_set_function(tx, GPIO_FUNC_UART);
+        gpio_set_function(rx, GPIO_FUNC_UART);
+    } else {
+        // Software UART (single wire)
+        pin_mode = true;
+        gpio_init(tx);
+        gpio_set_dir(tx, GPIO_OUT);
+        gpio_put(tx, 1);
     }
-    
-    // Send read request
-    uint8_t req[4];
-    req[0] = 0x05;
-    req[1] = slave_addr;
-    req[2] = reg & 0x7F;
-    req[3] = crc8(req, 3);
-    
-    uart_write_blocking(uart_instance, req, 4);
-    uart_tx_wait_blocking(uart_instance);
-    
-    // Wait longer for response
-    sleep_ms(2);
-    
-    // Read response - try JUST 8 bytes (no echo)
-    uint8_t resp[8];
-    uint32_t start = time_us_32();
-    int bytes_read = 0;
-    
-    while (bytes_read < 8 && (time_us_32() - start) < timeout_us) {
-        if (uart_is_readable(uart_instance)) {
-            resp[bytes_read++] = uart_getc(uart_instance);
+}
+
+// For SKR Pico: single-wire convenience constructor
+TMC2209_UART::TMC2209_UART(uint8_t gpio_pin, uint8_t slave_addr)
+    : uart_inst(nullptr), tx(gpio_pin), rx(gpio_pin),
+      pin_mode(true), addr(slave_addr)
+{
+    gpio_init(tx);
+    gpio_set_dir(tx, GPIO_OUT);
+    gpio_put(tx, 1);
+}
+
+// =============================================================================
+void TMC2209_UART::writeRegister(uint8_t reg, uint32_t data)
+{
+    uint8_t pkt[8] = {
+        0x05, addr, (uint8_t)(reg | 0x80),
+        (uint8_t)(data >> 24), (uint8_t)(data >> 16),
+        (uint8_t)(data >> 8), (uint8_t)data,
+        0
+    };
+    pkt[7] = tmc_crc8(pkt, 7);
+
+    if (pin_mode) {
+        // bit-banged
+        gpio_set_dir(tx, GPIO_OUT);
+        for (int i = 0; i < 8; i++) sw_uart_tx_byte(tx, pkt[i]);
+        gpio_put(tx, 1);
+        gpio_set_dir(tx, GPIO_IN);
+    } else {
+        // hardware
+        uart_write_blocking(uart_inst, pkt, 8);
+    }
+}
+
+// =============================================================================
+bool TMC2209_UART::readRegister(uint8_t reg, uint32_t &out)
+{
+    uint8_t req[4] = {0x05, addr, reg, 0};
+    req[3] = tmc_crc8(req, 3);
+
+    if (pin_mode) {
+        gpio_set_dir(tx, GPIO_OUT);
+        for (int i = 0; i < 4; i++) sw_uart_tx_byte(tx, req[i]);
+        gpio_put(tx, 1);
+        gpio_set_dir(tx, GPIO_IN);
+        sleep_us(2000);
+        uint8_t rep[8];
+        absolute_time_t tmo = make_timeout_time_ms(10);
+        for (int i = 0; i < 8; i++) {
+            if (absolute_time_diff_us(get_absolute_time(), tmo) <= 0) return false;
+            rep[i] = sw_uart_rx_byte(tx);
         }
+        if (tmc_crc8(rep, 7) != rep[7]) return false;
+        out = (rep[3]<<24)|(rep[4]<<16)|(rep[5]<<8)|rep[6];
+        return true;
+    } else {
+        uart_write_blocking(uart_inst, req, 4);
+        sleep_us(2000);
+        uint8_t rep[8];
+        if (uart_is_readable_within_us(uart_inst, 10000))
+            uart_read_blocking(uart_inst, rep, 8);
+        else
+            return false;
+        if (tmc_crc8(rep, 7) != rep[7]) return false;
+        out = (rep[3]<<24)|(rep[4]<<16)|(rep[5]<<8)|rep[6];
+        return true;
     }
-    
-    if (bytes_read < 8) {
-        return false;  // Didn't get 8 bytes
-    }
-    
-    // Verify CRC on bytes 0-6, check byte 7
-    uint8_t calc_crc = crc8(resp, 7);
-    if (calc_crc != resp[7]) {
-        return false;  // CRC mismatch
-    }
-    
-    // Extract value from bytes 3-6
-    if (value) {
-        *value = ((uint32_t)resp[3] << 24) |
-                 ((uint32_t)resp[4] << 16) |
-                 ((uint32_t)resp[5] << 8) |
-                 ((uint32_t)resp[6]);
-    }
-    
-    return true;
 }
 
-// Set RMS current (CORRECTED FORMULA)
+// =============================================================================
+void TMC2209_UART::testRead()
+{
+    uint32_t val = 0;
+    if (readRegister(0x6F, val))
+        printf("IOIN = 0x%08lX\n", val);
+    else
+        printf("No TMC2209 reply\n");
+}
+
+// =============================================================================
+// Helper functions to match your existing code
+// =============================================================================
 bool TMC2209_UART::set_rms_current(float rms_ma, float r_sense) {
     const float vsense_high = 0.325f;
     const float vsense_low = 0.180f;
@@ -146,7 +184,7 @@ bool TMC2209_UART::set_rms_current(float rms_ma, float r_sense) {
     if (ihold > 31) ihold = 31;
     
     uint32_t chopconf;
-    if (!read_reg(TMC_REG_CHOPCONF, &chopconf, 2000)) {
+    if (!readRegister(TMC_REG_CHOPCONF, chopconf)) {
         chopconf = 0x10000053;
     }
     
@@ -156,26 +194,24 @@ bool TMC2209_UART::set_rms_current(float rms_ma, float r_sense) {
         chopconf &= ~(1 << 17);
     }
     
-    write_reg(TMC_REG_CHOPCONF, chopconf);
+    writeRegister(TMC_REG_CHOPCONF, chopconf);
     sleep_ms(10);
     
     return set_ihold_irun(ihold, irun, 10);
 }
 
-// Set IHOLD/IRUN
 bool TMC2209_UART::set_ihold_irun(uint8_t ihold, uint8_t irun, uint8_t ihold_delay) {
     uint32_t reg = ((uint32_t)ihold & 0x1F) | 
                    (((uint32_t)irun & 0x1F) << 8) | 
                    (((uint32_t)ihold_delay & 0x0F) << 16);
     
-    return write_reg(TMC_REG_IHOLD_IRUN, reg);
+    writeRegister(TMC_REG_IHOLD_IRUN, reg);
+    return true;
 }
 
-// Set microsteps
 bool TMC2209_UART::set_microsteps(uint8_t microsteps) {
     uint8_t mres = 8;
     
-    // Remove 256 case - uint8_t max is 255
     switch(microsteps) {
         case 128: mres = 1; break;
         case 64:  mres = 2; break;
@@ -192,21 +228,21 @@ bool TMC2209_UART::set_microsteps(uint8_t microsteps) {
     chopconf &= ~(0x0F << 24);
     chopconf |= ((uint32_t)mres << 24);
     
-    return write_reg(TMC_REG_CHOPCONF, chopconf);
+    writeRegister(TMC_REG_CHOPCONF, chopconf);
+    return true;
 }
 
-// Enable stealthchop
 bool TMC2209_UART::enable_stealthchop(bool enable) {
     uint32_t gconf = 0;
     if (enable) {
         gconf |= (1 << 2);
     }
-    return write_reg(TMC_REG_GCONF, gconf);
+    writeRegister(TMC_REG_GCONF, gconf);
+    return true;
 }
 
-// Initialize driver
-bool TMC2209_UART::init_driver(float current_ma, uint16_t microsteps) {
-    write_reg(TMC_REG_GCONF, 0x00000000);
+bool TMC2209_UART::init_driver(float current_ma, uint8_t microsteps) {
+    writeRegister(TMC_REG_GCONF, 0x00000000);
     sleep_ms(10);
     
     if (!set_rms_current(current_ma, R_SENSE)) {
@@ -221,18 +257,16 @@ bool TMC2209_UART::init_driver(float current_ma, uint16_t microsteps) {
         return false;
     }
     
-    write_reg(TMC_REG_TPOWERDOWN, 20);
-    write_reg(TMC_REG_PWMCONF, 0xC10D0024);
+    writeRegister(TMC_REG_TPOWERDOWN, 20);
+    writeRegister(TMC_REG_PWMCONF, 0xC10D0024);
     
     return true;
 }
 
-// Get driver status
 bool TMC2209_UART::get_driver_status(uint32_t* status) {
-    return read_reg(TMC_REG_DRV_STATUS, status, 2000);
+    return readRegister(TMC_REG_DRV_STATUS, *status);
 }
 
-// Check if stalled
 bool TMC2209_UART::is_stalled() {
     uint32_t status = 0;
     if (!get_driver_status(&status)) {
@@ -241,7 +275,6 @@ bool TMC2209_UART::is_stalled() {
     return (status & (1 << 24)) != 0;
 }
 
-// Check if overtemp
 bool TMC2209_UART::is_overtemp() {
     uint32_t status = 0;
     if (!get_driver_status(&status)) {
