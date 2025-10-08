@@ -85,38 +85,37 @@ bool TMC2209_UART::read_reg(uint8_t reg, uint32_t* value, uint32_t timeout_us) {
     
     uart_write_blocking(uart_instance, req, 4);
     uart_tx_wait_blocking(uart_instance);
-    sleep_us(500);
     
-    // Read response (12 bytes: 4 echo + 8 response)
-    uint8_t resp[12];
+    // Wait longer for response
+    sleep_ms(2);
+    
+    // Read response - try JUST 8 bytes (no echo)
+    uint8_t resp[8];
     uint32_t start = time_us_32();
     int bytes_read = 0;
     
-    while (bytes_read < 12 && (time_us_32() - start) < timeout_us) {
+    while (bytes_read < 8 && (time_us_32() - start) < timeout_us) {
         if (uart_is_readable(uart_instance)) {
             resp[bytes_read++] = uart_getc(uart_instance);
         }
     }
     
-    if (bytes_read < 12) {
-        return false;
+    if (bytes_read < 8) {
+        return false;  // Didn't get 8 bytes
     }
     
-    // Use last 8 bytes (skip echo)
-    uint8_t* response = &resp[4];
-    
-    // Verify CRC
-    uint8_t calc_crc = crc8(response, 7);
-    if (calc_crc != response[7]) {
-        return false;
+    // Verify CRC on bytes 0-6, check byte 7
+    uint8_t calc_crc = crc8(resp, 7);
+    if (calc_crc != resp[7]) {
+        return false;  // CRC mismatch
     }
     
-    // Extract value
+    // Extract value from bytes 3-6
     if (value) {
-        *value = ((uint32_t)response[3] << 24) |
-                 ((uint32_t)response[4] << 16) |
-                 ((uint32_t)response[5] << 8) |
-                 ((uint32_t)response[6]);
+        *value = ((uint32_t)resp[3] << 24) |
+                 ((uint32_t)resp[4] << 16) |
+                 ((uint32_t)resp[5] << 8) |
+                 ((uint32_t)resp[6]);
     }
     
     return true;
