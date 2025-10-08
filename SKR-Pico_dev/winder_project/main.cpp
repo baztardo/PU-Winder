@@ -170,34 +170,29 @@ void init_hardware() {
 // Motor Driver Initialization
 // =============================================================================
 void init_motors() {
-    
-    // Enable motors FIRST (before UART init)
-    move_queue.set_enable(AXIS_SPINDLE, true);
-    move_queue.set_enable(AXIS_TRAVERSE, true);
     sleep_ms(100);
-
-    lcd.clear();  // Changed from lcd-> to lcd.
+    
+    lcd.clear();
     lcd.print_at(0, 0, "Setting Current");
+    lcd.print_at(0, 1, "Spindle...");
     
-    // Set motor currents
     bool spindle_ok = tmc_spindle.set_rms_current(SPINDLE_CURRENT_MA, R_SENSE);
+    
+    lcd.print_at(0, 1, spindle_ok ? "Spindle: OK" : "Spindle: FAIL");
+    lcd.print_at(0, 2, "Traverse...");
+    sleep_ms(500);
+    
     bool traverse_ok = tmc_traverse.set_rms_current(TRAVERSE_CURRENT_MA, R_SENSE);
-
-    // Initialize traverse driver with CORRECT formula
-    tmc_traverse.init_driver(TRAVERSE_CURRENT_MA, MOTOR_MICROSTEPS);
     
-    // Show on LCD what we calculated
-    float cs = (32.0f * 1.414f * 0.250f * 0.11f / 0.325f) - 1.0f;
-    lcd.printf_at(0, 1, "T: %.0fmA CS=%d", 250.0f, (int)(cs + 0.5f));
+    lcd.print_at(0, 2, traverse_ok ? "Traverse: OK" : "Traverse: FAIL");
+    lcd.print_at(0, 3, "Microsteps...");
+    sleep_ms(500);
     
-    tmc_spindle.init_driver(SPINDLE_CURRENT_MA, MOTOR_MICROSTEPS);
+    tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
+    tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);
     
-    cs = (32.0f * 1.414f * 2.8f * 0.11f / 0.180f) - 1.0f;
-    lcd.printf_at(0, 2, "S: %.0fmA CS=%d", 2800.0f, (int)(cs + 0.5f));
-    
-    sleep_ms(3000);
-
-    
+    lcd.print_at(0, 3, "Done!");
+    sleep_ms(1000);
 }
 
 // =============================================================================
