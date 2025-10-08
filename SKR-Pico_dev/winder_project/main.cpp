@@ -28,6 +28,50 @@ LCDDisplay lcd(i2c0, 0x27, 20, 4);  // 20x4 LCD at address 0x27
 Scheduler scheduler(&move_queue, &spindle_encoder);
 WindingController winding_controller(&move_queue, &spindle_encoder, &lcd);
 
+
+void show_tmc_status() {
+    uint32_t traverse_status = 0;
+    uint32_t spindle_status = 0;
+    
+    bool traverse_ok = tmc_traverse.read_reg(TMC_REG_DRV_STATUS, &traverse_status, 2000);
+    bool spindle_ok = tmc_spindle.read_reg(TMC_REG_DRV_STATUS, &spindle_status, 2000);
+    
+    lcd.clear();
+    lcd.print_at(0, 0, "TMC Status:");
+    
+    if (!traverse_ok) {
+        lcd.print_at(0, 1, "T: COMM FAIL!");
+    } else {
+        bool t_temp_warn = (traverse_status & (1 << 26)) != 0;
+        bool t_temp_shut = (traverse_status & (1 << 27)) != 0;
+        
+        if (t_temp_shut) {
+            lcd.print_at(0, 1, "T: OVERHEAT!!!");
+        } else if (t_temp_warn) {
+            lcd.print_at(0, 1, "T: Hot Warning");
+        } else {
+            lcd.print_at(0, 1, "T: OK");
+        }
+    }
+    
+    if (!spindle_ok) {
+        lcd.print_at(0, 2, "S: COMM FAIL!");
+    } else {
+        bool s_temp_warn = (spindle_status & (1 << 26)) != 0;
+        bool s_temp_shut = (spindle_status & (1 << 27)) != 0;
+        
+        if (s_temp_shut) {
+            lcd.print_at(0, 2, "S: OVERHEAT!!!");
+        } else if (s_temp_warn) {
+            lcd.print_at(0, 2, "S: Hot Warning");
+        } else {
+            lcd.print_at(0, 2, "S: OK");
+        }
+    }
+    
+    sleep_ms(3000);
+}
+
 // =============================================================================
 // Function Prototypes
 // =============================================================================
@@ -127,31 +171,27 @@ void init_motors() {
     tmc_traverse.begin(TMC_UART_BAUD);
     sleep_ms(100);
     
-    lcd->clear();
-    lcd->print_at(0, 0, "Setting Current");
+    lcd.clear();  // Changed from lcd-> to lcd.
+    lcd.print_at(0, 0, "Setting Current");
     
-    // Initialize traverse with CORRECT formula
+    // Initialize traverse driver with CORRECT formula
     tmc_traverse.init_driver(TRAVERSE_CURRENT_MA, MOTOR_MICROSTEPS);
     
     // Show on LCD what we calculated
-    // For 250mA with R_sense=0.11:
-    // CS should be ~12, vsense=HIGH
     float cs = (32.0f * 1.414f * 0.250f * 0.11f / 0.325f) - 1.0f;
-    lcd->printf_at(0, 1, "T: %.0fmA CS=%d", 250.0f, (int)(cs + 0.5f));
+    lcd.printf_at(0, 1, "T: %.0fmA CS=%d", 250.0f, (int)(cs + 0.5f));
     
     tmc_spindle.init_driver(SPINDLE_CURRENT_MA, MOTOR_MICROSTEPS);
     
-    cs = (32.0f * 1.414f * 2.8f * 0.11f / 0.180f) - 1.0f;  // Will use vsense=LOW
-    lcd->printf_at(0, 2, "S: %.0fmA CS=%d", 2800.0f, (int)(cs + 0.5f));
+    cs = (32.0f * 1.414f * 2.8f * 0.11f / 0.180f) - 1.0f;
+    lcd.printf_at(0, 2, "S: %.0fmA CS=%d", 2800.0f, (int)(cs + 0.5f));
     
     sleep_ms(3000);
-    
-    // Now check if communication worked
-    show_tmc_status();
     
     // Enable motors
     move_queue.set_enable(AXIS_SPINDLE, true);
     move_queue.set_enable(AXIS_TRAVERSE, true);
+    
 }
 
 // =============================================================================

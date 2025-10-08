@@ -103,52 +103,6 @@ bool TMC2209_UART::read_reg(uint8_t reg, uint32_t* value, uint32_t timeout_us) {
     return true;
 }
 
-void WindingController::show_tmc_status() {
-    uint32_t traverse_status = 0;
-    uint32_t spindle_status = 0;
-    
-    // Read driver status registers
-    bool traverse_ok = tmc_traverse->read_reg(TMC_REG_DRV_STATUS, &traverse_status, 2000);
-    bool spindle_ok = tmc_spindle->read_reg(TMC_REG_DRV_STATUS, &spindle_status, 2000);
-    
-    lcd->clear();
-    lcd->print_at(0, 0, "TMC Status:");
-    
-    if (!traverse_ok) {
-        lcd->print_at(0, 1, "T: COMM FAIL!");
-    } else {
-        // Check temperature warning (bit 26)
-        bool t_temp_warn = (traverse_status & (1 << 26)) != 0;
-        // Check temperature shutdown (bit 27)  
-        bool t_temp_shut = (traverse_status & (1 << 27)) != 0;
-        
-        if (t_temp_shut) {
-            lcd->print_at(0, 1, "T: OVERHEAT!!!");
-        } else if (t_temp_warn) {
-            lcd->print_at(0, 1, "T: Hot Warning");
-        } else {
-            lcd->print_at(0, 1, "T: OK");
-        }
-    }
-    
-    if (!spindle_ok) {
-        lcd->print_at(0, 2, "S: COMM FAIL!");
-    } else {
-        bool s_temp_warn = (spindle_status & (1 << 26)) != 0;
-        bool s_temp_shut = (spindle_status & (1 << 27)) != 0;
-        
-        if (s_temp_shut) {
-            lcd->print_at(0, 2, "S: OVERHEAT!!!");
-        } else if (s_temp_warn) {
-            lcd->print_at(0, 2, "S: Hot Warning");
-        } else {
-            lcd->print_at(0, 2, "S: OK");
-        }
-    }
-    
-    sleep_ms(3000);
-}
-
 // From Klipper TMC2208/2209 current calculation
 // Formula: I_rms = (CS+1)/32 * Vref/(sqrt(2)*Rsense)
 // Where Vref = 0.325V (vsense=1) or 0.180V (vsense=0)
@@ -211,7 +165,7 @@ bool TMC2209_UART::set_microsteps(uint8_t microsteps) {
     uint8_t mres = 8;  // 256 microsteps
     
     switch(microsteps) {
-        case 256u: mres = 0; break;
+        case 256: mres = 0; break;
         case 128: mres = 1; break;
         case 64:  mres = 2; break;
         case 32:  mres = 3; break;
@@ -243,7 +197,7 @@ bool TMC2209_UART::enable_stealthchop(bool enable) {
     return write_reg(TMC_REG_GCONF, gconf);
 }
 
-bool TMC2209_UART::init_driver(float current_ma, uint8_t microsteps) {
+bool TMC2209_UART::init_driver(float current_ma, uint16_t microsteps) {
     // Reset and basic configuration
     write_reg(TMC_REG_GCONF, 0x00000000);
     sleep_ms(10);
@@ -276,7 +230,7 @@ bool TMC2209_UART::init_driver(float current_ma, uint8_t microsteps) {
     // Set MRES based on microsteps
     uint8_t mres = 4;  // Default 16 microsteps
     switch(microsteps) {
-        case 256u: mres = 0; break;
+        case 256: mres = 0; break;
         case 128: mres = 1; break;
         case 64:  mres = 2; break;
         case 32:  mres = 3; break;

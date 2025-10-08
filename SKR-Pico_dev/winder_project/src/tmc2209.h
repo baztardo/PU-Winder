@@ -66,7 +66,7 @@ public:
      * @param microsteps Microstepping (1,2,4,8,16,32,64,128,256)
      * @return true if successful
      */
-    bool init_driver(float current_ma, uint8_t microsteps = 16);
+    bool init_driver(float current_ma, uint16_t microsteps = 16);
     
     /**
      * @brief Set RMS current
