@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "cmake --build build -- -j4",
+      "group": "build"
+    },
+    {
+      "label": "Flash UF2",
+      "type": "shell",
+      "command": "cp build/SKR-pico-test-1.uf2 /Volumes/RPI-RP2/",
+      "dependsOn": "Build"
+    }
+  ]
+}
