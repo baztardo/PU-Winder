@@ -188,15 +188,15 @@ void WindingController::home_traverse() {
             break;
             
         case MOVING_TO_SWITCH:
-            // Move slowly towards switch
+            // Move towards switch at homing speed
             if (gpio_get(TRAVERSE_HOME_PIN) == 0) {  // Switch triggered (active low)
                 move_queue->clear_queue(AXIS_TRAVERSE);
                 lcd->print_at(0, 1, "Switch found!");
                 
-                // Back off 2mm
+                // Back off 2mm at moderate speed
                 uint32_t backoff_steps = mm_to_steps(2.0f);
                 auto chunks = StepCompressor::compress_constant_velocity(
-                    backoff_steps, 200
+                    backoff_steps, TRAVERSE_HOMING_SPEED
                 );
                 
                 move_queue->set_direction(AXIS_TRAVERSE, true);  // Reverse direction
@@ -207,9 +207,11 @@ void WindingController::home_traverse() {
                 homing_state = BACKING_OFF;
                 lcd->print_at(0, 2, "Backing off...");
             } else {
-                // Continue moving towards switch
+                // Continue moving towards switch at homing speed
                 if (!move_queue->is_active(AXIS_TRAVERSE)) {
-                    auto chunks = StepCompressor::compress_constant_velocity(100, 200);
+                    auto chunks = StepCompressor::compress_constant_velocity(
+                        1000, TRAVERSE_HOMING_SPEED
+                    );
                     for (const auto& chunk : chunks) {
                         move_queue->push_chunk(AXIS_TRAVERSE, chunk);
                     }
@@ -246,7 +248,7 @@ void WindingController::move_to_start() {
     if (!move_queued) {
         uint32_t steps = mm_to_steps(params.start_position_mm);
         auto chunks = StepCompressor::compress_trapezoid(
-            steps, 0, 500, 1000, 20.0
+            steps, 0, TRAVERSE_RAPID_SPEED, TRAVERSE_RAPID_ACCEL, 20.0
         );
         
         move_queue->set_direction(AXIS_TRAVERSE, true);
@@ -356,9 +358,23 @@ void WindingController::sync_traverse_to_spindle() {
         uint32_t traverse_steps = mm_to_steps(traverse_move_mm);
         
         if (traverse_steps > 0) {
+            // Calculate proper traverse speed to match spindle
+            // Spindle RPS = RPM / 60
+            // Traverse speed (mm/sec) = RPS * wire_pitch_mm
+            // Traverse speed (steps/sec) = (mm/sec) * steps_per_mm
+            
+            float spindle_rps = params.spindle_rpm / 60.0f;
+            float traverse_mm_per_sec = spindle_rps * params.wire_pitch_mm;
+            float steps_per_mm = mm_to_steps(1.0f);
+            float traverse_steps_per_sec = traverse_mm_per_sec * steps_per_mm;
+            
+            // Use at least minimum winding speed for smooth motion
+            traverse_steps_per_sec = std::max((float)TRAVERSE_MIN_WINDING_SPEED, 
+                                             traverse_steps_per_sec);
+            
             auto chunks = StepCompressor::compress_constant_velocity(
                 traverse_steps,
-                500  // Moderate speed
+                traverse_steps_per_sec  // Dynamic speed based on spindle
             );
             
             move_queue->set_direction(AXIS_TRAVERSE, traverse_direction);

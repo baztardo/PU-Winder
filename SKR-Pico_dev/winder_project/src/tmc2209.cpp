@@ -103,16 +103,99 @@ bool TMC2209_UART::read_reg(uint8_t reg, uint32_t* value, uint32_t timeout_us) {
     return true;
 }
 
+void WindingController::show_tmc_status() {
+    uint32_t traverse_status = 0;
+    uint32_t spindle_status = 0;
+    
+    // Read driver status registers
+    bool traverse_ok = tmc_traverse->read_reg(TMC_REG_DRV_STATUS, &traverse_status, 2000);
+    bool spindle_ok = tmc_spindle->read_reg(TMC_REG_DRV_STATUS, &spindle_status, 2000);
+    
+    lcd->clear();
+    lcd->print_at(0, 0, "TMC Status:");
+    
+    if (!traverse_ok) {
+        lcd->print_at(0, 1, "T: COMM FAIL!");
+    } else {
+        // Check temperature warning (bit 26)
+        bool t_temp_warn = (traverse_status & (1 << 26)) != 0;
+        // Check temperature shutdown (bit 27)  
+        bool t_temp_shut = (traverse_status & (1 << 27)) != 0;
+        
+        if (t_temp_shut) {
+            lcd->print_at(0, 1, "T: OVERHEAT!!!");
+        } else if (t_temp_warn) {
+            lcd->print_at(0, 1, "T: Hot Warning");
+        } else {
+            lcd->print_at(0, 1, "T: OK");
+        }
+    }
+    
+    if (!spindle_ok) {
+        lcd->print_at(0, 2, "S: COMM FAIL!");
+    } else {
+        bool s_temp_warn = (spindle_status & (1 << 26)) != 0;
+        bool s_temp_shut = (spindle_status & (1 << 27)) != 0;
+        
+        if (s_temp_shut) {
+            lcd->print_at(0, 2, "S: OVERHEAT!!!");
+        } else if (s_temp_warn) {
+            lcd->print_at(0, 2, "S: Hot Warning");
+        } else {
+            lcd->print_at(0, 2, "S: OK");
+        }
+    }
+    
+    sleep_ms(3000);
+}
+
+// From Klipper TMC2208/2209 current calculation
+// Formula: I_rms = (CS+1)/32 * Vref/(sqrt(2)*Rsense)
+// Where Vref = 0.325V (vsense=1) or 0.180V (vsense=0)
+
 bool TMC2209_UART::set_rms_current(float rms_ma, float r_sense) {
-    // Calculate IRUN value (0-31)
-    // Formula from TMC2209 datasheet
-    int irun = (int)((rms_ma / 3000.0f) * 31.0f);
-    irun = std::max(0, std::min(31, irun));
+    const float vsense_high = 0.325f;  // High sensitivity (vsense=1)
+    const float vsense_low = 0.180f;   // Low sensitivity (vsense=0)
+    const float sqrt2 = 1.41421356f;
     
-    int ihold = irun / 2;  // Hold at 50% of run current
-    ihold = std::max(0, std::min(31, ihold));
+    // Try high sensitivity first (better for low currents)
+    float vref = vsense_high;
+    float cs_float = (32.0f * sqrt2 * (rms_ma / 1000.0f) * r_sense / vref) - 1.0f;
     
-    return set_ihold_irun(ihold, irun, 8);
+    bool use_vsense = true;
+    
+    // If CS > 31, switch to low sensitivity
+    if (cs_float > 31.0f) {
+        vref = vsense_low;
+        cs_float = (32.0f * sqrt2 * (rms_ma / 1000.0f) * r_sense / vref) - 1.0f;
+        use_vsense = false;
+    }
+    
+    // Clamp and round
+    int irun = (int)(cs_float + 0.5f);
+    if (irun < 0) irun = 0;
+    if (irun > 31) irun = 31;
+    
+    // Hold = 30% of run
+    int ihold = (int)(irun * 0.3f);
+    if (ihold > 31) ihold = 31;
+    
+    // Update CHOPCONF with vsense bit
+    uint32_t chopconf;
+    if (!read_reg(TMC_REG_CHOPCONF, &chopconf, 2000)) {
+        chopconf = 0x10000053;  // Default if read fails
+    }
+    
+    if (use_vsense) {
+        chopconf |= (1 << 17);   // Set vsense=1
+    } else {
+        chopconf &= ~(1 << 17);  // Clear vsense=0  
+    }
+    
+    write_reg(TMC_REG_CHOPCONF, chopconf);
+    sleep_ms(10);
+    
+    return set_ihold_irun(ihold, irun, 10);
 }
 
 bool TMC2209_UART::set_ihold_irun(uint8_t ihold, uint8_t irun, uint8_t ihold_delay) {
@@ -180,11 +263,38 @@ bool TMC2209_UART::init_driver(float current_ma, uint8_t microsteps) {
         return false;
     }
     
-    // Set power down delay
-    write_reg(TMC_REG_TPOWERDOWN, 10);
+    // Set power down delay - reduce current after 2 seconds of no movement
+    write_reg(TMC_REG_TPOWERDOWN, 20);  // 20 * 0.1s = 2 seconds
     
-    // PWM configuration for StealthChop
+    // PWM configuration for StealthChop - optimized for low heat
+    // PWM_AUTOSCALE=1, PWM_AUTOGRAD=1 for automatic tuning
     write_reg(TMC_REG_PWMCONF, 0xC10D0024);
+    
+    // CHOPCONF with optimized settings for smooth, cool operation
+    uint32_t chopconf = 0x10000053;  // Good default settings
+    
+    // Set MRES based on microsteps
+    uint8_t mres = 4;  // Default 16 microsteps
+    switch(microsteps) {
+        case 256u: mres = 0; break;
+        case 128: mres = 1; break;
+        case 64:  mres = 2; break;
+        case 32:  mres = 3; break;
+        case 16:  mres = 4; break;
+        case 8:   mres = 5; break;
+        case 4:   mres = 6; break;
+        case 2:   mres = 7; break;
+        case 1:   mres = 8; break;
+    }
+    
+    chopconf &= ~(0x0F << 24);
+    chopconf |= ((uint32_t)mres << 24);
+    
+    // Add TOFF=5 for good performance and heat management
+    chopconf &= ~0x0F;
+    chopconf |= 0x05;
+    
+    write_reg(TMC_REG_CHOPCONF, chopconf);
     
     return true;
 }

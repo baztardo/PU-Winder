@@ -20,7 +20,8 @@
 #define TRAVERSE_STEP_PIN   6
 #define TRAVERSE_DIR_PIN    5
 #define TRAVERSE_ENA_PIN    7
-#define TRAVERSE_HOME_PIN   14
+#define TRAVERSE_HOME_PIN   16
+
 
 // Encoder (360 PPR, 1:1 with spindle)
 #define ENCODER_A_PIN       4
@@ -53,8 +54,12 @@
 // MOTOR CURRENT SETTINGS
 // =============================================================================
 #define SPINDLE_CURRENT_MA  2800    // Spindle motor RMS current
-#define TRAVERSE_CURRENT_MA 500     // Traverse motor RMS current
+#define TRAVERSE_CURRENT_MA 250     // Traverse motor RMS current (REDUCED from 500)
 #define MOTOR_MICROSTEPS    16      // Microstepping setting
+
+// TMC2209 Hold Current (percentage of run current when stationary)
+#define HOLD_CURRENT_PERCENT 30     // 30% of run current when holding
+#define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
 // =============================================================================
 // TIMING PARAMETERS
@@ -88,6 +93,12 @@
 #define DEFAULT_MAX_VELOCITY    1000.0  // steps/sec
 #define DEFAULT_ACCELERATION    2000.0  // steps/sec²
 #define DEFAULT_JERK            5000.0  // steps/sec³ (future use)
+
+// Traverse Motion Speeds
+#define TRAVERSE_HOMING_SPEED   1500    // steps/sec for homing
+#define TRAVERSE_RAPID_SPEED    3000    // steps/sec for rapid moves
+#define TRAVERSE_RAPID_ACCEL    5000    // steps/sec² for rapid moves
+#define TRAVERSE_MIN_WINDING_SPEED 1000 // Minimum speed during winding (steps/sec)
 
 // =============================================================================
 // DEBUG OPTIONS
