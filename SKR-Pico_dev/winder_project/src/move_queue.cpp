@@ -81,7 +81,7 @@ bool MoveQueue::has_chunk(uint8_t axis) {
     return head[axis] != tail[axis];
 }
 
-uint16_t MoveQueue::get_queue_depth(uint8_t axis) {
+uint32_t MoveQueue::get_queue_depth(uint8_t axis) const {
     if (axis >= NUM_AXES) return 0;
     
     uint16_t h = head[axis];

@@ -34,7 +34,8 @@ public:
      * @param uart UART instance (uart0 or uart1)
      * @param slave_addr UART slave address (0-3)
      */
-    TMC2209_UART(uart_inst_t* uart, uint8_t slave_addr);
+    // Change this line in tmc2209.h:
+    TMC2209_UART(uart_inst_t* uart, uint8_t slave_addr, uint tx_pin, uint rx_pin);
     
     /**
      * @brief Initialize UART communication
@@ -123,7 +124,7 @@ private:
     uint8_t slave_addr;
     uint tx_pin;
     uint rx_pin;
-    
+
     /**
      * @brief Calculate CRC8 for TMC UART protocol
      * @param data Data buffer

@@ -47,13 +47,6 @@ public:
     bool has_chunk(uint8_t axis);
     
     /**
-     * @brief Get number of chunks in queue
-     * @param axis Axis identifier
-     * @return Number of chunks queued
-     */
-    uint16_t get_queue_depth(uint8_t axis);
-    
-    /**
      * @brief Clear all chunks from an axis queue
      * @param axis Axis identifier
      */
@@ -99,14 +92,7 @@ public:
      * @param axis Axis identifier
      * @return Number of chunks in queue
      */ 
-    uint32_t get_queue_depth(uint8_t axis) const {
-    if (axis >= NUM_AXES) return 0;
-    if (head[axis] >= tail[axis]) {
-        return head[axis] - tail[axis];
-    } else {
-        return MOVE_CHUNKS_CAPACITY - tail[axis] + head[axis];
-    }
-}
+    uint32_t get_queue_depth(uint8_t axis) const;
 
 private:
     StepChunk queues[2][128];  // NUM_AXES x MOVE_CHUNKS_CAPACITY
