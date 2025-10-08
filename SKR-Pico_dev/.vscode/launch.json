@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_firmware",
-      "program": "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_firmware/build/Debug/outDebug"
+      "cwd": "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project",
+      "program": "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/Debug/outDebug"
     }
   ]
 }
