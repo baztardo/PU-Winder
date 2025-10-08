@@ -10264,55 +10264,55 @@ LOAD linker stubs
  .comment       0x00000045       0x46 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
  .comment       0x00000045       0x46 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o
 
-.debug_info     0x00000000    0x41adf
+.debug_info     0x00000000    0x41aca
  .debug_info    0x00000000     0x71dc CMakeFiles/winder_project.dir/main.cpp.o
- .debug_info    0x000071dc     0x2178 CMakeFiles/winder_project.dir/src/tmc2209.cpp.o
- .debug_info    0x00009354      0xdeb CMakeFiles/winder_project.dir/src/encoder.cpp.o
- .debug_info    0x0000a13f     0x7821 CMakeFiles/winder_project.dir/src/stepcompress.cpp.o
- .debug_info    0x00011960     0x1ed3 CMakeFiles/winder_project.dir/src/move_queue.cpp.o
- .debug_info    0x00013833      0xe90 CMakeFiles/winder_project.dir/src/scheduler.cpp.o
- .debug_info    0x000146c3     0x38e7 CMakeFiles/winder_project.dir/src/lcd_display.cpp.o
- .debug_info    0x00017faa     0x81a4 CMakeFiles/winder_project.dir/src/winding_controller.cpp.o
- .debug_info    0x0002014e     0x2421 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o
- .debug_info    0x0002256f      0x1bf CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o
- .debug_info    0x0002272e      0x9a1 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o
- .debug_info    0x000230cf      0x45c CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o
- .debug_info    0x0002352b      0x245 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o
- .debug_info    0x00023770     0x2233 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o
- .debug_info    0x000259a3      0x15f CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o
- .debug_info    0x00025b02     0x2815 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o
- .debug_info    0x00028317     0x5065 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o
- .debug_info    0x0002d37c     0x2b37 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o
- .debug_info    0x0002feb3     0x1983 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o
- .debug_info    0x00031836     0x2a05 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o
- .debug_info    0x0003423b      0x4e5 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o
- .debug_info    0x00034720      0x248 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o
- .debug_info    0x00034968      0x678 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o
- .debug_info    0x00034fe0      0x1d0 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o
- .debug_info    0x000351b0      0x21a CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o
- .debug_info    0x000353ca      0x7ea CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o
- .debug_info    0x00035bb4      0x781 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o
- .debug_info    0x00036335       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o
- .debug_info    0x00036358       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o
- .debug_info    0x0003637b       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o
- .debug_info    0x0003639e      0x27e CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o
- .debug_info    0x0003661c       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o
- .debug_info    0x0003663f       0x24 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o
- .debug_info    0x00036663       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o
- .debug_info    0x00036686      0x27e CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o
- .debug_info    0x00036904       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o
- .debug_info    0x00036927      0x63d CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o
- .debug_info    0x00036f64       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
- .debug_info    0x00036f87      0x6ff CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp.o
- .debug_info    0x00037686      0x2b8 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.o
- .debug_info    0x0003793e     0x22f2 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_printf/printf.c.o
- .debug_info    0x00039c30       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/crt0.S.o
- .debug_info    0x00039c53      0xbbe CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_clib_interface/newlib_interface.c.o
- .debug_info    0x0003a811     0x1c76 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio/stdio.c.o
- .debug_info    0x0003c487      0x201 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_unique_id/unique_id.c.o
- .debug_info    0x0003c688     0x177f CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_flash/flash.c.o
- .debug_info    0x0003de07     0x1fe0 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
- .debug_info    0x0003fde7     0x1cf8 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o
+ .debug_info    0x000071dc     0x2163 CMakeFiles/winder_project.dir/src/tmc2209.cpp.o
+ .debug_info    0x0000933f      0xdeb CMakeFiles/winder_project.dir/src/encoder.cpp.o
+ .debug_info    0x0000a12a     0x7821 CMakeFiles/winder_project.dir/src/stepcompress.cpp.o
+ .debug_info    0x0001194b     0x1ed3 CMakeFiles/winder_project.dir/src/move_queue.cpp.o
+ .debug_info    0x0001381e      0xe90 CMakeFiles/winder_project.dir/src/scheduler.cpp.o
+ .debug_info    0x000146ae     0x38e7 CMakeFiles/winder_project.dir/src/lcd_display.cpp.o
+ .debug_info    0x00017f95     0x81a4 CMakeFiles/winder_project.dir/src/winding_controller.cpp.o
+ .debug_info    0x00020139     0x2421 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o
+ .debug_info    0x0002255a      0x1bf CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o
+ .debug_info    0x00022719      0x9a1 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o
+ .debug_info    0x000230ba      0x45c CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o
+ .debug_info    0x00023516      0x245 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o
+ .debug_info    0x0002375b     0x2233 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o
+ .debug_info    0x0002598e      0x15f CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o
+ .debug_info    0x00025aed     0x2815 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o
+ .debug_info    0x00028302     0x5065 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o
+ .debug_info    0x0002d367     0x2b37 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o
+ .debug_info    0x0002fe9e     0x1983 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o
+ .debug_info    0x00031821     0x2a05 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o
+ .debug_info    0x00034226      0x4e5 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o
+ .debug_info    0x0003470b      0x248 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o
+ .debug_info    0x00034953      0x678 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o
+ .debug_info    0x00034fcb      0x1d0 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o
+ .debug_info    0x0003519b      0x21a CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o
+ .debug_info    0x000353b5      0x7ea CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o
+ .debug_info    0x00035b9f      0x781 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o
+ .debug_info    0x00036320       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o
+ .debug_info    0x00036343       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o
+ .debug_info    0x00036366       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o
+ .debug_info    0x00036389      0x27e CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o
+ .debug_info    0x00036607       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o
+ .debug_info    0x0003662a       0x24 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o
+ .debug_info    0x0003664e       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o
+ .debug_info    0x00036671      0x27e CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o
+ .debug_info    0x000368ef       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o
+ .debug_info    0x00036912      0x63d CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o
+ .debug_info    0x00036f4f       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
+ .debug_info    0x00036f72      0x6ff CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp.o
+ .debug_info    0x00037671      0x2b8 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.o
+ .debug_info    0x00037929     0x22f2 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_printf/printf.c.o
+ .debug_info    0x00039c1b       0x23 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/crt0.S.o
+ .debug_info    0x00039c3e      0xbbe CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_clib_interface/newlib_interface.c.o
+ .debug_info    0x0003a7fc     0x1c76 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio/stdio.c.o
+ .debug_info    0x0003c472      0x201 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_unique_id/unique_id.c.o
+ .debug_info    0x0003c673     0x177f CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_flash/flash.c.o
+ .debug_info    0x0003ddf2     0x1fe0 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
+ .debug_info    0x0003fdd2     0x1cf8 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o
 
 .debug_abbrev   0x00000000     0x94b3
  .debug_abbrev  0x00000000      0x8bf CMakeFiles/winder_project.dir/main.cpp.o
@@ -10687,7 +10687,7 @@ LOAD linker stubs
 .debug_str      0x00000000    0x13064
  .debug_str     0x00000000    0x13064 CMakeFiles/winder_project.dir/main.cpp.o
                                0x8421 (size before relaxing)
- .debug_str     0x00013064      0xd22 CMakeFiles/winder_project.dir/src/tmc2209.cpp.o
+ .debug_str     0x00013064      0xd19 CMakeFiles/winder_project.dir/src/tmc2209.cpp.o
  .debug_str     0x00013064      0x88a CMakeFiles/winder_project.dir/src/encoder.cpp.o
  .debug_str     0x00013064     0x62d7 CMakeFiles/winder_project.dir/src/stepcompress.cpp.o
  .debug_str     0x00013064      0xc64 CMakeFiles/winder_project.dir/src/move_queue.cpp.o
