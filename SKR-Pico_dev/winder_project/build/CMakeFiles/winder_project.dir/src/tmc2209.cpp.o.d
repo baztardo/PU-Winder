@@ -63,20 +63,39 @@ CMakeFiles/winder_project.dir/src/tmc2209.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/m0plus.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/nvic.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/scb.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers/include/pico/stdlib.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio/include/pico/stdio.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include/stdarg.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/include/pico/time.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/include/hardware/timer.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/timer.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/timer.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/algorithm \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_usb/include/pico/stdio_usb.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdio \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdio.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/reent.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/_ansi.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_types.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/_types.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/lock.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/stdio.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cmath \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/requires_hosted.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/cpp_type_traits.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/ext/type_traits.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/math.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/std_abs.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdlib.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/stdlib.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/alloca.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/version.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/specfun.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stl_algobase.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/functexcept.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/exception_defines.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/cpp_type_traits.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/ext/type_traits.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/ext/numeric_traits.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stl_pair.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/type_traits \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/version.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/move.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/utility.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stl_iterator_base_types.h \
@@ -89,6 +108,20 @@ CMakeFiles/winder_project.dir/src/tmc2209.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/predefined_ops.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bit \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/concepts \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/limits \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/gamma.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/special_function_util.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/bessel_function.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/beta_function.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/ell_integral.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/exp_integral.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/hypergeometric.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/legendre_function.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/modified_bessel_func.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/poly_hermite.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/poly_laguerre.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tr1/riemann_zeta.tcc \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/algorithm \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stl_algo.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/algorithmfwd.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/initializer_list \
@@ -99,14 +132,5 @@ CMakeFiles/winder_project.dir/src/tmc2209.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/exception.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stl_construct.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdlib \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdlib.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/reent.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/_ansi.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_types.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/_types.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/lock.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/stdlib.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/alloca.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/std_abs.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/pstl/glue_algorithm_defs.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/pstl/execution_defs.h

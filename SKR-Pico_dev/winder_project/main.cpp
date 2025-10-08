@@ -33,8 +33,8 @@ void show_tmc_status() {
     uint32_t traverse_status = 0;
     uint32_t spindle_status = 0;
     
-    bool traverse_ok = tmc_traverse.read_reg(TMC_REG_DRV_STATUS, &traverse_status, 2000);
-    bool spindle_ok = tmc_spindle.read_reg(TMC_REG_DRV_STATUS, &spindle_status, 2000);
+    bool traverse_ok = tmc_traverse.readRegister(TMC_REG_DRV_STATUS, &traverse_status, 2000);
+    bool spindle_ok = tmc_spindle.readRegister(TMC_REG_DRV_STATUS, &spindle_status, 2000);
     
     lcd.clear();
     lcd.print_at(0, 0, "TMC Status:");
@@ -174,15 +174,14 @@ void init_motors() {
     move_queue.set_enable(AXIS_SPINDLE, true);
     move_queue.set_enable(AXIS_TRAVERSE, true);
     sleep_ms(100);
-    
-    // NOW initialize UART
-    tmc_spindle.begin(TMC_UART_BAUD);
-    tmc_traverse.begin(TMC_UART_BAUD);
-    sleep_ms(500);
 
     lcd.clear();  // Changed from lcd-> to lcd.
     lcd.print_at(0, 0, "Setting Current");
     
+    // Set motor currents
+    bool spindle_ok = tmc_spindle.set_rms_current(SPINDLE_CURRENT_MA, R_SENSE);
+    bool traverse_ok = tmc_traverse.set_rms_current(TRAVERSE_CURRENT_MA, R_SENSE);
+
     // Initialize traverse driver with CORRECT formula
     tmc_traverse.init_driver(TRAVERSE_CURRENT_MA, MOTOR_MICROSTEPS);
     
