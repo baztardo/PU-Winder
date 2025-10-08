@@ -33,8 +33,9 @@ void show_tmc_status() {
     uint32_t traverse_status = 0;
     uint32_t spindle_status = 0;
     
-    bool traverse_ok = tmc_traverse.readRegister(TMC_REG_DRV_STATUS, &traverse_status, 2000);
-    bool spindle_ok = tmc_spindle.readRegister(TMC_REG_DRV_STATUS, &spindle_status, 2000);
+    // REMOVE the & and the timeout parameter:
+    bool traverse_ok = tmc_traverse.readRegister(TMC_REG_DRV_STATUS, traverse_status);
+    bool spindle_ok = tmc_spindle.readRegister(TMC_REG_DRV_STATUS, spindle_status);
     
     lcd.clear();
     lcd.print_at(0, 0, "TMC Status:");
@@ -69,7 +70,7 @@ void show_tmc_status() {
         }
     }
     
-    sleep_ms(10000);
+    sleep_ms(3000);
 }
 
 // =============================================================================
