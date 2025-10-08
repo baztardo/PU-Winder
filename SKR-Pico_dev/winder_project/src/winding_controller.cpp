@@ -315,7 +315,29 @@ void WindingController::ramp_up_spindle() {
 }
 
 void WindingController::execute_winding() {
-    // This is the main winding loop
+    // CRITICAL: Keep spindle running!
+    // Check if spindle queue is getting low and refill it
+    if (!move_queue->is_active(AXIS_SPINDLE) || 
+        move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
+        
+        // Calculate continuous spindle movement
+        float target_rps = params.spindle_rpm / 60.0f;
+        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
+        float target_sps = target_rps * steps_per_rev;
+        
+        // Queue another second of spindle movement
+        uint32_t spindle_steps = (uint32_t)(target_sps * 1.0f);  // 1 second worth
+        
+        auto chunks = StepCompressor::compress_constant_velocity(
+            spindle_steps, target_sps
+        );
+        
+        for (const auto& chunk : chunks) {
+            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+        }
+    }
+    
+    // Now sync traverse to spindle
     sync_traverse_to_spindle();
     
     // Check if we've completed target turns

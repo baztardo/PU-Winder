@@ -94,6 +94,20 @@ public:
      */
     int32_t get_step_count(uint8_t axis);
 
+    /**
+     * @brief Get current queue depth
+     * @param axis Axis identifier
+     * @return Number of chunks in queue
+     */ 
+    uint32_t get_queue_depth(uint8_t axis) const {
+    if (axis >= NUM_AXES) return 0;
+    if (head[axis] >= tail[axis]) {
+        return head[axis] - tail[axis];
+    } else {
+        return MOVE_CHUNKS_CAPACITY - tail[axis] + head[axis];
+    }
+}
+
 private:
     StepChunk queues[2][128];  // NUM_AXES x MOVE_CHUNKS_CAPACITY
     volatile uint16_t head[2];

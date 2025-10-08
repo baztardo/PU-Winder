@@ -22,8 +22,8 @@
 // =============================================================================
 MoveQueue move_queue;
 Encoder spindle_encoder;
-TMC2209_UART tmc_spindle(uart1, 0);
-TMC2209_UART tmc_traverse(uart1, 0);
+TMC2209_UART tmc_spindle(uart1, 0, TMC_UART_TX_PIN, TMC_UART_RX_PIN);
+TMC2209_UART tmc_traverse(uart1, 2, TMC_UART_TX_PIN, TMC_UART_RX_PIN);  // Address 2!
 LCDDisplay lcd(i2c0, 0x27, 20, 4);  // 20x4 LCD at address 0x27
 Scheduler scheduler(&move_queue, &spindle_encoder);
 WindingController winding_controller(&move_queue, &spindle_encoder, &lcd);
@@ -69,7 +69,7 @@ void show_tmc_status() {
         }
     }
     
-    sleep_ms(3000);
+    sleep_ms(10000);
 }
 
 // =============================================================================
@@ -98,7 +98,7 @@ int main() {
     // Initialize motor drivers
     lcd.print_at(0, 2, "Motors...");
     init_motors();
-    sleep_ms(500);
+    sleep_ms(1000);
     
     // Start scheduler ISR
     lcd.print_at(0, 3, "Scheduler...");
@@ -108,7 +108,10 @@ int main() {
         lcd.print_at(0, 1, "Scheduler failed!");
         while (1) tight_loop_contents();
     }
-    sleep_ms(500);
+    //sleep_ms(500);
+
+    sleep_ms(2000);  // Give time to read "Setting Current"
+    show_tmc_status();  // This MUST be called!
     
     // Initialize winding controller
     winding_controller.init();
@@ -166,11 +169,17 @@ void init_hardware() {
 // Motor Driver Initialization
 // =============================================================================
 void init_motors() {
-    // Initialize UART communication
-    tmc_spindle.begin(TMC_UART_BAUD);
-    tmc_traverse.begin(TMC_UART_BAUD);
+    
+    // Enable motors FIRST (before UART init)
+    move_queue.set_enable(AXIS_SPINDLE, true);
+    move_queue.set_enable(AXIS_TRAVERSE, true);
     sleep_ms(100);
     
+    // NOW initialize UART
+    tmc_spindle.begin(TMC_UART_BAUD);
+    tmc_traverse.begin(TMC_UART_BAUD);
+    sleep_ms(500);
+
     lcd.clear();  // Changed from lcd-> to lcd.
     lcd.print_at(0, 0, "Setting Current");
     
@@ -187,10 +196,7 @@ void init_motors() {
     lcd.printf_at(0, 2, "S: %.0fmA CS=%d", 2800.0f, (int)(cs + 0.5f));
     
     sleep_ms(3000);
-    
-    // Enable motors
-    move_queue.set_enable(AXIS_SPINDLE, true);
-    move_queue.set_enable(AXIS_TRAVERSE, true);
+
     
 }
 

@@ -15,9 +15,102 @@ TMC2209_UART::TMC2209_UART(uart_inst_t* uart, uint8_t slave_addr)
 }
 
 bool TMC2209_UART::begin(uint32_t baud) {
-    uart_init(uart_inst, baud);
-    gpio_set_function(TMC_UART_TX_PIN, GPIO_FUNC_UART);
-    gpio_set_function(TMC_UART_RX_PIN, GPIO_FUNC_UART);
+    uart_init(uart_instance, baud);
+    gpio_set_function(tx_pin, GPIO_FUNC_UART);
+    gpio_set_function(rx_pin, GPIO_FUNC_UART);
+    
+    // Critical: Set UART data format
+    uart_set_format(uart_instance, 8, 1, UART_PARITY_NONE);
+    uart_set_fifo_enabled(uart_instance, true);
+    
+    // Give UART time to stabilize
+    sleep_ms(100);
+    
+    // Flush any garbage in RX buffer
+    while (uart_is_readable(uart_instance)) {
+        uart_getc(uart_instance);
+    }
+    
+    return true;
+}
+
+bool TMC2209_UART::write_reg(uint8_t reg, uint32_t value) {
+    // Clear RX buffer first
+    while (uart_is_readable(uart_instance)) {
+        uart_getc(uart_instance);
+    }
+    
+    uint8_t pkt[8];
+    pkt[0] = 0x05;                        // Sync
+    pkt[1] = slave_addr;                  // Address
+    pkt[2] = 0x80 | (reg & 0x7F);        // Write bit + register
+    pkt[3] = (value >> 24) & 0xFF;
+    pkt[4] = (value >> 16) & 0xFF;
+    pkt[5] = (value >> 8) & 0xFF;
+    pkt[6] = value & 0xFF;
+    pkt[7] = crc8(pkt, 7);
+    
+    // Send packet
+    uart_write_blocking(uart_instance, pkt, 8);
+    
+    // CRITICAL: Wait for TX to complete before continuing
+    uart_tx_wait_blocking(uart_instance);
+    sleep_us(100);  // Small delay for driver to process
+    
+    return true;
+}
+
+bool TMC2209_UART::read_reg(uint8_t reg, uint32_t* value, uint32_t timeout_us) {
+    // Clear RX buffer
+    while (uart_is_readable(uart_instance)) {
+        uart_getc(uart_instance);
+    }
+    
+    // Send read request
+    uint8_t req[4];
+    req[0] = 0x05;                   // Sync
+    req[1] = slave_addr;             // Address  
+    req[2] = reg & 0x7F;             // Read (no write bit)
+    req[3] = crc8(req, 3);
+    
+    uart_write_blocking(uart_instance, req, 4);
+    uart_tx_wait_blocking(uart_instance);
+    
+    // Wait a bit for response
+    sleep_us(500);
+    
+    // Read response (12 bytes total: 4 echo + 8 response)
+    uint8_t resp[12];
+    uint32_t start = time_us_32();
+    int bytes_read = 0;
+    
+    while (bytes_read < 12 && (time_us_32() - start) < timeout_us) {
+        if (uart_is_readable(uart_instance)) {
+            resp[bytes_read++] = uart_getc(uart_instance);
+        }
+    }
+    
+    if (bytes_read < 12) {
+        return false;  // Timeout or incomplete
+    }
+    
+    // Skip first 4 bytes (our echo), use last 8 bytes (response)
+    uint8_t* response = &resp[4];
+    
+    // Verify CRC
+    uint8_t calc_crc = crc8(response, 7);
+    if (calc_crc != response[7]) {
+        return false;  // CRC error
+    }
+    
+    // Extract value
+    if (value) {
+        *value = ((uint32_t)response[3] << 24) |
+                 ((uint32_t)response[4] << 16) |
+                 ((uint32_t)response[5] << 8) |
+                 ((uint32_t)response[6]);
+    }
+    
     return true;
 }
 

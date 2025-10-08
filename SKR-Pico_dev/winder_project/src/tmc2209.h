@@ -119,8 +119,10 @@ public:
     bool is_overtemp();
 
 private:
-    uart_inst_t* uart_inst;
+    uart_inst_t* uart_instance;
     uint8_t slave_addr;
+    uint tx_pin;
+    uint rx_pin;
     
     /**
      * @brief Calculate CRC8 for TMC UART protocol
