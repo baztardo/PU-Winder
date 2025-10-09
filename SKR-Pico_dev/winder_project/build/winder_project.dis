@@ -788,11 +788,11 @@ Disassembly of section .text:
 1000076c:	3309      	adds	r3, #9
 1000076e:	4813      	ldr	r0, [pc, #76]	@ (100007bc <_GLOBAL__sub_I_move_queue+0x6c>)
 10000770:	f000 f830 	bl	100007d4 <_ZN12TMC2209_UARTC1EP9uart_instiih>
-10000774:	2301      	movs	r3, #1
+10000774:	2302      	movs	r3, #2
 10000776:	2208      	movs	r2, #8
 10000778:	9300      	str	r3, [sp, #0]
 1000077a:	490f      	ldr	r1, [pc, #60]	@ (100007b8 <_GLOBAL__sub_I_move_queue+0x68>)
-1000077c:	3308      	adds	r3, #8
+1000077c:	3307      	adds	r3, #7
 1000077e:	4810      	ldr	r0, [pc, #64]	@ (100007c0 <_GLOBAL__sub_I_move_queue+0x70>)
 10000780:	f000 f828 	bl	100007d4 <_ZN12TMC2209_UARTC1EP9uart_instiih>
 10000784:	2304      	movs	r3, #4

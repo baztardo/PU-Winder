@@ -25,8 +25,8 @@
 
 MoveQueue move_queue;
 Encoder spindle_encoder;
-TMC2209_UART tmc_spindle(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x00);
-TMC2209_UART tmc_traverse(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x01);
+TMC2209_UART tmc_spindle(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x00); // X axis
+TMC2209_UART tmc_traverse(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x02); // Y axis
 LCDDisplay lcd(i2c0, 0x27, 20, 4);  // 20x4 LCD at address 0x27
 Scheduler scheduler(&move_queue, &spindle_encoder);
 WindingController winding_controller(&move_queue, &spindle_encoder, &lcd);
@@ -207,7 +207,7 @@ void init_motors() {
         printf("Testing TMC UART...\n");
     tmc_spindle.testRead();
     tmc_traverse.testRead();
-    
+
     tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
     tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);
     
