@@ -188,7 +188,13 @@ int main() {
         // Small delay to prevent tight loop
         sleep_ms(10);
     }
-    
+    static absolute_time_t hb_time;
+    absolute_time_t now = get_absolute_time();
+    if (absolute_time_diff_us(now, hb_time) <= 0) {
+        gpio_xor_mask(1u << LED2_PIN);   // FAN2 heartbeat from main loop
+        hb_time = make_timeout_time_ms(250);
+    }
+
     return 0;
 }
 

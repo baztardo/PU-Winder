@@ -90,16 +90,6 @@ bool Scheduler::timer_callback(repeating_timer_t* rt) {
 void Scheduler::handle_isr() {
     tick_count++;
 
-    // -------------------------------------------------------------------------
-    // Heartbeat LED toggle
-    // -------------------------------------------------------------------------
-    static uint32_t last_toggle = 0;
-    if((tick_count - last_toggle) >= SCHED_HEARTBEAT_INTERVAL_MS)
-{
-        gpio_xor_mask(1u << SCHED_HEARTBEAT_PIN);
-        last_toggle = tick_count;
-    }
-
     // Update encoder state
     if (spindle_encoder) {
         spindle_encoder->update();
@@ -115,4 +105,15 @@ void Scheduler::handle_isr() {
     if (user_callback) {
         user_callback(user_callback_data);
     }
+    // -----------------------------------------------------------------------------
+    // Heartbeat LED flash (visible ~1Hz)
+    // -----------------------------------------------------------------------------
+    static uint32_t last_toggle = 0;
+    if ((tick_count - last_toggle) >= 1000) {   // once per second
+        gpio_put(SCHED_HEARTBEAT_PIN, 1);
+        sleep_us(50000);  // 50 ms flash (you’ll actually see it blink)
+        gpio_put(SCHED_HEARTBEAT_PIN, 0);
+        last_toggle = tick_count;
+    }
+
 }

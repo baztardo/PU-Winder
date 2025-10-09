@@ -117,7 +117,7 @@
 // Scheduler heartbeat diagnostic
 // =============================================================================
 #define SCHED_HEARTBEAT_PIN  20    // FAN3 LED
-#define SCHED_HEARTBEAT_INTERVAL_MS  100   // Blink every 100 ms
+#define SCHED_HEARTBEAT_INTERVAL_MS  500   // Blink every 100 ms
 // =============================================================================
 // Debug pin (used for single flash pulse diagnostics)
 // =============================================================================
