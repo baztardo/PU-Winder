@@ -22,8 +22,8 @@
 // =============================================================================
 MoveQueue move_queue;
 Encoder spindle_encoder;
-TMC2209_UART tmc_spindle(8, 0x00);   // GPIO8 = X driver socket (spindle)
-TMC2209_UART tmc_traverse(9, 0x00);  // GPIO9 = Y driver socket (traverse)
+TMC2209_UART tmc_spindle(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x00);
+TMC2209_UART tmc_traverse(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x01);
 LCDDisplay lcd(i2c0, 0x27, 20, 4);  // 20x4 LCD at address 0x27
 Scheduler scheduler(&move_queue, &spindle_encoder);
 WindingController winding_controller(&move_queue, &spindle_encoder, &lcd);
@@ -170,6 +170,11 @@ void init_hardware() {
 // Motor Driver Initialization
 // =============================================================================
 void init_motors() {
+
+    printf("Testing TMC UART...\n");
+    tmc_spindle.testRead();
+    tmc_traverse.testRead();
+
     sleep_ms(100);
     
     lcd.clear();
