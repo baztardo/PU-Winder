@@ -20,6 +20,9 @@
 // =============================================================================
 // Global Objects
 // =============================================================================
+// FAN3 MOSFET LED – IO20 (low-side sink)
+#define DEBUG_PIN 20
+
 MoveQueue move_queue;
 Encoder spindle_encoder;
 TMC2209_UART tmc_spindle(uart1, TMC_UART_TX_PIN, TMC_UART_RX_PIN, 0x00);
@@ -28,6 +31,14 @@ LCDDisplay lcd(i2c0, 0x27, 20, 4);  // 20x4 LCD at address 0x27
 Scheduler scheduler(&move_queue, &spindle_encoder);
 WindingController winding_controller(&move_queue, &spindle_encoder, &lcd);
 
+static void debug_pulse(int count, int delay_ms = 100) {
+    for (int i = 0; i < count; ++i) {
+        gpio_put(DEBUG_PIN, 1);     // turn MOSFET ON (LED ON)
+        sleep_ms(delay_ms);
+        gpio_put(DEBUG_PIN, 0);     // turn MOSFET OFF (LED OFF)
+        sleep_ms(delay_ms);
+    }
+}
 
 void show_tmc_status() {
     uint32_t traverse_status = 0;
@@ -170,11 +181,11 @@ void init_hardware() {
 // Motor Driver Initialization
 // =============================================================================
 void init_motors() {
+    stdio_init_all();
+    gpio_init(DEBUG_PIN);
+    gpio_set_dir(DEBUG_PIN, GPIO_OUT);
 
-    printf("Testing TMC UART...\n");
-    tmc_spindle.testRead();
-    tmc_traverse.testRead();
-
+    debug_pulse(1);  // Firmware booted
     sleep_ms(100);
     
     lcd.clear();
@@ -192,6 +203,10 @@ void init_motors() {
     lcd.print_at(0, 2, traverse_ok ? "Traverse: OK" : "Traverse: FAIL");
     lcd.print_at(0, 3, "Microsteps...");
     sleep_ms(500);
+    
+        printf("Testing TMC UART...\n");
+    tmc_spindle.testRead();
+    tmc_traverse.testRead();
     
     tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
     tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);

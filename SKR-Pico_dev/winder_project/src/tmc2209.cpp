@@ -148,14 +148,42 @@ bool TMC2209_UART::readRegister(uint8_t reg, uint32_t &out)
 }
 
 // =============================================================================
-void TMC2209_UART::testRead()
-{
-    uint32_t val = 0;
-    if (readRegister(0x6F, val))
-        printf("IOIN = 0x%08lX\n", val);
-    else
-        printf("No TMC2209 reply\n");
+void TMC2209_UART::testRead() {
+    // Transmit a simple read command (example: IFCNT register)
+    uint8_t tx[4] = {0x05, 0x00, 0x00, 0x00};
+    uart_write_blocking(uart_inst, tx, 4);
+
+    // Receive buffer for response
+    uint8_t rx[5] = {0};  // <-- this is the key fix
+
+    // Non-blocking UART read with timeout
+    int got = 0;
+    absolute_time_t end_time = make_timeout_time_ms(1000); // 1 second timeout
+    while (got < 5 && absolute_time_diff_us(get_absolute_time(), end_time) > 0) {
+        if (uart_is_readable(uart_inst)) {
+            rx[got++] = uart_getc(uart_inst);
+        }
+    }
+
+    // Timeout indicator (LED on FAN3)
+    if (got < 5) {
+        const uint DEBUG_PIN = 20;
+        gpio_init(DEBUG_PIN);
+        gpio_set_dir(DEBUG_PIN, GPIO_OUT);
+        gpio_put(DEBUG_PIN, 1);
+        sleep_ms(500);
+        gpio_put(DEBUG_PIN, 0);
+        return; // Timeout
+    }
+
+    // If it got here, data was received
+    printf("TMC2209 UART read %d bytes: ", got);
+    for (int i = 0; i < got; i++) {
+        printf("%02X ", rx[i]);
+    }
+    printf("\n");
 }
+
 
 // =============================================================================
 // Helper functions to match your existing code
