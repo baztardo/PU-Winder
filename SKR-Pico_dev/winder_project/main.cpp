@@ -191,6 +191,10 @@ void init_motors() {
     lcd.clear();
     lcd.print_at(0, 0, "Setting Current");
     lcd.print_at(0, 1, "Spindle...");
+
+    printf("Testing TMC UART...\n");
+    tmc_spindle.testRead();
+    tmc_traverse.testRead();
     
     bool spindle_ok = tmc_spindle.set_rms_current(SPINDLE_CURRENT_MA, R_SENSE);
     
@@ -203,10 +207,6 @@ void init_motors() {
     lcd.print_at(0, 2, traverse_ok ? "Traverse: OK" : "Traverse: FAIL");
     lcd.print_at(0, 3, "Microsteps...");
     sleep_ms(500);
-    
-        printf("Testing TMC UART...\n");
-    tmc_spindle.testRead();
-    tmc_traverse.testRead();
 
     tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
     tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);

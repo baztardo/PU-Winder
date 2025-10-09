@@ -58,12 +58,10 @@ static inline uint8_t sw_uart_rx_byte(uint8_t pin) {
 // =============================================================================
 // Class implementation
 // =============================================================================
-TMC2209_UART::TMC2209_UART(uart_inst_t* uart_port,
-                           int tx_pin, int rx_pin,
-                           uint8_t slave_addr)
+TMC2209_UART::TMC2209_UART(uart_inst_t* uart_port, int tx_pin, int rx_pin, uint8_t slave_addr)
     : uart_inst(uart_port),
       tx(tx_pin), rx(rx_pin),
-      pin_mode(false), addr(slave_addr)
+      pin_mode(false), slave_addr(slave_addr)
 {
     if (uart_port) {
         // Hardware UART mode
@@ -82,7 +80,7 @@ TMC2209_UART::TMC2209_UART(uart_inst_t* uart_port,
 // For SKR Pico: single-wire convenience constructor
 TMC2209_UART::TMC2209_UART(uint8_t gpio_pin, uint8_t slave_addr)
     : uart_inst(nullptr), tx(gpio_pin), rx(gpio_pin),
-      pin_mode(true), addr(slave_addr)
+      pin_mode(false), slave_addr(slave_addr) 
 {
     gpio_init(tx);
     gpio_set_dir(tx, GPIO_OUT);
@@ -90,71 +88,65 @@ TMC2209_UART::TMC2209_UART(uint8_t gpio_pin, uint8_t slave_addr)
 }
 
 // =============================================================================
-void TMC2209_UART::writeRegister(uint8_t reg, uint32_t data)
-{
-    uint8_t pkt[8] = {
-        0x05, addr, (uint8_t)(reg | 0x80),
-        (uint8_t)(data >> 24), (uint8_t)(data >> 16),
-        (uint8_t)(data >> 8), (uint8_t)data,
+bool TMC2209_UART::writeRegister(uint8_t reg, uint32_t value) {
+    uint8_t tx[8] = {
+        0x05,                     // sync
+        (uint8_t)(slave_addr | 0x80), // write bit set
+        reg,
+        (uint8_t)((value >> 24) & 0xFF),
+        (uint8_t)((value >> 16) & 0xFF),
+        (uint8_t)((value >> 8) & 0xFF),
+        (uint8_t)(value & 0xFF),
         0
     };
-    pkt[7] = tmc_crc8(pkt, 7);
+    tx[7] = crc8(tx, 7);
 
-    if (pin_mode) {
-        // bit-banged
-        gpio_set_dir(tx, GPIO_OUT);
-        for (int i = 0; i < 8; i++) sw_uart_tx_byte(tx, pkt[i]);
-        gpio_put(tx, 1);
-        gpio_set_dir(tx, GPIO_IN);
-    } else {
-        // hardware
-        uart_write_blocking(uart_inst, pkt, 8);
-    }
+    uart_write_blocking(uart_inst, tx, 8);
+
+    // Optional read-back or wait delay
+    sleep_ms(5);
+    return true;
 }
 
-// =============================================================================
-bool TMC2209_UART::readRegister(uint8_t reg, uint32_t &out)
-{
-    uint8_t req[4] = {0x05, addr, reg, 0};
-    req[3] = tmc_crc8(req, 3);
 
-    if (pin_mode) {
-        gpio_set_dir(tx, GPIO_OUT);
-        for (int i = 0; i < 4; i++) sw_uart_tx_byte(tx, req[i]);
-        gpio_put(tx, 1);
-        gpio_set_dir(tx, GPIO_IN);
-        sleep_us(2000);
-        uint8_t rep[8];
-        absolute_time_t tmo = make_timeout_time_ms(10);
-        for (int i = 0; i < 8; i++) {
-            if (absolute_time_diff_us(get_absolute_time(), tmo) <= 0) return false;
-            rep[i] = sw_uart_rx_byte(tx);
+// =============================================================================
+bool TMC2209_UART::readRegister(uint8_t reg, uint32_t &value) {
+    uint8_t tx[4] = {0x05, (uint8_t)(slave_addr & 0x7F), reg, 0x00};
+    tx[3] = crc8(tx, 3);   // ✅ correct line
+
+    uart_write_blocking(uart_inst, tx, 4);
+
+    uint8_t rx[8] = {0};
+    int got = 0;
+    absolute_time_t end_time = make_timeout_time_ms(200); // 200 ms timeout
+
+    while (got < 8 && absolute_time_diff_us(get_absolute_time(), end_time) > 0) {
+        if (uart_is_readable(uart_inst)) {
+            rx[got++] = uart_getc(uart_inst);
         }
-        if (tmc_crc8(rep, 7) != rep[7]) return false;
-        out = (rep[3]<<24)|(rep[4]<<16)|(rep[5]<<8)|rep[6];
-        return true;
-    } else {
-        uart_write_blocking(uart_inst, req, 4);
-        sleep_us(2000);
-        uint8_t rep[8];
-        if (uart_is_readable_within_us(uart_inst, 10000))
-            uart_read_blocking(uart_inst, rep, 8);
-        else
-            return false;
-        if (tmc_crc8(rep, 7) != rep[7]) return false;
-        out = (rep[3]<<24)|(rep[4]<<16)|(rep[5]<<8)|rep[6];
-        return true;
     }
+
+    if (got < 8) {
+        printf("⚠️ TMC2209 read timeout on reg 0x%02X\n", reg);
+        return false;
+    }
+
+    value = ((uint32_t)rx[4] << 24) | ((uint32_t)rx[5] << 16) |
+            ((uint32_t)rx[6] << 8) | rx[7];
+    return true;
 }
 
+
+
 // =============================================================================
+// Simple diagnostic UART read test
 void TMC2209_UART::testRead() {
     // Transmit a simple read command (example: IFCNT register)
     uint8_t tx[4] = {0x05, 0x00, 0x00, 0x00};
     uart_write_blocking(uart_inst, tx, 4);
 
     // Receive buffer for response
-    uint8_t rx[5] = {0};  // <-- this is the key fix
+    uint8_t rx[5] = {0};  // receive buffer
 
     // Non-blocking UART read with timeout
     int got = 0;
@@ -166,13 +158,15 @@ void TMC2209_UART::testRead() {
     }
 
     // Timeout indicator (LED on FAN3)
+    const uint DEBUG_PIN = 20;
+    gpio_init(DEBUG_PIN);
+    gpio_set_dir(DEBUG_PIN, GPIO_OUT);
+
     if (got < 5) {
-        const uint DEBUG_PIN = 20;
-        gpio_init(DEBUG_PIN);
-        gpio_set_dir(DEBUG_PIN, GPIO_OUT);
         gpio_put(DEBUG_PIN, 1);
         sleep_ms(500);
         gpio_put(DEBUG_PIN, 0);
+        printf("UART timeout (no response)\n");
         return; // Timeout
     }
 
@@ -182,7 +176,16 @@ void TMC2209_UART::testRead() {
         printf("%02X ", rx[i]);
     }
     printf("\n");
+
+    // Blink short success signal
+    for (int i = 0; i < 3; i++) {
+        gpio_put(DEBUG_PIN, 1);
+        sleep_ms(100);
+        gpio_put(DEBUG_PIN, 0);
+        sleep_ms(100);
+    }
 }
+
 
 
 // =============================================================================
