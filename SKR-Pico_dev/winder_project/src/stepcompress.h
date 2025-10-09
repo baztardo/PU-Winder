@@ -49,6 +49,23 @@ public:
         uint32_t total_steps,
         double velocity,
         double max_err_us = 20.0);
+    
+    /**
+     * @brief Compress into an existing vector (to avoid allocations)
+     * @param out_chunks Output vector to fill with chunks
+     * @param total_steps Total number of steps
+     * @param start_vel Starting velocity
+     * @param cruise_vel Cruise velocity
+     * @param accel Acceleration
+     * @param max_err_us Maximum allowed timing error
+     */
+    static void compress_trapezoid_into(
+        std::vector<StepChunk>& out_chunks,
+        uint32_t total_steps,
+        double start_vel,
+        double cruise_vel,
+        double accel,
+        double max_err_us);
 
 private:
     /**

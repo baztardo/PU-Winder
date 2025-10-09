@@ -209,3 +209,73 @@ bool StepCompressor::fit_chunk(
     
     return true;
 }
+
+// =============================================================================
+// Static-memory variant to fill an existing buffer instead of allocating new
+// =============================================================================
+void StepCompressor::compress_trapezoid_into(
+    std::vector<StepChunk>& out_chunks,
+    uint32_t total_steps,
+    double start_vel,
+    double cruise_vel,
+    double accel,
+    double max_err_us)
+{
+    out_chunks.clear();
+
+    if (total_steps == 0) return;
+
+    // Precompute times into a static buffer to avoid repeated allocations
+    static std::vector<uint64_t> times;
+    times.clear();
+    times.reserve(total_steps);
+
+    double v0 = start_vel;
+    double v = cruise_vel;
+    double a = std::max(accel, 1e-9);
+
+    // Generate step times (reusing the algorithm)
+    times = generate_step_times_trapezoid(total_steps, start_vel, cruise_vel, accel);
+
+    size_t pos = 0;
+    while (pos < times.size()) {
+        size_t left = pos + 1;
+        size_t right = std::min(times.size(), pos + 1000);
+        size_t best_end = left;
+
+        while (left <= right) {
+            size_t mid = (left + right) / 2;
+            uint32_t iv;
+            int32_t ad;
+            double err;
+
+            if (fit_chunk(times, pos, mid, iv, ad, err) && err <= max_err_us) {
+                best_end = mid;
+                left = mid + 1;
+            } else {
+                if (mid == 0) break;
+                right = mid - 1;
+            }
+        }
+
+        uint32_t final_iv;
+        int32_t final_ad;
+        double final_err;
+
+        if (fit_chunk(times, pos, best_end, final_iv, final_ad, final_err)) {
+            StepChunk c;
+            c.interval_us = final_iv;
+            c.add_us = final_ad;
+            c.count = best_end - pos;
+            out_chunks.push_back(c);
+            pos = best_end;
+        } else {
+            StepChunk c;
+            c.interval_us = 1000;
+            c.add_us = 0;
+            c.count = 1;
+            out_chunks.push_back(c);
+            pos++;
+        }
+    }
+}

@@ -6,8 +6,12 @@
 #include "config.h"
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
+#include "scheduler.h"  
+#include "pico/malloc.h"
 #include <cmath>
 #include <algorithm>
+
+extern Scheduler scheduler;
 
 WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lcd)
     : move_queue(mq)
@@ -275,6 +279,10 @@ void WindingController::move_to_start() {
 void WindingController::ramp_up_spindle() {
     lcd->clear();
     lcd->print_at(0, 0, "Ramping Up...");
+    printf("Free heap before ramp: %u bytes\n", get_free_heap());
+    bool running = scheduler.is_running();
+    printf("Scheduler running before ramp? %s\n", running ? "YES" : "NO");
+
     // --- Debug sanity check ---
     if (params.spindle_rpm <= 0 || params.ramp_time_sec <= 0) {
         lcd->print_at(0, 1, "Param error!");
@@ -282,6 +290,10 @@ void WindingController::ramp_up_spindle() {
             params.spindle_rpm, params.ramp_time_sec);
         sleep_ms(1000);
         state = WindingState::ERROR;
+        running = scheduler.is_running();
+        printf("Scheduler running after ramp? %s\n", running ? "YES" : "NO");
+        printf("Free heap after ramp: %u bytes\n", get_free_heap());
+
         return;
     }
 
@@ -300,13 +312,22 @@ void WindingController::ramp_up_spindle() {
         uint32_t ramp_steps = (uint32_t)(target_sps * params.ramp_time_sec);
         
         // Generate ramp-up move
-        auto chunks = StepCompressor::compress_trapezoid(
-            ramp_steps, 0, target_sps, target_sps / params.ramp_time_sec, 20.0
+        // Use static preallocated chunk buffer to prevent heap fragmentation
+        static std::vector<StepChunk> chunks;
+        chunks.clear();
+        chunks.reserve(32);
+
+        StepCompressor::compress_trapezoid_into(
+            chunks,
+            ramp_steps, 0, target_sps,
+            target_sps / params.ramp_time_sec,
+            20.0
         );
+
         
-        for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
-        }
+        //for (const auto& chunk : chunks) {
+        //    move_queue->push_chunk(AXIS_SPINDLE, chunk);
+        //}
     }
     
     lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
