@@ -410,11 +410,26 @@ void WindingController::sync_traverse_to_spindle() {
     int32_t encoder_pos = encoder->get_position();
     int32_t encoder_delta = encoder_pos - last_encoder_position;
     
-    if (encoder_delta <= 0) return;  // No movement yet
-    
+    // If no forward movement this tick, bail early
+    if (encoder_delta <= 0) {
+        // uncomment if you need to see this path:
+        printf("[SYNC] pos=%ld delta=%ld (no fwd)\n", (long)encoder_pos, (long)encoder_delta);
+        return;
+    }
+
+    // How many *full turns* occurred since we last accounted?
     // Calculate how many turns have completed
     uint32_t new_turns = encoder_delta / ENCODER_CPR;
-    
+    // Only log when we actually have a full turn or we’re “close”
+    if (new_turns == 0) {
+        // helpful to see if we’re just under CPR all the time:
+        printf("[SYNC] pos=%ld delta=%ld < CPR=%u (no full turn yet)\n",
+        (long)encoder_pos, (long)encoder_delta, (unsigned)ENCODER_CPR);
+    } else {
+        printf("[SYNC] pos=%ld delta=%ld CPR=%u -> new_turns=%lu\n",
+            (long)encoder_pos, (long)encoder_delta,
+            (unsigned)ENCODER_CPR, (unsigned long)new_turns);
+    }
     if (new_turns > 0) {
         turns_completed += new_turns;
         turns_this_layer += new_turns;
@@ -454,9 +469,13 @@ void WindingController::sync_traverse_to_spindle() {
             
             auto chunks = StepCompressor::compress_constant_velocity(
                 traverse_steps,
-                traverse_steps_per_sec  // Dynamic speed based on spindle
+                traverse_steps_per_sec
             );
-            
+
+            printf("[SYNC] enqueue traverse: steps=%u sps=%.1f dir=%d chunks=%u\n",
+                (unsigned)traverse_steps, traverse_steps_per_sec,
+                traverse_direction ? 1 : 0, (unsigned)chunks.size());
+
             move_queue->set_direction(AXIS_TRAVERSE, traverse_direction);
             for (const auto& chunk : chunks) {
                 move_queue->push_chunk(AXIS_TRAVERSE, chunk);

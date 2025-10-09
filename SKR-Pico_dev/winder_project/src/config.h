@@ -42,7 +42,7 @@
 // ENCODER SPECIFICATIONS
 // =============================================================================
 #define ENCODER_PPR         360     // Pulses per revolution
-#define ENCODER_CPR         720     // Counts per revolution (quadrature)
+#define ENCODER_CPR         1440     // Counts per revolution (quadrature)
 
 // =============================================================================
 // MECHANICAL SPECIFICATIONS

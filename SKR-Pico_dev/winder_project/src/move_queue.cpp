@@ -172,3 +172,15 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
         active_running[axis] = false;
     }
 }
+
+// Alternating ISR dispatcher to balance spindle/traverse updates
+void MoveQueue::handle_isr_tick() {
+    static uint8_t last_axis = AXIS_TRAVERSE; // start alternating
+    uint8_t first  = (last_axis == AXIS_TRAVERSE) ? AXIS_SPINDLE : AXIS_TRAVERSE;
+    uint8_t second = (first == AXIS_SPINDLE) ? AXIS_TRAVERSE : AXIS_SPINDLE;
+
+    axis_isr_handler(first);
+    axis_isr_handler(second);
+
+    last_axis = second;
+}

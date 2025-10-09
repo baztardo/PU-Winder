@@ -122,8 +122,7 @@ void Scheduler::handle_isr() {
     
     // Process move queues for both axes
     if (move_queue) {
-        move_queue->axis_isr_handler(AXIS_SPINDLE);
-        move_queue->axis_isr_handler(AXIS_TRAVERSE);
+        move_queue->handle_isr_tick();
     }
     
     // Call user callback if registered

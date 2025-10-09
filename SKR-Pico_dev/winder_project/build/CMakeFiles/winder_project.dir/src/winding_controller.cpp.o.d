@@ -65,6 +65,7 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/_newlib_version.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_intsup.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_stdint.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/encoder.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/lcd_display.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/include/hardware/i2c.h \
@@ -142,7 +143,6 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/errno.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/charconv.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/basic_string.tcc \
- /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/interp.h \

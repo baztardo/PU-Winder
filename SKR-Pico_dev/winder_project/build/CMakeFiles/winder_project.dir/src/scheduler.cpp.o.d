@@ -121,5 +121,5 @@ CMakeFiles/winder_project.dir/src/scheduler.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/uses_allocator_args.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/tuple \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdint \
- /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/encoder.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/encoder.h

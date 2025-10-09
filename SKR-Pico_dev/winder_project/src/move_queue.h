@@ -6,6 +6,7 @@
 #pragma once
 
 #include "stepcompress.h"
+#include "config.h"
 #include <cstdint>
 
 // =============================================================================
@@ -59,6 +60,13 @@ public:
      */
     void axis_isr_handler(uint8_t axis);
     
+    /**
+     * @brief Get current queue depth
+     * @param axis Axis identifier
+     * @return Number of chunks in queue
+     */
+    void handle_isr_tick();
+
     /**
      * @brief Set direction pin state
      * @param axis Axis identifier
