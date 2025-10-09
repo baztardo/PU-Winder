@@ -5,7 +5,29 @@
 #include "scheduler.h"
 #include "pico/stdlib.h"
 #include "config.h"
+#include "pico/time.h"
 
+struct StepperState {
+    uint step_pin;
+    uint32_t interval_us;
+    int32_t add_us;
+    uint32_t remaining;
+    absolute_time_t next_pulse_time;
+    bool active;
+};
+
+static StepperState steppers[4];  // X, Y, Z, E or spindle/traverse
+
+void scheduler_queue_step(uint axis, uint32_t interval_us, int32_t add_us, uint32_t count) {
+    if (axis >= 4) return;  // safety check
+    auto &s = steppers[axis];
+
+    s.interval_us = interval_us;
+    s.add_us = add_us;
+    s.remaining = count;
+    s.next_pulse_time = make_timeout_time_us(interval_us);
+    s.active = true;
+}
 
 // Global pointer to scheduler instance for static callback
 static Scheduler* g_scheduler_instance = nullptr;
@@ -115,5 +137,31 @@ void Scheduler::handle_isr() {
         gpio_put(SCHED_HEARTBEAT_PIN, led_state);
         last_toggle = tick_count;
     }
+    // Run stepper tick handler (stepper_event)
+    scheduler_tick();
+}
 
+// This runs periodically to step active motors
+void scheduler_tick() {
+    absolute_time_t now = get_absolute_time();
+
+    for (auto &s : steppers) {
+        if (!s.active || s.remaining == 0)
+            continue;
+
+        if (absolute_time_diff_us(now, s.next_pulse_time) <= 0) {
+            // Step pulse
+            gpio_put(s.step_pin, 1);
+            sleep_us(2);  // 2 µs pulse width
+            gpio_put(s.step_pin, 0);
+
+            s.remaining--;
+            s.interval_us += s.add_us;
+            s.next_pulse_time = delayed_by_us(s.next_pulse_time, s.interval_us);
+
+            if (s.remaining == 0) {
+                s.active = false;  // done
+            }
+        }
+    }
 }

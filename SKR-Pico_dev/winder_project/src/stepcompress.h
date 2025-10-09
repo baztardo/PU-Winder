@@ -76,7 +76,7 @@ private:
      * @param accel Acceleration
      * @return Vector of absolute step times in microseconds
      */
-    static std::vector<uint64_t> generate_step_times_trapezoid(
+    static std::vector<uint64_t>& generate_step_times_trapezoid(
         uint32_t total_steps,
         double start_vel,
         double cruise_vel,

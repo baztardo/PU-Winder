@@ -166,6 +166,7 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/resets.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_usb/include/pico/stdio_usb.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/scheduler.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/include/pico/malloc.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cmath \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/math.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/specfun.h \

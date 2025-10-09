@@ -13,6 +13,12 @@
 
 extern Scheduler scheduler;
 
+// Optional helper: get current free heap in bytes
+static uint32_t get_free_heap() {
+    extern char __StackLimit, __bss_end__;
+    return (uint32_t)(&__StackLimit - &__bss_end__);
+}
+
 WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lcd)
     : move_queue(mq)
     , encoder(enc)
@@ -532,4 +538,5 @@ float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * MOTOR_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
 }
+
 

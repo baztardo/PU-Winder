@@ -89,14 +89,17 @@ std::vector<StepChunk> StepCompressor::compress_constant_velocity(
     return chunks;
 }
 
-std::vector<uint64_t> StepCompressor::generate_step_times_trapezoid(
-    uint32_t total_steps,
-    double start_vel,
-    double cruise_vel,
-    double accel)
+// =============================================================================
+// Static memory version to avoid repeated heap allocation
+// =============================================================================
+std::vector<uint64_t>& StepCompressor::generate_step_times_trapezoid(
+    uint32_t total_steps, double start_vel, double cruise_vel, double accel)
 {
-    std::vector<uint64_t> times;
+    static std::vector<uint64_t> times;
+    times.clear();
     times.reserve(total_steps);
+
+    if (total_steps == 0) return times;
     
     double v0 = start_vel;
     double v = cruise_vel;
