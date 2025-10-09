@@ -323,13 +323,20 @@ void WindingController::ramp_up_spindle() {
         chunks.clear();
         chunks.reserve(32);
 
+        printf("Entering ramp_up_spindle()\n");
+        printf("Free heap start: %u\n", get_free_heap());
+
+        printf("About to generate step times...\n");
         StepCompressor::compress_trapezoid_into(
             chunks,
             ramp_steps, 0, target_sps,
             target_sps / params.ramp_time_sec,
             20.0
         );
+        printf("Finished compression.\n");
 
+        printf("Chunks generated: %u\n", (unsigned)chunks.size());
+        printf("Free heap after compress: %u\n", get_free_heap());
         
         //for (const auto& chunk : chunks) {
         //    move_queue->push_chunk(AXIS_SPINDLE, chunk);

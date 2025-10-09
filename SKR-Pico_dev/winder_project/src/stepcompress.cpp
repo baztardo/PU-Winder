@@ -17,8 +17,9 @@ std::vector<StepChunk> StepCompressor::compress_trapezoid(
     if (total_steps == 0) return chunks;
     
     // Generate absolute step times
-    auto times = generate_step_times_trapezoid(total_steps, start_vel, cruise_vel, accel);
-    
+    std::vector<uint64_t> times;
+    generate_step_times_trapezoid(times, total_steps, start_vel, cruise_vel, accel);
+
     // Compress using bisect algorithm
     size_t pos = 0;
     while (pos < times.size()) {
@@ -90,74 +91,28 @@ std::vector<StepChunk> StepCompressor::compress_constant_velocity(
 }
 
 // =============================================================================
-// Static memory version to avoid repeated heap allocation
+// Non-allocating version: fills an existing vector instead of returning one
 // =============================================================================
-std::vector<uint64_t>& StepCompressor::generate_step_times_trapezoid(
-    uint32_t total_steps, double start_vel, double cruise_vel, double accel)
+void StepCompressor::generate_step_times_trapezoid(
+    std::vector<uint64_t>& out_times,
+    uint32_t total_steps,
+    double start_vel,
+    double cruise_vel,
+    double accel)
 {
-    static std::vector<uint64_t> times;
-    times.clear();
-    times.reserve(total_steps);
+    out_times.clear();
+    out_times.reserve(total_steps);
+    if (total_steps == 0) return;
 
-    if (total_steps == 0) return times;
-    
-    double v0 = start_vel;
-    double v = cruise_vel;
-    double a = std::max(accel, 1e-9);
-    
-    // Calculate distances for each phase
-    double s_acc = (v * v - v0 * v0) / (2.0 * a);
-    s_acc = std::max(0.0, s_acc);
-    
-    double s_dec = (v * v) / (2.0 * a);
-    double s_total = (double)total_steps;
-    double s_cruise = s_total - s_acc - s_dec;
-    
-    // Check if we need triangle profile
-    if (s_cruise < 0.0) {
-        // Triangle profile - no cruise phase
-        double vp2 = ((2.0 * a * s_total) + v0 * v0) / 2.0;
-        double vp = sqrt(std::max(0.0, vp2));
-        s_acc = (vp * vp - v0 * v0) / (2.0 * a);
-        s_dec = (vp * vp) / (2.0 * a);
-        s_cruise = 0.0;
-        v = vp;
+    double v = start_vel;
+    double t = 0.0;
+    double a = accel;
+
+    for (uint32_t i = 0; i < total_steps; i++) {
+        v += a;
+        t += 1.0 / v;
+        out_times.push_back((uint64_t)(t * 1e6)); // microseconds
     }
-    
-    double acc_end = s_acc;
-    double cruise_end = s_acc + s_cruise;
-    
-    // Generate times for each step
-    for (uint32_t n = 1; n <= total_steps; ++n) {
-        double s = (double)n;
-        double t_abs = 0.0;
-        
-        if (s <= acc_end + 1e-12) {
-            // Acceleration phase: s = v0*t + 0.5*a*t²
-            double A = 0.5 * a;
-            double B = v0;
-            double C = -s;
-            double disc = B * B - 4 * A * C;
-            t_abs = (-B + sqrt(std::max(0.0, disc))) / (2 * A);
-        }
-        else if (s <= cruise_end + 1e-12) {
-            // Cruise phase
-            double t_acc = (v0 == 0) ? sqrt(2 * acc_end / a) : (v - v0) / a;
-            t_abs = t_acc + (s - acc_end) / v;
-        }
-        else {
-            // Deceleration phase
-            double t_acc = (v0 == 0) ? sqrt(2 * acc_end / a) : (v - v0) / a;
-            double t_cruise = (cruise_end - acc_end) / v;
-            double s_into_dec = s - cruise_end;
-            double t_dec = (v - sqrt(v * v - 2 * a * s_into_dec)) / a;
-            t_abs = t_acc + t_cruise + t_dec;
-        }
-        
-        times.push_back((uint64_t)(t_abs * 1e6));  // Convert to microseconds
-    }
-    
-    return times;
 }
 
 bool StepCompressor::fit_chunk(
@@ -213,72 +168,6 @@ bool StepCompressor::fit_chunk(
     return true;
 }
 
-// =============================================================================
-// Static-memory variant to fill an existing buffer instead of allocating new
-// =============================================================================
-void StepCompressor::compress_trapezoid_into(
-    std::vector<StepChunk>& out_chunks,
-    uint32_t total_steps,
-    double start_vel,
-    double cruise_vel,
-    double accel,
-    double max_err_us)
-{
-    out_chunks.clear();
 
-    if (total_steps == 0) return;
 
-    // Precompute times into a static buffer to avoid repeated allocations
-    static std::vector<uint64_t> times;
-    times.clear();
-    times.reserve(total_steps);
 
-    double v0 = start_vel;
-    double v = cruise_vel;
-    double a = std::max(accel, 1e-9);
-
-    // Generate step times (reusing the algorithm)
-    times = generate_step_times_trapezoid(total_steps, start_vel, cruise_vel, accel);
-
-    size_t pos = 0;
-    while (pos < times.size()) {
-        size_t left = pos + 1;
-        size_t right = std::min(times.size(), pos + 1000);
-        size_t best_end = left;
-
-        while (left <= right) {
-            size_t mid = (left + right) / 2;
-            uint32_t iv;
-            int32_t ad;
-            double err;
-
-            if (fit_chunk(times, pos, mid, iv, ad, err) && err <= max_err_us) {
-                best_end = mid;
-                left = mid + 1;
-            } else {
-                if (mid == 0) break;
-                right = mid - 1;
-            }
-        }
-
-        uint32_t final_iv;
-        int32_t final_ad;
-        double final_err;
-
-        if (fit_chunk(times, pos, best_end, final_iv, final_ad, final_err)) {
-            StepChunk c;
-            c.interval_us = final_iv;
-            c.add_us = final_ad;
-            c.count = best_end - pos;
-            out_chunks.push_back(c);
-            pos = best_end;
-        } else {
-            StepChunk c;
-            c.interval_us = 1000;
-            c.add_us = 0;
-            c.count = 1;
-            out_chunks.push_back(c);
-            pos++;
-        }
-    }
-}

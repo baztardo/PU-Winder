@@ -7,6 +7,9 @@
 #include "config.h"
 #include "pico/time.h"
 
+// Forward declaration of the stepper pulse handler
+void scheduler_tick();
+
 struct StepperState {
     uint step_pin;
     uint32_t interval_us;
