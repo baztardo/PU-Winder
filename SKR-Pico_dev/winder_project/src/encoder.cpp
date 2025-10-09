@@ -45,18 +45,18 @@ void Encoder::update() {
     // A changes: if A==B, we're moving forward, else backward
     if (a != last_a) {
         if (a == b) {
-            position++;
-        } else {
             position--;
+        } else {
+            position++;
         }
     }
     
     // B changes: if A!=B, we're moving forward, else backward
     if (b != last_b) {
         if (a != b) {
-            position++;
-        } else {
             position--;
+        } else {
+            position++;
         }
     }
     

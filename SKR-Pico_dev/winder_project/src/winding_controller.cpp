@@ -339,14 +339,9 @@ void WindingController::ramp_up_spindle() {
         printf("About to generate/compress: steps=%lu start=%.3f cruise=%.3f accel=%.3f\n",
             (unsigned long)ramp_steps, start_vel, cruise_vel, accel);
 
-        StepCompressor::compress_trapezoid_into(
-            chunks,
-            ramp_steps,
-            start_vel,
-            cruise_vel,
-            accel,
-            20.0
-        );
+        StepCompressor::compress_trapezoid_into(chunks,
+        ramp_steps, start_vel, cruise_vel,
+        accel * 0.3, 20.0);   // 30 % of current accel
 
         printf("Finished compression.\n");
 
