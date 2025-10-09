@@ -105,3 +105,20 @@
 // =============================================================================
 #define DEBUG_ENABLE_SERIAL     1       // Enable serial debug output
 #define DEBUG_PRINT_INTERVAL_MS 1000    // Status print interval
+
+// =============================================================================
+// DIAGNOSTIC LED PINS (FAN outputs with indicator LEDs)
+// =============================================================================
+#define LED1_PIN    17   // FAN1
+#define LED2_PIN    18   // FAN2
+#define LED3_PIN    20   // FAN3
+
+// =============================================================================
+// Scheduler heartbeat diagnostic
+// =============================================================================
+#define SCHED_HEARTBEAT_PIN  20    // FAN3 LED
+#define SCHED_HEARTBEAT_INTERVAL_MS  100   // Blink every 100 ms
+// =============================================================================
+// Debug pin (used for single flash pulse diagnostics)
+// =============================================================================
+#define DEBUG_PIN  17   // FAN1 or any spare pin you prefer

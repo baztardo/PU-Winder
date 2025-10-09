@@ -158,7 +158,6 @@ void TMC2209_UART::testRead() {
     }
 
     // Timeout indicator (LED on FAN3)
-    const uint DEBUG_PIN = 20;
     gpio_init(DEBUG_PIN);
     gpio_set_dir(DEBUG_PIN, GPIO_OUT);
 

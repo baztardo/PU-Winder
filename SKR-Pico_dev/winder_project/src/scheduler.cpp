@@ -3,7 +3,9 @@
 // =============================================================================
 
 #include "scheduler.h"
+#include "pico/stdlib.h"
 #include "config.h"
+
 
 // Global pointer to scheduler instance for static callback
 static Scheduler* g_scheduler_instance = nullptr;
@@ -21,6 +23,17 @@ Scheduler::Scheduler(MoveQueue* mq, Encoder* enc)
 }
 
 bool Scheduler::start(uint32_t interval) {
+    gpio_init(SCHED_HEARTBEAT_PIN);
+    gpio_set_dir(SCHED_HEARTBEAT_PIN, GPIO_OUT);
+    gpio_put(SCHED_HEARTBEAT_PIN, 0);
+
+    for (int i = 0; i < 3; i++) {
+        gpio_put(SCHED_HEARTBEAT_PIN, 1);
+        sleep_ms(100);
+        gpio_put(SCHED_HEARTBEAT_PIN, 0);
+        sleep_ms(100);
+    }
+
     if (running) return false;
     
     interval_us = interval;
@@ -76,7 +89,17 @@ bool Scheduler::timer_callback(repeating_timer_t* rt) {
 
 void Scheduler::handle_isr() {
     tick_count++;
-    
+
+    // -------------------------------------------------------------------------
+    // Heartbeat LED toggle
+    // -------------------------------------------------------------------------
+    static uint32_t last_toggle = 0;
+    if((tick_count - last_toggle) >= SCHED_HEARTBEAT_INTERVAL_MS)
+{
+        gpio_xor_mask(1u << SCHED_HEARTBEAT_PIN);
+        last_toggle = tick_count;
+    }
+
     // Update encoder state
     if (spindle_encoder) {
         spindle_encoder->update();

@@ -16,12 +16,40 @@
 #include "scheduler.h"
 #include "lcd_display.h"
 #include "winding_controller.h"
+// -----------------------------------------------------------------------------
+// Diagnostic LED Controller
+// -----------------------------------------------------------------------------
+#include "pico/stdlib.h"
 
-// =============================================================================
-// Global Objects
-// =============================================================================
-// FAN3 MOSFET LED – IO20 (low-side sink)
-#define DEBUG_PIN 20
+static inline void diag_led_init() {
+    const uint pins[] = {LED1_PIN, LED2_PIN, LED3_PIN};
+    for (int i = 0; i < 3; i++) {
+        gpio_init(pins[i]);
+        gpio_set_dir(pins[i], GPIO_OUT);
+        gpio_put(pins[i], 0);
+    }
+}
+
+static inline void diag_led_pattern(uint8_t pattern, int delay_ms = 300) {
+    // Bit 0→LED1, Bit 1→LED2, Bit 2→LED3
+    gpio_put(LED1_PIN, pattern & 0x01);
+    gpio_put(LED2_PIN, pattern & 0x02);
+    gpio_put(LED3_PIN, pattern & 0x04);
+    sleep_ms(delay_ms);
+    gpio_put(LED1_PIN, 0);
+    gpio_put(LED2_PIN, 0);
+    gpio_put(LED3_PIN, 0);
+}
+
+static inline void heartbeat_led() {
+    static absolute_time_t next = {0};
+    absolute_time_t now = get_absolute_time();
+    if (absolute_time_diff_us(now, next) <= 0) {
+        gpio_xor_mask((1u << LED3_PIN));   // Toggle FAN3 LED
+        next = make_timeout_time_ms(SCHED_HEARTBEAT_INTERVAL_MS);
+    }
+}
+
 
 MoveQueue move_queue;
 Encoder spindle_encoder;
@@ -95,6 +123,14 @@ void setup_winding_parameters();
 // Main Application
 // =============================================================================
 int main() {
+    stdio_init_all();
+    diag_led_init();
+
+    // Boot pattern: LED1+LED2 on = “power-up”
+    diag_led_pattern(0b011, 200);
+    diag_led_pattern(0b001, 200);
+    diag_led_pattern(0b111, 300);
+
     // Short delay for hardware stabilization
     sleep_ms(100);
     
@@ -120,6 +156,7 @@ int main() {
         lcd.print_at(0, 1, "Scheduler failed!");
         while (1) tight_loop_contents();
     }
+
     //sleep_ms(500);
 
     sleep_ms(2000);  // Give time to read "Setting Current"
@@ -195,7 +232,7 @@ void init_motors() {
     printf("Testing TMC UART...\n");
     tmc_spindle.testRead();
     tmc_traverse.testRead();
-    
+
     bool spindle_ok = tmc_spindle.set_rms_current(SPINDLE_CURRENT_MA, R_SENSE);
     
     lcd.print_at(0, 1, spindle_ok ? "Spindle: OK" : "Spindle: FAIL");

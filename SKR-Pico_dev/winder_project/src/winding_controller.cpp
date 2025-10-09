@@ -275,7 +275,16 @@ void WindingController::move_to_start() {
 void WindingController::ramp_up_spindle() {
     lcd->clear();
     lcd->print_at(0, 0, "Ramping Up...");
-    
+    // --- Debug sanity check ---
+    if (params.spindle_rpm <= 0 || params.ramp_time_sec <= 0) {
+        lcd->print_at(0, 1, "Param error!");
+        printf("⚠️ ramp_up_spindle(): rpm=%.2f  ramp_time=%.2f\n",
+            params.spindle_rpm, params.ramp_time_sec);
+        sleep_ms(1000);
+        state = WindingState::ERROR;
+        return;
+    }
+
     static bool ramp_started = false;
     static uint32_t ramp_start_time = 0;
     
