@@ -67,6 +67,7 @@ public:
         double accel,
         double max_err_us);
 
+
 private:
     /**
      * @brief Generate absolute step times for trapezoidal profile

@@ -327,12 +327,27 @@ void WindingController::ramp_up_spindle() {
         printf("Free heap start: %u\n", get_free_heap());
 
         printf("About to generate step times...\n");
+
+        // Clamp ramp_steps for safety during testing
+        if (ramp_steps > 5000) ramp_steps = 5000;
+
+        // For diagnostics, define readable local values
+        double start_vel  = 0.0;
+        double cruise_vel = target_sps;
+        double accel      = target_sps / params.ramp_time_sec;
+
+        printf("About to generate/compress: steps=%lu start=%.3f cruise=%.3f accel=%.3f\n",
+            (unsigned long)ramp_steps, start_vel, cruise_vel, accel);
+
         StepCompressor::compress_trapezoid_into(
             chunks,
-            ramp_steps, 0, target_sps,
-            target_sps / params.ramp_time_sec,
+            ramp_steps,
+            start_vel,
+            cruise_vel,
+            accel,
             20.0
         );
+
         printf("Finished compression.\n");
 
         printf("Chunks generated: %u\n", (unsigned)chunks.size());

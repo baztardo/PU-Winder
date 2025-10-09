@@ -90,30 +90,67 @@ std::vector<StepChunk> StepCompressor::compress_constant_velocity(
     return chunks;
 }
 
-// =============================================================================
-// Non-allocating version: fills an existing vector instead of returning one
-// =============================================================================
-void StepCompressor::generate_step_times_trapezoid(
-    std::vector<uint64_t>& out_times,
+void StepCompressor::compress_trapezoid_into(
+    std::vector<StepChunk>& out_chunks,
     uint32_t total_steps,
     double start_vel,
     double cruise_vel,
-    double accel)
+    double accel,
+    double /*max_err_us*/)
 {
-    out_times.clear();
-    out_times.reserve(total_steps);
-    if (total_steps == 0) return;
+    out_chunks.clear();
 
+    if (!total_steps) return;
+
+    // Mild pre-reserve to avoid huge allocations.
+    // Each chunk holds up to 64 steps; cap the reserve to something sane.
+    uint32_t est_chunks = total_steps / 64u + 1u;
+    if (est_chunks > 512u) est_chunks = 512u;
+    out_chunks.reserve(est_chunks);
+
+    // Simple trapezoid integrator without allocating a times[] array.
+    // We increment velocity, accumulate time, and immediately emit compressed steps.
     double v = start_vel;
-    double t = 0.0;
-    double a = accel;
+    double a = accel > 0.0 ? accel : 1e-9;
+    if (cruise_vel < start_vel) cruise_vel = start_vel;
 
-    for (uint32_t i = 0; i < total_steps; i++) {
+    StepChunk cur{};
+    cur.interval_us = 0;
+    cur.count = 0;
+    cur.add_us = 0;
+
+    // Keep the last absolute time to compute intervals on the fly.
+    double t_abs = 0.0;
+    double last_t_abs = 0.0;
+
+    for (uint32_t i = 0; i < total_steps; ++i) {
+        // Ramp velocity toward cruise
         v += a;
-        t += 1.0 / v;
-        out_times.push_back((uint64_t)(t * 1e6)); // microseconds
+        if (v > cruise_vel) v = cruise_vel;
+
+        // Advance time for one step (seconds)
+        t_abs += 1.0 / v;
+
+        // Convert to interval in microseconds (uint32_t)
+        uint32_t interval_us = (uint32_t)((t_abs - last_t_abs) * 1e6 + 0.5);
+        last_t_abs = t_abs;
+
+        // Pack into chunks of up to 64 steps
+        if (cur.count == 0) {
+            cur.interval_us = interval_us;
+            cur.add_us = 0;
+        }
+        ++cur.count;
+
+        if (cur.count >= 64) {
+            out_chunks.push_back(cur);
+            cur.count = 0;
+        }
     }
+
+    if (cur.count) out_chunks.push_back(cur);
 }
+
 
 bool StepCompressor::fit_chunk(
     const std::vector<uint64_t>& times,
@@ -166,6 +203,31 @@ bool StepCompressor::fit_chunk(
     out_max_err = maxerr;
     
     return true;
+}
+// =============================================================================
+// Non-allocating version: fills an existing vector instead of returning one
+// =============================================================================
+void StepCompressor::generate_step_times_trapezoid(
+    std::vector<uint64_t>& out_times,
+    uint32_t total_steps,
+    double start_vel,
+    double cruise_vel,
+    double accel)
+{
+    out_times.clear();
+    out_times.reserve(total_steps);
+    if (total_steps == 0) return;
+
+    double v = start_vel;
+    double t = 0.0;
+    double a = accel;
+
+    for (uint32_t i = 0; i < total_steps; i++) {
+        v += a;
+        if (v > cruise_vel) v = cruise_vel;
+        t += 1.0 / v;
+        out_times.push_back((uint64_t)(t * 1e6)); // convert to µs
+    }
 }
 
 
