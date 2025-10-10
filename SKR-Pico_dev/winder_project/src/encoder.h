@@ -66,7 +66,10 @@ public:
 
     uint32_t get_isr_hits() const;
 
+    void debug_status() const;
+
 private:
+    volatile uint32_t isr_hits = 0;
     volatile int32_t position;
     int32_t last_velocity_position;
     bool last_a;
@@ -74,3 +77,5 @@ private:
     bool last_z;
     bool z_pulse_detected;
 };
+
+extern Encoder encoder;

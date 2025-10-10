@@ -5,6 +5,7 @@
 #include "encoder.h"
 #include "config.h"
 #include "hardware/gpio.h"
+#include <cstdio>
 
 static volatile uint32_t g_isr_hits = 0;
 
@@ -85,3 +86,13 @@ float Encoder::get_velocity(float dt_seconds) {
     
     return (float)delta / dt_seconds;
 }
+
+void Encoder::debug_status() const {
+    printf("Encoder position: %ld  ISR hits: %lu\n",
+           (long)position, (unsigned long)get_isr_hits());
+}
+uint32_t Encoder::get_isr_hits() const {
+    return isr_hits;
+}
+// Global encoder instance (used in main.cpp)
+Encoder encoder;
