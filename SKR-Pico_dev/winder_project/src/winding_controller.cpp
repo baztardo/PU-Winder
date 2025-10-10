@@ -54,6 +54,16 @@ bool WindingController::start() {
     turns_completed = 0;
     turns_this_layer = 0;
     current_traverse_position_mm = 0;
+    // Reset ramp / sync state
+    ramp_started = false;
+    ramp_start_time = 0;
+    turn_accum = 0.0;
+    encoder_sign = 0;
+    traverse_steps_emitted = 0.0;
+    last_encoder_position = encoder->get_position();
+    int32_t pos_now = encoder->get_position();
+    enc_last_sync = pos_now;
+    enc_last_rpm  = pos_now;
     
     // Start sequence
     state = WindingState::HOMING_SPINDLE;
@@ -285,58 +295,62 @@ void WindingController::move_to_start() {
 }
 
 void WindingController::ramp_up_spindle() {
-    static bool initialized = false;
+    lcd->clear();
+    lcd->print_at(0, 0, "Ramping Up...");
+    printf("=== Starting ramp-up ===\n");
 
-    // One-time setup when entering ramp state
-    if (!initialized) {
-        lcd->clear();
-        lcd->print_at(0, 0, "Ramping Up...");
-
-        this->ramp_start_time = time_us_32();
-        this->ramp_started = true;
-        initialized = true;
-
-        printf("=== Starting ramp-up ===\n");
-
-        float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-        float target_sps = target_rps * steps_per_rev;
-
-        // Start from near-zero velocity
-        uint32_t ramp_steps = (uint32_t)(target_sps * params.ramp_time_sec);
-        ramp_steps = std::min(ramp_steps, (uint32_t)8000);
-
-        auto chunks = StepCompressor::compress_trapezoid(
-            ramp_steps,
-            0.0,                 // start velocity
-            target_sps,          // cruise velocity
-            target_sps / params.ramp_time_sec,
-            20.0
-        );
-
-        move_queue->clear_queue(AXIS_SPINDLE);
-        move_queue->set_direction(AXIS_SPINDLE, true);
-        for (const auto& chunk : chunks)
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
-
-        printf("Ramp chunks queued: %u\n", (unsigned)chunks.size());
+    if (params.spindle_rpm <= 0.0f || params.ramp_time_sec <= 0.0f) {
+        lcd->print_at(0, 1, "Param error!");
+        state = WindingState::ERROR;
+        return;
     }
 
-    // Display progress
-    uint32_t elapsed_ms = (time_us_32() - this->ramp_start_time) / 1000;
-    lcd->printf_at(0, 1, "Time: %ums", elapsed_ms);
-    lcd->printf_at(0, 2, "Target: %.0fRPM", params.spindle_rpm);
+    // If ramp hasn't started, build and queue ramp segments
+    if (!ramp_started) {
+        ramp_started = true;
+        ramp_start_time = time_us_32();
 
-    // Wait until motion queue empties
-    if (!move_queue->is_active(AXIS_SPINDLE) && 
-        !move_queue->has_chunk(AXIS_SPINDLE)) {
+        bool spindle_dir = (SPINDLE_DIR_INVERT == 0);
+        move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
 
+        const uint32_t steps_per_rev = 200u * MOTOR_MICROSTEPS;
+        const float target_sps = (params.spindle_rpm / 60.0f) * steps_per_rev;
+
+        const int N_slices = 24;
+        const float slice_s = params.ramp_time_sec / (float)N_slices;
+        const float sps_min = std::max(100.0f, target_sps * 0.02f);
+
+        uint32_t total_steps_queued = 0;
+        for (int i = 1; i <= N_slices; ++i) {
+            float frac = (float)i / (float)N_slices;
+            float sps = sps_min + (target_sps - sps_min) * (frac * frac);
+            uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
+
+            auto seg = StepCompressor::compress_constant_velocity(steps, sps);
+            for (const auto& c : seg) {
+                move_queue->push_chunk(AXIS_SPINDLE, c);
+            }
+            total_steps_queued += steps;
+        }
+
+        printf("Ramp chunks queued: %u\n",
+               (unsigned)move_queue->get_queue_depth(AXIS_SPINDLE));
+        return;
+    }
+
+    // ---- live update and completion check ----
+    lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
+    lcd->printf_at(0, 2, "Target: %.0f", params.spindle_rpm);
+
+    uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
+    bool time_done = (elapsed_ms >= (uint32_t)(params.ramp_time_sec * 1000.0f));
+    bool queue_low = (move_queue->get_queue_depth(AXIS_SPINDLE) <= 3);
+
+    if (time_done && queue_low) {
         printf("Ramp-up complete\n");
-        lcd->print_at(0, 3, "At speed!");
-        sleep_ms(300);
-        initialized = false;
-        this->ramp_started = false;
+        ramp_started = false;
         state = WindingState::WINDING;
+        return;
     }
 }
 
@@ -374,96 +388,63 @@ void WindingController::execute_winding() {
 }
 
 void WindingController::sync_traverse_to_spindle() {
-    // Get current spindle position in encoder counts
-    int32_t encoder_pos = encoder->get_position();
-    int32_t encoder_delta = encoder_pos - last_encoder_position;
+    // Apply configured traverse direction (serpentine flips this boolean)
+    bool trav_dir_cmd = traverse_direction ^ (TRAVERSE_DIR_INVERT != 0);
+    move_queue->set_direction(AXIS_TRAVERSE, trav_dir_cmd);
 
-    if (last_encoder_position == 0)
-    last_encoder_position = encoder_pos;
+    // Read encoder
+    int32_t pos = encoder->get_position();
+    int32_t raw_delta = pos - enc_last_sync;
+    enc_last_sync = pos;
 
-    // If no forward movement, bail
-    if (encoder_delta <= 0) {
-        printf("[SYNC] pos=%ld delta=%ld (no fwd)\n", (long)encoder_pos, (long)encoder_delta);
+    if (raw_delta == 0) return;
+
+    // Fix overall encoder polarity if needed
+    if (ENCODER_INVERT) raw_delta = -raw_delta;
+
+    // Learn “forward” sign once (positive when winding)
+    if (encoder_sign == 0) encoder_sign = (raw_delta > 0) ? 1 : -1;
+
+    int32_t delta_fwd = raw_delta * encoder_sign;
+    if (delta_fwd <= 0) {
+        // Not forward progress; don’t move traverse
         return;
     }
 
-    // --- Test Mode: trigger partial sync every fraction of a rev ---
-    const uint32_t step_trigger = ENCODER_CPR / 50;   // every 1/50 revolution
-    uint32_t new_turns = encoder_delta / step_trigger;
+    // Accumulate fractional turns
+    turn_accum += (double)delta_fwd / (double)ENCODER_CPR;
 
-    if (new_turns == 0) {
-        printf("[SYNC] pos=%ld delta=%ld < CPR/10=%u (no segment yet)\n",
-               (long)encoder_pos, (long)encoder_delta, (unsigned)step_trigger);
-        return;
-    }
+    // Handle completed full turns for layer logic
+    uint32_t new_full = (uint32_t)std::floor(turn_accum) - (uint32_t)turns_completed;
+    if (new_full > 0) {
+        turns_completed += new_full;
+        turns_this_layer += new_full;
 
-    // Update counters (scaled so 10 small segments = 1 full turn)
-    turns_completed += new_turns;    // For LCD test
-    turns_this_layer += new_turns;
-    last_encoder_position += new_turns * step_trigger;
-        
-        // Calculate required traverse movement
-        float traverse_move_mm = new_turns * params.wire_pitch_mm;
-        
-        // Check if we need to reverse at end of layer
         if (turns_this_layer >= params.turns_per_layer) {
-            // New layer!
             current_layer++;
             turns_this_layer = 0;
-            traverse_direction = !traverse_direction;
-            
-            lcd->printf_at(0, 2, "Layer: %lu/%lu", 
-                          current_layer, params.total_layers);
-        }
-        
-        // Generate traverse movement
-        uint32_t traverse_steps = mm_to_steps(traverse_move_mm);
-        
-        if (traverse_steps > 0) {
-            // Calculate proper traverse speed to match spindle
-            // Spindle RPS = RPM / 60
-            // Traverse speed (mm/sec) = RPS * wire_pitch_mm
-            // Traverse speed (steps/sec) = (mm/sec) * steps_per_mm
-            
-            float spindle_rps = params.spindle_rpm / 60.0f;
-            float traverse_mm_per_sec = spindle_rps * params.wire_pitch_mm;
-            float steps_per_mm = mm_to_steps(1.0f);
-            float traverse_steps_per_sec = traverse_mm_per_sec * steps_per_mm;
-            
-            // Use at least minimum winding speed for smooth motion
-            traverse_steps_per_sec = std::max((float)TRAVERSE_MIN_WINDING_SPEED, 
-                                             traverse_steps_per_sec);
-            
-            auto chunks = StepCompressor::compress_constant_velocity(
-                traverse_steps,
-                traverse_steps_per_sec
-            );
-
-            printf("[SYNC] enqueue traverse: steps=%u sps=%.1f dir=%d chunks=%u\n",
-                (unsigned)traverse_steps, traverse_steps_per_sec,
-                traverse_direction ? 1 : 0, (unsigned)chunks.size());
-
-            move_queue->set_direction(AXIS_TRAVERSE, traverse_direction);
-            for (const auto& chunk : chunks) {
-                move_queue->push_chunk(AXIS_TRAVERSE, chunk);
-            }
-        }
-    
-    // Keep spindle running at constant speed
-    if (move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
-        float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-        float target_sps = target_rps * steps_per_rev;
-        
-        auto chunks = StepCompressor::compress_constant_velocity(
-            steps_per_rev,  // One revolution
-            target_sps
-        );
-        
-        for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+            traverse_direction = !traverse_direction;  // serpentine
+            lcd->printf_at(0, 2, "Layer: %lu/%lu", current_layer, params.total_layers);
         }
     }
+
+    // Desired traverse steps so far = turns * pitch * steps_per_mm
+    const double steps_per_mm = (double)mm_to_steps(1.0f);
+    const double desired_steps = turn_accum * (double)params.wire_pitch_mm * steps_per_mm;
+    double need = desired_steps - traverse_steps_emitted;
+    int32_t steps_to_issue = (need > 0.0) ? (int32_t)std::floor(need) : 0;
+
+    if (steps_to_issue <= 0) return;
+
+    // Pick traverse speed to match spindle (or min)
+    float spindle_rps = params.spindle_rpm / 60.0f;
+    float mm_per_s    = spindle_rps * params.wire_pitch_mm;
+    float sps         = std::max((float)TRAVERSE_MIN_WINDING_SPEED, mm_per_s * (float)steps_per_mm);
+
+    auto chunks = StepCompressor::compress_constant_velocity((uint32_t)steps_to_issue, sps);
+    for (const auto& c : chunks) move_queue->push_chunk(AXIS_TRAVERSE, c);
+
+    traverse_steps_emitted += steps_to_issue;
 }
 
 void WindingController::ramp_down_spindle() {
@@ -508,16 +489,18 @@ void WindingController::ramp_down_spindle() {
 void WindingController::update_rpm() {
     uint32_t now = time_us_32();
     uint32_t dt_us = now - last_rpm_update_time;
-    
-    if (dt_us < 100000) return;  // Update every 100ms
-    
-    int32_t encoder_pos = encoder->get_position();
-    int32_t delta = encoder_pos - last_encoder_position;
-    
-    float dt_sec = dt_us / 1000000.0f;
-    float rps = (delta / (float)ENCODER_CPR) / dt_sec;
+    if (dt_us < 100000) return; // 100 ms
+
+    int32_t pos = encoder->get_position();
+    int32_t delta = pos - enc_last_rpm;
+    enc_last_rpm = pos;
+
+    if (ENCODER_INVERT) delta = -delta;
+
+    float dt = dt_us / 1000000.0f;
+    float rps = (delta / (float)ENCODER_CPR) / dt;
     current_rpm = rps * 60.0f;
-    
+
     last_rpm_update_time = now;
 }
 

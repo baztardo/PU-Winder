@@ -22,6 +22,10 @@
 #define TRAVERSE_ENA_PIN    7
 #define TRAVERSE_HOME_PIN   16
 
+// --- Direction invert flags (set to 1 to invert that axis' DIR) ---
+#define SPINDLE_DIR_INVERT   0   // set 1 if spindle turns the wrong way
+#define TRAVERSE_DIR_INVERT  0   // set 1 if traverse moves the wrong way
+#define ENCODER_INVERT        0   // 1 flips encoder A/B sense (if deltas are "negative" in forward)
 
 // Encoder (360 PPR, 1:1 with spindle)
 #define ENCODER_A_PIN       4

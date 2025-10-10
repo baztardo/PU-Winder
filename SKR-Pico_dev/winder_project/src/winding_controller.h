@@ -150,9 +150,17 @@ private:
     
     bool traverse_direction;  // true = forward, false = reverse
     float current_traverse_position_mm;
+
     bool ramp_started = false;
     uint32_t ramp_start_time = 0;
-    
+    // encoder/traverse sync state
+    double   turn_accum = 0.0;            // total turns (fractional) since start
+    int8_t   encoder_sign = 0;            // learned sign of "forward" (+1 or -1)
+    double   traverse_steps_emitted = 0.0;// how many traverse steps we have already sent
+    // Use two independent cursors so RPM math doesn’t fight sync
+    int32_t  enc_last_sync = 0;               // for sync_traverse_to_spindle()
+    int32_t  enc_last_rpm  = 0;               // for update_rpm()
+
     /**
      * @brief Home spindle to Z index
      */
