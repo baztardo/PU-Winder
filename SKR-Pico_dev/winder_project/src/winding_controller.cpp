@@ -388,63 +388,61 @@ void WindingController::execute_winding() {
 }
 
 void WindingController::sync_traverse_to_spindle() {
-    // Apply configured traverse direction (serpentine flips this boolean)
-    bool trav_dir_cmd = traverse_direction ^ (TRAVERSE_DIR_INVERT != 0);
-    move_queue->set_direction(AXIS_TRAVERSE, trav_dir_cmd);
+    // Current encoder position
+    const int32_t pos = encoder->get_position();
+    int32_t delta = pos - last_encoder_position;
 
-    // Read encoder
-    int32_t pos = encoder->get_position();
-    int32_t raw_delta = pos - enc_last_sync;
-    enc_last_sync = pos;
-
-    if (raw_delta == 0) return;
-
-    // Fix overall encoder polarity if needed
-    if (ENCODER_INVERT) raw_delta = -raw_delta;
-
-    // Learn “forward” sign once (positive when winding)
-    if (encoder_sign == 0) encoder_sign = (raw_delta > 0) ? 1 : -1;
-
-    int32_t delta_fwd = raw_delta * encoder_sign;
-    if (delta_fwd <= 0) {
-        // Not forward progress; don’t move traverse
+    if (delta <= 0) {
+        // no forward progress this tick
         return;
     }
 
-    // Accumulate fractional turns
-    turn_accum += (double)delta_fwd / (double)ENCODER_CPR;
-
-    // Handle completed full turns for layer logic
-    uint32_t new_full = (uint32_t)std::floor(turn_accum) - (uint32_t)turns_completed;
-    if (new_full > 0) {
-        turns_completed += new_full;
-        turns_this_layer += new_full;
-
-        if (turns_this_layer >= params.turns_per_layer) {
-            current_layer++;
-            turns_this_layer = 0;
-            traverse_direction = !traverse_direction;  // serpentine
-            lcd->printf_at(0, 2, "Layer: %lu/%lu", current_layer, params.total_layers);
-        }
+    // Full turns completed since last time
+    uint32_t new_turns = (uint32_t)(delta / ENCODER_CPR);
+    if (new_turns == 0) {
+        // Haven't crossed a full revolution yet; keep feeding spindle elsewhere
+        return;
     }
 
-    // Desired traverse steps so far = turns * pitch * steps_per_mm
-    const double steps_per_mm = (double)mm_to_steps(1.0f);
-    const double desired_steps = turn_accum * (double)params.wire_pitch_mm * steps_per_mm;
-    double need = desired_steps - traverse_steps_emitted;
-    int32_t steps_to_issue = (need > 0.0) ? (int32_t)std::floor(need) : 0;
+    // Bookkeeping
+    turns_completed   += new_turns;
+    turns_this_layer  += new_turns;
+    last_encoder_position += (int32_t)(new_turns * ENCODER_CPR);
 
-    if (steps_to_issue <= 0) return;
+    // End-of-layer handling
+    if (turns_this_layer >= params.turns_per_layer) {
+        current_layer++;
+        turns_this_layer = 0;
+        traverse_direction = !traverse_direction; // zig-zag
+        lcd->printf_at(0, 2, "Layer: %lu/%lu", current_layer, params.total_layers);
+    }
 
-    // Pick traverse speed to match spindle (or min)
-    float spindle_rps = params.spindle_rpm / 60.0f;
-    float mm_per_s    = spindle_rps * params.wire_pitch_mm;
-    float sps         = std::max((float)TRAVERSE_MIN_WINDING_SPEED, mm_per_s * (float)steps_per_mm);
+    // Required traverse distance for these turns
+    float traverse_mm = new_turns * params.wire_pitch_mm;
+    uint32_t traverse_steps = mm_to_steps(traverse_mm);
+    if (traverse_steps == 0) return;
 
-    auto chunks = StepCompressor::compress_constant_velocity((uint32_t)steps_to_issue, sps);
-    for (const auto& c : chunks) move_queue->push_chunk(AXIS_TRAVERSE, c);
+    // Use measured spindle RPM for true synchronization
+    // current_rpm is updated from encoder in update_rpm()
+    float spindle_rps_meas = current_rpm / 60.0f;
+    // Traverse speed (mm/s) = spindle RPS * wire pitch
+    float traverse_mmps = spindle_rps_meas * params.wire_pitch_mm;
 
-    traverse_steps_emitted += steps_to_issue;
+    // Convert to steps/s
+    float steps_per_mm = mm_to_steps(1.0f);
+    float traverse_sps = traverse_mmps * steps_per_mm;
+
+    // Floor to a minimum for smoothness
+    if (traverse_sps < TRAVERSE_MIN_WINDING_SPEED) {
+        traverse_sps = TRAVERSE_MIN_WINDING_SPEED;
+    }
+
+    // Queue the move
+    move_queue->set_direction(AXIS_TRAVERSE, traverse_direction);
+    auto chunks = StepCompressor::compress_constant_velocity(traverse_steps, traverse_sps);
+    for (const auto& c : chunks) {
+        move_queue->push_chunk(AXIS_TRAVERSE, c);
+    }
 }
 
 void WindingController::ramp_down_spindle() {
