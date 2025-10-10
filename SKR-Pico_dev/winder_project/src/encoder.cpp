@@ -36,39 +36,22 @@ void Encoder::init() {
 }
 
 void Encoder::update() {
-    // Read current state
     bool a = gpio_get(ENCODER_A_PIN);
     bool b = gpio_get(ENCODER_B_PIN);
-    bool z = gpio_get(ENCODER_Z_PIN);
-    
-    // Quadrature decoding
-    // A changes: if A==B, we're moving forward, else backward
-    if (a != last_a) {
-        if (a == b) {
-            position--;
-        } else {
-            position++;
-        }
-    }
-    
-    // B changes: if A!=B, we're moving forward, else backward
-    if (b != last_b) {
-        if (a != b) {
-            position--;
-        } else {
-            position++;
-        }
-    }
-    
-    // Z index pulse detection (rising edge)
-    if (z && !last_z) {
-        z_pulse_detected = true;
-    }
-    
-    // Update last state
+
+    uint8_t state = (a << 1) | b;
+    uint8_t last_state = (last_a << 1) | last_b;
+
+    int8_t table[4][4] = {
+        {  0, -1,  1,  0 },
+        {  1,  0,  0, -1 },
+        { -1,  0,  0,  1 },
+        {  0,  1, -1,  0 }
+    };
+    position += table[last_state][state];
+
     last_a = a;
     last_b = b;
-    last_z = z;
 }
 
 int32_t Encoder::get_position() const {
@@ -89,9 +72,7 @@ float Encoder::get_revolutions() const {
 }
 
 bool Encoder::check_z_pulse() {
-    bool detected = z_pulse_detected;
-    z_pulse_detected = false;  // Clear flag
-    return detected;
+    return gpio_get(ENCODER_Z_PIN) == 0;
 }
 
 float Encoder::get_velocity(float dt_seconds) {

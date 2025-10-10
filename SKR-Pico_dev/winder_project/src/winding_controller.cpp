@@ -502,6 +502,7 @@ void WindingController::update_rpm() {
     current_rpm = rps * 60.0f;
 
     last_rpm_update_time = now;
+    printf("[ENC] pos=%ld rpm=%.1f\n", (long)encoder->get_position(), current_rpm);
 }
 
 void WindingController::update_display() {
