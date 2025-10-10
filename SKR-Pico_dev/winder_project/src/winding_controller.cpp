@@ -105,6 +105,8 @@ void WindingController::update() {
             
         case WindingState::RAMPING_UP:
             ramp_up_spindle();
+            if (state == WindingState::WINDING)
+                sleep_ms(200);  // let the queue stabilize
             break;
             
         case WindingState::WINDING:
@@ -283,82 +285,58 @@ void WindingController::move_to_start() {
 }
 
 void WindingController::ramp_up_spindle() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Ramping Up...");
-    printf("Free heap before ramp: %u bytes\n", get_free_heap());
-    bool running = scheduler.is_running();
-    printf("Scheduler running before ramp? %s\n", running ? "YES" : "NO");
+    static bool initialized = false;
 
-    // --- Debug sanity check ---
-    if (params.spindle_rpm <= 0 || params.ramp_time_sec <= 0) {
-        lcd->print_at(0, 1, "Param error!");
-        printf("⚠️ ramp_up_spindle(): rpm=%.2f  ramp_time=%.2f\n",
-            params.spindle_rpm, params.ramp_time_sec);
-        sleep_ms(1000);
-        state = WindingState::ERROR;
-        running = scheduler.is_running();
-        printf("Scheduler running after ramp? %s\n", running ? "YES" : "NO");
-        printf("Free heap after ramp: %u bytes\n", get_free_heap());
-        return;
-    }
+    // One-time setup when entering ramp state
+    if (!initialized) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Ramping Up...");
 
-    if (!ramp_started) {
-        ramp_start_time = time_us_32();
-        ramp_started = true;
+        this->ramp_start_time = time_us_32();
+        this->ramp_started = true;
+        initialized = true;
 
-        // Calculate steps for ramp time
-        float target_rps = params.spindle_rpm / 60.0f;  // Revolutions per second
+        printf("=== Starting ramp-up ===\n");
+
+        float target_rps = params.spindle_rpm / 60.0f;
         uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-        float target_sps = target_rps * steps_per_rev;  // Steps per second
+        float target_sps = target_rps * steps_per_rev;
 
+        // Start from near-zero velocity
         uint32_t ramp_steps = (uint32_t)(target_sps * params.ramp_time_sec);
+        ramp_steps = std::min(ramp_steps, (uint32_t)8000);
 
-        // Generate ramp-up move
-        // Use static preallocated chunk buffer to prevent heap fragmentation
-        static std::vector<StepChunk> chunks;
-        chunks.clear();
-        chunks.reserve(32);
+        auto chunks = StepCompressor::compress_trapezoid(
+            ramp_steps,
+            0.0,                 // start velocity
+            target_sps,          // cruise velocity
+            target_sps / params.ramp_time_sec,
+            20.0
+        );
 
-        printf("Entering ramp_up_spindle()\n");
-        printf("Free heap start: %u\n", get_free_heap());
-
-        printf("About to generate step times...\n");
-
-        // Clamp ramp_steps for safety during testing
-        if (ramp_steps > 5000) ramp_steps = 5000;
-
-        // For diagnostics, define readable local values
-        double start_vel  = 0.0;
-        double cruise_vel = target_sps;
-        double accel      = target_sps / params.ramp_time_sec;
-
-        printf("About to generate/compress: steps=%lu start=%.3f cruise=%.3f accel=%.3f\n",
-            (unsigned long)ramp_steps, start_vel, cruise_vel, accel);
-
-        StepCompressor::compress_trapezoid_into(chunks,
-        ramp_steps, start_vel, cruise_vel,
-        accel * 0.15, 20.0);   // 15 % of current accel
-
-        printf("Finished compression.\n");
-
-        printf("Chunks generated: %u\n", (unsigned)chunks.size());
-        printf("Free heap after compress: %u\n", get_free_heap());
-
-        for (const auto& chunk : chunks) {
+        move_queue->clear_queue(AXIS_SPINDLE);
+        move_queue->set_direction(AXIS_SPINDLE, true);
+        for (const auto& chunk : chunks)
             move_queue->push_chunk(AXIS_SPINDLE, chunk);
-        }
+
+        printf("Ramp chunks queued: %u\n", (unsigned)chunks.size());
     }
 
-    lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
-    lcd->printf_at(0, 2, "Target: %.0f", params.spindle_rpm);
+    // Display progress
+    uint32_t elapsed_ms = (time_us_32() - this->ramp_start_time) / 1000;
+    lcd->printf_at(0, 1, "Time: %ums", elapsed_ms);
+    lcd->printf_at(0, 2, "Target: %.0fRPM", params.spindle_rpm);
 
-    // Check if ramp complete
-    uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
-    if (elapsed_ms > (params.ramp_time_sec * 1000)) {
+    // Wait until motion queue empties
+    if (!move_queue->is_active(AXIS_SPINDLE) && 
+        !move_queue->has_chunk(AXIS_SPINDLE)) {
+
+        printf("Ramp-up complete\n");
         lcd->print_at(0, 3, "At speed!");
-        sleep_ms(500);
+        sleep_ms(300);
+        initialized = false;
+        this->ramp_started = false;
         state = WindingState::WINDING;
-        ramp_started = false;
     }
 }
 
@@ -400,6 +378,9 @@ void WindingController::sync_traverse_to_spindle() {
     int32_t encoder_pos = encoder->get_position();
     int32_t encoder_delta = encoder_pos - last_encoder_position;
 
+    if (last_encoder_position == 0)
+    last_encoder_position = encoder_pos;
+
     // If no forward movement, bail
     if (encoder_delta <= 0) {
         printf("[SYNC] pos=%ld delta=%ld (no fwd)\n", (long)encoder_pos, (long)encoder_delta);
@@ -407,7 +388,7 @@ void WindingController::sync_traverse_to_spindle() {
     }
 
     // --- Test Mode: trigger partial sync every fraction of a rev ---
-    const uint32_t step_trigger = ENCODER_CPR / 40;   // every 1/40 revolution
+    const uint32_t step_trigger = ENCODER_CPR / 50;   // every 1/50 revolution
     uint32_t new_turns = encoder_delta / step_trigger;
 
     if (new_turns == 0) {
