@@ -150,6 +150,8 @@ private:
     
     bool traverse_direction;  // true = forward, false = reverse
     float current_traverse_position_mm;
+    bool ramp_started = false;
+    uint32_t ramp_start_time = 0;
     
     /**
      * @brief Home spindle to Z index

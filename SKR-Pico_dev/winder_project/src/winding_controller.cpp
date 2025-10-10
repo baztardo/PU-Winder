@@ -299,24 +299,20 @@ void WindingController::ramp_up_spindle() {
         running = scheduler.is_running();
         printf("Scheduler running after ramp? %s\n", running ? "YES" : "NO");
         printf("Free heap after ramp: %u bytes\n", get_free_heap());
-
         return;
     }
 
-    static bool ramp_started = false;
-    static uint32_t ramp_start_time = 0;
-    
     if (!ramp_started) {
         ramp_start_time = time_us_32();
         ramp_started = true;
-        
+
         // Calculate steps for ramp time
         float target_rps = params.spindle_rpm / 60.0f;  // Revolutions per second
         uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
         float target_sps = target_rps * steps_per_rev;  // Steps per second
-        
+
         uint32_t ramp_steps = (uint32_t)(target_sps * params.ramp_time_sec);
-        
+
         // Generate ramp-up move
         // Use static preallocated chunk buffer to prevent heap fragmentation
         static std::vector<StepChunk> chunks;
@@ -341,27 +337,26 @@ void WindingController::ramp_up_spindle() {
 
         StepCompressor::compress_trapezoid_into(chunks,
         ramp_steps, start_vel, cruise_vel,
-        accel * 0.3, 20.0);   // 30 % of current accel
+        accel * 0.15, 20.0);   // 15 % of current accel
 
         printf("Finished compression.\n");
 
         printf("Chunks generated: %u\n", (unsigned)chunks.size());
         printf("Free heap after compress: %u\n", get_free_heap());
-        
-        //for (const auto& chunk : chunks) {
-        //    move_queue->push_chunk(AXIS_SPINDLE, chunk);
-        //}
+
+        for (const auto& chunk : chunks) {
+            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+        }
     }
-    
+
     lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
     lcd->printf_at(0, 2, "Target: %.0f", params.spindle_rpm);
-    
+
     // Check if ramp complete
     uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
     if (elapsed_ms > (params.ramp_time_sec * 1000)) {
         lcd->print_at(0, 3, "At speed!");
         sleep_ms(500);
-        
         state = WindingState::WINDING;
         ramp_started = false;
     }
@@ -404,31 +399,27 @@ void WindingController::sync_traverse_to_spindle() {
     // Get current spindle position in encoder counts
     int32_t encoder_pos = encoder->get_position();
     int32_t encoder_delta = encoder_pos - last_encoder_position;
-    
-    // If no forward movement this tick, bail early
+
+    // If no forward movement, bail
     if (encoder_delta <= 0) {
-        // uncomment if you need to see this path:
         printf("[SYNC] pos=%ld delta=%ld (no fwd)\n", (long)encoder_pos, (long)encoder_delta);
         return;
     }
 
-    // How many *full turns* occurred since we last accounted?
-    // Calculate how many turns have completed
-    uint32_t new_turns = encoder_delta / ENCODER_CPR;
-    // Only log when we actually have a full turn or we’re “close”
+    // --- Test Mode: trigger partial sync every fraction of a rev ---
+    const uint32_t step_trigger = ENCODER_CPR / 40;   // every 1/40 revolution
+    uint32_t new_turns = encoder_delta / step_trigger;
+
     if (new_turns == 0) {
-        // helpful to see if we’re just under CPR all the time:
-        printf("[SYNC] pos=%ld delta=%ld < CPR=%u (no full turn yet)\n",
-        (long)encoder_pos, (long)encoder_delta, (unsigned)ENCODER_CPR);
-    } else {
-        printf("[SYNC] pos=%ld delta=%ld CPR=%u -> new_turns=%lu\n",
-            (long)encoder_pos, (long)encoder_delta,
-            (unsigned)ENCODER_CPR, (unsigned long)new_turns);
+        printf("[SYNC] pos=%ld delta=%ld < CPR/10=%u (no segment yet)\n",
+               (long)encoder_pos, (long)encoder_delta, (unsigned)step_trigger);
+        return;
     }
-    if (new_turns > 0) {
-        turns_completed += new_turns;
-        turns_this_layer += new_turns;
-        last_encoder_position += new_turns * ENCODER_CPR;
+
+    // Update counters (scaled so 10 small segments = 1 full turn)
+    turns_completed += new_turns;    // For LCD test
+    turns_this_layer += new_turns;
+    last_encoder_position += new_turns * step_trigger;
         
         // Calculate required traverse movement
         float traverse_move_mm = new_turns * params.wire_pitch_mm;
@@ -476,7 +467,6 @@ void WindingController::sync_traverse_to_spindle() {
                 move_queue->push_chunk(AXIS_TRAVERSE, chunk);
             }
         }
-    }
     
     // Keep spindle running at constant speed
     if (move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
@@ -552,6 +542,9 @@ void WindingController::update_rpm() {
 
 void WindingController::update_display() {
     if (state == WindingState::WINDING) {
+        // Update turn count directly from encoder position
+        turns_completed = encoder->get_position() / ENCODER_CPR;
+
         lcd->printf_at(0, 0, "Winding: %lu/%lu", 
                       turns_completed, params.target_turns);
         lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
