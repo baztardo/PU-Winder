@@ -64,6 +64,8 @@ public:
      */
     float get_velocity(float dt_seconds);
 
+    uint32_t get_isr_hits() const;
+
 private:
     volatile int32_t position;
     int32_t last_velocity_position;

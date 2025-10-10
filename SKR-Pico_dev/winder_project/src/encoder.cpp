@@ -6,6 +6,8 @@
 #include "config.h"
 #include "hardware/gpio.h"
 
+static volatile uint32_t g_isr_hits = 0;
+
 Encoder::Encoder()
     : position(0)
     , last_velocity_position(0)

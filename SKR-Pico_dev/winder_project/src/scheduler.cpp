@@ -21,6 +21,8 @@ struct StepperState {
 
 static StepperState steppers[4];  // X, Y, Z, E or spindle/traverse
 
+uint32_t Encoder::get_isr_hits() const { return g_isr_hits; }
+
 void scheduler_queue_step(uint axis, uint32_t interval_us, int32_t add_us, uint32_t count) {
     if (axis >= 4) return;  // safety check
     auto &s = steppers[axis];

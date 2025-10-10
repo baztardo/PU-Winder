@@ -148,6 +148,10 @@ int main() {
     init_motors();
     sleep_ms(1000);
     
+    // After constructing the Encoder object
+    encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
+    encoder.debug_status();    // optional: quick sanity print
+
     // Start scheduler ISR
     lcd.print_at(0, 3, "Scheduler...");
     if (!scheduler.start(HEARTBEAT_US)) {
