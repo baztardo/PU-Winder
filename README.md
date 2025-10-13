@@ -13,16 +13,15 @@ Automated Guitar Pick up winder
 <p>The Z should keep track of each revolution as it only pulse's once per/rev</p>
 <p>All counts should be able to go up and down depending on the rotation CW/CCW</p>
 <p>The spindle once started should run until it hits the winding target then stop.</p>
-
+<p>Target RPM 1000, 1500. The target turns depend on the pick up being wound</p>
 
 
 
 <h3>Hardware:</h3>
 <p>24v 6a Power supply</p>
-<p>Target RPM 1000, 1500</p>
 <p>TMC2209 drivers</p>
 <p>Encoder PPR 360 Quadrature A, B, Z, 5v, Gnd -- Resolution 1440 lines/pulse's</p>
-
+<p>BTT SKR-Pico V1.0</p>
 <p>Nema 17 Stepper Motor 1.8' 200 Steps -- 8 Microstepping -- 1600 Microsteps </p>
 <p></p>
 <p>I2C 4 Line 20 charactor LCD  2004A</p>
