@@ -48,7 +48,7 @@ Reference:
 <p>https://cdn-shop.adafruit.com/datasheets/TC2004A-01.pdf</p>
 <p>https://github.com/bigtreetech/SKR-Pico/blob/master/Hardware/BTT%20SKR%20Pico%20V1.0-PIN.pdf</p>
 <p>https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</p>
-
+<p>https://github.com/Klipper3d/klipper/tree/master/src</p>
 
 ---------------------------------------------------------------------------------
 New Photos
