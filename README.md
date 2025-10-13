@@ -39,7 +39,8 @@ Reference:
 
 ---------------------------------------------------------------------------------
 New Photos
-<img src="https://user-images.githubusercontent.com/99566898/ " width=40% height=40%>
+![20251013_134018](https://github.com/user-attachments/assets/634ed18b-aec4-4439-87cd-a1abc3a5f9f9)
+
 Some Prototype Photo's
 
 <img src="https://user-images.githubusercontent.com/99566898/153733756-61c28bf5-6e95-42fd-b2d8-9229b98b4e05.jpg" width=40% height=40%>
