@@ -1,9 +1,23 @@
 # PU-Winder
 Automated Guitar Pick up winder
 
-https://github.com/baz-snow-ss/PU-Winder/discussions/1
+
 
 <h3>The Goal is make an automated guitar pick up winder.</h3>
+<p>The Z Spindle to home, then the Traverse carriage home's hit the home switch and back off,</p>
+<p>Then it move to it home position approx. 20mm and waits to start</p>
+
+<p>The Traverse carriage should sync to the Spindles(Bobbin) RPM to ensure smooth even layers</p>
+<p>of the copper wire.</p>
+<p>The encoder A/B should track the pulse to ensure the spindle is turn CW/CCW and its movements</p>
+<p>The Z should keep track of each revolution as it only pulse's once per/rev</p>
+<p>All counts should be able to go up and down depending on the rotation CW/CCW</p>
+<p>The spindle once started should run until it hits the windoing target then stop.</p>
+
+
+
+
+<h3>Hardware:</h3>
 <p>24v 6a Power supply</p>
 <p>Target RPM 1000, 1500</p>
 <p>TMC2209 drivers</p>
