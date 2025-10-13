@@ -23,7 +23,7 @@ Automated Guitar Pick up winder
 <p>Encoder PPR 360 Quadrature A, B, Z, 5v, Gnd -- Resolution 1440 lines/pulse's</p>
 <p>BTT SKR-Pico V1.0</p>
 <p>Nema 17 Stepper Motor 1.8' 200 Steps -- 8 Microstepping -- 1600 Microsteps </p>
-<p></p>
+<p>Linear slde 100mm Whit Nema 11 stepper 6.0mm pitch lead screw</p>
 <p>I2C 4 Line 20 charactor LCD  2004A</p>
 
 
