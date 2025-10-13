@@ -12,7 +12,7 @@ Automated Guitar Pick up winder
 <p>The encoder A/B should track the pulse to ensure the spindle is turn CW/CCW and its movements</p>
 <p>The Z should keep track of each revolution as it only pulse's once per/rev</p>
 <p>All counts should be able to go up and down depending on the rotation CW/CCW</p>
-<p>The spindle once started should run until it hits the windoing target then stop.</p>
+<p>The spindle once started should run until it hits the winding target then stop.</p>
 
 
 
