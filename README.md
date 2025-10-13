@@ -4,24 +4,25 @@ Automated Guitar Pick up winder
 https://github.com/baz-snow-ss/PU-Winder/discussions/1
 
 <h3>The Goal is make an automated guitar pick up winder.</h3>
+<p>24v 6a Power supply</p>
+<p>Target RPM 1000, 1500</p>
+<p>TMC2209 drivers</p>
+<p>Encoder PPR 360 Quadrature A, B, Z, 5v, Gnd -- Resolution 1440 lines/pulse's</p>
 
-<p>12/24 V DC Motor 1150/2450 RPM  -- geared 3:1   T60/T20 </p>
-<p>H-Bridge Driver - whit ENA1(pwm), IN1, IN2 </p>
-<p>600 P/R Quadrature Encoder A, B, 5v, Gnd -- Resolution 2400 lines/pulse's</p>
+<p>Nema 17 Stepper Motor 1.8' 200 Steps -- 8 Microstepping -- 1600 Microsteps </p>
+<p></p>
+<p>I2C 4 Line 20 charactor LCD  2004A</p>
 
-<p>Stepper Motor 1.8' 200 Steps -- 8 Microstepping -- 1600 Microsteps </p>
-<p>Stepper Driver 24V DM556</p>
-<p>I2C 4 Line LCD</p>
-<p>Hal sensors x2</p>
 
 ---------------------------------------------------------------------------------
 
 <p><h3>MPU's</h3></p>
-<p>I need help to write code for the STM32 </p>
-<p>I have better boards but need to learn more about the STM32</p>
+<p>I Would like to use an STM32 but I not familiar whit it.</p>
+<p></p>
 <p>All of my past development has been on the Arduino</p>
-<p>Maybe start whit the STM32 Backpill</p>
-<p>Arduino Mega 2560 -- I dont think the Arduino if powerful enough to keep track of the encoder it losing steps</p>
+<p>I have decided to move the Pico using the VSCode IDE and the Pico-sdk </p>
+<p>I have chosen the SKR-Pico control board since it has most of what I need on board in a small package</p>
+
 ---------------------------------------------------------------------------------
 <p>Bobbin 7 mm Width</p>
 <p>copper winding Wire 43 AWG -- 0.0024" -- 0.0635 mm</p>
@@ -29,7 +30,16 @@ https://github.com/baz-snow-ss/PU-Winder/discussions/1
 Single coil is approx 5000 Turns approx.
 P90 coil is 10,000 turns approx.</P>
 
+
+Reference:
+<p>https://cdn-shop.adafruit.com/datasheets/TC2004A-01.pdf</p>
+<p>https://github.com/bigtreetech/SKR-Pico/blob/master/Hardware/BTT%20SKR%20Pico%20V1.0-PIN.pdf</p>
+<p>https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf</p>
+
+
 ---------------------------------------------------------------------------------
+New Photos
+<img src="https://user-images.githubusercontent.com/99566898/ " width=40% height=40%>
 Some Prototype Photo's
 
 <img src="https://user-images.githubusercontent.com/99566898/153733756-61c28bf5-6e95-42fd-b2d8-9229b98b4e05.jpg" width=40% height=40%>
