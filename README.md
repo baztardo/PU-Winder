@@ -33,7 +33,7 @@ Automated Guitar Pick up winder
 <p>I Would like to use an STM32 but I not familiar whit it.</p>
 <p></p>
 <p>All of my past development has been on the Arduino</p>
-<p>I have decided to move the Pico using the VSCode IDE and the Pico-sdk </p>
+<p>I have decided to move to the Pico using VSCode IDE, and the Pico-sdk </p>
 <p>I have chosen the SKR-Pico control board since it has most of what I need on board in a small package</p>
 
 ---------------------------------------------------------------------------------
