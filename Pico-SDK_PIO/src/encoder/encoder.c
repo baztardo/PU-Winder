@@ -4,6 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Z counting robustness knobs
+#ifndef Z_MIN_INTERVAL_US
+#define Z_MIN_INTERVAL_US 1000u  // ignore Z edges within 1ms of last (debounce)
+#endif
+#ifndef Z_REQUIRE_AB_STATE
+#define Z_REQUIRE_AB_STATE 1     // require A/B to be in a specific state when Z triggers
+#endif
+#ifndef Z_REQUIRED_AB_STATE
+#define Z_REQUIRED_AB_STATE 0x3  // typical index gating when A=1 and B=1
+#endif
+
 static encoder_t *global_encoder = NULL;
 
 const int8_t encoder_states[16] = {
@@ -18,12 +29,21 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     if (gpio != global_encoder->pin_z) return;
     
     uint64_t current_time = time_us_64();
-    if (current_time - global_encoder->last_z_time < 15000) {
+    if (current_time - global_encoder->last_z_time < Z_MIN_INTERVAL_US) {
         return;
     }
     
     static int32_t last_z_count = 0;
     int32_t counts_since_last = labs(global_encoder->count - last_z_count);
+    
+    // Optional gating: only accept Z when A/B at required state
+    if (Z_REQUIRE_AB_STATE) {
+        uint ab = ((gpio_get(global_encoder->pin_a) & 1) << 1) |
+                  (gpio_get(global_encoder->pin_b) & 1);
+        if (ab != Z_REQUIRED_AB_STATE) {
+            return;
+        }
+    }
     
     // Count every qualified Z edge; rely on time debounce above to avoid bounce
     printf("Z pulse! Count: %ld (delta: %ld)\n",
