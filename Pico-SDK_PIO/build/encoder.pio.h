@@ -18,7 +18,7 @@
 
 static const uint16_t quadrature_encoder_program_instructions[] = {
             //     .wrap_target
-    0x4002, //  0: in     pins, 2
+    0x4702, //  0: in     pins, 2                [7]
     0x8000, //  1: push   noblock
             //     .wrap
 };
@@ -42,27 +42,20 @@ static inline pio_sm_config quadrature_encoder_program_get_default_config(uint o
 
 static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset, uint pin_a) {
     pio_sm_config c = quadrature_encoder_program_get_default_config(offset);
-    // Configure the pins BEFORE giving them to PIO
-    gpio_init(pin_a);
-    gpio_init(pin_a + 1);
-    gpio_set_dir(pin_a, GPIO_IN);
-    gpio_set_dir(pin_a + 1, GPIO_IN);
-    gpio_pull_up(pin_a);
-    gpio_pull_up(pin_a + 1);
-    // Now give pins to PIO
+    // Set input pins (A and B are consecutive)
+    sm_config_set_in_pins(&c, pin_a);
+    // Initialize the pins
     pio_gpio_init(pio, pin_a);
     pio_gpio_init(pio, pin_a + 1);
-    // Set as inputs
+    // Set both pins as inputs
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
-    // Configure input pins
-    sm_config_set_in_pins(&c, pin_a);
-    // Shift config
-    sm_config_set_in_shift(&c, false, false, 32);
-    // ⭐⭐⭐ ONLY CHANGE THIS ONE LINE ⭐⭐⭐
-    sm_config_set_clkdiv(&c, 4.0f);     // Change from 250.0f to 4.0f
-    // Join FIFOs
+    // Shift config: shift right, autopush disabled
+    sm_config_set_in_shift(&c, true, false, 32);
+    // Clock divider: 125MHz / 10 = 12.5MHz / 8 cycles = ~1.5MHz sample rate
+    sm_config_set_clkdiv(&c, 10.0f);
+    // Join FIFOs to make RX FIFO deeper
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
-    // Initialize and start
+    // Initialize and start the state machine
     pio_sm_init(pio, sm, offset, &c);
     pio_sm_set_enabled(pio, sm, true);
 }
