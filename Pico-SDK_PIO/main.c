@@ -100,15 +100,7 @@ while (1) {
     bool is_cw = encoder_get_direction(&encoder);
     float rpm = encoder_get_rpm(&encoder);
     
-    // DEBUG PINS - ADD THIS
-    static uint32_t last_pin_check = 0;
-    uint32_t time_now = to_ms_since_boot(get_absolute_time());
-    if (time_now - last_pin_check > 100) {
-        printf("RAW: A=%d B=%d Z=%d | Cnt=%ld\n",
-               gpio_get(ENCODER_A_PIN), gpio_get(ENCODER_B_PIN), 
-               gpio_get(ENCODER_Z_PIN), count);
-        last_pin_check = time_now;
-    }
+    // Quiet mode: remove periodic RAW pin prints
     
     // Update display every UPDATE_INTERVAL_MS
     if (time_now - last_display_update >= UPDATE_INTERVAL_MS) {
