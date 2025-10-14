@@ -61,6 +61,12 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     enc->current_rpm = 0.0f;
     enc->last_state = 0;
     
+    // Ensure inputs have defined level before handing to PIO
+    gpio_init(pin_a);
+    gpio_init(pin_b);
+    gpio_pull_up(pin_a);
+    gpio_pull_up(pin_b);
+
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
         printf("ERROR: Cannot add PIO program\n");
         return false;
@@ -83,7 +89,7 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     
     printf("PIO state machine initialized and running\n");
     printf("  Pin A (input): GPIO %d\n", pin_a);
-    printf("  Pin B (input): GPIO %d\n", pin_a + 1);
+    printf("  Pin B (input): GPIO %d\n", pin_b);
     
     sleep_ms(100);
     
@@ -103,15 +109,17 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
         printf("=== END FIFO DUMP ===\n\n");
     }
     
-    // Read one more entry as initial state
-    if (!pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
+    // Read several entries to settle and establish a solid initial state
+    uint8_t observed_state = 0xFF;
+    for (int i = 0; i < 8 && !pio_sm_is_rx_fifo_empty(pio, enc->sm); i++) {
         uint32_t data = pio_sm_get(pio, enc->sm);
-        enc->last_state = data & 0x03;
-        printf("Initial state set to: 0x%02X (A=%d, B=%d)\n", 
-               enc->last_state, 
-               (enc->last_state >> 1) & 1, 
-               enc->last_state & 1);
+        observed_state = (uint8_t)(data & 0x03);
     }
+    enc->last_state = (observed_state == 0xFF) ? 0 : observed_state;
+    printf("Initial state set to: 0x%02X (A=%d, B=%d)\n",
+           enc->last_state,
+           (enc->last_state >> 1) & 1,
+           enc->last_state & 1);
     
     // Configure Z pin
     gpio_init(pin_z);
@@ -142,7 +150,7 @@ void encoder_process(encoder_t *enc) {
     
     while (!pio_sm_is_rx_fifo_empty(enc->pio, enc->sm)) {
         uint32_t data = pio_sm_get(enc->pio, enc->sm);
-        uint8_t current_state = data & 0x03;
+        uint8_t current_state = (uint8_t)(data & 0x03);
         
         fifo_reads_this_call++;
         total_reads++;
@@ -156,7 +164,7 @@ void encoder_process(encoder_t *enc) {
         }
         
         if (current_state != enc->last_state) {
-            uint8_t index = (enc->last_state << 2) | current_state;
+            uint8_t index = (uint8_t)((enc->last_state << 2) | current_state);
             int8_t change = encoder_states[index];
             
             if (total_reads <= 100) {
