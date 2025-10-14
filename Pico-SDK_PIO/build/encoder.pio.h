@@ -53,10 +53,10 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     // Set pin directions: both inputs
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
     // Input shift config:
-    // - Shift right (LSB first)
-    // - No autopush (we push manually)
-    // - 32-bit threshold (not used since no autopush)
-    sm_config_set_in_shift(&c, true, false, 32);
+    // - Shift left so new bits enter at LSB
+    // - No autopush (we push manually each sample)
+    // - 32-bit threshold (irrelevant without autopush)
+    sm_config_set_in_shift(&c, false, false, 32);
     // Clock divider
     // 125 MHz / 10 = 12.5 MHz
     // With the [7] delay, effective sample rate is 12.5MHz / 8 = 1.56 MHz

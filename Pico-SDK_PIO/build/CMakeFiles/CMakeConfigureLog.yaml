@@ -34,7 +34,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/uname"
       - "/opt/homebrew/bin/uname"
@@ -58,7 +57,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -101,7 +99,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -144,7 +141,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -187,7 +183,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -230,7 +225,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "message-v1"
     backtrace:
@@ -274,7 +268,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/gmake"
       - "/opt/homebrew/bin/gmake"
@@ -290,7 +283,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/gmake"
       - "/usr/local/share/dotnet/gmake"
       - "/Users/ssnow/.dotnet/tools/gmake"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/gmake"
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/make"
       - "/opt/homebrew/bin/make"
       - "/opt/homebrew/sbin/make"
@@ -313,7 +305,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -357,8 +348,339 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/ssnow/.dotnet/tools/"
+    searched_directories:
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/uname"
+      - "/opt/homebrew/bin/uname"
+      - "/opt/homebrew/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/System/Cryptexes/App/usr/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:12 (find_program)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:39 (pico_find_compiler)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/pico_arm_gcc_common.cmake:25 (pico_find_compiler_with_triples)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake:7 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:146 (include)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "PICO_COMPILER_CC"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "arm-none-eabi-gcc"
+    candidate_directories:
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/"
+    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc"
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:12 (find_program)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:39 (pico_find_compiler)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/pico_arm_gcc_common.cmake:26 (pico_find_compiler_with_triples)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake:7 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:146 (include)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "PICO_COMPILER_CXX"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "arm-none-eabi-g++"
+    candidate_directories:
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/"
+    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++"
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:12 (find_program)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:39 (pico_find_compiler)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/pico_arm_gcc_common.cmake:28 (pico_find_compiler_with_triples)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake:7 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:146 (include)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "PICO_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "arm-none-eabi-objcopy"
+    candidate_directories:
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/"
+    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:12 (find_program)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/find_compiler.cmake:39 (pico_find_compiler)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/util/pico_arm_gcc_common.cmake:29 (pico_find_compiler_with_triples)"
+      - "/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake:7 (include)"
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:146 (include)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "PICO_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "arm-none-eabi-objdump"
+    candidate_directories:
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
+      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/"
+    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump"
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:207 (message)"
+      - "CMakeLists.txt:19 (project)"
+    message: |
+      The target system is: PICO -  - cortex-m0plus
+      The host system is: Darwin - 25.0.0 - arm64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/homebrew/share/cmake/Modules/CMakeNinjaFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:19 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Program used to build from build.ninja files."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ninja-build"
+      - "ninja"
+      - "samu"
+    candidate_directories:
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
+      - "/opt/homebrew/bin/"
+      - "/opt/homebrew/sbin/"
+      - "/usr/local/bin/"
+      - "/System/Cryptexes/App/usr/bin/"
+      - "/usr/bin/"
+      - "/bin/"
+      - "/usr/sbin/"
+      - "/sbin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/usr/local/share/dotnet/"
+      - "/Users/ssnow/.dotnet/tools/"
+    searched_directories:
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/ninja-build"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/ninja"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/samu"
+      - "/opt/homebrew/bin/ninja-build"
+      - "/opt/homebrew/bin/ninja"
+      - "/opt/homebrew/bin/samu"
+      - "/opt/homebrew/sbin/ninja-build"
+      - "/opt/homebrew/sbin/ninja"
+      - "/opt/homebrew/sbin/samu"
+      - "/usr/local/bin/ninja-build"
+      - "/usr/local/bin/ninja"
+      - "/usr/local/bin/samu"
+      - "/System/Cryptexes/App/usr/bin/ninja-build"
+      - "/System/Cryptexes/App/usr/bin/ninja"
+      - "/System/Cryptexes/App/usr/bin/samu"
+      - "/usr/bin/ninja-build"
+      - "/usr/bin/ninja"
+      - "/usr/bin/samu"
+      - "/bin/ninja-build"
+      - "/bin/ninja"
+      - "/bin/samu"
+      - "/usr/sbin/ninja-build"
+      - "/usr/sbin/ninja"
+      - "/usr/sbin/samu"
+      - "/sbin/ninja-build"
+      - "/sbin/ninja"
+      - "/sbin/samu"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/ninja-build"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/ninja"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/samu"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/ninja-build"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/ninja"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/samu"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/ninja-build"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/ninja"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/samu"
+      - "/usr/local/share/dotnet/ninja-build"
+      - "/usr/local/share/dotnet/ninja"
+      - "/usr/local/share/dotnet/samu"
+      - "/Users/ssnow/.dotnet/tools/ninja-build"
+      - "/Users/ssnow/.dotnet/tools/ninja"
+      - "/Users/ssnow/.dotnet/tools/samu"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/usr/local/share/dotnet"
+        - "~/.dotnet/tools"
+      CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
+...
   -
     kind: "message-v1"
     backtrace:
@@ -368,24 +690,13 @@ events:
       - "CMakeLists.txt:19 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc 
+      Compiler: /opt/homebrew/bin/arm-none-eabi-gcc 
       Build flags: -mcpu=cortex-m0plus;-mthumb
       Id flags:  
       
       The output was:
       1
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o): in function `exit':
-      exit.c:(.text.exit+0x16): undefined reference to `_exit'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-closer.o): in function `_close_r':
-      closer.c:(.text._close_r+0xc): undefined reference to `_close'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lseekr.o): in function `_lseek_r':
-      lseekr.c:(.text._lseek_r+0x10): undefined reference to `_lseek'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-readr.o): in function `_read_r':
-      readr.c:(.text._read_r+0x10): undefined reference to `_read'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
-      sbrkr.c:(.text._sbrk_r+0xc): undefined reference to `_sbrk'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-writer.o): in function `_write_r':
-      writer.c:(.text._write_r+0x10): undefined reference to `_write'
+      /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: cannot open output file a.out: No such file or directory
       collect2: error: ld returned 1 exit status
       
       
@@ -431,7 +742,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "message-v1"
@@ -442,7 +752,7 @@ events:
       - "CMakeLists.txt:19 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-      Compiler: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc 
+      Compiler: /opt/homebrew/bin/arm-none-eabi-gcc 
       Build flags: -mcpu=cortex-m0plus;-mthumb
       Id flags: -c 
       
@@ -476,9 +786,8 @@ events:
       - "arm-none-eabi-ar"
       - "ar"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -491,8 +800,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ar"
+    found: "/opt/homebrew/bin/arm-none-eabi-ar"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -509,7 +817,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -532,9 +839,8 @@ events:
       - "arm-none-eabi-ranlib"
       - "ranlib"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -547,8 +853,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ranlib"
+    found: "/opt/homebrew/bin/arm-none-eabi-ranlib"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -565,7 +870,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -588,9 +892,8 @@ events:
       - "arm-none-eabi-strip"
       - "strip"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -603,8 +906,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-strip"
+    found: "/opt/homebrew/bin/arm-none-eabi-strip"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -621,7 +923,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -644,9 +945,8 @@ events:
       - "arm-none-eabi-ld"
       - "ld"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -659,8 +959,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ld"
+    found: "/opt/homebrew/bin/arm-none-eabi-ld"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -677,7 +976,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -700,9 +998,8 @@ events:
       - "arm-none-eabi-nm"
       - "nm"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -715,8 +1012,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-nm"
+    found: "/opt/homebrew/bin/arm-none-eabi-nm"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -733,7 +1029,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -756,9 +1051,8 @@ events:
       - "arm-none-eabi-readelf"
       - "readelf"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -771,8 +1065,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-readelf"
+    found: "/opt/homebrew/bin/arm-none-eabi-readelf"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -789,7 +1082,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -812,9 +1104,8 @@ events:
       - "arm-none-eabi-dlltool"
       - "dlltool"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -827,11 +1118,9 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-dlltool"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-dlltool"
       - "/opt/homebrew/bin/arm-none-eabi-dlltool"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-dlltool"
       - "/opt/homebrew/sbin/arm-none-eabi-dlltool"
       - "/usr/local/bin/arm-none-eabi-dlltool"
       - "/System/Cryptexes/App/usr/bin/arm-none-eabi-dlltool"
@@ -844,10 +1133,8 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-dlltool"
       - "/usr/local/share/dotnet/arm-none-eabi-dlltool"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-dlltool"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-dlltool"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/dlltool"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/dlltool"
       - "/opt/homebrew/bin/dlltool"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/dlltool"
       - "/opt/homebrew/sbin/dlltool"
       - "/usr/local/bin/dlltool"
       - "/System/Cryptexes/App/usr/bin/dlltool"
@@ -860,7 +1147,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dlltool"
       - "/usr/local/share/dotnet/dlltool"
       - "/Users/ssnow/.dotnet/tools/dlltool"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/dlltool"
     found: false
     search_context:
       ENV{PATH}:
@@ -878,7 +1164,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -901,9 +1186,8 @@ events:
       - "arm-none-eabi-addr2line"
       - "addr2line"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -916,8 +1200,7 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-addr2line"
+    found: "/opt/homebrew/bin/arm-none-eabi-addr2line"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -934,7 +1217,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -957,9 +1239,8 @@ events:
       - "arm-none-eabi-tapi"
       - "tapi"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -972,11 +1253,9 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-tapi"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-tapi"
       - "/opt/homebrew/bin/arm-none-eabi-tapi"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-tapi"
       - "/opt/homebrew/sbin/arm-none-eabi-tapi"
       - "/usr/local/bin/arm-none-eabi-tapi"
       - "/System/Cryptexes/App/usr/bin/arm-none-eabi-tapi"
@@ -989,10 +1268,8 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-tapi"
       - "/usr/local/share/dotnet/arm-none-eabi-tapi"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-tapi"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-tapi"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/tapi"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/tapi"
       - "/opt/homebrew/bin/tapi"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/tapi"
       - "/opt/homebrew/sbin/tapi"
       - "/usr/local/bin/tapi"
       - "/System/Cryptexes/App/usr/bin/tapi"
@@ -1005,7 +1282,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/tapi"
       - "/usr/local/share/dotnet/tapi"
       - "/Users/ssnow/.dotnet/tools/tapi"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/tapi"
     found: false
     search_context:
       ENV{PATH}:
@@ -1023,7 +1299,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -1043,14 +1318,13 @@ events:
       CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
       CMAKE_FIND_USE_INSTALL_PREFIX: true
     names:
-      - "arm-none-eabi-gcc-ar-14.2"
-      - "arm-none-eabi-gcc-ar-14"
-      - "arm-none-eabi-gcc-ar14"
+      - "arm-none-eabi-gcc-ar-15.2"
+      - "arm-none-eabi-gcc-ar-15"
+      - "arm-none-eabi-gcc-ar15"
       - "arm-none-eabi-gcc-ar"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1063,57 +1337,50 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar-14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/sbin/arm-none-eabi-gcc-ar-14"
-      - "/sbin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/sbin/arm-none-eabi-gcc-ar14"
-      - "/sbin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar14"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-15.2"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-15.2"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar-15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/sbin/arm-none-eabi-gcc-ar-15"
+      - "/sbin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-15"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/sbin/arm-none-eabi-gcc-ar15"
+      - "/sbin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar15"
+    found: "/opt/homebrew/bin/arm-none-eabi-gcc-ar"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -1130,7 +1397,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -1150,14 +1416,13 @@ events:
       CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
       CMAKE_FIND_USE_INSTALL_PREFIX: true
     names:
-      - "arm-none-eabi-gcc-ranlib-14.2"
-      - "arm-none-eabi-gcc-ranlib-14"
-      - "arm-none-eabi-gcc-ranlib14"
+      - "arm-none-eabi-gcc-ranlib-15.2"
+      - "arm-none-eabi-gcc-ranlib-15"
+      - "arm-none-eabi-gcc-ranlib15"
       - "arm-none-eabi-gcc-ranlib"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1170,57 +1435,50 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib14"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-15.2"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-15.2"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-15"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib15"
+    found: "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -1237,7 +1495,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -1281,7 +1538,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "message-v1"
@@ -1292,24 +1548,16 @@ events:
       - "CMakeLists.txt:19 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
-      Compiler: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ 
+      Compiler: /opt/homebrew/bin/arm-none-eabi-g++ 
       Build flags: -mcpu=cortex-m0plus;-mthumb
       Id flags:  
       
       The output was:
       1
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-exit.o): in function `exit':
-      exit.c:(.text.exit+0x16): undefined reference to `_exit'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-closer.o): in function `_close_r':
-      closer.c:(.text._close_r+0xc): undefined reference to `_close'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-lseekr.o): in function `_lseek_r':
-      lseekr.c:(.text._lseek_r+0x10): undefined reference to `_lseek'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-readr.o): in function `_read_r':
-      readr.c:(.text._read_r+0x10): undefined reference to `_read'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-sbrkr.o): in function `_sbrk_r':
-      sbrkr.c:(.text._sbrk_r+0xc): undefined reference to `_sbrk'
-      /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(libc_a-writer.o): in function `_write_r':
-      writer.c:(.text._write_r+0x10): undefined reference to `_write'
+      /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: cannot find crt0.o: No such file or directory
+      /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: cannot find -lstdc++: No such file or directory
+      /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: cannot find -lm: No such file or directory
+      /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: cannot find -lc: No such file or directory
       collect2: error: ld returned 1 exit status
       
       
@@ -1355,7 +1603,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "message-v1"
@@ -1366,7 +1613,7 @@ events:
       - "CMakeLists.txt:19 (project)"
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler: /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ 
+      Compiler: /opt/homebrew/bin/arm-none-eabi-g++ 
       Build flags: -mcpu=cortex-m0plus;-mthumb
       Id flags: -c 
       
@@ -1397,14 +1644,13 @@ events:
       CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
       CMAKE_FIND_USE_INSTALL_PREFIX: true
     names:
-      - "arm-none-eabi-gcc-ar-14.2"
-      - "arm-none-eabi-gcc-ar-14"
-      - "arm-none-eabi-gcc-ar14"
+      - "arm-none-eabi-gcc-ar-15.2"
+      - "arm-none-eabi-gcc-ar-15"
+      - "arm-none-eabi-gcc-ar15"
       - "arm-none-eabi-gcc-ar"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1417,57 +1663,50 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/sbin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-14.2"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-14.2"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar-14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/sbin/arm-none-eabi-gcc-ar-14"
-      - "/sbin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-14"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ar14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/sbin/arm-none-eabi-gcc-ar14"
-      - "/sbin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar14"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/sbin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-15.2"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-15.2"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-15.2"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar-15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar-15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/sbin/arm-none-eabi-gcc-ar-15"
+      - "/sbin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-15"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ar15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ar15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ar15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/sbin/arm-none-eabi-gcc-ar15"
+      - "/sbin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ar15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar15"
+    found: "/opt/homebrew/bin/arm-none-eabi-gcc-ar"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -1484,7 +1723,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -1504,14 +1742,13 @@ events:
       CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
       CMAKE_FIND_USE_INSTALL_PREFIX: true
     names:
-      - "arm-none-eabi-gcc-ranlib-14.2"
-      - "arm-none-eabi-gcc-ranlib-14"
-      - "arm-none-eabi-gcc-ranlib14"
+      - "arm-none-eabi-gcc-ranlib-15.2"
+      - "arm-none-eabi-gcc-ranlib-15"
+      - "arm-none-eabi-gcc-ranlib15"
       - "arm-none-eabi-gcc-ranlib"
     candidate_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/bin/"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1524,57 +1761,50 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/sbin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-14.2"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-14.2"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/sbin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-14"
-      - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib14"
-      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib14"
-      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/local/bin/arm-none-eabi-gcc-ranlib14"
-      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/sbin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib14"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib14"
-      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib14"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib14"
-    found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/sbin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-15.2"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-15.2"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-15.2"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/sbin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-15"
+      - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib15"
+      - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib15"
+      - "/opt/homebrew/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/local/bin/arm-none-eabi-gcc-ranlib15"
+      - "/System/Cryptexes/App/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/sbin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/arm-none-eabi-gcc-ranlib15"
+      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib15"
+      - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib15"
+      - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib15"
+    found: "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib"
     search_context:
       ENV{PATH}:
         - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin"
@@ -1591,7 +1821,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "message-v1"
@@ -1644,7 +1873,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-"
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-"
@@ -1661,7 +1889,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-"
       - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-"
       - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar-"
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ar-"
       - "/opt/homebrew/bin/arm-none-eabi-gcc-ar-"
@@ -1677,7 +1904,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ar-"
       - "/usr/local/share/dotnet/arm-none-eabi-gcc-ar-"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ar-"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ar-"
     found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar"
     search_context:
       ENV{PATH}:
@@ -1695,7 +1921,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "find-v1"
@@ -1735,7 +1960,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-"
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-"
@@ -1752,7 +1976,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-"
       - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-"
       - "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib-"
       - "/Users/ssnow/.nvm/versions/node/v22.20.0/bin/arm-none-eabi-gcc-ranlib-"
       - "/opt/homebrew/bin/arm-none-eabi-gcc-ranlib-"
@@ -1768,7 +1991,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/arm-none-eabi-gcc-ranlib-"
       - "/usr/local/share/dotnet/arm-none-eabi-gcc-ranlib-"
       - "/Users/ssnow/.dotnet/tools/arm-none-eabi-gcc-ranlib-"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/arm-none-eabi-gcc-ranlib-"
     found: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib"
     search_context:
       ENV{PATH}:
@@ -1786,7 +2008,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_FIND_ROOT_PATH: "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1"
   -
     kind: "try_compile-v1"
@@ -1797,8 +2018,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-4Z3ONc"
-      binary: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-4Z3ONc"
+      source: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-KbEh9x"
+      binary: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-KbEh9x"
     cmakeVariables:
       CMAKE_C_FLAGS: "-mcpu=cortex-m0plus -mthumb"
       CMAKE_C_FLAGS_DEBUG: "-Og -g"
@@ -1809,60 +2030,56 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-4Z3ONc'
+        Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-KbEh9x'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d4f5f/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d4f5f.dir/build.make CMakeFiles/cmTC_d4f5f.dir/build
-        Building C object CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d9555/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d9555.dir/build.make CMakeFiles/cmTC_d9555.dir/build
+        Building C object CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o
+        /opt/homebrew/bin/arm-none-eabi-gcc   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Using built-in specs.
-        COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc
+        COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-gcc
         Target: arm-none-eabi
-        Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)'
+        Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib
         Thread model: single
-        Supported LTO compression algorithms: zlib
-        gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/cc1 -quiet -v -imultilib thumb/v6-m/nofp -iprefix /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/ -isysroot /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d4f5f.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccorgXVQ.s
-        GNU C17 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) version 14.2.1 20241119 (arm-none-eabi)
-        	compiled by GNU C version Apple LLVM 13.0.0 (clang-1300.0.29.30), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/'
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/cc1 -quiet -v -imultilib thumb/v6-m/nofp -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d9555.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc7Yx9Ed.s
+        GNU C23 (GCC) version 15.2.0 (arm-none-eabi)
+        	compiled by GNU C version Apple LLVM 17.0.0 (clang-1700.3.19.1), GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include"
-        ignoring nonexistent directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/usr/local/include"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include-fixed"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/include"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/sys-include"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include"
         #include "..." search starts here:
         #include <...> search starts here:
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed
         End of search list.
-        Compiler executable checksum: 37d23b2e3347d18c1231e07805cbe085
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccorgXVQ.s
-        GNU assembler version 2.43.1 (arm-none-eabi) using BFD version (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 2.43.1.20241119
-        COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/
-        LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.'
-        Linking C executable cmTC_d4f5f.elf
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4f5f.dir/link.txt --verbose=1
+        Compiler executable checksum: 3667341c96678119910ea295191fd11e
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/'
+         /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc7Yx9Ed.s
+        GNU assembler version 2.45 (arm-none-eabi) using BFD version (GNU Binutils) 2.45
+        COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/
+        LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_d9555.elf
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9555.dir/link.txt --verbose=1
         Using built-in specs.
-        COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc
-        COLLECT_LTO_WRAPPER=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper
+        COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-gcc
+        COLLECT_LTO_WRAPPER=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper
         Target: arm-none-eabi
-        Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)'
+        Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib
         Thread model: single
-        Supported LTO compression algorithms: zlib
-        gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 
-        COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/
-        LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d4f5f.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d4f5f.elf.'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2 -plugin /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so -plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc1z6DEL.res --sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -X -o cmTC_d4f5f.elf -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1 -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 00008000
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d4f5f.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d4f5f.elf.'
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb  -Wl,--build-id=none -nostdlib  -v CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o -o cmTC_d4f5f.elf
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (GCC) 
+        COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/
+        LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d9555.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d9555.elf.'
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2 -plugin /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so -plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccNKaixE.res -X -o cmTC_d9555.elf -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0 --build-id=none CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o
+        /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 00008000
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d9555.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d9555.elf.'
+        /opt/homebrew/bin/arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb  -Wl,--build-id=none -nostdlib  -v CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o -o cmTC_d9555.elf
         
       exitCode: 0
   -
@@ -1875,14 +2092,12 @@ events:
       Parsed C implicit include dir info: rv=done
         found start of include info
         found start of implicit include info
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include]
+          add: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+          add: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
         end of search list found
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include]
-        implicit include dirs: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include-fixed;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include]
+        collapse include dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+        collapse include dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
+        implicit include dirs: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include;/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
       
       
   -
@@ -1895,91 +2110,76 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-4Z3ONc']
+        ignore line: [Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-KbEh9x']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d4f5f/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d4f5f.dir/build.make CMakeFiles/cmTC_d4f5f.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d9555/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_d9555.dir/build.make CMakeFiles/cmTC_d9555.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/opt/homebrew/bin/arm-none-eabi-gcc   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc]
+        ignore line: [COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-gcc]
         ignore line: [Target: arm-none-eabi]
-        ignore line: [Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)']
+        ignore line: [Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib]
         ignore line: [Thread model: single]
-        ignore line: [Supported LTO compression algorithms: zlib]
-        ignore line: [gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/']
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/cc1 -quiet -v -imultilib thumb/v6-m/nofp -iprefix /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/ -isysroot /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d4f5f.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccorgXVQ.s]
-        ignore line: [GNU C17 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) version 14.2.1 20241119 (arm-none-eabi)]
-        ignore line: [	compiled by GNU C version Apple LLVM 13.0.0 (clang-1300.0.29.30)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/']
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/cc1 -quiet -v -imultilib thumb/v6-m/nofp -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpdir CMakeFiles/cmTC_d9555.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc7Yx9Ed.s]
+        ignore line: [GNU C23 (GCC) version 15.2.0 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version Apple LLVM 17.0.0 (clang-1700.3.19.1)  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include"]
-        ignore line: [ignoring nonexistent directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/usr/local/include"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include-fixed"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include"]
         ignore line: [#include "..." search starts here:]
         ignore line: [#include <...> search starts here:]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include]
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
         ignore line: [End of search list.]
-        ignore line: [Compiler executable checksum: 37d23b2e3347d18c1231e07805cbe085]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/']
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccorgXVQ.s]
-        ignore line: [GNU assembler version 2.43.1 (arm-none-eabi) using BFD version (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 2.43.1.20241119]
-        ignore line: [COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/]
-        ignore line: [LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.']
-        ignore line: [Linking C executable cmTC_d4f5f.elf]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4f5f.dir/link.txt --verbose=1]
+        ignore line: [Compiler executable checksum: 3667341c96678119910ea295191fd11e]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/']
+        ignore line: [ /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc7Yx9Ed.s]
+        ignore line: [GNU assembler version 2.45 (arm-none-eabi) using BFD version (GNU Binutils) 2.45]
+        ignore line: [COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/]
+        ignore line: [LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.']
+        ignore line: [Linking C executable cmTC_d9555.elf]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9555.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc]
-        ignore line: [COLLECT_LTO_WRAPPER=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper]
+        ignore line: [COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-gcc]
+        ignore line: [COLLECT_LTO_WRAPPER=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper]
         ignore line: [Target: arm-none-eabi]
-        ignore line: [Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)']
+        ignore line: [Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib]
         ignore line: [Thread model: single]
-        ignore line: [Supported LTO compression algorithms: zlib]
-        ignore line: [gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) ]
-        ignore line: [COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/]
-        ignore line: [LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d4f5f.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d4f5f.elf.']
-        link line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2 -plugin /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so -plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc1z6DEL.res --sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -X -o cmTC_d4f5f.elf -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1 -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o]
-          arg [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2] ==> ignore
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/]
+        ignore line: [LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d9555.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d9555.elf.']
+        link line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2 -plugin /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so -plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccNKaixE.res -X -o cmTC_d9555.elf -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0 --build-id=none CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o]
+          arg [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
-          arg [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so] ==> ignore
-          arg [-plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cc1z6DEL.res] ==> ignore
-          arg [--sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi] ==> ignore
+          arg [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccNKaixE.res] ==> ignore
           arg [-X] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_d4f5f.elf] ==> ignore
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib]
+          arg [cmTC_d9555.elf] ==> ignore
+          arg [-L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp] ==> dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp]
+          arg [-L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0] ==> dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
           arg [--build-id=none] ==> ignore
-          arg [CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o] ==> ignore
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start]
+          arg [CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o] ==> ignore
+        ignore line: [/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: warning: cannot find entry symbol _start]
         ignore line: [ defaulting to 00008000]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d4f5f.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d4f5f.elf.']
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb  -Wl --build-id=none -nostdlib  -v CMakeFiles/cmTC_d4f5f.dir/CMakeCCompilerABI.c.o -o cmTC_d4f5f.elf]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_d9555.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_d9555.elf.']
+        ignore line: [/opt/homebrew/bin/arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb  -Wl --build-id=none -nostdlib  -v CMakeFiles/cmTC_d9555.dir/CMakeCCompilerABI.c.o -o cmTC_d9555.elf]
         ignore line: []
         ignore line: []
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
+        collapse library dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp]
+        collapse library dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
         implicit libs: []
         implicit objs: []
-        implicit dirs: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
+        implicit dirs: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp;/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
         implicit fwks: []
       
       
@@ -1992,8 +2192,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-Csu1BO"
-      binary: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-Csu1BO"
+      source: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-LP1u5e"
+      binary: "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-LP1u5e"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "-mcpu=cortex-m0plus -mthumb"
       CMAKE_CXX_FLAGS_DEBUG: "-Og -g"
@@ -2005,66 +2205,59 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-Csu1BO'
+        Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-LP1u5e'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_10a28/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_10a28.dir/build.make CMakeFiles/cmTC_10a28.dir/build
-        Building CXX object CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_18dae/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_18dae.dir/build.make CMakeFiles/cmTC_18dae.dir/build
+        Building CXX object CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o
+        /opt/homebrew/bin/arm-none-eabi-g++   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
-        COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++
+        COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-g++
         Target: arm-none-eabi
-        Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)'
+        Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib
         Thread model: single
-        Supported LTO compression algorithms: zlib
-        gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/cc1plus -quiet -v -imultilib thumb/v6-m/nofp -iprefix /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/ -isysroot /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_10a28.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccK0dP3y.s
-        GNU C++17 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) version 14.2.1 20241119 (arm-none-eabi)
-        	compiled by GNU C version Apple LLVM 13.0.0 (clang-1300.0.29.30), GMP version 6.2.1, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/'
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/cc1plus -quiet -v -imultilib thumb/v6-m/nofp -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_18dae.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccOrT1EF.s
+        GNU C++17 (GCC) version 15.2.0 (arm-none-eabi)
+        	compiled by GNU C version Apple LLVM 17.0.0 (clang-1700.3.19.1), GMP version 6.3.0, MPFR version 4.2.2, MPC version 1.3.1, isl version isl-0.27-GMP
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include"
-        ignoring nonexistent directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/usr/local/include"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include-fixed"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include"
-        ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/include"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0/arm-none-eabi/thumb/v6-m/nofp"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0/backward"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/sys-include"
+        ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include"
         #include "..." search starts here:
         #include <...> search starts here:
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed
         End of search list.
-        Compiler executable checksum: 27b9f5562618372de894011fc251f42d
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccK0dP3y.s
-        GNU assembler version 2.43.1 (arm-none-eabi) using BFD version (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 2.43.1.20241119
-        COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/
-        LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.'
-        Linking CXX executable cmTC_10a28.elf
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_10a28.dir/link.txt --verbose=1
+        Compiler executable checksum: e8cc66bc7cd6c0ac480c33faf952f47e
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/'
+         /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccOrT1EF.s
+        GNU assembler version 2.45 (arm-none-eabi) using BFD version (GNU Binutils) 2.45
+        COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/
+        LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_18dae.elf
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18dae.dir/link.txt --verbose=1
         Using built-in specs.
-        COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++
-        COLLECT_LTO_WRAPPER=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper
+        COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-g++
+        COLLECT_LTO_WRAPPER=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper
         Target: arm-none-eabi
-        Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)'
+        Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib
         Thread model: single
-        Supported LTO compression algorithms: zlib
-        gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 
-        COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/
-        LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_10a28.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_10a28.elf.'
-         /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2 -plugin /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so -plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cclZ992z.res --sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -X -o cmTC_10a28.elf -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1 -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start; defaulting to 00008000
-        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_10a28.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_10a28.elf.'
-        /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb  -Wl,--build-id=none -nostdlib  -v CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_10a28.elf
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 15.2.0 (GCC) 
+        COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/
+        LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_18dae.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_18dae.elf.'
+         /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2 -plugin /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so -plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccnhAY83.res -X -o cmTC_18dae.elf -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0 --build-id=none CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o
+        /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: warning: cannot find entry symbol _start; defaulting to 00008000
+        COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_18dae.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_18dae.elf.'
+        /opt/homebrew/bin/arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb  -Wl,--build-id=none -nostdlib  -v CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_18dae.elf
         
       exitCode: 0
   -
@@ -2077,20 +2270,12 @@ events:
       Parsed CXX implicit include dir info: rv=done
         found start of include info
         found start of implicit include info
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-          add: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include]
+          add: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+          add: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
         end of search list found
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/backward]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-        collapse include dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include]
-        implicit include dirs: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/backward;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include-fixed;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include]
+        collapse include dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+        collapse include dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
+        implicit include dirs: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include;/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
       
       
   -
@@ -2103,97 +2288,79 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-Csu1BO']
+        ignore line: [Change Dir: '/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/CMakeScratch/TryCompile-LP1u5e']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_10a28/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_10a28.dir/build.make CMakeFiles/cmTC_10a28.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_18dae/fast]
+        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_18dae.dir/build.make CMakeFiles/cmTC_18dae.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/opt/homebrew/bin/arm-none-eabi-g++   -mcpu=cortex-m0plus -mthumb    -v -o CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++]
+        ignore line: [COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-g++]
         ignore line: [Target: arm-none-eabi]
-        ignore line: [Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)']
+        ignore line: [Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib]
         ignore line: [Thread model: single]
-        ignore line: [Supported LTO compression algorithms: zlib]
-        ignore line: [gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/']
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/cc1plus -quiet -v -imultilib thumb/v6-m/nofp -iprefix /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/ -isysroot /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_10a28.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccK0dP3y.s]
-        ignore line: [GNU C++17 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) version 14.2.1 20241119 (arm-none-eabi)]
-        ignore line: [	compiled by GNU C version Apple LLVM 13.0.0 (clang-1300.0.29.30)  GMP version 6.2.1  MPFR version 3.1.6  MPC version 1.0.3  isl version isl-0.15-1-g835ea3a-GMP]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/']
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/cc1plus -quiet -v -imultilib thumb/v6-m/nofp -D__USES_INITFINI__ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_18dae.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft -mlibarch=armv6s-m -march=armv6s-m -version -o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccOrT1EF.s]
+        ignore line: [GNU C++17 (GCC) version 15.2.0 (arm-none-eabi)]
+        ignore line: [	compiled by GNU C version Apple LLVM 17.0.0 (clang-1700.3.19.1)  GMP version 6.3.0  MPFR version 4.2.2  MPC version 1.3.1  isl version isl-0.27-GMP]
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include"]
-        ignore line: [ignoring nonexistent directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/usr/local/include"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/include-fixed"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/../../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include"]
-        ignore line: [ignoring duplicate directory "/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0/arm-none-eabi/thumb/v6-m/nofp"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include/c++/15.2.0/backward"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/sys-include"]
+        ignore line: [ignoring nonexistent directory "/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/include"]
         ignore line: [#include "..." search starts here:]
         ignore line: [#include <...> search starts here:]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include/c++/14.2.1/backward]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/include-fixed]
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/include]
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include]
+        ignore line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed]
         ignore line: [End of search list.]
-        ignore line: [Compiler executable checksum: 27b9f5562618372de894011fc251f42d]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/']
-        ignore line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccK0dP3y.s]
-        ignore line: [GNU assembler version 2.43.1 (arm-none-eabi) using BFD version (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) 2.43.1.20241119]
-        ignore line: [COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/]
-        ignore line: [LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.']
-        ignore line: [Linking CXX executable cmTC_10a28.elf]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_10a28.dir/link.txt --verbose=1]
+        ignore line: [Compiler executable checksum: e8cc66bc7cd6c0ac480c33faf952f47e]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/']
+        ignore line: [ /opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as -v -march=armv6s-m -mfloat-abi=soft -meabi=5 -o CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o /var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccOrT1EF.s]
+        ignore line: [GNU assembler version 2.45 (arm-none-eabi) using BFD version (GNU Binutils) 2.45]
+        ignore line: [COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/]
+        ignore line: [LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-v' '-o' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_18dae.elf]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_18dae.dir/link.txt --verbose=1]
         ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++]
-        ignore line: [COLLECT_LTO_WRAPPER=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper]
+        ignore line: [COLLECT_GCC=/opt/homebrew/bin/arm-none-eabi-g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper]
         ignore line: [Target: arm-none-eabi]
-        ignore line: [Configured with: /Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/src/gcc/configure --target=arm-none-eabi --prefix=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install --with-gmp=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpfr=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-mpc=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --with-isl=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/host-tools --disable-shared --disable-nls --disable-threads --disable-tls --enable-checking=release --enable-languages=c,c++,fortran --with-newlib --with-gnu-as --with-headers=yes --with-gnu-ld --with-native-system-header-dir=/include --with-sysroot=/Volumes/data/jenkins/workspace/GNU-toolchain/arm-14/build-arm-none-eabi/install/arm-none-eabi --with-bugurl=https://bugs.linaro.org/ --with-multilib-list=aprofile,rmprofile --with-pkgversion='Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)']
+        ignore line: [Configured with: ../configure --target=arm-none-eabi --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --infodir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/share/info/arm-none-eabi --disable-nls --without-headers --with-as=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-as --with-ld=/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld --enable-languages=c,c++,objc,lto --enable-lto --enable-multilib --with-multilib-list=aprofile,rmprofile --with-system-zlib --with-zstd --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0 --libdir=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib]
         ignore line: [Thread model: single]
-        ignore line: [Supported LTO compression algorithms: zlib]
-        ignore line: [gcc version 14.2.1 20241119 (Arm GNU Toolchain 14.2.Rel1 (Build arm-14.52)) ]
-        ignore line: [COMPILER_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/]
-        ignore line: [LIBRARY_PATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/:/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_10a28.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_10a28.elf.']
-        link line: [ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2 -plugin /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so -plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cclZ992z.res --sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi -X -o cmTC_10a28.elf -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1 -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib -L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib --build-id=none CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o]
-          arg [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/collect2] ==> ignore
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 15.2.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/]
+        ignore line: [LIBRARY_PATH=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp/:/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_18dae.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_18dae.elf.']
+        link line: [ /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2 -plugin /opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so -plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper -plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccnhAY83.res -X -o cmTC_18dae.elf -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp -L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0 --build-id=none CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o]
+          arg [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
-          arg [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/liblto_plugin.so] ==> ignore
-          arg [-plugin-opt=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../libexec/gcc/arm-none-eabi/14.2.1/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//cclZ992z.res] ==> ignore
-          arg [--sysroot=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi] ==> ignore
+          arg [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/libexec/gcc/arm-none-eabi/15.2.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/var/folders/sd/1lv__t6j2cd05mf5w1dv_wwc0000gn/T//ccnhAY83.res] ==> ignore
           arg [-X] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_10a28.elf] ==> ignore
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib]
-          arg [-L/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib] ==> dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib]
+          arg [cmTC_18dae.elf] ==> ignore
+          arg [-L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp] ==> dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp]
+          arg [-L/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0] ==> dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
           arg [--build-id=none] ==> ignore
-          arg [CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/bin/ld: warning: cannot find entry symbol _start]
+          arg [CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+        ignore line: [/opt/homebrew/opt/arm-none-eabi-binutils/bin/arm-none-eabi-ld: warning: cannot find entry symbol _start]
         ignore line: [ defaulting to 00008000]
-        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_10a28.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_10a28.elf.']
-        ignore line: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb  -Wl --build-id=none -nostdlib  -v CMakeFiles/cmTC_10a28.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_10a28.elf]
+        ignore line: [COLLECT_GCC_OPTIONS='-mcpu=cortex-m0plus' '-mthumb' '-nostdlib' '-v' '-o' 'cmTC_18dae.elf' '-mfloat-abi=soft' '-mlibarch=armv6s-m' '-march=armv6s-m' '-dumpdir' 'cmTC_18dae.elf.']
+        ignore line: [/opt/homebrew/bin/arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb  -Wl --build-id=none -nostdlib  -v CMakeFiles/cmTC_18dae.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_18dae.elf]
         ignore line: []
         ignore line: []
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib/thumb/v6-m/nofp] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
-        collapse library dir [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/../arm-none-eabi/lib] ==> [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
+        collapse library dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp]
+        collapse library dir [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0] ==> [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
         implicit libs: []
         implicit objs: []
-        implicit dirs: [/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/thumb/v6-m/nofp;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib/thumb/v6-m/nofp;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc;/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/lib]
+        implicit dirs: [/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/thumb/v6-m/nofp;/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0]
         implicit fwks: []
       
       
@@ -2355,7 +2522,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/usr/local"
@@ -2551,9 +2717,6 @@ events:
       - "/Users/ssnow/.dotnet/tools/bin/"
       - "/Users/ssnow/.dotnet/tools/Scripts/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/bin/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/Scripts/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/usr/local/bin/bin/"
       - "/usr/local/bin/Scripts/"
       - "/usr/local/bin/"
@@ -4826,7 +4989,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/usr/local"
@@ -4872,7 +5034,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/usr/local/bin/"
       - "/usr/local/sbin/"
       - "/usr/local/"
@@ -4912,7 +5073,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/doxygen"
       - "/usr/local/share/dotnet/doxygen"
       - "/Users/ssnow/.dotnet/tools/doxygen"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/doxygen"
       - "/usr/local/bin/doxygen"
       - "/usr/local/sbin/doxygen"
       - "/usr/local/doxygen"
@@ -4954,7 +5114,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/usr/local"
@@ -5000,7 +5159,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
       - "/usr/local/share/dotnet/"
       - "/Users/ssnow/.dotnet/tools/"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/usr/local/bin/"
       - "/usr/local/sbin/"
       - "/usr/local/"
@@ -5044,7 +5202,6 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dot"
       - "/usr/local/share/dotnet/dot"
       - "/Users/ssnow/.dotnet/tools/dot"
-      - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/dot"
       - "/usr/local/bin/dot"
       - "/usr/local/sbin/dot"
       - "/usr/local/dot"
@@ -5090,7 +5247,6 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
         - "/usr/local/share/dotnet"
         - "~/.dotnet/tools"
-        - "/Users/ssnow/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/usr/local"
