@@ -53,18 +53,22 @@ int main() {
     
     // Add this BEFORE encoder_init()
     printf("\n=== PRE-PIO HARDWARE TEST ===\n");
-    gpio_init(3);
-    gpio_init(4);  
-    gpio_set_dir(3, GPIO_IN);
-    gpio_set_dir(4, GPIO_IN);
-    gpio_pull_up(3);
-    gpio_pull_up(4);
+    gpio_init(ENCODER_A_PIN);
+    gpio_init(ENCODER_B_PIN);
+    gpio_init(ENCODER_Z_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_set_dir(ENCODER_Z_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+    gpio_pull_up(ENCODER_B_PIN);
+    gpio_pull_up(ENCODER_Z_PIN);
 
     printf("Manually rotate encoder and watch for changes:\n");
     for (int i = 0; i < 50; i++) {
-        bool a = gpio_get(3);
-        bool b = gpio_get(4);
-        printf("A=%d B=%d\n", a, b);
+        bool a = gpio_get(ENCODER_A_PIN);
+        bool b = gpio_get(ENCODER_B_PIN);
+        bool z = gpio_get(ENCODER_Z_PIN);
+        printf("A=%d B=%d Z=%d\n", a, b, z);
         sleep_ms(100);
     }
     printf("=== Did you see changes? If NO, check wiring! ===\n\n");

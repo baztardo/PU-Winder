@@ -121,16 +121,19 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
            (enc->last_state >> 1) & 1,
            enc->last_state & 1);
     
-    // Configure Z pin
+    // Configure Z pin and choose active edge dynamically
     gpio_init(pin_z);
     gpio_set_dir(pin_z, GPIO_IN);
     gpio_pull_up(pin_z);
-    printf("Z pulse pin: GPIO %d (configured with pull-up)\n", pin_z);
-    
+    bool z_idle_high = gpio_get(pin_z);
+    uint32_t z_edge = z_idle_high ? GPIO_IRQ_EDGE_FALL : GPIO_IRQ_EDGE_RISE;
+    printf("Z pulse pin: GPIO %d (pull-up), idle=%d, trigger edge=%s\n",
+           pin_z, z_idle_high ? 1 : 0, z_edge == GPIO_IRQ_EDGE_FALL ? "FALL" : "RISE");
+
     global_encoder = enc;
-    
-    gpio_set_irq_enabled_with_callback(pin_z, GPIO_IRQ_EDGE_RISE, true, 
-                                       &encoder_z_handler);
+
+    gpio_acknowledge_irq(pin_z, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL);
+    gpio_set_irq_enabled_with_callback(pin_z, z_edge, true, &encoder_z_handler);
     
     printf("\n=== Encoder initialization complete ===\n");
     printf("Ready to count. Try rotating the encoder...\n\n");
@@ -194,7 +197,7 @@ void encoder_process(encoder_t *enc) {
         }
     }
     
-    // **NEW: Report FIFO processing stats**
+    // Report FIFO processing stats
     uint32_t now = to_ms_since_boot(get_absolute_time());
     if (now - last_debug_time > 1000) {
         int fifo_level = pio_sm_get_rx_fifo_level(enc->pio, enc->sm);
