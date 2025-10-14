@@ -15,10 +15,10 @@
 ########################
 
 //Path to a program.
-CMAKE_ADDR2LINE:FILEPATH=/opt/homebrew/bin/arm-none-eabi-addr2line
+CMAKE_ADDR2LINE:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-addr2line
 
 //Path to a program.
-CMAKE_AR:FILEPATH=/opt/homebrew/bin/arm-none-eabi-ar
+CMAKE_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ar
 
 //ASM compiler
 CMAKE_ASM_COMPILER:STRING=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc
@@ -54,15 +54,15 @@ CMAKE_BUILD_TYPE:STRING=Release
 CMAKE_COLOR_MAKEFILE:BOOL=ON
 
 //CXX compiler
-CMAKE_CXX_COMPILER:STRING=/opt/homebrew/bin/arm-none-eabi-g++
+CMAKE_CXX_COMPILER:STRING=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_AR:FILEPATH=/opt/homebrew/bin/arm-none-eabi-gcc-ar
+CMAKE_CXX_COMPILER_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/opt/homebrew/bin/arm-none-eabi-gcc-ranlib
+CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=-mcpu=cortex-m0plus -mthumb
@@ -80,15 +80,15 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-g -O3 -DNDEBUG
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
 //C compiler
-CMAKE_C_COMPILER:STRING=/opt/homebrew/bin/arm-none-eabi-gcc
+CMAKE_C_COMPILER:STRING=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_AR:FILEPATH=/opt/homebrew/bin/arm-none-eabi-gcc-ar
+CMAKE_C_COMPILER_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ar
 
 //A wrapper around 'ranlib' adding the appropriate '--plugin' option
 // for the GCC compiler
-CMAKE_C_COMPILER_RANLIB:FILEPATH=/opt/homebrew/bin/arm-none-eabi-gcc-ranlib
+CMAKE_C_COMPILER_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib
 
 //Flags used by the C compiler during all build types.
 CMAKE_C_FLAGS:STRING=-mcpu=cortex-m0plus -mthumb
@@ -133,7 +133,7 @@ CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=/Users/ssnow/Documents/GitHub/PU-Winder/
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=/opt/homebrew/bin/arm-none-eabi-ld
+CMAKE_LINKER:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ld
 
 //Path to a program.
 CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
@@ -159,7 +159,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_NM:FILEPATH=/opt/homebrew/bin/arm-none-eabi-nm
+CMAKE_NM:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-nm
 
 CMAKE_OBJCOPY:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objcopy
 
@@ -178,10 +178,10 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=winder_project
 
 //Path to a program.
-CMAKE_RANLIB:FILEPATH=/opt/homebrew/bin/arm-none-eabi-ranlib
+CMAKE_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-ranlib
 
 //Path to a program.
-CMAKE_READELF:FILEPATH=/opt/homebrew/bin/arm-none-eabi-readelf
+CMAKE_READELF:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-readelf
 
 //Flags used by the linker during the creation of shared libraries
 // during all build types.
@@ -231,7 +231,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=/opt/homebrew/bin/arm-none-eabi-strip
+CMAKE_STRIP:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-strip
 
 //Path to a program.
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
