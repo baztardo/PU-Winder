@@ -126,6 +126,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o"
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o.d"
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o"
+  "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o"
+  "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o.d"
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o"
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o.d"
   "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o"

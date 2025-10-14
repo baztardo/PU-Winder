@@ -41,4 +41,14 @@ CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/error.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/include/pico/malloc.h
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/include/pico/malloc.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/include/pico/mutex.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/include/pico/lock_core.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/include/pico/time.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/include/hardware/timer.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/timer.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base/include/hardware/address_mapped.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/timer.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/intctrl.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/include/hardware/sync.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/include/hardware/sync/spin_lock.h

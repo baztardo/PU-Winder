@@ -19,7 +19,7 @@
 static const uint16_t quadrature_encoder_program_instructions[] = {
             //     .wrap_target
     0xa0c3, //  0: mov    isr, null
-    0x4702, //  1: in     pins, 2                [7]
+    0x4302, //  1: in     pins, 2                [3]
     0xa046, //  2: mov    y, isr
     0x00a5, //  3: jmp    x != y, 5
     0x0000, //  4: jmp    0
@@ -61,11 +61,9 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
     // Input shift config: shift left so bits land in LSBs after 'in pins,2'
     sm_config_set_in_shift(&c, false, false, 32);
-    // Clock divider
-    // 125 MHz / 10 = 12.5 MHz
-    // With the [7] delay, effective sample rate is 12.5MHz / 8 = 1.56 MHz
-    // This samples every 0.64 microseconds
-    sm_config_set_clkdiv(&c, 10.0f);
+    // Clock divider: increase sample rate for high RPM
+    // 125 MHz / 2 = 62.5 MHz; with [3] delay, ~15.6 MHz sampling
+    sm_config_set_clkdiv(&c, 2.0f);
     // Join FIFOs to make RX FIFO 8 words deep instead of 4
     // This helps prevent overflow if CPU can't process fast enough
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);

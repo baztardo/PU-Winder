@@ -1251,10 +1251,24 @@ CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c -o CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.s
 
+CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o: CMakeFiles/encoder_monitor.dir/flags.make
+CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c
+CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o: CMakeFiles/encoder_monitor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building C object CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o -MF CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o.d -o CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c
+
+CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c > CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i
+
+CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c -o CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s
+
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: CMakeFiles/encoder_monitor.dir/flags.make
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: CMakeFiles/encoder_monitor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_86) "Building C object CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building C object CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o -MF CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o.d -o CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c
 
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i: cmake_force
@@ -1268,7 +1282,7 @@ CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: CMakeFiles/encoder_monitor.dir/flags.make
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: CMakeFiles/encoder_monitor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Building C object CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Building C object CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o -MF CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o.d -o CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c
 
 CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.i: cmake_force
@@ -1366,6 +1380,7 @@ encoder_monitor_OBJECTS = \
 "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/tusb.c.o" \
 "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/common/tusb_fifo.c.o" \
 "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o" \
+"CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o" \
 "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o" \
 "CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o"
 
@@ -1457,13 +1472,14 @@ encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/tusb.c.o
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/common/tusb_fifo.c.o
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o
+encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/build.make
 encoder_monitor.elf: pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.o
 encoder_monitor.elf: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/rp2040/memmap_default.ld
 encoder_monitor.elf: CMakeFiles/encoder_monitor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_88) "Linking CXX executable encoder_monitor.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_89) "Linking CXX executable encoder_monitor.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/encoder_monitor.dir/link.txt --verbose=$(VERBOSE)
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -h /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/encoder_monitor.elf > encoder_monitor.dis
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -d /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/encoder_monitor.elf >> encoder_monitor.dis
