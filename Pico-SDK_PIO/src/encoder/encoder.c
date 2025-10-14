@@ -18,6 +18,10 @@
 
 static encoder_t *global_encoder = NULL;
 
+// Forward declarations for PIO IRQ handlers
+static void pio0_irq_handler(void);
+static void pio1_irq_handler(void);
+
 const int8_t encoder_states[16] = {
     0, +1, -1, 0,   // prev=00
     -1, 0, 0, +1,   // prev=01
@@ -63,6 +67,39 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     } else {
         global_encoder->revolution_count--;
     }
+}
+
+// PIO IRQ handlers (C functions; keep them small and non-blocking)
+static void pio_drain_fifo_and_decode(PIO pio) {
+    encoder_t *e = global_encoder;
+    if (!e || e->pio != pio) return;
+    while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
+        uint32_t data = pio_sm_get(e->pio, e->sm);
+        uint8_t current_state = (uint8_t)(data & 0x03);
+        if (current_state != e->last_state) {
+            uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
+            int8_t change = encoder_states[index];
+            if (change != 0) {
+                e->count += change;
+                e->pulses_this_rev++;
+                e->direction_cw = (change > 0);
+                if (e->pulses_this_rev >= e->cpr) {
+                    e->pulses_this_rev = 0;
+                }
+            }
+            e->last_state = current_state;
+        }
+    }
+}
+
+static void pio0_irq_handler(void) {
+    pio_drain_fifo_and_decode(pio0);
+    irq_clear(PIO0_IRQ_0);
+}
+
+static void pio1_irq_handler(void) {
+    pio_drain_fifo_and_decode(pio1);
+    irq_clear(PIO1_IRQ_0);
 }
 
 bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b, 
@@ -147,54 +184,11 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     if (enc->pio == pio0) {
         // Enable RX not empty source for this state machine
         pio_set_irq0_source_enabled(pio0, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
-        irq_set_exclusive_handler(PIO0_IRQ_0, [](){
-            encoder_t *e = global_encoder;
-            if (!e || e->pio != pio0) return;
-            while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
-                uint32_t data = pio_sm_get(e->pio, e->sm);
-                uint8_t current_state = (uint8_t)(data & 0x03);
-                if (current_state != e->last_state) {
-                    uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
-                    int8_t change = encoder_states[index];
-                    if (change != 0) {
-                        e->count += change;
-                        e->pulses_this_rev++;
-                        e->direction_cw = (change > 0);
-                        if (e->pulses_this_rev >= e->cpr) {
-                            e->pulses_this_rev = 0;
-                        }
-                    }
-                    e->last_state = current_state;
-                }
-            }
-            // Clear the IRQ (safe even if already deasserted)
-            irq_clear(PIO0_IRQ_0);
-        });
+        irq_set_exclusive_handler(PIO0_IRQ_0, pio0_irq_handler);
         irq_set_enabled(PIO0_IRQ_0, true);
     } else {
         pio_set_irq0_source_enabled(pio1, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
-        irq_set_exclusive_handler(PIO1_IRQ_0, [](){
-            encoder_t *e = global_encoder;
-            if (!e || e->pio != pio1) return;
-            while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
-                uint32_t data = pio_sm_get(e->pio, e->sm);
-                uint8_t current_state = (uint8_t)(data & 0x03);
-                if (current_state != e->last_state) {
-                    uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
-                    int8_t change = encoder_states[index];
-                    if (change != 0) {
-                        e->count += change;
-                        e->pulses_this_rev++;
-                        e->direction_cw = (change > 0);
-                        if (e->pulses_this_rev >= e->cpr) {
-                            e->pulses_this_rev = 0;
-                        }
-                    }
-                    e->last_state = current_state;
-                }
-            }
-            irq_clear(PIO1_IRQ_0);
-        });
+        irq_set_exclusive_handler(PIO1_IRQ_0, pio1_irq_handler);
         irq_set_enabled(PIO1_IRQ_0, true);
     }
     
