@@ -27,6 +27,9 @@
 #define TRAVERSE_DIR_INVERT  0   // set 1 if traverse moves the wrong way
 #define ENCODER_INVERT        0   // 1 flips encoder A/B sense (if deltas are "negative" in forward)
 
+// Use PIO for encoder sampling (1) or GPIO polling fallback (0)
+#define ENCODER_USE_PIO       1
+
 // Encoder (360 PPR, 1:1 with spindle)
 #define ENCODER_A_PIN       3
 #define ENCODER_B_PIN       4

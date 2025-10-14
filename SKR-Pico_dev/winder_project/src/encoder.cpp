@@ -77,6 +77,9 @@ void Encoder::init() {
         last_a = (last_state_bits >> 1) & 1;
         last_b = (last_state_bits & 1);
         last_z = gpio_get(ENCODER_Z_PIN);
+        printf("[ENC] PIO ready. A=%u B=%u base=%u a_bit=%u b_bit=%u\n",
+               (unsigned)a_pin, (unsigned)b_pin, (unsigned)pio_base_pin,
+               (unsigned)a_bit_index, (unsigned)b_bit_index);
         return;
     }
 
@@ -109,8 +112,8 @@ void Encoder::update() {
         // Drain RX FIFO; apply transitions for each sample
         while (!pio_sm_is_rx_fifo_empty(pio, sm)) {
             uint32_t data = pio_sm_get(pio, sm);
-            // Latest sample is in the LSBs (per tested PIO config)
-            uint8_t raw = (uint8_t)(data & 0x3);
+            // With shift-right IN, two sampled bits are at bits 31:30
+            uint8_t raw = (uint8_t)((data >> 30) & 0x3);
             bool a = (raw >> a_bit_index) & 0x1;
             bool b = (raw >> b_bit_index) & 0x1;
 
@@ -120,12 +123,13 @@ void Encoder::update() {
             last_a = a;
             last_b = b;
         }
-        // Also sample Z (index) and latch edge
+        // Also sample Z (index) and latch rising->low edge
         bool z_now = gpio_get(ENCODER_Z_PIN);
         if (!z_now && last_z) {
             z_pulse_detected = true;
         }
         last_z = z_now;
+        isr_hits++;
         return;
     }
 
@@ -143,6 +147,7 @@ void Encoder::update() {
         z_pulse_detected = true;
     }
     last_z = z_now;
+    isr_hits++;
 }
 
 int32_t Encoder::get_position() const {
@@ -163,7 +168,11 @@ float Encoder::get_revolutions() const {
 }
 
 bool Encoder::check_z_pulse() {
-    return gpio_get(ENCODER_Z_PIN) == 0;
+    if (z_pulse_detected) {
+        z_pulse_detected = false;
+        return true;
+    }
+    return false;
 }
 
 float Encoder::get_velocity(float dt_seconds) {
