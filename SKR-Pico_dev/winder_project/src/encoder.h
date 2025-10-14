@@ -81,7 +81,7 @@ private:
 
     // PIO-based quadrature sampling
     bool pio_initialized = false;
-    PIO pio = pio0;
+    PIO pio = pio1; // prefer PIO1 to avoid conflicts
     uint sm = 0;
     uint offset = 0;
     uint8_t pio_base_pin = 0;   // min(ENCODER_A_PIN, ENCODER_B_PIN)

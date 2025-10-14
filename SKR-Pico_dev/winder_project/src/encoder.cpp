@@ -42,8 +42,23 @@ void Encoder::init() {
     gpio_pull_up(a_pin);
     gpio_pull_up(b_pin);
 
+    // If PIO disabled via config, use GPIO polling immediately
+    #if defined(ENCODER_USE_PIO) && (ENCODER_USE_PIO==0)
+    pio_initialized = false;
+    gpio_init(ENCODER_A_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+    gpio_init(ENCODER_B_PIN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_B_PIN);
+    last_a = gpio_get(ENCODER_A_PIN);
+    last_b = gpio_get(ENCODER_B_PIN);
+    last_z = gpio_get(ENCODER_Z_PIN);
+    return;
+    #endif
+
     // Try to initialize PIO program; if any step fails, fall back to GPIO polling
-    pio = pio0;
+    pio = pio1;
     bool pio_ok = true;
     uint local_offset = 0;
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
@@ -77,9 +92,9 @@ void Encoder::init() {
         last_a = (last_state_bits >> 1) & 1;
         last_b = (last_state_bits & 1);
         last_z = gpio_get(ENCODER_Z_PIN);
-        printf("[ENC] PIO ready. A=%u B=%u base=%u a_bit=%u b_bit=%u\n",
+        printf("[ENC] PIO1 ready. A=%u B=%u base=%u a_bit=%u b_bit=%u sm=%u\n",
                (unsigned)a_pin, (unsigned)b_pin, (unsigned)pio_base_pin,
-               (unsigned)a_bit_index, (unsigned)b_bit_index);
+               (unsigned)a_bit_index, (unsigned)b_bit_index, (unsigned)sm);
         return;
     }
 
