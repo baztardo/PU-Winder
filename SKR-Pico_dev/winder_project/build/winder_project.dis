@@ -1669,23 +1669,23 @@ Disassembly of section .text:
 10000ef0 <_ZN7Encoder4initEv>:
 10000ef0:	b570      	push	{r4, r5, r6, lr}
 10000ef2:	0005      	movs	r5, r0
-10000ef4:	2004      	movs	r0, #4
+10000ef4:	2003      	movs	r0, #3
 10000ef6:	24d0      	movs	r4, #208	@ 0xd0
 10000ef8:	f001 ff44 	bl	10002d84 <gpio_init>
-10000efc:	2310      	movs	r3, #16
+10000efc:	2308      	movs	r3, #8
 10000efe:	0624      	lsls	r4, r4, #24
 10000f00:	62a3      	str	r3, [r4, #40]	@ 0x28
 10000f02:	2200      	movs	r2, #0
 10000f04:	2101      	movs	r1, #1
-10000f06:	2004      	movs	r0, #4
+10000f06:	2003      	movs	r0, #3
 10000f08:	f001 ff28 	bl	10002d5c <gpio_set_pulls>
-10000f0c:	2003      	movs	r0, #3
+10000f0c:	2004      	movs	r0, #4
 10000f0e:	f001 ff39 	bl	10002d84 <gpio_init>
-10000f12:	2308      	movs	r3, #8
+10000f12:	2310      	movs	r3, #16
 10000f14:	2200      	movs	r2, #0
 10000f16:	62a3      	str	r3, [r4, #40]	@ 0x28
 10000f18:	2101      	movs	r1, #1
-10000f1a:	2003      	movs	r0, #3
+10000f1a:	2004      	movs	r0, #4
 10000f1c:	f001 ff1e 	bl	10002d5c <gpio_set_pulls>
 10000f20:	2019      	movs	r0, #25
 10000f22:	f001 ff2f 	bl	10002d84 <gpio_init>
@@ -1697,11 +1697,11 @@ Disassembly of section .text:
 10000f30:	2019      	movs	r0, #25
 10000f32:	f001 ff13 	bl	10002d5c <gpio_set_pulls>
 10000f36:	6863      	ldr	r3, [r4, #4]
-10000f38:	06db      	lsls	r3, r3, #27
+10000f38:	071b      	lsls	r3, r3, #28
 10000f3a:	0fdb      	lsrs	r3, r3, #31
 10000f3c:	732b      	strb	r3, [r5, #12]
 10000f3e:	6863      	ldr	r3, [r4, #4]
-10000f40:	071b      	lsls	r3, r3, #28
+10000f40:	06db      	lsls	r3, r3, #27
 10000f42:	0fdb      	lsrs	r3, r3, #31
 10000f44:	736b      	strb	r3, [r5, #13]
 10000f46:	6863      	ldr	r3, [r4, #4]
@@ -1734,9 +1734,9 @@ Disassembly of section .text:
 10000f78:	009d      	lsls	r5, r3, #2
 10000f7a:	002b      	movs	r3, r5
 10000f7c:	6812      	ldr	r2, [r2, #0]
-10000f7e:	06e4      	lsls	r4, r4, #27
+10000f7e:	0724      	lsls	r4, r4, #28
 10000f80:	0fe4      	lsrs	r4, r4, #31
-10000f82:	0709      	lsls	r1, r1, #28
+10000f82:	06c9      	lsls	r1, r1, #27
 10000f84:	6032      	str	r2, [r6, #0]
 10000f86:	0fc9      	lsrs	r1, r1, #31
 10000f88:	0062      	lsls	r2, r4, #1
