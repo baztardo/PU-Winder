@@ -1,0 +1,21 @@
+.program z_index
+; Detect Z rising edge and issue IRQ 0
+
+.wrap_target
+    wait 1 pin, 0
+    irq nowait 0
+    wait 0 pin, 0
+    jmp wrap_target
+.wrap
+
+% c-sdk {
+static inline void z_index_program_init(PIO pio, uint sm, uint offset, uint pin_z) {
+    pio_sm_config c = z_index_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, pin_z);
+    pio_gpio_init(pio, pin_z);
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_z, 1, false);
+    sm_config_set_clkdiv(&c, 1.0f);
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

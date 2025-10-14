@@ -1,0 +1,24 @@
+.program quad_encoder
+; Simple A/B quadrature reader
+; Pushes 2-bit sample each cycle
+
+.wrap_target
+    in pins, 2
+    push noblock
+    jmp wrap_target
+.wrap
+
+% c-sdk {
+static inline void quad_encoder_program_init(PIO pio, uint sm, uint offset, uint pin_a) {
+    pio_sm_config c = quad_encoder_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, pin_a);
+    pio_gpio_init(pio, pin_a);
+    pio_gpio_init(pio, pin_a + 1);
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
+    sm_config_set_in_shift(&c, true, false, 32);
+    sm_config_set_clkdiv(&c, 1.0f);
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}
