@@ -74,17 +74,17 @@ int main() {
     while (1) {
         encoder_process(&encoder);
         encoder_calculate_rpm(&encoder);
-        // After encoder_init() around line 75, add this test:
-        printf("\n=== GPIO Direct Read Test ===\n");
-        for (int i = 0; i < 10; i++) {
-            uint8_t a_direct = gpio_get(ENCODER_A_PIN);
-            uint8_t b_direct = gpio_get(ENCODER_B_PIN);
-            uint8_t z_direct = gpio_get(ENCODER_Z_PIN);
-            printf("GPIO Direct: A=%d, B=%d, Z=%d\n", a_direct, b_direct, z_direct);
-            sleep_ms(200);
+
+        static uint32_t last_pin_print = 0;
+        uint32_t now = to_ms_since_boot(get_absolute_time());
+        if (now - last_pin_print > 100) {
+                printf("RAW PINS: A=%d B=%d Z=%d | Count=%ld\n",
+                    gpio_get(ENCODER_A_PIN),
+                    gpio_get(ENCODER_B_PIN), 
+                    gpio_get(ENCODER_Z_PIN),
+                    encoder_get_count(&encoder));
+                last_pin_print = now;
         }
-        printf("Now slowly turn the encoder and watch...\n");
-        sleep_ms(2000);
         
         int32_t count = encoder_get_count(&encoder);
         int32_t revolutions = encoder_get_revolutions(&encoder);

@@ -2,6 +2,7 @@
 #include "encoder.pio.h"
 #include "pico/time.h"
 #include <stdio.h>
+#include <stdlib.h>  
 
 static encoder_t *global_encoder = NULL;
 
@@ -15,20 +16,29 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     
     uint64_t current_time = time_us_64();
     
-    // Much longer debounce - 50ms
-    if (current_time - global_encoder->last_z_time < 50000) {
+    // Debounce: 15ms allows up to 4000 RPM
+    if (current_time - global_encoder->last_z_time < 15000) {
         return;
     }
     
-    // Only count if we've actually moved (count changed)
+    // Count validation: must move at least 60% of a revolution
+    // This catches electrical noise while allowing direction changes
     static int32_t last_z_count = 0;
-    if (global_encoder->count == last_z_count) {
-        return;  // Spurious trigger, ignore
+    int32_t counts_since_last = labs(global_encoder->count - last_z_count);
+    
+    if (counts_since_last < (global_encoder->cpr * 3 / 5)) {
+        // Not enough movement - likely noise/bounce
+        return;
     }
+    
+    printf("Z pulse! Count: %ld (delta: %ld)\n", 
+           global_encoder->count, counts_since_last);
+    
+    // Update tracking AFTER validation
     last_z_count = global_encoder->count;
+    global_encoder->last_z_time = current_time;
     
-    printf("Z pulse! Count: %ld\n", global_encoder->count);
-    
+    // Reset pulse counter and update revolutions
     global_encoder->pulses_this_rev = 0;
     
     if (global_encoder->direction_cw) {
@@ -36,8 +46,6 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     } else {
         global_encoder->revolution_count--;
     }
-    
-    global_encoder->last_z_time = current_time;
 }
 
 bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b, 

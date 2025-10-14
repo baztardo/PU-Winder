@@ -75,4 +75,7 @@ CMakeFiles/encoder_monitor.dir/src/encoder/encoder.c.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_types.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/_types.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/lock.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/stdio.h
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/stdio.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdlib.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/stdlib.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/alloca.h
