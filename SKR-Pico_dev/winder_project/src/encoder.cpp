@@ -38,6 +38,10 @@ void Encoder::init() {
     a_bit_index = (a_pin == pio_base_pin) ? 0 : 1;
     b_bit_index = (b_pin == pio_base_pin) ? 0 : 1;
 
+    // Ensure pulls enabled (works with PIO as well)
+    gpio_pull_up(a_pin);
+    gpio_pull_up(b_pin);
+
     // Try to initialize PIO program; if any step fails, fall back to GPIO polling
     pio = pio0;
     bool pio_ok = true;
@@ -105,7 +109,8 @@ void Encoder::update() {
         // Drain RX FIFO; apply transitions for each sample
         while (!pio_sm_is_rx_fifo_empty(pio, sm)) {
             uint32_t data = pio_sm_get(pio, sm);
-            uint8_t raw = data & 0x3;
+            // Latest sample is in the LSBs (per tested PIO config)
+            uint8_t raw = (uint8_t)(data & 0x3);
             bool a = (raw >> a_bit_index) & 0x1;
             bool b = (raw >> b_bit_index) & 0x1;
 
@@ -115,6 +120,12 @@ void Encoder::update() {
             last_a = a;
             last_b = b;
         }
+        // Also sample Z (index) and latch edge
+        bool z_now = gpio_get(ENCODER_Z_PIN);
+        if (!z_now && last_z) {
+            z_pulse_detected = true;
+        }
+        last_z = z_now;
         return;
     }
 
@@ -126,6 +137,12 @@ void Encoder::update() {
     position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
     last_a = a;
     last_b = b;
+    // Also sample Z (index) and latch edge
+    bool z_now = gpio_get(ENCODER_Z_PIN);
+    if (!z_now && last_z) {
+        z_pulse_detected = true;
+    }
+    last_z = z_now;
 }
 
 int32_t Encoder::get_position() const {
