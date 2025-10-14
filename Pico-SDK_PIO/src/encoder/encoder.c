@@ -93,20 +93,9 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     
     sleep_ms(100);
     
-    if (pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
-        printf("WARNING: PIO RX FIFO is empty!\n");
-    } else {
-        printf("SUCCESS: PIO RX FIFO has data\n");
-        
-        // **NEW: Dump first 10 FIFO entries to see what PIO is actually sampling**
-        printf("\n=== DUMPING FIRST 10 FIFO ENTRIES ===\n");
-        for (int i = 0; i < 10 && !pio_sm_is_rx_fifo_empty(pio, enc->sm); i++) {
-            uint32_t data = pio_sm_get(pio, enc->sm);
-            uint8_t state = data & 0x03;
-            printf("  FIFO[%d]: raw=0x%08lX, state=0x%02X, A=%d, B=%d\n",
-                   i, data, state, (state >> 1) & 1, state & 1);
-        }
-        printf("=== END FIFO DUMP ===\n\n");
+    if (!pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
+        // Minimal confirmation only
+        printf("PIO RX FIFO has data\n");
     }
     
     // Read several entries to settle and establish a solid initial state
@@ -148,32 +137,15 @@ void encoder_process(encoder_t *enc) {
     static uint32_t last_debug_time = 0;
     uint32_t changes_this_call = 0;
     
-    // **NEW: Track how many times we read from FIFO**
-    int fifo_reads_this_call = 0;
-    
     while (!pio_sm_is_rx_fifo_empty(enc->pio, enc->sm)) {
         uint32_t data = pio_sm_get(enc->pio, enc->sm);
         uint8_t current_state = (uint8_t)(data & 0x03);
         
-        fifo_reads_this_call++;
         total_reads++;
-        
-        // **NEW: Print EVERY state for first 100 reads**
-        if (total_reads <= 100) {
-            printf("[%lu] Raw: 0x%08lX | State: 0x%02X (A=%d B=%d) | Last: 0x%02X | ",
-                   total_reads, data, current_state,
-                   (current_state >> 1) & 1, current_state & 1,
-                   enc->last_state);
-        }
         
         if (current_state != enc->last_state) {
             uint8_t index = (uint8_t)((enc->last_state << 2) | current_state);
             int8_t change = encoder_states[index];
-            
-            if (total_reads <= 100) {
-                printf("CHANGE! Index=0x%02X, delta=%+d, count=%ld\n",
-                       index, change, enc->count + change);
-            }
             
             if (change != 0) {
                 enc->count += change;
@@ -191,26 +163,10 @@ void encoder_process(encoder_t *enc) {
             enc->last_state = current_state;
         } else {
             same_state_count++;
-            if (total_reads <= 100) {
-                printf("same (total_same=%lu)\n", same_state_count);
-            }
         }
     }
     
-    // Report FIFO processing stats
-    uint32_t now = to_ms_since_boot(get_absolute_time());
-    if (now - last_debug_time > 1000) {
-        int fifo_level = pio_sm_get_rx_fifo_level(enc->pio, enc->sm);
-        printf("\n=== STATS ===\n");
-        printf("  Count: %ld\n", enc->count);
-        printf("  Total FIFO reads: %lu\n", total_reads);
-        printf("  Total changes: %lu\n", total_changes);
-        printf("  Same state reads: %lu\n", same_state_count);
-        printf("  FIFO level: %d/8\n", fifo_level);
-        printf("  Last state: 0x%02X\n", enc->last_state);
-        printf("=============\n\n");
-        last_debug_time = now;
-    }
+    // Quiet: no periodic stats in normal operation
 }
 
 void encoder_reset(encoder_t *enc) {
