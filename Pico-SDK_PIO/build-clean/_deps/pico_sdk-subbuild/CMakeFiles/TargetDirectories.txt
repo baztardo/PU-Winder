@@ -1,0 +1,3 @@
+/workspace/Pico-SDK_PIO/build-clean/_deps/pico_sdk-subbuild/CMakeFiles/pico_sdk-populate.dir
+/workspace/Pico-SDK_PIO/build-clean/_deps/pico_sdk-subbuild/CMakeFiles/edit_cache.dir
+/workspace/Pico-SDK_PIO/build-clean/_deps/pico_sdk-subbuild/CMakeFiles/rebuild_cache.dir
