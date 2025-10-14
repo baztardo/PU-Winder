@@ -25,6 +25,7 @@
 .program quadrature_encoder
 
 .wrap_target
+loop:
     ; Sample current A/B into ISR (clear first so bits land in LSBs)
     mov isr, null
     in pins, 2 [7]
@@ -32,13 +33,13 @@
 
     ; Only push when state changes compared to X (last state)
     jmp x!=y changed
-    jmp .wrap_target     ; no change, loop
+    jmp loop             ; no change, loop
 
 changed:
     mov isr, y
     push noblock         ; push new state (2 LSBs)
     mov x, y             ; X = last state
-    jmp .wrap_target
+    jmp loop
 .wrap
 
 ; =============================================================================
