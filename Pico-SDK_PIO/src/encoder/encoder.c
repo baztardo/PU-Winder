@@ -25,11 +25,8 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     static int32_t last_z_count = 0;
     int32_t counts_since_last = labs(global_encoder->count - last_z_count);
     
-    if (counts_since_last < (global_encoder->cpr * 3 / 5)) {
-        return;
-    }
-    
-    printf("Z pulse! Count: %ld (delta: %ld)\n", 
+    // Count every qualified Z edge; rely on time debounce above to avoid bounce
+    printf("Z pulse! Count: %ld (delta: %ld)\n",
            global_encoder->count, counts_since_last);
     
     last_z_count = global_encoder->count;
