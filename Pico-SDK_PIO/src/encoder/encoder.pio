@@ -28,7 +28,7 @@
 loop:
     ; Sample current A/B into ISR (clear first so bits land in LSBs)
     mov isr, null
-    in pins, 2 [7]
+    in pins, 2 [3]     ; faster loop: ~4 PIO cycles between samples
     mov y, isr           ; Y = current state (2 LSBs)
 
     ; Only push when state changes compared to X (last state)
@@ -66,11 +66,9 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     // Input shift config: shift left so bits land in LSBs after 'in pins,2'
     sm_config_set_in_shift(&c, false, false, 32);
     
-    // Clock divider
-    // 125 MHz / 10 = 12.5 MHz
-    // With the [7] delay, effective sample rate is 12.5MHz / 8 = 1.56 MHz
-    // This samples every 0.64 microseconds
-    sm_config_set_clkdiv(&c, 10.0f);
+    // Clock divider: increase sample rate for high RPM
+    // 125 MHz / 2 = 62.5 MHz; with [3] delay, ~15.6 MHz sampling
+    sm_config_set_clkdiv(&c, 2.0f);
     
     // Join FIFOs to make RX FIFO 8 words deep instead of 4
     // This helps prevent overflow if CPU can't process fast enough
