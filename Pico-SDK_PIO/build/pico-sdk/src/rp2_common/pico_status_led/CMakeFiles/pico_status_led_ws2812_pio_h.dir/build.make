@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO"
+CMAKE_SOURCE_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build"
+CMAKE_BINARY_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build
 
 # Utility rule file for pico_status_led_ws2812_pio_h.
 
@@ -69,8 +69,8 @@ include pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws281
 pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h: pico-sdk/src/rp2_common/pico_status_led/ws2812.pio.h
 
 pico-sdk/src/rp2_common/pico_status_led/ws2812.pio.h: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led/ws2812.pio
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating ws2812.pio.h"
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/pico_status_led" && /Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasm -o c-sdk -v 0 /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led/ws2812.pio "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/pico_status_led/ws2812.pio.h"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating ws2812.pio.h"
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/pico_status_led && /Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasm -o c-sdk -v 0 /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led/ws2812.pio /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/pico_status_led/ws2812.pio.h
 
 pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/codegen:
 .PHONY : pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/codegen
@@ -85,10 +85,10 @@ pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.
 .PHONY : pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/build
 
 pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/clean:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/pico_status_led" && $(CMAKE_COMMAND) -P CMakeFiles/pico_status_led_ws2812_pio_h.dir/cmake_clean.cmake
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/pico_status_led && $(CMAKE_COMMAND) -P CMakeFiles/pico_status_led_ws2812_pio_h.dir/cmake_clean.cmake
 .PHONY : pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/clean
 
 pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/depend:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO" /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/pico_status_led" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/pico_status_led /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : pico-sdk/src/rp2_common/pico_status_led/CMakeFiles/pico_status_led_ws2812_pio_h.dir/depend
 

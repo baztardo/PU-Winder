@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/Users/ssnow/.pico-sdk/sdk/2.2.0")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

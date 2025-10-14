@@ -1,5 +1,5 @@
 
-/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.elf:     file format elf32-littlearm
+/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
@@ -20,7 +20,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
   7 .debug_str    000000b1  00000000  00000000  00001288  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
-/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.elf:     file format elf32-littlearm
+/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.elf:     file format elf32-littlearm
 
 
 Disassembly of section .text:

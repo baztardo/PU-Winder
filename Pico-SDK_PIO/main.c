@@ -71,30 +71,30 @@ int main() {
     lcd_print(&lcd, "Ready!");
     sleep_ms(1000);
     
-    while (1) {
-        encoder_process(&encoder);
-        encoder_calculate_rpm(&encoder);
-
-        static uint32_t last_pin_print = 0;
-        uint32_t now = to_ms_since_boot(get_absolute_time());
-        if (now - last_pin_print > 100) {
-                printf("RAW PINS: A=%d B=%d Z=%d | Count=%ld\n",
-                    gpio_get(ENCODER_A_PIN),
-                    gpio_get(ENCODER_B_PIN), 
-                    gpio_get(ENCODER_Z_PIN),
-                    encoder_get_count(&encoder));
-                last_pin_print = now;
-        }
-        
-        int32_t count = encoder_get_count(&encoder);
-        int32_t revolutions = encoder_get_revolutions(&encoder);
-        int32_t pulses = encoder_get_pulses_this_rev(&encoder);
-        bool is_cw = encoder_get_direction(&encoder);
-        float rpm = encoder_get_rpm(&encoder);
-        
-        uint32_t now = to_ms_since_boot(get_absolute_time());
-        if (now - last_display_update >= UPDATE_INTERVAL_MS) {
-            last_display_update = now;
+while (1) {
+    encoder_process(&encoder);
+    encoder_calculate_rpm(&encoder);
+    
+    // Get encoder values - MOVE THESE TO THE TOP OF THE LOOP
+    int32_t count = encoder_get_count(&encoder);
+    int32_t revolutions = encoder_get_revolutions(&encoder);
+    int32_t pulses = encoder_get_pulses_this_rev(&encoder);
+    bool is_cw = encoder_get_direction(&encoder);
+    float rpm = encoder_get_rpm(&encoder);
+    
+    // DEBUG PINS - ADD THIS
+    static uint32_t last_pin_check = 0;
+    uint32_t time_now = to_ms_since_boot(get_absolute_time());
+    if (time_now - last_pin_check > 100) {
+        printf("RAW: A=%d B=%d Z=%d | Cnt=%ld\n",
+               gpio_get(ENCODER_A_PIN), gpio_get(ENCODER_B_PIN), 
+               gpio_get(ENCODER_Z_PIN), count);
+        last_pin_check = time_now;
+    }
+    
+    // Update display every UPDATE_INTERVAL_MS
+    if (time_now - last_display_update >= UPDATE_INTERVAL_MS) {
+        last_display_update = time_now;
             
             printf("Count: %7ld | Rev: %4ld | Pulse: %4ld | RPM: %7.1f %s\n",
                    count, revolutions, pulses, rpm, is_cw ? "CW " : "CCW");

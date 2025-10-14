@@ -1,5 +1,5 @@
 CMakeFiles/encoder_monitor.dir/main.c.o: \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/main.c \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/main.c \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers/include/pico/stdlib.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/types.h \
@@ -18,9 +18,9 @@ CMakeFiles/encoder_monitor.dir/main.c.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_intsup.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_stdint.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include/stddef.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/build/generated/pico_base/pico/version.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/generated/pico_base/pico/version.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/config.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/build/generated/pico_base/pico/config_autogen.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/generated/pico_base/pico/config_autogen.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/boards/include/boards/pico.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis/include/cmsis/rename_exceptions.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include/pico/platform.h \
@@ -66,14 +66,14 @@ CMakeFiles/encoder_monitor.dir/main.c.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/include/hardware/i2c.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/i2c.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/i2c.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/src/encoder/encoder.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/src/encoder/encoder.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio_instructions.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/src/i2c/i2c_helper.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/src/drivers/lcd_pcf8574.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/config.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/src/i2c/i2c_helper.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/src/drivers/lcd_pcf8574.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/config.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdio.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/reent.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/_ansi.h \

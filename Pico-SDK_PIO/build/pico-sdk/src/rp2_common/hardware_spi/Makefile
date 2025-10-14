@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO"
+CMAKE_SOURCE_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build"
+CMAKE_BINARY_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(CMAKE_COMMAND) -E cmake_progress_start "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/CMakeFiles" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/pico-sdk/src/rp2_common/hardware_spi//CMakeFiles/progress.marks"
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/CMakeFiles" 0
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/pico-sdk/src/rp2_common/hardware_spi//CMakeFiles/progress.marks
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/clean
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,17 +103,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/preinstall
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/preinstall
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pico-sdk/src/rp2_common/hardware_spi/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -135,6 +135,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

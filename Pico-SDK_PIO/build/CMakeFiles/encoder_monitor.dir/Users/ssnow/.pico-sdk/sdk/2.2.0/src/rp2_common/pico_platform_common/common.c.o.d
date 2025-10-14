@@ -17,9 +17,9 @@ CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_intsup.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_stdint.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include/stddef.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/build/generated/pico_base/pico/version.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/generated/pico_base/pico/version.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/config.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/build/generated/pico_base/pico/config_autogen.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/generated/pico_base/pico/config_autogen.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/boards/include/boards/pico.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis/include/cmsis/rename_exceptions.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include/pico/platform.h \

@@ -138,7 +138,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasmConfigVersion.cmake"
   "/Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasmTargets-release.cmake"
   "/Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasmTargets.cmake"
-  "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/CMakeLists.txt"
+  "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/CMakeLists.txt"
   "CMakeFiles/4.1.2/CMakeASMCompiler.cmake"
   "CMakeFiles/4.1.2/CMakeCCompiler.cmake"
   "CMakeFiles/4.1.2/CMakeCXXCompiler.cmake"

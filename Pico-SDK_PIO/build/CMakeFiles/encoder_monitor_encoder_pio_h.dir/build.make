@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO"
+CMAKE_SOURCE_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build"
+CMAKE_BINARY_DIR = /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build
 
 # Utility rule file for encoder_monitor_encoder_pio_h.
 
@@ -68,9 +68,9 @@ include CMakeFiles/encoder_monitor_encoder_pio_h.dir/progress.make
 
 CMakeFiles/encoder_monitor_encoder_pio_h: encoder.pio.h
 
-encoder.pio.h: /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK\ PIO/src/encoder/encoder.pio
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir="/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Generating encoder.pio.h"
-	/Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasm -o c-sdk -v 0 "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/src/encoder/encoder.pio" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/encoder.pio.h"
+encoder.pio.h: /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/src/encoder/encoder.pio
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating encoder.pio.h"
+	/Users/ssnow/.pico-sdk/tools/2.2.0/pioasm/pioasm -o c-sdk -v 0 /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/src/encoder/encoder.pio /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/encoder.pio.h
 
 CMakeFiles/encoder_monitor_encoder_pio_h.dir/codegen:
 .PHONY : CMakeFiles/encoder_monitor_encoder_pio_h.dir/codegen
@@ -89,6 +89,6 @@ CMakeFiles/encoder_monitor_encoder_pio_h.dir/clean:
 .PHONY : CMakeFiles/encoder_monitor_encoder_pio_h.dir/clean
 
 CMakeFiles/encoder_monitor_encoder_pio_h.dir/depend:
-	cd "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build" "/Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK PIO/build/CMakeFiles/encoder_monitor_encoder_pio_h.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build /Users/ssnow/Documents/GitHub/PU-Winder/Pico-SDK_PIO/build/CMakeFiles/encoder_monitor_encoder_pio_h.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/encoder_monitor_encoder_pio_h.dir/depend
 
