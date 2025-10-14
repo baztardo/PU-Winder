@@ -6,10 +6,10 @@
 
 // Z counting robustness knobs
 #ifndef Z_MIN_INTERVAL_US
-#define Z_MIN_INTERVAL_US 1000u  // ignore Z edges within 1ms of last (debounce)
+#define Z_MIN_INTERVAL_US 20000u // ignore Z edges within 20ms of last (debounce)
 #endif
 #ifndef Z_REQUIRE_AB_STATE
-#define Z_REQUIRE_AB_STATE 1     // require A/B to be in a specific state when Z triggers
+#define Z_REQUIRE_AB_STATE 0     // do not require a specific A/B state by default
 #endif
 #ifndef Z_REQUIRED_AB_STATE
 #define Z_REQUIRED_AB_STATE 0x3  // typical index gating when A=1 and B=1
