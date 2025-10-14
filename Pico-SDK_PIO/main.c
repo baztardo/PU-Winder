@@ -99,6 +99,7 @@ while (1) {
     int32_t pulses = encoder_get_pulses_this_rev(&encoder);
     bool is_cw = encoder_get_direction(&encoder);
     float rpm = encoder_get_rpm(&encoder);
+    uint32_t time_now = to_ms_since_boot(get_absolute_time());
     
     // Quiet mode: remove periodic RAW pin prints
     
