@@ -50,8 +50,8 @@
 // ---------------------------------------------------------------------------
 // Endstops Used as Rotary Encoder Inputs Brown wire Vcc (3.3V) blue wire GND
 // ---------------------------------------------------------------------------
-#define X_STOP_PIN      4   // Encoder pin A Black/green wire
-#define Y_STOP_PIN      3   // Encoder pin B White wire 
+#define X_STOP_PIN      3   // Encoder pin A Black/green wire
+#define Y_STOP_PIN      4   // Encoder pin B White wire 
 #define Z_STOP_PIN      25  // Encoder pin Z Orange wire
 #define E0_STOP_PIN     16  // home switch
 

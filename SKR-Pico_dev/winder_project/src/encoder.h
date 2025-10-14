@@ -6,6 +6,7 @@
 #pragma once
 
 #include <cstdint>
+#include "hardware/pio.h"
 
 // =============================================================================
 // Encoder Class
@@ -69,6 +70,7 @@ public:
     void debug_status() const;
 
 private:
+    // Position and diagnostics
     volatile uint32_t isr_hits = 0;
     volatile int32_t position;
     int32_t last_velocity_position;
@@ -76,6 +78,14 @@ private:
     bool last_b;
     bool last_z;
     bool z_pulse_detected;
-};
 
-extern Encoder encoder;
+    // PIO-based quadrature sampling
+    bool pio_initialized = false;
+    PIO pio = pio0;
+    uint sm = 0;
+    uint offset = 0;
+    uint8_t pio_base_pin = 0;   // min(ENCODER_A_PIN, ENCODER_B_PIN)
+    uint8_t a_bit_index = 1;    // bit index within RX sample (0 or 1) for channel A
+    uint8_t b_bit_index = 0;    // bit index within RX sample (0 or 1) for channel B
+    uint8_t last_state_bits = 0;// 2-bit state encoded as (A<<1)|B
+};

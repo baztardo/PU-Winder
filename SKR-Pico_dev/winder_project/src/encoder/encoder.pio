@@ -1,0 +1,52 @@
+; =============================================================================
+; Quadrature Encoder PIO Program for RP2040
+; =============================================================================
+; This program continuously samples 2 encoder pins (A and B) and pushes
+; their state to the FIFO for the CPU to decode.
+;
+; Features:
+; - Samples at a fixed rate determined by clock divider
+; - Non-blocking push to FIFO
+; - Simple 2-bit read (A and B channels)
+;
+; Clock configuration (set in C init function):
+; - Default: 125 MHz / 10 = 12.5 MHz base clock
+; - With [7] delay: 12.5 MHz / 8 = ~1.56 MHz sample rate
+; - This gives ~0.64 µs between samples
+;
+; For a 360 PPR encoder at 6000 RPM max:
+; - 6000 RPM = 100 rev/sec
+; - 360 PPR * 4 (quadrature) = 1440 counts/rev
+; - 100 rev/s * 1440 = 144,000 counts/s
+; - Period per count: ~6.9 µs
+; - Our sample rate: 0.64 µs (10x faster than needed - good!)
+; =============================================================================
+
+.program quadrature_encoder
+
+.wrap_target
+    in pins, 2 [7]      ; Read 2 pins (A and B), shift into ISR, then wait 7 cycles
+    push noblock        ; Push ISR to RX FIFO (if full, discard - we'll get next sample)
+.wrap
+
+% c-sdk {
+static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset, uint pin_a_base) {
+    pio_sm_config c = quadrature_encoder_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, pin_a_base);
+
+    pio_gpio_init(pio, pin_a_base);
+    pio_gpio_init(pio, pin_a_base + 1);
+
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_a_base, 2, false);
+
+    sm_config_set_in_shift(&c, true, false, 32);
+
+    sm_config_set_clkdiv(&c, 10.0f);
+
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
+
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_clear_fifos(pio, sm);
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

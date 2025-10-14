@@ -5,6 +5,9 @@
 #include "encoder.h"
 #include "config.h"
 #include "hardware/gpio.h"
+#include "hardware/pio.h"
+#include "pico/time.h"
+#include "encoder.pio.h"
 #include <cstdio>
 
 static volatile uint32_t g_isr_hits = 0;
@@ -19,40 +22,105 @@ Encoder::Encoder()
 }
 
 void Encoder::init() {
-    // Initialize GPIO pins as inputs with pull-ups
-    gpio_init(ENCODER_A_PIN);
-    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
-    gpio_pull_up(ENCODER_A_PIN);
-    
-    gpio_init(ENCODER_B_PIN);
-    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
-    gpio_pull_up(ENCODER_B_PIN);
-    
+    // Configure Z pin for index pulse
     gpio_init(ENCODER_Z_PIN);
     gpio_set_dir(ENCODER_Z_PIN, GPIO_IN);
     gpio_pull_up(ENCODER_Z_PIN);
-    
-    // Read initial state
+
+    // Determine base pin for PIO sampling: PIO reads base and base+1
+    // Our pins are A=3, B=4 (ascending). Use base=A=3.
+    const uint8_t a_pin = ENCODER_A_PIN;
+    const uint8_t b_pin = ENCODER_B_PIN;
+    pio_base_pin = (a_pin < b_pin) ? a_pin : b_pin;
+
+    // Compute which bit corresponds to channel A/B within the 2-bit sample
+    // With base=A=3: A -> bit0, B -> bit1
+    a_bit_index = (a_pin == pio_base_pin) ? 0 : 1;
+    b_bit_index = (b_pin == pio_base_pin) ? 0 : 1;
+
+    // Initialize PIO program
+    pio = pio0;
+    if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
+        // Fallback to GPIO polling if PIO not available
+        pio_initialized = false;
+        goto gpio_fallback;
+    }
+    offset = pio_add_program(pio, &quadrature_encoder_program);
+
+    // Claim a state machine
+    int claimed = pio_claim_unused_sm(pio, false);
+    if (claimed < 0) {
+        pio_initialized = false;
+        goto gpio_fallback;
+    }
+    sm = (uint)claimed;
+
+    quadrature_encoder_program_init(pio, sm, offset, pio_base_pin);
+    pio_initialized = true;
+
+    // Initialize last state from FIFO if available
+    last_state_bits = 0;
+    if (!pio_sm_is_rx_fifo_empty(pio, sm)) {
+        uint32_t data = pio_sm_get(pio, sm);
+        uint8_t raw = data & 0x3;
+        bool a = (raw >> a_bit_index) & 0x1;
+        bool b = (raw >> b_bit_index) & 0x1;
+        last_state_bits = (uint8_t)((a << 1) | b);
+    }
+
+    last_a = (last_state_bits >> 1) & 1;
+    last_b = (last_state_bits & 1);
+    last_z = gpio_get(ENCODER_Z_PIN);
+    return;
+
+gpio_fallback:
+    // Initialize GPIO pins as inputs with pull-ups and use polling
+    gpio_init(ENCODER_A_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+
+    gpio_init(ENCODER_B_PIN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_B_PIN);
+
+    // Read initial state for polling
     last_a = gpio_get(ENCODER_A_PIN);
     last_b = gpio_get(ENCODER_B_PIN);
     last_z = gpio_get(ENCODER_Z_PIN);
 }
 
 void Encoder::update() {
-    bool a = gpio_get(ENCODER_A_PIN);
-    bool b = gpio_get(ENCODER_B_PIN);
-
-    uint8_t state = (a << 1) | b;
-    uint8_t last_state = (last_a << 1) | last_b;
-
-    int8_t table[4][4] = {
+    // Transition table identical to previous implementation
+    static const int8_t table[4][4] = {
         {  0, -1,  1,  0 },
         {  1,  0,  0, -1 },
         { -1,  0,  0,  1 },
         {  0,  1, -1,  0 }
     };
-    position += table[last_state][state];
 
+    if (pio_initialized) {
+        // Drain RX FIFO; apply transitions for each sample
+        while (!pio_sm_is_rx_fifo_empty(pio, sm)) {
+            uint32_t data = pio_sm_get(pio, sm);
+            uint8_t raw = data & 0x3;
+            bool a = (raw >> a_bit_index) & 0x1;
+            bool b = (raw >> b_bit_index) & 0x1;
+
+            uint8_t state = (uint8_t)((a << 1) | b);
+            uint8_t last_state = (uint8_t)((last_a << 1) | last_b);
+            position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
+            last_a = a;
+            last_b = b;
+        }
+        return;
+    }
+
+    // GPIO polling fallback
+    bool a = gpio_get(ENCODER_A_PIN);
+    bool b = gpio_get(ENCODER_B_PIN);
+    uint8_t state = (uint8_t)((a << 1) | b);
+    uint8_t last_state = (uint8_t)((last_a << 1) | last_b);
+    position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
     last_a = a;
     last_b = b;
 }
@@ -94,5 +162,4 @@ void Encoder::debug_status() const {
 uint32_t Encoder::get_isr_hits() const {
     return isr_hits;
 }
-// Global encoder instance (used in main.cpp)
-Encoder encoder;
+// No global instance; main owns Encoder instances
