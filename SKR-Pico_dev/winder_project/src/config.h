@@ -28,8 +28,8 @@
 #define ENCODER_INVERT        0   // 1 flips encoder A/B sense (if deltas are "negative" in forward)
 
 // Encoder (360 PPR, 1:1 with spindle)
-#define ENCODER_A_PIN       4
-#define ENCODER_B_PIN       3
+#define ENCODER_A_PIN       3
+#define ENCODER_B_PIN       4
 #define ENCODER_Z_PIN       25
 
 // TMC2209 UART (Shared bus)
