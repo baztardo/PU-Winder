@@ -38,43 +38,46 @@ void Encoder::init() {
     a_bit_index = (a_pin == pio_base_pin) ? 0 : 1;
     b_bit_index = (b_pin == pio_base_pin) ? 0 : 1;
 
-    // Initialize PIO program
+    // Try to initialize PIO program; if any step fails, fall back to GPIO polling
     pio = pio0;
+    bool pio_ok = true;
+    uint local_offset = 0;
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
-        // Fallback to GPIO polling if PIO not available
-        pio_initialized = false;
-        goto gpio_fallback;
-    }
-    offset = pio_add_program(pio, &quadrature_encoder_program);
-
-    // Claim a state machine
-    int claimed = pio_claim_unused_sm(pio, false);
-    if (claimed < 0) {
-        pio_initialized = false;
-        goto gpio_fallback;
-    }
-    sm = (uint)claimed;
-
-    quadrature_encoder_program_init(pio, sm, offset, pio_base_pin);
-    pio_initialized = true;
-
-    // Initialize last state from FIFO if available
-    last_state_bits = 0;
-    if (!pio_sm_is_rx_fifo_empty(pio, sm)) {
-        uint32_t data = pio_sm_get(pio, sm);
-        uint8_t raw = data & 0x3;
-        bool a = (raw >> a_bit_index) & 0x1;
-        bool b = (raw >> b_bit_index) & 0x1;
-        last_state_bits = (uint8_t)((a << 1) | b);
+        pio_ok = false;
+    } else {
+        local_offset = pio_add_program(pio, &quadrature_encoder_program);
     }
 
-    last_a = (last_state_bits >> 1) & 1;
-    last_b = (last_state_bits & 1);
-    last_z = gpio_get(ENCODER_Z_PIN);
-    return;
+    int claimed = -1;
+    if (pio_ok) {
+        claimed = pio_claim_unused_sm(pio, false);
+        if (claimed < 0) pio_ok = false;
+    }
 
-gpio_fallback:
-    // Initialize GPIO pins as inputs with pull-ups and use polling
+    if (pio_ok) {
+        sm = (uint)claimed;
+        offset = local_offset;
+        quadrature_encoder_program_init(pio, sm, offset, pio_base_pin);
+        pio_initialized = true;
+
+        // Initialize last state from FIFO if available
+        last_state_bits = 0;
+        if (!pio_sm_is_rx_fifo_empty(pio, sm)) {
+            uint32_t data = pio_sm_get(pio, sm);
+            uint8_t raw = data & 0x3;
+            bool a = (raw >> a_bit_index) & 0x1;
+            bool b = (raw >> b_bit_index) & 0x1;
+            last_state_bits = (uint8_t)((a << 1) | b);
+        }
+
+        last_a = (last_state_bits >> 1) & 1;
+        last_b = (last_state_bits & 1);
+        last_z = gpio_get(ENCODER_Z_PIN);
+        return;
+    }
+
+    // Fallback: Initialize GPIO pins as inputs with pull-ups and use polling
+    pio_initialized = false;
     gpio_init(ENCODER_A_PIN);
     gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
     gpio_pull_up(ENCODER_A_PIN);
