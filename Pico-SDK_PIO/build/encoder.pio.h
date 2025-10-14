@@ -41,22 +41,35 @@ static inline pio_sm_config quadrature_encoder_program_get_default_config(uint o
 }
 
 static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset, uint pin_a) {
+    // Get default config
     pio_sm_config c = quadrature_encoder_program_get_default_config(offset);
-    // Set input pins (A and B are consecutive)
+    // Configure input pins (A and B are consecutive)
+    // pin_a is the base pin, pin_a+1 is the B pin
     sm_config_set_in_pins(&c, pin_a);
-    // Initialize the pins
+    // Set up pins for PIO control
+    // PIO will now control these pins - don't use gpio_get() on them!
     pio_gpio_init(pio, pin_a);
     pio_gpio_init(pio, pin_a + 1);
-    // Set both pins as inputs
+    // Set pin directions: both inputs
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
-    // Shift config: shift right, autopush disabled
+    // Input shift config:
+    // - Shift right (LSB first)
+    // - No autopush (we push manually)
+    // - 32-bit threshold (not used since no autopush)
     sm_config_set_in_shift(&c, true, false, 32);
-    // Clock divider: 125MHz / 10 = 12.5MHz / 8 cycles = ~1.5MHz sample rate
+    // Clock divider
+    // 125 MHz / 10 = 12.5 MHz
+    // With the [7] delay, effective sample rate is 12.5MHz / 8 = 1.56 MHz
+    // This samples every 0.64 microseconds
     sm_config_set_clkdiv(&c, 10.0f);
-    // Join FIFOs to make RX FIFO deeper
+    // Join FIFOs to make RX FIFO 8 words deep instead of 4
+    // This helps prevent overflow if CPU can't process fast enough
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
-    // Initialize and start the state machine
+    // Initialize the state machine
     pio_sm_init(pio, sm, offset, &c);
+    // Clear any stale data in FIFO
+    pio_sm_clear_fifos(pio, sm);
+    // Start the state machine!
     pio_sm_set_enabled(pio, sm, true);
 }
 

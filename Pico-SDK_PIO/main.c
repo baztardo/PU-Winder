@@ -51,6 +51,26 @@ int main() {
     lcd_print(&lcd, "Initializing...");
     sleep_ms(1500);
     
+    // Add this BEFORE encoder_init()
+    printf("\n=== PRE-PIO HARDWARE TEST ===\n");
+    gpio_init(3);
+    gpio_init(4);  
+    gpio_set_dir(3, GPIO_IN);
+    gpio_set_dir(4, GPIO_IN);
+    gpio_pull_up(3);
+    gpio_pull_up(4);
+
+    printf("Manually rotate encoder and watch for changes:\n");
+    for (int i = 0; i < 50; i++) {
+        bool a = gpio_get(3);
+        bool b = gpio_get(4);
+        printf("A=%d B=%d\n", a, b);
+        sleep_ms(100);
+    }
+    printf("=== Did you see changes? If NO, check wiring! ===\n\n");
+    sleep_ms(2000);
+
+    // NOW initialize PIO
     printf("Initializing PIO encoder...\n");
     if (!encoder_init(&encoder, pio0, 
                       ENCODER_A_PIN, ENCODER_B_PIN, ENCODER_Z_PIN,

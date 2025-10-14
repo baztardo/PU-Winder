@@ -2,12 +2,15 @@
 #include "encoder.pio.h"
 #include "pico/time.h"
 #include <stdio.h>
-#include <stdlib.h>  
+#include <stdlib.h>
 
 static encoder_t *global_encoder = NULL;
 
 const int8_t encoder_states[16] = {
-    0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0
+    0, +1, -1, 0,   // prev=00
+    -1, 0, 0, +1,   // prev=01
+    +1, 0, 0, -1,   // prev=10
+    0, -1, +1, 0    // prev=11
 };
 
 static void encoder_z_handler(uint gpio, uint32_t events) {
@@ -15,30 +18,22 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     if (gpio != global_encoder->pin_z) return;
     
     uint64_t current_time = time_us_64();
-    
-    // Debounce: 15ms allows up to 4000 RPM
     if (current_time - global_encoder->last_z_time < 15000) {
         return;
     }
     
-    // Count validation: must move at least 60% of a revolution
-    // This catches electrical noise while allowing direction changes
     static int32_t last_z_count = 0;
     int32_t counts_since_last = labs(global_encoder->count - last_z_count);
     
     if (counts_since_last < (global_encoder->cpr * 3 / 5)) {
-        // Not enough movement - likely noise/bounce
         return;
     }
     
     printf("Z pulse! Count: %ld (delta: %ld)\n", 
            global_encoder->count, counts_since_last);
     
-    // Update tracking AFTER validation
     last_z_count = global_encoder->count;
     global_encoder->last_z_time = current_time;
-    
-    // Reset pulse counter and update revolutions
     global_encoder->pulses_this_rev = 0;
     
     if (global_encoder->direction_cw) {
@@ -66,15 +61,13 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     enc->current_rpm = 0.0f;
     enc->last_state = 0;
     
-    // DON'T initialize A and B as GPIO - let PIO do it!
-    // We'll read initial state after PIO init
-    
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
         printf("ERROR: Cannot add PIO program\n");
         return false;
     }
     
     enc->offset = pio_add_program(pio, &quadrature_encoder_program);
+    printf("PIO program loaded at offset %d\n", enc->offset);
     
     int sm = pio_claim_unused_sm(pio, false);
     if (sm < 0) {
@@ -83,79 +76,129 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     }
     enc->sm = (uint)sm;
     
-    // Initialize PIO FIRST - this sets up the pins
+    printf("Claimed state machine %d on %s\n", enc->sm, pio == pio0 ? "pio0" : "pio1");
+    
+    // Initialize PIO
     quadrature_encoder_program_init(pio, enc->sm, enc->offset, pin_a);
     
-    printf("PIO encoder initialized on %s, SM %d\n", 
-           pio == pio0 ? "pio0" : "pio1", enc->sm);
+    printf("PIO state machine initialized and running\n");
+    printf("  Pin A (input): GPIO %d\n", pin_a);
+    printf("  Pin B (input): GPIO %d\n", pin_a + 1);
     
-    // Now read initial state using GPIO (PIO owns the pins now)
-    sleep_ms(10);
-    uint8_t a_state = gpio_get(pin_a) ? 1 : 0;
-    uint8_t b_state = gpio_get(pin_b) ? 1 : 0;
-    enc->last_state = (a_state << 1) | b_state;
+    sleep_ms(100);
     
-    printf("Initial encoder state: A=%d, B=%d, combined=%d\n", 
-           a_state, b_state, enc->last_state);
+    if (pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
+        printf("WARNING: PIO RX FIFO is empty!\n");
+    } else {
+        printf("SUCCESS: PIO RX FIFO has data\n");
+        
+        // **NEW: Dump first 10 FIFO entries to see what PIO is actually sampling**
+        printf("\n=== DUMPING FIRST 10 FIFO ENTRIES ===\n");
+        for (int i = 0; i < 10 && !pio_sm_is_rx_fifo_empty(pio, enc->sm); i++) {
+            uint32_t data = pio_sm_get(pio, enc->sm);
+            uint8_t state = data & 0x03;
+            printf("  FIFO[%d]: raw=0x%08lX, state=0x%02X, A=%d, B=%d\n",
+                   i, data, state, (state >> 1) & 1, state & 1);
+        }
+        printf("=== END FIFO DUMP ===\n\n");
+    }
     
-    // Configure Z pin (this one stays as regular GPIO interrupt)
+    // Read one more entry as initial state
+    if (!pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
+        uint32_t data = pio_sm_get(pio, enc->sm);
+        enc->last_state = data & 0x03;
+        printf("Initial state set to: 0x%02X (A=%d, B=%d)\n", 
+               enc->last_state, 
+               (enc->last_state >> 1) & 1, 
+               enc->last_state & 1);
+    }
+    
+    // Configure Z pin
     gpio_init(pin_z);
     gpio_set_dir(pin_z, GPIO_IN);
     gpio_pull_up(pin_z);
+    printf("Z pulse pin: GPIO %d (configured with pull-up)\n", pin_z);
     
     global_encoder = enc;
     
     gpio_set_irq_enabled_with_callback(pin_z, GPIO_IRQ_EDGE_RISE, true, 
                                        &encoder_z_handler);
     
-    printf("Encoder initialization complete\n");
+    printf("\n=== Encoder initialization complete ===\n");
+    printf("Ready to count. Try rotating the encoder...\n\n");
     
     return true;
 }
 
 void encoder_process(encoder_t *enc) {
-    static uint32_t last_print = 0;
-    int changes_processed = 0;
+    static uint32_t total_changes = 0;
+    static uint32_t total_reads = 0;
+    static uint32_t same_state_count = 0;
+    static uint32_t last_debug_time = 0;
+    uint32_t changes_this_call = 0;
+    
+    // **NEW: Track how many times we read from FIFO**
+    int fifo_reads_this_call = 0;
     
     while (!pio_sm_is_rx_fifo_empty(enc->pio, enc->sm)) {
         uint32_t data = pio_sm_get(enc->pio, enc->sm);
         uint8_t current_state = data & 0x03;
         
-        // Print every state we see (for first few seconds)
-        uint32_t now = to_ms_since_boot(get_absolute_time());
-        if (now - last_print > 100 && now < 10000) {  // First 10 seconds
-            printf("PIO State: %d (A=%d, B=%d)\n", 
-                   current_state, (current_state >> 1) & 1, current_state & 1);
-            last_print = now;
+        fifo_reads_this_call++;
+        total_reads++;
+        
+        // **NEW: Print EVERY state for first 100 reads**
+        if (total_reads <= 100) {
+            printf("[%lu] Raw: 0x%08lX | State: 0x%02X (A=%d B=%d) | Last: 0x%02X | ",
+                   total_reads, data, current_state,
+                   (current_state >> 1) & 1, current_state & 1,
+                   enc->last_state);
         }
         
         if (current_state != enc->last_state) {
             uint8_t index = (enc->last_state << 2) | current_state;
             int8_t change = encoder_states[index];
             
-            if (changes_processed < 20) {
-                printf("State change: %d->%d, Index: %d, Change: %d\n", 
-                       enc->last_state, current_state, index, change);
+            if (total_reads <= 100) {
+                printf("CHANGE! Index=0x%02X, delta=%+d, count=%ld\n",
+                       index, change, enc->count + change);
             }
-            changes_processed++;
             
             if (change != 0) {
                 enc->count += change;
                 enc->pulses_this_rev++;
-                
-                if (change > 0) {
-                    enc->direction_cw = true;
-                } else {
-                    enc->direction_cw = false;
-                }
+                enc->direction_cw = (change > 0);
                 
                 if (enc->pulses_this_rev >= enc->cpr) {
                     enc->pulses_this_rev = 0;
                 }
+                
+                changes_this_call++;
+                total_changes++;
             }
             
             enc->last_state = current_state;
+        } else {
+            same_state_count++;
+            if (total_reads <= 100) {
+                printf("same (total_same=%lu)\n", same_state_count);
+            }
         }
+    }
+    
+    // **NEW: Report FIFO processing stats**
+    uint32_t now = to_ms_since_boot(get_absolute_time());
+    if (now - last_debug_time > 1000) {
+        int fifo_level = pio_sm_get_rx_fifo_level(enc->pio, enc->sm);
+        printf("\n=== STATS ===\n");
+        printf("  Count: %ld\n", enc->count);
+        printf("  Total FIFO reads: %lu\n", total_reads);
+        printf("  Total changes: %lu\n", total_changes);
+        printf("  Same state reads: %lu\n", same_state_count);
+        printf("  FIFO level: %d/8\n", fifo_level);
+        printf("  Last state: 0x%02X\n", enc->last_state);
+        printf("=============\n\n");
+        last_debug_time = now;
     }
 }
 
