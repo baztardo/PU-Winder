@@ -15,8 +15,8 @@ endif()
 set(PICO_BOARD pico CACHE STRING "Board type")
 
 cmake_minimum_required(VERSION 3.13)
-# Use local Pico SDK import for portability
-include(${CMAKE_CURRENT_LIST_DIR}/pico_sdk_import.cmake)
+# --- Import Pico SDK ---
+include($ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
 
 # Project name
 project(encoder_monitor C CXX ASM)

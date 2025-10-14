@@ -14,8 +14,8 @@ endif()
 # ====================================================================================
 cmake_minimum_required(VERSION 3.13)
 
-# Use local Pico SDK import for portability
-include(${CMAKE_CURRENT_LIST_DIR}/pico_sdk_import.cmake)
+# --- Import Pico SDK (adapt the version/path if yours differs) ---
+include($ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
 
 project(encoder_monitor C CXX ASM)
 set(CMAKE_C_STANDARD 11)
