@@ -133,7 +133,8 @@ while (1) {
             lcd_print_float(&lcd, rpm, 1);
         }
         
-        sleep_ms(10);
+        // Keep loop responsive to avoid PIO FIFO overflow
+        sleep_us(100);
     }
     
     return 0;

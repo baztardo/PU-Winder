@@ -35,6 +35,10 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     
     static int32_t last_z_count = 0;
     int32_t counts_since_last = labs(global_encoder->count - last_z_count);
+    int32_t min_counts_between_z = global_encoder->cpr > 0 ? (global_encoder->cpr / 2) : 1;
+    if (counts_since_last < min_counts_between_z) {
+        return;
+    }
     
     // Optional gating: only accept Z when A/B at required state
     if (Z_REQUIRE_AB_STATE) {
