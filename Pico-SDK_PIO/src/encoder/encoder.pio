@@ -25,8 +25,20 @@
 .program quadrature_encoder
 
 .wrap_target
-    in pins, 2 [7]      ; Read 2 pins (A and B), shift into ISR, then wait 7 cycles
-    push noblock        ; Push ISR to RX FIFO (if full, discard - we'll get next sample)
+    ; Sample current A/B into ISR (clear first so bits land in LSBs)
+    mov isr, null
+    in pins, 2 [7]
+    mov y, isr           ; Y = current state (2 LSBs)
+
+    ; Only push when state changes compared to X (last state)
+    jmp x!=y changed
+    jmp .wrap_target     ; no change, loop
+
+changed:
+    mov isr, y
+    push noblock         ; push new state (2 LSBs)
+    mov x, y             ; X = last state
+    jmp .wrap_target
 .wrap
 
 ; =============================================================================
@@ -50,10 +62,7 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     // Set pin directions: both inputs
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
     
-    // Input shift config:
-    // - Shift left so new bits enter at LSB
-    // - No autopush (we push manually each sample)
-    // - 32-bit threshold (irrelevant without autopush)
+    // Input shift config: shift left so bits land in LSBs after 'in pins,2'
     sm_config_set_in_shift(&c, false, false, 32);
     
     // Clock divider
@@ -72,6 +81,14 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     // Clear any stale data in FIFO
     pio_sm_clear_fifos(pio, sm);
     
+    // Initialize last state register X to current pins so we don't push a bogus first change
+    uint32_t ab = ((gpio_get(pin_a) & 1) << 1) | (gpio_get(pin_a + 1) & 1);
+    pio_sm_exec(pio, sm, pio_encode_set(pio_isr, 0));
+    pio_sm_exec(pio, sm, pio_encode_in(pio_pins, 2));
+    pio_sm_exec(pio, sm, pio_encode_mov(pio_y, pio_isr));
+    // load X with initial state value in Y
+    pio_sm_exec(pio, sm, pio_encode_mov(pio_x, pio_y));
+
     // Start the state machine!
     pio_sm_set_enabled(pio, sm, true);
 }
