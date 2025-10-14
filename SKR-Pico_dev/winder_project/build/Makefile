@@ -130,6 +130,19 @@ winder_project/fast:
 .PHONY : winder_project/fast
 
 #=============================================================================
+# Target rules for targets named winder_project_encoder_pio_h
+
+# Build rule for target.
+winder_project_encoder_pio_h: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 winder_project_encoder_pio_h
+.PHONY : winder_project_encoder_pio_h
+
+# fast build rule for target.
+winder_project_encoder_pio_h/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project_encoder_pio_h.dir/build.make CMakeFiles/winder_project_encoder_pio_h.dir/build
+.PHONY : winder_project_encoder_pio_h/fast
+
+#=============================================================================
 # Target rules for targets named bs2_default
 
 # Build rule for target.
@@ -1073,6 +1086,30 @@ Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.o:
 Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o
 .PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o
+
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.o: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.o
+
+# target to build an object file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o
+
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.i: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.i
+
+# target to preprocess a source file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i
+
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.s: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.s
+
+# target to generate assembly for a file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s
 
 Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.o: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o
 .PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.o
@@ -2237,6 +2274,7 @@ help:
 	@echo "... bs2_default_bin"
 	@echo "... cyw43_driver_picow_cyw43_bus_pio_spi_pio_h"
 	@echo "... pico_status_led_ws2812_pio_h"
+	@echo "... winder_project_encoder_pio_h"
 	@echo "... bs2_default"
 	@echo "... bs2_default_library"
 	@echo "... winder_project"
@@ -2350,6 +2388,9 @@ help:
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.i"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.s"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.o"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.o"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.i"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.s"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.o"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.i"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.s"

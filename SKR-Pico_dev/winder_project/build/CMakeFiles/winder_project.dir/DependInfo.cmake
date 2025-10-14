@@ -89,6 +89,7 @@ set(CMAKE_TARGET_DEFINITIONS_ASM
 # The include file search paths:
 set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src"
+  "."
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers/include"
@@ -148,6 +149,7 @@ set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/boot_stage2/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+  "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/include"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pwm/include"
@@ -191,6 +193,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o.d"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o.d"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o.d"
+  "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o.d"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o.d"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o.d"
   "/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o" "gcc" "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o.d"

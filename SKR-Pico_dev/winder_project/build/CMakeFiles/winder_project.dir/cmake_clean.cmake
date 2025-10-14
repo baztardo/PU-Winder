@@ -73,6 +73,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o"
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o.d"
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o"
+  "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o"
+  "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o.d"
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o"
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o.d"
   "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o"

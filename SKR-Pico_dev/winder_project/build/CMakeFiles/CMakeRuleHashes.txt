@@ -1,4 +1,6 @@
 # Hashes of file build rules.
+7d3a0f74827269b28c95b133be1897f3 CMakeFiles/winder_project_encoder_pio_h
+0eb8dc4b59473e5ad4a19852c70e6ab3 encoder.pio.h
 f34d2768ad7247d663c103a5d214ec2c pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_bin
 31fa2363444807acdb620437a54dc8f9 pico-sdk/src/rp2040/boot_stage2/bs2_default.bin
 54a796e314497e76036a73af0b935392 pico-sdk/src/rp2040/boot_stage2/bs2_default_padded_checksummed.S

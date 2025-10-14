@@ -1321,10 +1321,24 @@ CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pic
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c -o CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s
 
+CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: CMakeFiles/winder_project.dir/flags.make
+CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c
+CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o: CMakeFiles/winder_project.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building C object CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o -MF CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o.d -o CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c
+
+CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c > CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.i
+
+CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c -o CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.s
+
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: CMakeFiles/winder_project.dir/flags.make
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o: CMakeFiles/winder_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_91) "Building C object CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building C object CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o -MF CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o.d -o CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c
 
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.i: cmake_force
@@ -1338,7 +1352,7 @@ CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/har
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o: CMakeFiles/winder_project.dir/flags.make
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o: CMakeFiles/winder_project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_92) "Building C object CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Building C object CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o -MF CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o.d -o CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c
 
 CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.i: cmake_force
@@ -1441,6 +1455,7 @@ winder_project_OBJECTS = \
 "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/common/tusb_fifo.c.o" \
 "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o" \
 "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o" \
+"CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o" \
 "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o" \
 "CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o"
 
@@ -1537,13 +1552,14 @@ winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.
 winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/tinyusb/src/common/tusb_fifo.c.o
 winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o
 winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
+winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/pio.c.o
 winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/i2c.c.o
 winder_project.elf: CMakeFiles/winder_project.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma/dma.c.o
 winder_project.elf: CMakeFiles/winder_project.dir/build.make
 winder_project.elf: pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.o
 winder_project.elf: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/rp2040/memmap_default.ld
 winder_project.elf: CMakeFiles/winder_project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_93) "Linking CXX executable winder_project.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_94) "Linking CXX executable winder_project.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/winder_project.dir/link.txt --verbose=$(VERBOSE)
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -h /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/winder_project.elf > winder_project.dis
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -d /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/winder_project.elf >> winder_project.dis

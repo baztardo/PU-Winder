@@ -83,6 +83,10 @@ CMakeFiles/winder_project.dir/main.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdint \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/tmc2209.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/encoder.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio_instructions.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/stepcompress.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/vector \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/requires_hosted.h \

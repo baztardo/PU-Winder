@@ -67,8 +67,7 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_stdint.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/encoder.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/lcd_display.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/include/hardware/i2c.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/types.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/assert.h \
@@ -95,15 +94,33 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/error.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base/include/hardware/address_mapped.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/interp.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pads_bank0.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pads_bank0.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/io_bank0.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/io_bank0.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/include/hardware/irq.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/intctrl.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include/pico/platform/cpu_regs.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/m0plus.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/m0plus.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/nvic.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/scb.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/dreq.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio_instructions.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/lcd_display.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c/include/hardware/i2c.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/include/pico/time.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/include/hardware/timer.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/timer.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base/include/hardware/address_mapped.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/timer.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/intctrl.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/i2c.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/i2c.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/dreq.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/string \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/stringfwd.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/char_traits.h \
@@ -143,19 +160,6 @@ CMakeFiles/winder_project.dir/src/winding_controller.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/errno.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/charconv.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/bits/basic_string.tcc \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/interp.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pads_bank0.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pads_bank0.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/io_bank0.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/io_bank0.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/include/hardware/irq.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include/pico/platform/cpu_regs.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/m0plus.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/m0plus.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/nvic.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/scb.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers/include/pico/stdlib.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio/include/pico/stdio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/include/hardware/uart.h \

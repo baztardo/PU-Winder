@@ -13,8 +13,7 @@ CMakeFiles/winder_project.dir/src/encoder.cpp.o: \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/_newlib_version.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_intsup.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/sys/_stdint.h \
- /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/types.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/assert.h \
@@ -42,8 +41,11 @@ CMakeFiles/winder_project.dir/src/encoder.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/error.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base/include/hardware/address_mapped.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/interp.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/pads_bank0.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/pads_bank0.h \
@@ -56,6 +58,14 @@ CMakeFiles/winder_project.dir/src/encoder.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/m0plus.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/nvic.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/scb.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/dreq.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio/include/hardware/pio_instructions.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/config.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/include/pico/time.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/include/hardware/timer.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs/include/hardware/structs/timer.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/timer.h \
+ /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/encoder.pio.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdio \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdio.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/lib/gcc/arm-none-eabi/14.2.1/include/stdarg.h \
