@@ -1,6 +1,7 @@
 #include "encoder.h"
 #include "encoder.pio.h"
 #include "pico/time.h"
+#include "hardware/irq.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -141,6 +142,61 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
 
     gpio_acknowledge_irq(pin_z, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL);
     gpio_set_irq_enabled_with_callback(pin_z, z_edge, true, &encoder_z_handler);
+
+    // Configure PIO IRQ to drain RX FIFO in ISR (reduces main loop load)
+    if (enc->pio == pio0) {
+        // Enable RX not empty source for this state machine
+        pio_set_irq0_source_enabled(pio0, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
+        irq_set_exclusive_handler(PIO0_IRQ_0, [](){
+            encoder_t *e = global_encoder;
+            if (!e || e->pio != pio0) return;
+            while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
+                uint32_t data = pio_sm_get(e->pio, e->sm);
+                uint8_t current_state = (uint8_t)(data & 0x03);
+                if (current_state != e->last_state) {
+                    uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
+                    int8_t change = encoder_states[index];
+                    if (change != 0) {
+                        e->count += change;
+                        e->pulses_this_rev++;
+                        e->direction_cw = (change > 0);
+                        if (e->pulses_this_rev >= e->cpr) {
+                            e->pulses_this_rev = 0;
+                        }
+                    }
+                    e->last_state = current_state;
+                }
+            }
+            // Clear the IRQ (safe even if already deasserted)
+            irq_clear(PIO0_IRQ_0);
+        });
+        irq_set_enabled(PIO0_IRQ_0, true);
+    } else {
+        pio_set_irq0_source_enabled(pio1, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
+        irq_set_exclusive_handler(PIO1_IRQ_0, [](){
+            encoder_t *e = global_encoder;
+            if (!e || e->pio != pio1) return;
+            while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
+                uint32_t data = pio_sm_get(e->pio, e->sm);
+                uint8_t current_state = (uint8_t)(data & 0x03);
+                if (current_state != e->last_state) {
+                    uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
+                    int8_t change = encoder_states[index];
+                    if (change != 0) {
+                        e->count += change;
+                        e->pulses_this_rev++;
+                        e->direction_cw = (change > 0);
+                        if (e->pulses_this_rev >= e->cpr) {
+                            e->pulses_this_rev = 0;
+                        }
+                    }
+                    e->last_state = current_state;
+                }
+            }
+            irq_clear(PIO1_IRQ_0);
+        });
+        irq_set_enabled(PIO1_IRQ_0, true);
+    }
     
     printf("\n=== Encoder initialization complete ===\n");
     printf("Ready to count. Try rotating the encoder...\n\n");
