@@ -510,41 +510,23 @@ void WindingController::update_display() {
         return; // throttle LCD updates to ~5 Hz
     }
     last_update_ms = now_ms;
-    // Always show live RPM and turn info for visibility
+
+    // Only render during WINDING to avoid clashing with state-specific messages
+    if (state != WindingState::WINDING) {
+        return;
+    }
+
     const int32_t enc_counts = encoder->get_position();
     const float turns_f = (float)enc_counts / (float)ENCODER_CPR;
+    turns_completed = enc_counts / ENCODER_CPR;
 
-    // State string
-    const char* state_str = "";
-    switch (state) {
-        case WindingState::IDLE:            state_str = "IDLE"; break;
-        case WindingState::HOMING_SPINDLE:  state_str = "HOME S"; break;
-        case WindingState::HOMING_TRAVERSE: state_str = "HOME T"; break;
-        case WindingState::MOVING_TO_START: state_str = "MOVE->START"; break;
-        case WindingState::RAMPING_UP:      state_str = "RAMP UP"; break;
-        case WindingState::WINDING:         state_str = "WIND"; break;
-        case WindingState::RAMPING_DOWN:    state_str = "RAMP DN"; break;
-        case WindingState::COMPLETE:        state_str = "DONE"; break;
-        case WindingState::ERROR:           state_str = "ERROR"; break;
-    }
-
-    lcd->printf_at(0, 0, "RPM:%4.0f  %s", current_rpm, state_str);
+    lcd->printf_at(0, 0, "RPM:%4.0f  WIND", current_rpm);
     lcd->printf_at(0, 1, "Turns: %7.2f", turns_f);
-
-    if (state == WindingState::WINDING) {
-        // Keep layer context visible while winding
-        turns_completed = enc_counts / ENCODER_CPR;
-        lcd->printf_at(0, 2, "Layer: %lu/%lu", 
-                       current_layer, params.total_layers);
-        lcd->printf_at(0, 3, "Cnt:%ld L:%lu/%lu",
-                       (long)enc_counts,
-                       (unsigned long)turns_this_layer,
-                       (unsigned long)params.turns_per_layer);
-    } else {
-        // Show raw counts for debugging when not winding
-        lcd->printf_at(0, 2, "Cnt:%ld", (long)enc_counts);
-        lcd->print_at(0, 3, "                ");
-    }
+    lcd->printf_at(0, 2, "Layer: %lu/%lu", current_layer, params.total_layers);
+    lcd->printf_at(0, 3, "Cnt:%ld L:%lu/%lu",
+                   (long)enc_counts,
+                   (unsigned long)turns_this_layer,
+                   (unsigned long)params.turns_per_layer);
 }
 
 uint32_t WindingController::mm_to_steps(float mm) {
