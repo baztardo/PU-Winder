@@ -497,6 +497,7 @@ void WindingController::update_rpm() {
 }
 
 void WindingController::update_display() {
+    return; // TODO: remove this    
     static uint32_t last_update_ms = 0;
     uint32_t now_ms = to_ms_since_boot(get_absolute_time());
     if (now_ms - last_update_ms < 200) {
