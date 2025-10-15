@@ -487,7 +487,7 @@ void WindingController::ramp_down_spindle() {
 void WindingController::update_rpm() {
     uint32_t now = time_us_32();
     uint32_t dt_us = now - last_rpm_update_time;
-    if (dt_us < 100000) return; // 100 ms
+    if (dt_us < 500000) return; // 100 ms to 500 ms
 
     int32_t pos = encoder->get_position();
     int32_t delta = pos - enc_last_rpm;

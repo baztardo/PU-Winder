@@ -43,7 +43,7 @@
 // I2C Bus
 #define I2C_SDA_PIN         0
 #define I2C_SCL_PIN         1
-#define I2C_FREQ_HZ         400000
+#define I2C_FREQ_HZ         100000 // 400000
 
 // =============================================================================
 // ENCODER SPECIFICATIONS
