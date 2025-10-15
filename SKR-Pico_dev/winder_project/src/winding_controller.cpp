@@ -145,9 +145,7 @@ void WindingController::update() {
 }
 
 void WindingController::home_spindle() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Homing Spindle...");
-    lcd->print_at(0, 1, "Finding Z Index");
+    // Keep LCD quiet here to avoid competing messages
     
     // Wait for Z index pulse
     // Rotate spindle slowly and watch for Z pulse
@@ -191,8 +189,7 @@ void WindingController::home_spindle() {
 }
 
 void WindingController::home_traverse() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Homing Traverse...");
+    // Quiet LCD during homing to prevent flicker
     
     static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
     
@@ -206,14 +203,14 @@ void WindingController::home_traverse() {
             // Set direction towards home
             move_queue->set_direction(AXIS_TRAVERSE, false);
             homing_state = MOVING_TO_SWITCH;
-            lcd->print_at(0, 1, "Moving to switch");
+            // UI suppressed
             break;
             
         case MOVING_TO_SWITCH:
             // Move towards switch at homing speed
             if (gpio_get(TRAVERSE_HOME_PIN) == 0) {  // Switch triggered (active low)
                 move_queue->clear_queue(AXIS_TRAVERSE);
-                lcd->print_at(0, 1, "Switch found!");
+                // UI suppressed
                 
                 // Back off 2mm at moderate speed
                 uint32_t backoff_steps = mm_to_steps(2.0f);
@@ -227,7 +224,7 @@ void WindingController::home_traverse() {
                 }
                 
                 homing_state = BACKING_OFF;
-                lcd->print_at(0, 2, "Backing off...");
+                // UI suppressed
             } else {
                 // Continue moving towards switch at homing speed
                 if (!move_queue->is_active(AXIS_TRAVERSE)) {
@@ -246,7 +243,7 @@ void WindingController::home_traverse() {
             if (!move_queue->is_active(AXIS_TRAVERSE) && 
                 !move_queue->has_chunk(AXIS_TRAVERSE)) {
                 
-                lcd->print_at(0, 2, "Home complete!");
+                // UI suppressed
                 current_traverse_position_mm = 0;
                 homing_state = DONE;
             }
@@ -261,9 +258,7 @@ void WindingController::home_traverse() {
 }
 
 void WindingController::move_to_start() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Moving to Start");
-    lcd->printf_at(0, 1, "Target: %.1fmm", params.start_position_mm);
+    // Quiet LCD during move to start
     
     static bool move_queued = false;
     
@@ -286,7 +281,7 @@ void WindingController::move_to_start() {
         !move_queue->has_chunk(AXIS_TRAVERSE)) {
         
         current_traverse_position_mm = params.start_position_mm;
-        lcd->print_at(0, 2, "In position!");
+        // UI suppressed
         sleep_ms(500);
         
         state = WindingState::RAMPING_UP;
@@ -297,10 +292,8 @@ void WindingController::move_to_start() {
 void WindingController::ramp_up_spindle() {
     // One-time banner when state entered
     static bool banner_printed = false;
-    if (!banner_printed) {
-        lcd->print_at(0, 0, "RAMP UP");
-        banner_printed = true;
-    }
+    // Do not write to LCD here; update_display() owns UI during WINDING
+    if (!banner_printed) { banner_printed = true; }
 
     if (params.spindle_rpm <= 0.0f || params.ramp_time_sec <= 0.0f) {
         lcd->print_at(0, 1, "Param error!");
