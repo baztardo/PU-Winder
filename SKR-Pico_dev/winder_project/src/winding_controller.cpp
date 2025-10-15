@@ -295,9 +295,12 @@ void WindingController::move_to_start() {
 }
 
 void WindingController::ramp_up_spindle() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Ramping Up...");
-    printf("=== Starting ramp-up ===\n");
+    // One-time banner when state entered
+    static bool banner_printed = false;
+    if (!banner_printed) {
+        lcd->print_at(0, 0, "RAMP UP");
+        banner_printed = true;
+    }
 
     if (params.spindle_rpm <= 0.0f || params.ramp_time_sec <= 0.0f) {
         lcd->print_at(0, 1, "Param error!");
@@ -333,23 +336,20 @@ void WindingController::ramp_up_spindle() {
             total_steps_queued += steps;
         }
 
-        printf("Ramp chunks queued: %u\n",
-               (unsigned)move_queue->get_queue_depth(AXIS_SPINDLE));
+        // Keep ISR responsive; don't spam LCD here, UI handled in update_display()
         return;
     }
 
-    // ---- live update and completion check ----
-    lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
-    lcd->printf_at(0, 2, "Target: %.0f", params.spindle_rpm);
+    // ---- live completion check ---- (UI handled in update_display())
 
     uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
     bool time_done = (elapsed_ms >= (uint32_t)(params.ramp_time_sec * 1000.0f));
     bool queue_low = (move_queue->get_queue_depth(AXIS_SPINDLE) <= 3);
 
     if (time_done && queue_low) {
-        printf("Ramp-up complete\n");
         ramp_started = false;
         state = WindingState::WINDING;
+        banner_printed = false;
         return;
     }
 }
