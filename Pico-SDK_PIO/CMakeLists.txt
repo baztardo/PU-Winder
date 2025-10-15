@@ -46,6 +46,7 @@ target_include_directories(encoder_monitor PRIVATE
 
 target_link_libraries(encoder_monitor
     pico_stdlib
+    pico_multicore
     hardware_pio
     hardware_gpio
     hardware_i2c

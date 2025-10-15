@@ -31,13 +31,9 @@ int main() {
     }
     printf("I2C initialized successfully\n");
     
-    printf("Scanning I2C bus...\n");
+    // Optional: quick scan (quiet output)
     uint8_t found_devices[128];
-    int device_count = i2c_helper_scan(I2C_PORT, found_devices);
-    
-    if (device_count == 0) {
-        printf("WARNING: No I2C devices found!\n");
-    }
+    (void)i2c_helper_scan(I2C_PORT, found_devices);
     
     printf("Initializing LCD at address 0x%02X...\n", LCD_ADDRESS);
     lcd_init(&lcd, I2C_PORT, LCD_ADDRESS, LCD_COLS, LCD_ROWS);
@@ -52,22 +48,26 @@ int main() {
     sleep_ms(1500);
     
     // Add this BEFORE encoder_init()
-    printf("\n=== PRE-PIO HARDWARE TEST ===\n");
-    gpio_init(3);
-    gpio_init(4);  
-    gpio_set_dir(3, GPIO_IN);
-    gpio_set_dir(4, GPIO_IN);
-    gpio_pull_up(3);
-    gpio_pull_up(4);
+    printf("\n=== PRE-PIO HARDWARE TEST (A/B/Z) ===\n");
+    gpio_init(ENCODER_A_PIN);
+    gpio_init(ENCODER_B_PIN);
+    gpio_init(ENCODER_Z_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_set_dir(ENCODER_Z_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+    gpio_pull_up(ENCODER_B_PIN);
+    gpio_pull_up(ENCODER_Z_PIN);
 
-    printf("Manually rotate encoder and watch for changes:\n");
+    printf("Rotate encoder; confirm A/B/Z toggle:\n");
     for (int i = 0; i < 50; i++) {
-        bool a = gpio_get(3);
-        bool b = gpio_get(4);
-        printf("A=%d B=%d\n", a, b);
+        bool a = gpio_get(ENCODER_A_PIN);
+        bool b = gpio_get(ENCODER_B_PIN);
+        bool z = gpio_get(ENCODER_Z_PIN);
+        printf("A=%d B=%d Z=%d\n", a, b, z);
         sleep_ms(100);
     }
-    printf("=== Did you see changes? If NO, check wiring! ===\n\n");
+    printf("=== A/B/Z seen? If NO, check wiring! ===\n\n");
     sleep_ms(2000);
 
     // NOW initialize PIO
@@ -81,10 +81,8 @@ int main() {
         lcd_print(&lcd, "PIO Init Failed!");
         while (1) tight_loop_contents();
     }
-    printf("PIO encoder initialized successfully\n");
-    printf("  A: GPIO%d, B: GPIO%d, Z: GPIO%d\n", 
-           ENCODER_A_PIN, ENCODER_B_PIN, ENCODER_Z_PIN);
-    printf("  PPR: %ld, CPR: %ld\n\n", ENCODER_PPR, ENCODER_CPR);
+    printf("PIO encoder initialized. A:%d B:%d Z:%d | PPR:%ld CPR:%ld\n\n",
+           ENCODER_A_PIN, ENCODER_B_PIN, ENCODER_Z_PIN, ENCODER_PPR, ENCODER_CPR);
     
     lcd_clear(&lcd);
     lcd_set_cursor(&lcd, 0, 0);
@@ -101,23 +99,16 @@ while (1) {
     int32_t pulses = encoder_get_pulses_this_rev(&encoder);
     bool is_cw = encoder_get_direction(&encoder);
     float rpm = encoder_get_rpm(&encoder);
-    
-    // DEBUG PINS - ADD THIS
-    static uint32_t last_pin_check = 0;
     uint32_t time_now = to_ms_since_boot(get_absolute_time());
-    if (time_now - last_pin_check > 100) {
-        printf("RAW: A=%d B=%d Z=%d | Cnt=%ld\n",
-               gpio_get(ENCODER_A_PIN), gpio_get(ENCODER_B_PIN), 
-               gpio_get(ENCODER_Z_PIN), count);
-        last_pin_check = time_now;
-    }
+    
+    // Quiet mode: remove periodic RAW pin prints
     
     // Update display every UPDATE_INTERVAL_MS
     if (time_now - last_display_update >= UPDATE_INTERVAL_MS) {
         last_display_update = time_now;
             
-            printf("Count: %7ld | Rev: %4ld | Pulse: %4ld | RPM: %7.1f %s\n",
-                   count, revolutions, pulses, rpm, is_cw ? "CW " : "CCW");
+            printf("Cnt:%ld Rev:%ld Pls:%ld RPM:%.1f %s\n",
+                   count, revolutions, pulses, rpm, is_cw ? "CW" : "CCW");
             
             lcd_clear(&lcd);
             
@@ -142,7 +133,8 @@ while (1) {
             lcd_print_float(&lcd, rpm, 1);
         }
         
-        sleep_ms(10);
+        // Keep loop responsive to avoid PIO FIFO overflow
+        sleep_us(100);
     }
     
     return 0;

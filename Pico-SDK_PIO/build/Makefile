@@ -1687,6 +1687,30 @@ Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/encoder_monitor.dir/build.make CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
 .PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
 
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.o: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.o
+
+# target to build an object file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/encoder_monitor.dir/build.make CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.o
+
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.i: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.i
+
+# target to preprocess a source file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/encoder_monitor.dir/build.make CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.i
+
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.s: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.s
+
+# target to generate assembly for a file
+Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/encoder_monitor.dir/build.make CMakeFiles/encoder_monitor.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s
+.PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.c.s
+
 Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.o: Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o
 .PHONY : Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.o
 
@@ -2319,6 +2343,9 @@ help:
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.i"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.s"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.o"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.o"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.i"
+	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore/multicore.s"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.o"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.i"
 	@echo "... Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.s"

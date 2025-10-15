@@ -1,10 +1,26 @@
 #include "encoder.h"
 #include "encoder.pio.h"
 #include "pico/time.h"
+#include "hardware/irq.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+// Z counting robustness knobs
+#ifndef Z_MIN_INTERVAL_US
+#define Z_MIN_INTERVAL_US 20000u // ignore Z edges within 20ms of last (debounce)
+#endif
+#ifndef Z_REQUIRE_AB_STATE
+#define Z_REQUIRE_AB_STATE 0     // do not require a specific A/B state by default
+#endif
+#ifndef Z_REQUIRED_AB_STATE
+#define Z_REQUIRED_AB_STATE 0x3  // typical index gating when A=1 and B=1
+#endif
+
 static encoder_t *global_encoder = NULL;
+
+// Forward declarations for PIO IRQ handlers
+static void pio0_irq_handler(void);
+static void pio1_irq_handler(void);
 
 const int8_t encoder_states[16] = {
     0, +1, -1, 0,   // prev=00
@@ -18,18 +34,28 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     if (gpio != global_encoder->pin_z) return;
     
     uint64_t current_time = time_us_64();
-    if (current_time - global_encoder->last_z_time < 15000) {
+    if (current_time - global_encoder->last_z_time < Z_MIN_INTERVAL_US) {
         return;
     }
     
     static int32_t last_z_count = 0;
     int32_t counts_since_last = labs(global_encoder->count - last_z_count);
-    
-    if (counts_since_last < (global_encoder->cpr * 3 / 5)) {
+    int32_t min_counts_between_z = global_encoder->cpr > 0 ? (global_encoder->cpr / 4) : 1;
+    if (counts_since_last < min_counts_between_z) {
         return;
     }
     
-    printf("Z pulse! Count: %ld (delta: %ld)\n", 
+    // Optional gating: only accept Z when A/B at required state
+    if (Z_REQUIRE_AB_STATE) {
+        uint ab = ((gpio_get(global_encoder->pin_a) & 1) << 1) |
+                  (gpio_get(global_encoder->pin_b) & 1);
+        if (ab != Z_REQUIRED_AB_STATE) {
+            return;
+        }
+    }
+    
+    // Count every qualified Z edge; rely on time debounce above to avoid bounce
+    printf("Z pulse! Count: %ld (delta: %ld)\n",
            global_encoder->count, counts_since_last);
     
     last_z_count = global_encoder->count;
@@ -41,6 +67,39 @@ static void encoder_z_handler(uint gpio, uint32_t events) {
     } else {
         global_encoder->revolution_count--;
     }
+}
+
+// PIO IRQ handlers (C functions; keep them small and non-blocking)
+static void pio_drain_fifo_and_decode(PIO pio) {
+    encoder_t *e = global_encoder;
+    if (!e || e->pio != pio) return;
+    while (!pio_sm_is_rx_fifo_empty(e->pio, e->sm)) {
+        uint32_t data = pio_sm_get(e->pio, e->sm);
+        uint8_t current_state = (uint8_t)(data & 0x03);
+        if (current_state != e->last_state) {
+            uint8_t index = (uint8_t)((e->last_state << 2) | current_state);
+            int8_t change = encoder_states[index];
+            if (change != 0) {
+                e->count += change;
+                e->pulses_this_rev++;
+                e->direction_cw = (change > 0);
+                if (e->pulses_this_rev >= e->cpr) {
+                    e->pulses_this_rev = 0;
+                }
+            }
+            e->last_state = current_state;
+        }
+    }
+}
+
+static void pio0_irq_handler(void) {
+    pio_drain_fifo_and_decode(pio0);
+    irq_clear(PIO0_IRQ_0);
+}
+
+static void pio1_irq_handler(void) {
+    pio_drain_fifo_and_decode(pio1);
+    irq_clear(PIO1_IRQ_0);
 }
 
 bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b, 
@@ -61,6 +120,12 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     enc->current_rpm = 0.0f;
     enc->last_state = 0;
     
+    // Ensure inputs have defined level before handing to PIO
+    gpio_init(pin_a);
+    gpio_init(pin_b);
+    gpio_pull_up(pin_a);
+    gpio_pull_up(pin_b);
+
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
         printf("ERROR: Cannot add PIO program\n");
         return false;
@@ -83,46 +148,49 @@ bool encoder_init(encoder_t *enc, PIO pio, uint8_t pin_a, uint8_t pin_b,
     
     printf("PIO state machine initialized and running\n");
     printf("  Pin A (input): GPIO %d\n", pin_a);
-    printf("  Pin B (input): GPIO %d\n", pin_a + 1);
+    printf("  Pin B (input): GPIO %d\n", pin_b);
     
     sleep_ms(100);
     
-    if (pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
-        printf("WARNING: PIO RX FIFO is empty!\n");
-    } else {
-        printf("SUCCESS: PIO RX FIFO has data\n");
-        
-        // **NEW: Dump first 10 FIFO entries to see what PIO is actually sampling**
-        printf("\n=== DUMPING FIRST 10 FIFO ENTRIES ===\n");
-        for (int i = 0; i < 10 && !pio_sm_is_rx_fifo_empty(pio, enc->sm); i++) {
-            uint32_t data = pio_sm_get(pio, enc->sm);
-            uint8_t state = data & 0x03;
-            printf("  FIFO[%d]: raw=0x%08lX, state=0x%02X, A=%d, B=%d\n",
-                   i, data, state, (state >> 1) & 1, state & 1);
-        }
-        printf("=== END FIFO DUMP ===\n\n");
-    }
+    // No verbose FIFO prints in high-speed mode
     
-    // Read one more entry as initial state
-    if (!pio_sm_is_rx_fifo_empty(pio, enc->sm)) {
+    // Read several entries to settle and establish a solid initial state
+    uint8_t observed_state = 0xFF;
+    for (int i = 0; i < 8 && !pio_sm_is_rx_fifo_empty(pio, enc->sm); i++) {
         uint32_t data = pio_sm_get(pio, enc->sm);
-        enc->last_state = data & 0x03;
-        printf("Initial state set to: 0x%02X (A=%d, B=%d)\n", 
-               enc->last_state, 
-               (enc->last_state >> 1) & 1, 
-               enc->last_state & 1);
+        observed_state = (uint8_t)(data & 0x03);
     }
+    enc->last_state = (observed_state == 0xFF) ? 0 : observed_state;
+    printf("Initial state set to: 0x%02X (A=%d, B=%d)\n",
+           enc->last_state,
+           (enc->last_state >> 1) & 1,
+           enc->last_state & 1);
     
-    // Configure Z pin
+    // Configure Z pin and choose active edge dynamically
     gpio_init(pin_z);
     gpio_set_dir(pin_z, GPIO_IN);
     gpio_pull_up(pin_z);
-    printf("Z pulse pin: GPIO %d (configured with pull-up)\n", pin_z);
-    
+    bool z_idle_high = gpio_get(pin_z);
+    uint32_t z_edge = z_idle_high ? GPIO_IRQ_EDGE_FALL : GPIO_IRQ_EDGE_RISE;
+    printf("Z pulse pin: GPIO %d (pull-up), idle=%d, trigger edge=%s\n",
+           pin_z, z_idle_high ? 1 : 0, z_edge == GPIO_IRQ_EDGE_FALL ? "FALL" : "RISE");
+
     global_encoder = enc;
-    
-    gpio_set_irq_enabled_with_callback(pin_z, GPIO_IRQ_EDGE_RISE, true, 
-                                       &encoder_z_handler);
+
+    gpio_acknowledge_irq(pin_z, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL);
+    gpio_set_irq_enabled_with_callback(pin_z, z_edge, true, &encoder_z_handler);
+
+    // Configure PIO IRQ to drain RX FIFO in ISR (reduces main loop load)
+    if (enc->pio == pio0) {
+        // Enable RX not empty source for this state machine
+        pio_set_irq0_source_enabled(pio0, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
+        irq_set_exclusive_handler(PIO0_IRQ_0, pio0_irq_handler);
+        irq_set_enabled(PIO0_IRQ_0, true);
+    } else {
+        pio_set_irq0_source_enabled(pio1, (enum pio_interrupt_source)(pis_sm0_rx_fifo_not_empty + enc->sm), true);
+        irq_set_exclusive_handler(PIO1_IRQ_0, pio1_irq_handler);
+        irq_set_enabled(PIO1_IRQ_0, true);
+    }
     
     printf("\n=== Encoder initialization complete ===\n");
     printf("Ready to count. Try rotating the encoder...\n\n");
@@ -137,32 +205,15 @@ void encoder_process(encoder_t *enc) {
     static uint32_t last_debug_time = 0;
     uint32_t changes_this_call = 0;
     
-    // **NEW: Track how many times we read from FIFO**
-    int fifo_reads_this_call = 0;
-    
     while (!pio_sm_is_rx_fifo_empty(enc->pio, enc->sm)) {
         uint32_t data = pio_sm_get(enc->pio, enc->sm);
-        uint8_t current_state = data & 0x03;
+        uint8_t current_state = (uint8_t)(data & 0x03);
         
-        fifo_reads_this_call++;
         total_reads++;
         
-        // **NEW: Print EVERY state for first 100 reads**
-        if (total_reads <= 100) {
-            printf("[%lu] Raw: 0x%08lX | State: 0x%02X (A=%d B=%d) | Last: 0x%02X | ",
-                   total_reads, data, current_state,
-                   (current_state >> 1) & 1, current_state & 1,
-                   enc->last_state);
-        }
-        
         if (current_state != enc->last_state) {
-            uint8_t index = (enc->last_state << 2) | current_state;
+            uint8_t index = (uint8_t)((enc->last_state << 2) | current_state);
             int8_t change = encoder_states[index];
-            
-            if (total_reads <= 100) {
-                printf("CHANGE! Index=0x%02X, delta=%+d, count=%ld\n",
-                       index, change, enc->count + change);
-            }
             
             if (change != 0) {
                 enc->count += change;
@@ -180,26 +231,10 @@ void encoder_process(encoder_t *enc) {
             enc->last_state = current_state;
         } else {
             same_state_count++;
-            if (total_reads <= 100) {
-                printf("same (total_same=%lu)\n", same_state_count);
-            }
         }
     }
     
-    // **NEW: Report FIFO processing stats**
-    uint32_t now = to_ms_since_boot(get_absolute_time());
-    if (now - last_debug_time > 1000) {
-        int fifo_level = pio_sm_get_rx_fifo_level(enc->pio, enc->sm);
-        printf("\n=== STATS ===\n");
-        printf("  Count: %ld\n", enc->count);
-        printf("  Total FIFO reads: %lu\n", total_reads);
-        printf("  Total changes: %lu\n", total_changes);
-        printf("  Same state reads: %lu\n", same_state_count);
-        printf("  FIFO level: %d/8\n", fifo_level);
-        printf("  Last state: 0x%02X\n", enc->last_state);
-        printf("=============\n\n");
-        last_debug_time = now;
-    }
+    // Quiet: no periodic stats in normal operation
 }
 
 void encoder_reset(encoder_t *enc) {

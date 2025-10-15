@@ -6,5 +6,5 @@ ASM_DEFINES = -DLIB_BOOT_STAGE2_HEADERS=1 -DPICO_32BIT=1 -DPICO_BOARD=\"pico\" -
 
 ASM_INCLUDES = -I/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/boot_stage2/asminclude -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include -isystem /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/generated/pico_base -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/boards/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_compiler/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_sections/include -isystem /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/boot_stage2/include
 
-ASM_FLAGS = -mcpu=cortex-m0plus -mthumb -g -O3 -DNDEBUG
+ASM_FLAGS = -mcpu=cortex-m0plus -mthumb -Og -g
 

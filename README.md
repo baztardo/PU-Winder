@@ -36,6 +36,11 @@ Automated Guitar Pick up winder
 <p>I have decided to move to the Pico using VSCode IDE, and the Pico-sdk </p>
 <p>I have chosen the SKR-Pico control board since it has most of what I need on board in a small package</p>
 
+=======
+<p>I need help to write code for the STM32 board</p>
+<p></p>
+<p>STM32 Backpill</p>
+<p>Arduino Mega 2560 -- I dont think the Arduino if powerful enough to keep track of the encoder it losing steps</p>
 ---------------------------------------------------------------------------------
 <p>Bobbin 7 mm Width</p>
 <p>copper winding Wire 43 AWG -- 0.0024" -- 0.0635 mm</p>
