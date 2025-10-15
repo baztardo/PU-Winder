@@ -179,9 +179,7 @@ int main() {
 void init_hardware() {
     // Initialize move queue (GPIO pins)
     move_queue.init();
-    
-    // Initialize encoder
-    spindle_encoder.init();
+    // was encode now moved
     
     // Initialize I2C bus for LCD
     i2c_init(i2c0, I2C_FREQ_HZ);
