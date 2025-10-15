@@ -47,8 +47,8 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
     pio_gpio_init(pio, pin_a_base + 1);
     pio_sm_set_consecutive_pindirs(pio, sm, pin_a_base, 2, false);
     sm_config_set_in_shift(&c, true, false, 32);
-    // Slow down sampling to reduce ISR/CPU load
-    sm_config_set_clkdiv(&c, 50.0f);
+    // Slow down sampling further to balance FIFO drain
+    sm_config_set_clkdiv(&c, 100.0f);
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
     pio_sm_init(pio, sm, offset, &c);
     pio_sm_clear_fifos(pio, sm);
