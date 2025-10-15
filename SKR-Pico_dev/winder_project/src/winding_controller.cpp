@@ -341,6 +341,16 @@ void WindingController::ramp_up_spindle() {
 
     if (time_done && queue_low) {
         ramp_started = false;
+        // Ensure spindle queue is prefilled before switching
+        // (avoids a brief starvation that can pause updates)
+        {
+            float target_rps = params.spindle_rpm / 60.0f;
+            uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
+            float target_sps = target_rps * steps_per_rev;
+            uint32_t spindle_steps = (uint32_t)(target_sps * 0.5f);  // 0.5s buffer
+            auto chunks = StepCompressor::compress_constant_velocity(spindle_steps, target_sps);
+            for (const auto& c : chunks) move_queue->push_chunk(AXIS_SPINDLE, c);
+        }
         state = WindingState::WINDING;
         banner_printed = false;
         return;
