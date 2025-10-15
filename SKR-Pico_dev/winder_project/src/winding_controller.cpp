@@ -504,6 +504,12 @@ void WindingController::update_rpm() {
 }
 
 void WindingController::update_display() {
+    static uint32_t last_update_ms = 0;
+    uint32_t now_ms = to_ms_since_boot(get_absolute_time());
+    if (now_ms - last_update_ms < 200) {
+        return; // throttle LCD updates to ~5 Hz
+    }
+    last_update_ms = now_ms;
     // Always show live RPM and turn info for visibility
     const int32_t enc_counts = encoder->get_position();
     const float turns_f = (float)enc_counts / (float)ENCODER_CPR;

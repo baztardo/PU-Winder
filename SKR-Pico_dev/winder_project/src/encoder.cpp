@@ -124,8 +124,9 @@ void Encoder::update() {
     };
 
     if (pio_initialized) {
-        // Drain RX FIFO; apply transitions for each sample
-        while (!pio_sm_is_rx_fifo_empty(pio, sm)) {
+        // Drain RX FIFO; apply transitions for each sample (cap per tick)
+        int samples_processed = 0;
+        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 64) {
             uint32_t data = pio_sm_get(pio, sm);
             // With shift-right IN, two sampled bits are at bits 31:30
             uint8_t raw = (uint8_t)((data >> 30) & 0x3);
