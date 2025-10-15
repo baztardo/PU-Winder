@@ -28,15 +28,14 @@ void Encoder::init() {
     gpio_pull_up(ENCODER_Z_PIN);
 
     // Determine base pin for PIO sampling: PIO reads base and base+1
-    // Our pins are A=3, B=4 (ascending). Use base=A=3.
+    // Use base=A so mapping matches test code (A=bit1, B=bit0)
     const uint8_t a_pin = ENCODER_A_PIN;
     const uint8_t b_pin = ENCODER_B_PIN;
-    pio_base_pin = (a_pin < b_pin) ? a_pin : b_pin;
+    pio_base_pin = a_pin;
 
-    // Compute which bit corresponds to channel A/B within the 2-bit sample
-    // With base=A=3: A -> bit0, B -> bit1
-    a_bit_index = (a_pin == pio_base_pin) ? 0 : 1;
-    b_bit_index = (b_pin == pio_base_pin) ? 0 : 1;
+    // Bit mapping to match working PIO test: A in bit1, B in bit0
+    a_bit_index = 1;
+    b_bit_index = 0;
 
     // Ensure pulls enabled (works with PIO as well)
     gpio_pull_up(a_pin);
@@ -126,10 +125,10 @@ void Encoder::update() {
     if (pio_initialized) {
         // Drain RX FIFO; apply transitions for each sample (cap per tick)
         int samples_processed = 0;
-        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 16) {    //64 to 16
+        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 16) {    // cap per tick
             uint32_t data = pio_sm_get(pio, sm);
-            // With shift-right IN, two sampled bits are at bits 31:30
-            uint8_t raw = (uint8_t)((data >> 30) & 0x3);
+            // Latest sample is in LSBs (matches test implementation)
+            uint8_t raw = (uint8_t)(data & 0x3);
             bool a = (raw >> a_bit_index) & 0x1;
             bool b = (raw >> b_bit_index) & 0x1;
 
