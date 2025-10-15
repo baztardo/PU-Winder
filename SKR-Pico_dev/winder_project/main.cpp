@@ -21,26 +21,6 @@
 // -----------------------------------------------------------------------------
 #include "pico/stdlib.h"
 
-static inline void diag_led_init() {
-    const uint pins[] = {LED1_PIN, LED2_PIN, LED3_PIN};
-    for (int i = 0; i < 3; i++) {
-        gpio_init(pins[i]);
-        gpio_set_dir(pins[i], GPIO_OUT);
-        gpio_put(pins[i], 0);
-    }
-}
-
-static inline void diag_led_pattern(uint8_t pattern, int delay_ms = 300) {
-    // Bit 0→LED1, Bit 1→LED2, Bit 2→LED3
-    gpio_put(LED1_PIN, pattern & 0x01);
-    gpio_put(LED2_PIN, pattern & 0x02);
-    gpio_put(LED3_PIN, pattern & 0x04);
-    sleep_ms(delay_ms);
-    gpio_put(LED1_PIN, 0);
-    gpio_put(LED2_PIN, 0);
-    gpio_put(LED3_PIN, 0);
-}
-
 static inline void heartbeat_led() {
     static absolute_time_t next = {0};
     absolute_time_t now = get_absolute_time();
@@ -49,7 +29,6 @@ static inline void heartbeat_led() {
         next = make_timeout_time_ms(SCHED_HEARTBEAT_INTERVAL_MS);
     }
 }
-
 
 MoveQueue move_queue;
 Encoder spindle_encoder;
@@ -124,12 +103,6 @@ void setup_winding_parameters();
 // =============================================================================
 int main() {
     stdio_init_all();
-    diag_led_init();
-
-    // Boot pattern: LED1+LED2 on = “power-up”
-    diag_led_pattern(0b011, 200);
-    diag_led_pattern(0b001, 200);
-    diag_led_pattern(0b111, 300);
 
     // Short delay for hardware stabilization
     sleep_ms(100);
