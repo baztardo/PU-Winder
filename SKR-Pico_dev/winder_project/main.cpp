@@ -137,23 +137,22 @@ int main() {
     // Initialize all hardware
     init_hardware();
     
-    // Initialize LCD and show startup message
+    // Minimal init banner
     lcd.clear();
     lcd.print_at(0, 0, "Wire Winder v1.0");
-    lcd.print_at(0, 1, "Initializing...");
-    sleep_ms(1000);
+    sleep_ms(500);
     
     // Initialize motor drivers
-    lcd.print_at(0, 2, "Motors...");
+    // Suppress motor banner to avoid LCD contention
     init_motors();
     sleep_ms(1000);
     
     // After constructing the Encoder object
     spindle_encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
-    spindle_encoder.debug_status();    // optional: quick sanity print
+    // Suppress debug spam
 
     // Start scheduler ISR
-    lcd.print_at(0, 3, "Scheduler...");
+    // Suppress scheduler banner
     if (!scheduler.start(HEARTBEAT_US)) {
         lcd.clear();
         lcd.print_at(0, 0, "ERROR:");
@@ -163,8 +162,7 @@ int main() {
 
     //sleep_ms(500);
 
-    sleep_ms(2000);  // Give time to read "Setting Current"
-    show_tmc_status();  // This MUST be called!
+    // Suppress TMC status UI during bring-up (kept functional)
     
     // Initialize winding controller
     winding_controller.init();
