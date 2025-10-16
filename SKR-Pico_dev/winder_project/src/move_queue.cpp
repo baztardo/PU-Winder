@@ -143,33 +143,39 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
         return;
     }
     
-    // Check if it's time for the next step
+    // Emit up to N steps this tick to catch up at high rates
     uint32_t now = time_us_32();
     int32_t time_diff = (int32_t)(now - last_step_time[axis]);
-    
-    if (time_diff < (int32_t)active[axis].interval_us) {
-        return;  // Not time yet
-    }
-    
-    // Execute step pulse
-    uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
-    execute_step_pulse(step_pin);
-    
-    last_step_time[axis] = now;
-    step_count[axis]++;
-    
-    // Decrement count
-    if (active[axis].count > 0) {
-        active[axis].count--;
-    }
-    
-    // Update interval with add
-    int64_t next_interval = (int64_t)active[axis].interval_us + (int64_t)active[axis].add_us;
-    active[axis].interval_us = (uint32_t)std::max((int64_t)1, next_interval);
-    
-    // Check if chunk finished
-    if (active[axis].count == 0) {
-        active_running[axis] = false;
+    const int kMaxStepsPerTick = 4;
+    int steps_emitted = 0;
+
+    while (time_diff >= (int32_t)active[axis].interval_us && steps_emitted < kMaxStepsPerTick) {
+        // Execute step pulse
+        uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
+        execute_step_pulse(step_pin);
+
+        // Advance virtual time by the interval (not jump to 'now')
+        last_step_time[axis] += active[axis].interval_us;
+        time_diff = (int32_t)(now - last_step_time[axis]);
+
+        step_count[axis]++;
+
+        // Decrement count
+        if (active[axis].count > 0) {
+            active[axis].count--;
+        }
+
+        // Update interval with add
+        int64_t next_interval = (int64_t)active[axis].interval_us + (int64_t)active[axis].add_us;
+        active[axis].interval_us = (uint32_t)std::max((int64_t)1, next_interval);
+
+        // Done with this chunk?
+        if (active[axis].count == 0) {
+            active_running[axis] = false;
+            break;
+        }
+
+        steps_emitted++;
     }
 }
 
