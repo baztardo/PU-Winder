@@ -82,7 +82,7 @@ void Encoder::init() {
         last_state_bits = 0;
         if (!pio_sm_is_rx_fifo_empty(pio, sm)) {
             uint32_t data = pio_sm_get(pio, sm);
-            uint8_t raw = data & 0x3;
+            uint8_t raw = (uint8_t)((data >> 30) & 0x3); // MSBs hold latest sample
             bool a = (raw >> a_bit_index) & 0x1;
             bool b = (raw >> b_bit_index) & 0x1;
             last_state_bits = (uint8_t)((a << 1) | b);
@@ -137,8 +137,8 @@ void Encoder::update() {
         int samples_processed = 0;
         while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 16) {    // cap per tick
             uint32_t data = pio_sm_get(pio, sm);
-            // Latest sample is in LSBs (matches test implementation)
-            uint8_t raw = (uint8_t)(data & 0x3);
+            // Latest sample is in MSBs (bits 31:30) per right-shift IN
+            uint8_t raw = (uint8_t)((data >> 30) & 0x3);
             bool a = (raw >> a_bit_index) & 0x1;
             bool b = (raw >> b_bit_index) & 0x1;
 
