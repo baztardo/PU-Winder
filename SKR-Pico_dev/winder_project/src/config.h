@@ -28,7 +28,7 @@
 #define ENCODER_INVERT       0   // 1 flips encoder A/B sense (if deltas are "negative" in forward)
 
 // Use PIO for encoder sampling (1) or GPIO polling fallback (0)
-#define ENCODER_USE_PIO       0
+#define ENCODER_USE_PIO       1
 
 // Encoder (360 PPR, 1:1 with spindle)
 #define ENCODER_A_PIN       3
@@ -71,7 +71,7 @@
 // =============================================================================
 // TIMING PARAMETERS
 // =============================================================================
-#define HEARTBEAT_US        100     // ISR frequency: 100μs = 10 kHz
+#define HEARTBEAT_US         50     // ISR frequency: 50μs = 20 kHz
 #define STEP_PULSE_US       2       // Step pulse width in microseconds
 
 // =============================================================================
