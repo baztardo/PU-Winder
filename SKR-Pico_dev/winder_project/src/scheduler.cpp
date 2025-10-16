@@ -142,8 +142,7 @@ void Scheduler::handle_isr() {
         gpio_put(SCHED_HEARTBEAT_PIN, led_state);
         last_toggle = tick_count;
     }
-    // Run stepper tick handler (stepper_event)
-    scheduler_tick();
+    // Legacy stepper path disabled; MoveQueue handles stepping
 }
 
 // This runs periodically to step active motors
