@@ -57,7 +57,7 @@ void Encoder::init() {
     #endif
 
     // Try to initialize PIO program; if any step fails, fall back to GPIO polling
-    pio = pio1;
+    pio = pio0;
     bool pio_ok = true;
     uint local_offset = 0;
     if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
@@ -91,7 +91,7 @@ void Encoder::init() {
         last_a = (last_state_bits >> 1) & 1;
         last_b = (last_state_bits & 1);
         last_z = gpio_get(ENCODER_Z_PIN);
-        printf("[ENC] PIO1 ready. A=%u B=%u base=%u a_bit=%u b_bit=%u sm=%u\n",
+        printf("[ENC] PIO0 ready. A=%u B=%u base=%u a_bit=%u b_bit=%u sm=%u\n",
                (unsigned)a_pin, (unsigned)b_pin, (unsigned)pio_base_pin,
                (unsigned)a_bit_index, (unsigned)b_bit_index, (unsigned)sm);
         return;

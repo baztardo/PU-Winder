@@ -143,40 +143,23 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
         return;
     }
     
-    // Emit up to N steps this tick to catch up at high rates
+    // Single-step per tick (stable)
     uint32_t now = time_us_32();
     int32_t time_diff = (int32_t)(now - last_step_time[axis]);
-    const int kMaxStepsPerTick = 4;
-    int steps_emitted = 0;
+    if (time_diff < (int32_t)active[axis].interval_us) return;
 
-    while (time_diff >= (int32_t)active[axis].interval_us && steps_emitted < kMaxStepsPerTick) {
-        // Execute step pulse
-        uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
-        execute_step_pulse(step_pin);
+    uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
+    execute_step_pulse(step_pin);
 
-        // Advance virtual time by the interval (not jump to 'now')
-        last_step_time[axis] += active[axis].interval_us;
-        time_diff = (int32_t)(now - last_step_time[axis]);
+    last_step_time[axis] = now;
+    step_count[axis]++;
 
-        step_count[axis]++;
+    if (active[axis].count > 0) active[axis].count--;
 
-        // Decrement count
-        if (active[axis].count > 0) {
-            active[axis].count--;
-        }
+    int64_t next_interval = (int64_t)active[axis].interval_us + (int64_t)active[axis].add_us;
+    active[axis].interval_us = (uint32_t)std::max((int64_t)1, next_interval);
 
-        // Update interval with add
-        int64_t next_interval = (int64_t)active[axis].interval_us + (int64_t)active[axis].add_us;
-        active[axis].interval_us = (uint32_t)std::max((int64_t)1, next_interval);
-
-        // Done with this chunk?
-        if (active[axis].count == 0) {
-            active_running[axis] = false;
-            break;
-        }
-
-        steps_emitted++;
-    }
+    if (active[axis].count == 0) active_running[axis] = false;
 }
 
 // Alternating ISR dispatcher to balance spindle/traverse updates
