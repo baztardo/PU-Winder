@@ -91,6 +91,16 @@ void Encoder::init() {
         last_a = (last_state_bits >> 1) & 1;
         last_b = (last_state_bits & 1);
         last_z = gpio_get(ENCODER_Z_PIN);
+
+        // TEMP: dump a few FIFO entries to confirm A/B bit order on this hardware
+        for (int i = 0; i < 16 && !pio_sm_is_rx_fifo_empty(pio, sm); i++) {
+            uint32_t data_dbg = pio_sm_get(pio, sm);
+            printf("[PIO] raw=0x%08lx lsb=%u msb=%u\n",
+                   data_dbg,
+                   (unsigned)(data_dbg & 0x3),
+                   (unsigned)((data_dbg >> 30) & 0x3));
+        }
+
         printf("[ENC] PIO0 ready. A=%u B=%u base=%u a_bit=%u b_bit=%u sm=%u\n",
                (unsigned)a_pin, (unsigned)b_pin, (unsigned)pio_base_pin,
                (unsigned)a_bit_index, (unsigned)b_bit_index, (unsigned)sm);
