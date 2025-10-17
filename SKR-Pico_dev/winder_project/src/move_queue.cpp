@@ -151,7 +151,7 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
     uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
     execute_step_pulse(step_pin);
 
-    last_step_time[axis] = now;
+    last_step_time[axis] += active[axis].interval_us;
     step_count[axis]++;
 
     if (active[axis].count > 0) active[axis].count--;
