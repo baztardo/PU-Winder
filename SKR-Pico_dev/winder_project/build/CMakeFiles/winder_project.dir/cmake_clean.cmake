@@ -168,6 +168,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/winder_project.dir/src/move_queue.cpp.o.d"
   "CMakeFiles/winder_project.dir/src/scheduler.cpp.o"
   "CMakeFiles/winder_project.dir/src/scheduler.cpp.o.d"
+  "CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.o"
+  "CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.o.d"
   "CMakeFiles/winder_project.dir/src/stepcompress.cpp.o"
   "CMakeFiles/winder_project.dir/src/stepcompress.cpp.o.d"
   "CMakeFiles/winder_project.dir/src/tmc2209.cpp.o"

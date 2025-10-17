@@ -383,6 +383,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/winder_project.dir/DependInfo.cmake"
   "CMakeFiles/winder_project_encoder_pio_h.dir/DependInfo.cmake"
+  "CMakeFiles/winder_project_spindle_step_pio_h.dir/DependInfo.cmake"
   "pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default.dir/DependInfo.cmake"
   "pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_bin.dir/DependInfo.cmake"
   "pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/DependInfo.cmake"

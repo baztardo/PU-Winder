@@ -1,5 +1,6 @@
 /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles/winder_project.dir
 /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles/winder_project_encoder_pio_h.dir
+/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles/winder_project_spindle_step_pio_h.dir
 /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles/edit_cache.dir
 /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/CMakeFiles/rebuild_cache.dir
 /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/pico-sdk/CMakeFiles/edit_cache.dir

@@ -236,6 +236,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/lcd_display.cpp" "CMakeFiles/winder_project.dir/src/lcd_display.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/lcd_display.cpp.o.d"
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/move_queue.cpp" "CMakeFiles/winder_project.dir/src/move_queue.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/move_queue.cpp.o.d"
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/scheduler.cpp" "CMakeFiles/winder_project.dir/src/scheduler.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/scheduler.cpp.o.d"
+  "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/spindle_step_pio.cpp" "CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.o.d"
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/stepcompress.cpp" "CMakeFiles/winder_project.dir/src/stepcompress.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/stepcompress.cpp.o.d"
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/tmc2209.cpp" "CMakeFiles/winder_project.dir/src/tmc2209.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/tmc2209.cpp.o.d"
   "/Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/src/winding_controller.cpp" "CMakeFiles/winder_project.dir/src/winding_controller.cpp.o" "gcc" "CMakeFiles/winder_project.dir/src/winding_controller.cpp.o.d"

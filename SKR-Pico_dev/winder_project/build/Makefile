@@ -143,6 +143,19 @@ winder_project_encoder_pio_h/fast:
 .PHONY : winder_project_encoder_pio_h/fast
 
 #=============================================================================
+# Target rules for targets named winder_project_spindle_step_pio_h
+
+# Build rule for target.
+winder_project_spindle_step_pio_h: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 winder_project_spindle_step_pio_h
+.PHONY : winder_project_spindle_step_pio_h
+
+# fast build rule for target.
+winder_project_spindle_step_pio_h/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project_spindle_step_pio_h.dir/build.make CMakeFiles/winder_project_spindle_step_pio_h.dir/build
+.PHONY : winder_project_spindle_step_pio_h/fast
+
+#=============================================================================
 # Target rules for targets named bs2_default
 
 # Build rule for target.
@@ -2191,6 +2204,30 @@ src/scheduler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/src/scheduler.cpp.s
 .PHONY : src/scheduler.cpp.s
 
+src/spindle_step_pio.o: src/spindle_step_pio.cpp.o
+.PHONY : src/spindle_step_pio.o
+
+# target to build an object file
+src/spindle_step_pio.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.o
+.PHONY : src/spindle_step_pio.cpp.o
+
+src/spindle_step_pio.i: src/spindle_step_pio.cpp.i
+.PHONY : src/spindle_step_pio.i
+
+# target to preprocess a source file
+src/spindle_step_pio.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.i
+.PHONY : src/spindle_step_pio.cpp.i
+
+src/spindle_step_pio.s: src/spindle_step_pio.cpp.s
+.PHONY : src/spindle_step_pio.s
+
+# target to generate assembly for a file
+src/spindle_step_pio.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/winder_project.dir/build.make CMakeFiles/winder_project.dir/src/spindle_step_pio.cpp.s
+.PHONY : src/spindle_step_pio.cpp.s
+
 src/stepcompress.o: src/stepcompress.cpp.o
 .PHONY : src/stepcompress.o
 
@@ -2275,6 +2312,7 @@ help:
 	@echo "... cyw43_driver_picow_cyw43_bus_pio_spi_pio_h"
 	@echo "... pico_status_led_ws2812_pio_h"
 	@echo "... winder_project_encoder_pio_h"
+	@echo "... winder_project_spindle_step_pio_h"
 	@echo "... bs2_default"
 	@echo "... bs2_default_library"
 	@echo "... winder_project"
@@ -2526,6 +2564,9 @@ help:
 	@echo "... src/scheduler.o"
 	@echo "... src/scheduler.i"
 	@echo "... src/scheduler.s"
+	@echo "... src/spindle_step_pio.o"
+	@echo "... src/spindle_step_pio.i"
+	@echo "... src/spindle_step_pio.s"
 	@echo "... src/stepcompress.o"
 	@echo "... src/stepcompress.i"
 	@echo "... src/stepcompress.s"
