@@ -133,8 +133,9 @@ void Scheduler::handle_isr() {
         user_callback(user_callback_data);
     }
     // -----------------------------------------------------------------------------
-    // Heartbeat LED toggle (safe for ISR)
+    // Heartbeat LED toggle (guarded)
     // -----------------------------------------------------------------------------
+    #if defined(HEARTBEAT_ENABLE) && (HEARTBEAT_ENABLE)
     static uint32_t last_toggle = 0;
     static bool led_state = false;
     if ((tick_count - last_toggle) >= 500) {   // toggle every ~0.5s
@@ -142,6 +143,7 @@ void Scheduler::handle_isr() {
         gpio_put(SCHED_HEARTBEAT_PIN, led_state);
         last_toggle = tick_count;
     }
+    #endif
     // Legacy stepper path disabled; MoveQueue handles stepping
 }
 
