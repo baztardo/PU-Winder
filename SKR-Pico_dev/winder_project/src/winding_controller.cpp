@@ -41,7 +41,7 @@ WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lc
 
 void WindingController::init() {
     state = WindingState::IDLE;
-    spindle_pio_init(&g_spindle, pio0, 2, SPINDLE_STEP_PIN);
+    ::spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
     lcd->clear();
     lcd->print_at(0, 0, "Winder Ready");
     lcd->print_at(0, 1, "Press Start...");
@@ -324,14 +324,8 @@ void WindingController::ramp_up_spindle() {
 
         uint32_t total_steps_queued = 0;
         for (int i = 1; i <= N_slices; ++i) {
-            float frac = (float)i / (float)N_slices;
-            float sps = sps_min + (target_sps - sps_min) * (frac * frac);
-            uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
-
-            auto seg = StepCompressor::compress_constant_velocity(steps, sps);
-            for (const auto& c : seg) {
-                move_queue->push_chunk(AXIS_SPINDLE, c);
-            }
+            
+            ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);
             total_steps_queued += steps;
         }
 
@@ -357,8 +351,7 @@ void WindingController::ramp_up_spindle() {
             float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
             if (target_sps > max_sps) target_sps = max_sps;
             uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);  // 1.0s buffer
-            auto chunks = StepCompressor::compress_constant_velocity(spindle_steps, target_sps);
-            for (const auto& c : chunks) move_queue->push_chunk(AXIS_SPINDLE, c);
+            ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
         }
         state = WindingState::WINDING;
         banner_printed = false;
