@@ -86,10 +86,24 @@ CMakeFiles/bldc_pulse_test.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bldc_pulse_test.dir/main.cpp.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/main.cpp -o CMakeFiles/bldc_pulse_test.dir/main.cpp.s
 
+CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o: /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ST7796S_TFT.cpp
+CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o -MF CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o.d -o CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o -c /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ST7796S_TFT.cpp
+
+CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ST7796S_TFT.cpp > CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.i
+
+CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ST7796S_TFT.cpp -o CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.s
+
 CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o: /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/bldc_speed_pulse.cpp
 CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o -MF CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o.d -o CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o -c /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/bldc_speed_pulse.cpp
 
 CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.i: cmake_force
@@ -103,7 +117,7 @@ CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.s: cmake_force
 CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o: /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ep7172_lcd.cpp
 CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o -MF CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o.d -o CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o -c /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/ep7172_lcd.cpp
 
 CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.i: cmake_force
@@ -117,7 +131,7 @@ CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.s: cmake_force
 CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o: /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/button_control.cpp
 CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o -MF CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o.d -o CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o -c /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/button_control.cpp
 
 CMakeFiles/bldc_pulse_test.dir/button_control.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/bldc_pulse_test.dir/button_control.cpp.s: cmake_force
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.i: cmake_force
@@ -145,7 +159,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.i: cmake_force
@@ -156,24 +170,24 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.i: cmake_force
@@ -187,7 +201,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.i: cmake_force
@@ -201,7 +215,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.i: cmake_force
@@ -215,7 +229,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardwa
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync/sync.c.i: cmake_force
@@ -229,7 +243,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock/sync_spin_lock.c.i: cmake_force
@@ -243,7 +257,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq.c.i: cmake_force
@@ -256,7 +270,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq/irq_handler_chain.S.i: cmake_force
@@ -270,7 +284,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/sem.c.i: cmake_force
@@ -284,7 +298,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_s
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/lock_core.c.i: cmake_force
@@ -298,7 +312,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_s
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/mutex.c.i: cmake_force
@@ -312,7 +326,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_s
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync/critical_section.c.i: cmake_force
@@ -326,7 +340,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_s
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/time.c.i: cmake_force
@@ -340,7 +354,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_t
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time/timeout_helper.c.i: cmake_force
@@ -354,7 +368,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_t
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer/timer.c.i: cmake_force
@@ -368,7 +382,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/datetime.c.i: cmake_force
@@ -382,7 +396,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_u
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/pheap.c.i: cmake_force
@@ -396,7 +410,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_u
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util/queue.c.i: cmake_force
@@ -410,7 +424,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_u
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart/uart.c.i: cmake_force
@@ -424,7 +438,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks/clocks.c.i: cmake_force
@@ -438,7 +452,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll/pll.c.i: cmake_force
@@ -452,7 +466,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg/vreg.c.i: cmake_force
@@ -466,7 +480,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog/watchdog.c.i: cmake_force
@@ -480,7 +494,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks/ticks.c.i: cmake_force
@@ -494,7 +508,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom.c.i: cmake_force
@@ -508,7 +522,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom/bootrom_lock.c.i: cmake_force
@@ -522,7 +536,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.i: cmake_force
@@ -536,7 +550,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.i: cmake_force
@@ -550,7 +564,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.i: cmake_force
@@ -561,23 +575,24 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.i: cmake_force
@@ -591,7 +606,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.i: cmake_force
@@ -605,7 +620,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.i: cmake_force
@@ -619,7 +634,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.i: cmake_force
@@ -632,7 +647,7 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.i: cmake_force
@@ -643,50 +658,24 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.s
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.i
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.s
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.i
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.i: cmake_force
@@ -697,63 +686,62 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.i: cmake_force
@@ -764,23 +752,49 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.s
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.i
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.i
 
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.s
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.s
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.i
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.s
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.i"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.i
+
+CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.s"
+	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o: CMakeFiles/bldc_pulse_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building C object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o -MF CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o.d -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.i: cmake_force
@@ -790,19 +804,6 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.s"
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.s
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o: CMakeFiles/bldc_pulse_test.dir/flags.make
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building ASM object CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o   -c /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing ASM source to CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -E /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S > CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i
-
-CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling ASM source to assembly CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.s"
-	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -S /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S -o CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.s
 
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/atomic.c.o: CMakeFiles/bldc_pulse_test.dir/flags.make
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/atomic.c.o: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/atomic.c
@@ -1268,12 +1269,13 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/ha
 # Object files for target bldc_pulse_test
 bldc_pulse_test_OBJECTS = \
 "CMakeFiles/bldc_pulse_test.dir/main.cpp.o" \
+"CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o" \
 "CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o" \
 "CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o" \
 "CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o" \
@@ -1302,24 +1304,23 @@ bldc_pulse_test_OBJECTS = \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o" \
+"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o" \
-"CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/atomic.c.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp.o" \
 "CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.o" \
@@ -1358,12 +1359,13 @@ bldc_pulse_test_OBJECTS = \
 bldc_pulse_test_EXTERNAL_OBJECTS =
 
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/main.cpp.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/ST7796S_TFT.cpp.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/bldc_speed_pulse.cpp.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/ep7172_lcd.cpp.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/button_control.cpp.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib/stdlib.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio/gpio.c.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/platform.c.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/platform.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/common.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/panic.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim/claim.c.o
@@ -1392,24 +1394,23 @@ bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock/boot_lock.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash/flash.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc/xosc.c.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider/divider.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime/runtime.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_clocks.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init/runtime_init_stack_guard.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_hardware.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_rp2040.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_init_rom_rp2040.c.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider/divider_compiler.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_math.c.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_v1_rom_shim_rp2040.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_aeabi_rp2040.S.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_init_rom_rp2040.c.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_aeabi_dcp.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_fma_dcp.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_sci_m33.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double/double_conv_m33.S.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_math.c.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_v1_rom_shim_rp2040.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_conv32_vfp.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_common_m33.S.o
+bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float/float_sci_m33_vfp.S.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc/malloc.c.o
-bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic/atomic.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info/standard_binary_info.c.o
@@ -1444,16 +1445,17 @@ bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_spi/spi.c.o
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/build.make
-bldc_pulse_test.elf: pico-sdk/src/rp2040/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.o
-bldc_pulse_test.elf: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/rp2040/memmap_default.ld
+bldc_pulse_test.elf: pico-sdk/src/rp2350/boot_stage2/CMakeFiles/bs2_default_library.dir/bs2_default_padded_checksummed.S.o
+bldc_pulse_test.elf: /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0/rp2350/memmap_default.ld
 bldc_pulse_test.elf: CMakeFiles/bldc_pulse_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_87) "Linking CXX executable bldc_pulse_test.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bldc_pulse_test.dir/link.txt --verbose=$(VERBOSE)
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -h /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf > bldc_pulse_test.dis
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump -d /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf >> bldc_pulse_test.dis
+	/Users/ssnow/.pico-sdk/picotool/2.2.0-a4/picotool/picotool coprodis --quiet bldc_pulse_test.dis bldc_pulse_test.dis
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objcopy -Oihex /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf bldc_pulse_test.hex
 	/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objcopy -Obinary /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf bldc_pulse_test.bin
-	/Users/ssnow/.pico-sdk/picotool/2.2.0-a4/picotool/picotool uf2 convert --quiet /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf bldc_pulse_test.uf2 --family rp2040
+	/Users/ssnow/.pico-sdk/picotool/2.2.0-a4/picotool/picotool uf2 convert --quiet /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/bldc_pulse_test.elf bldc_pulse_test.uf2 --family rp2350-arm-s --abs-block
 
 # Rule to build all files generated by this target.
 CMakeFiles/bldc_pulse_test.dir/build: bldc_pulse_test.elf

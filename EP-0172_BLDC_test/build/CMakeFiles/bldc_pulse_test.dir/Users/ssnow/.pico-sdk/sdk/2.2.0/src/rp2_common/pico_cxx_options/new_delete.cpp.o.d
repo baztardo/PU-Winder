@@ -1,9 +1,9 @@
 CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp.o: \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options/new_delete.cpp \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/cstdlib \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/c++config.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/os_defines.h \
- /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/cpu_defines.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v8-m.main+fp/softfp/bits/c++config.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v8-m.main+fp/softfp/bits/os_defines.h \
+ /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/arm-none-eabi/thumb/v8-m.main+fp/softfp/bits/cpu_defines.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/c++/14.2.1/pstl/pstl_config.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/stdlib.h \
  /Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/arm-none-eabi/include/machine/ieeefp.h \
@@ -36,15 +36,15 @@ CMakeFiles/bldc_pulse_test.dir/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pi
  /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/generated/pico_base/pico/version.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/config.h \
  /Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/generated/pico_base/pico/config_autogen.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/boards/include/boards/pico.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/boards/include/boards/pico2.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis/include/cmsis/rename_exceptions.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform/include/pico/platform.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform/include/pico/platform.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_compiler/include/pico/platform/compiler.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/platform_defs.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_regs/include/hardware/platform_defs.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/types.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_sections/include/pico/platform/sections.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic/include/pico/platform/panic.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common/include/pico/platform/common.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h \
- /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs/include/hardware/regs/sio.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_regs/include/hardware/regs/addressmap.h \
+ /Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_regs/include/hardware/regs/sio.h \
  /Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers/include/pico/error.h

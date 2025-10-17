@@ -37,6 +37,7 @@ private:
     
     void write_command(uint8_t cmd);
     void write_data(uint8_t data);
+    void write_data_multi(const uint8_t* data, size_t len);
     void set_address_window(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
     void write_pixel(uint16_t color);
 };

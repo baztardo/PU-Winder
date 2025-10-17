@@ -23,10 +23,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 pico_sdk_init()
+set(PICO_BOARD pico2)
 
 # Build main executable (with LCD and button UI)
 add_executable(bldc_pulse_test
     main.cpp
+    ST7796S_TFT.cpp
     bldc_speed_pulse.cpp
     ep7172_lcd.cpp
     button_control.cpp

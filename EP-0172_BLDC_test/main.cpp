@@ -7,24 +7,27 @@
 #include "hardware/pwm.h"
 #include "hardware/gpio.h"
 #include "bldc_speed_pulse.h"
-#include "ep7172_lcd.h"
 #include "button_control.h"
 #include <cstdio>
 #include <cstring>
+#include "ST7796S_TFT.hpp"
+
+// Create display object
+ST7796_TFT lcd(spi0, 2, 3, 4, 5, 6, 7, 10000000);  // CLK, MOSI, MISO, CS, DC, RST, 10MHz
 
 // =============================================================================
 // Configuration for EP-0172
 // =============================================================================
-#define BLDC_PWM_PIN          10    // PWM speed control
-#define BLDC_DIR_PIN          11    // Direction control
-#define BLDC_BRAKE_PIN        18    // Brake control
-#define BLDC_SPEED_PULSE_PIN  19    // Speed pulse input
+#define BLDC_PWM_PIN          18    // PWM speed control
+#define BLDC_DIR_PIN          19    // Direction control
+#define BLDC_BRAKE_PIN        20    // Brake control
+#define BLDC_SPEED_PULSE_PIN  21    // Speed pulse input
 
 // =============================================================================
 // Global instances
 // =============================================================================
 BLDCSpeedPulse speed_pulse(BLDC_SPEED_PULSE_PIN);
-EP7172Display lcd;
+
 ButtonControl buttons;
 
 // Test state machine
@@ -106,7 +109,11 @@ private:
 };
 
 SimpleBLDC bldc;
-
+void setup_display() {
+    stdio_init_all();
+    lcd.init();
+    printf("[INIT] Display ready!\n");
+}
 // =============================================================================
 // UI Display Functions
 // =============================================================================
@@ -353,9 +360,14 @@ void test_brake() {
 // =============================================================================
 
 int main() {
-    stdio_init_all();
-    sleep_ms(1000);
-    
+stdio_init_all();
+sleep_ms(2000);
+
+printf("\n=== LCD DIAGNOSTIC TEST ===\n");
+setup_display();
+
+sleep_ms(2000);
+
     printf("\n");
     printf("╔════════════════════════════════════════╗\n");
     printf("║  BLDC Speed Pulse Test - EP-0172       ║\n");
@@ -390,6 +402,9 @@ int main() {
     
     // Main loop
     while (true) {
+        lcd.fillScreen(COLOR_BLACK);
+        lcd.fillRect(10, 10, 300, 50, COLOR_BLUE);
+
         switch (current_state) {
             case STATE_MENU:
                 sleep_ms(100);

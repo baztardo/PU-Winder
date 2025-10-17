@@ -32,7 +32,7 @@ CMAKE_ASM_COMPILER_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/ar
 CMAKE_ASM_COMPILER_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib
 
 //Flags used by the ASM compiler during all build types.
-CMAKE_ASM_FLAGS:STRING=-mcpu=cortex-m0plus -mthumb
+CMAKE_ASM_FLAGS:STRING=-mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse
 
 //Flags used by the ASM compiler during DEBUG builds.
 CMAKE_ASM_FLAGS_DEBUG:STRING=-Og -g
@@ -65,7 +65,7 @@ CMAKE_CXX_COMPILER_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/ar
 CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib
 
 //Flags used by the CXX compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=-mcpu=cortex-m0plus -mthumb
+CMAKE_CXX_FLAGS:STRING=-mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse
 
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=-Og -g
@@ -91,7 +91,7 @@ CMAKE_C_COMPILER_AR:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-
 CMAKE_C_COMPILER_RANLIB:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc-ranlib
 
 //Flags used by the C compiler during all build types.
-CMAKE_C_FLAGS:STRING=-mcpu=cortex-m0plus -mthumb
+CMAKE_C_FLAGS:STRING=-mcpu=cortex-m33 -mthumb -march=armv8-m.main+fp+dsp -mfloat-abi=softfp -mcmse
 
 //Flags used by the C compiler during DEBUG builds.
 CMAKE_C_FLAGS_DEBUG:STRING=-Og -g
@@ -237,7 +237,7 @@ CMAKE_STRIP:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eab
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 
 //The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake
+CMAKE_TOOLCHAIN_FILE:FILEPATH=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m33_gcc.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -265,7 +265,7 @@ FETCHCONTENT_QUIET:BOOL=ON
 FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
 //PICO target board (e.g. pico, pico2)
-PICO_BOARD:STRING=pico
+PICO_BOARD:STRING=pico2
 
 //PICO board header directories
 PICO_BOARD_HEADER_DIRS:STRING=
@@ -301,7 +301,7 @@ PICO_OBJCOPY:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-ea
 PICO_OBJDUMP:FILEPATH=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-objdump
 
 //PICO Build platform (e.g. rp2040, rp2350, rp2350-riscv,  host)
-PICO_PLATFORM:STRING=rp2040
+PICO_PLATFORM:STRING=rp2350-arm-s
 
 //Set to ON to fetch copy of SDK from git if not otherwise locatable
 PICO_SDK_FETCH_FROM_GIT:BOOL=
@@ -471,7 +471,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=98
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=103
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -525,27 +525,28 @@ FAMILY_MCUS:INTERNAL=RP2040
 FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[/usr/bin/python3][found components: Interpreter ][v3.9.6()]
 PICO_32BIT:INTERNAL=1
 PICO_ARM:INTERNAL=1
-PICO_BOOT_STAGE2_DIR:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/boot_stage2
+PICO_BOOT_STAGE2_DIR:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/boot_stage2
 PICO_CMAKE_PRELOAD_PLATFORM_DIR:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/platforms
-PICO_CMAKE_PRELOAD_PLATFORM_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/platforms/rp2040.cmake
-PICO_CMSIS_DEVICE:INTERNAL=RP2040
+PICO_CMAKE_PRELOAD_PLATFORM_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/platforms/rp2350-arm-s.cmake
+PICO_CMSIS_DEVICE:INTERNAL=RP2350
 PICO_COMPILER_ASM:INTERNAL=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc
-PICO_DOXYGEN_ENABLED_SECTIONS:INTERNAL=rp2040_specific
-PICO_DOXYGEN_EXCLUDE_PATHS:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis
-PICO_DOXYGEN_PATHS:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_picobin_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_picoboot_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_uf2_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_usb_reset_interface_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_bit_ops_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_binary_info;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_divider_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/pico_platform;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_regs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/hardware_structs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040/boot_stage2;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_adc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_exception;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_flash;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_interp;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pwm;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_resets;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_rtc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_spi;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xip_cache;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/boot_bootrom_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_compiler;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_sections;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_aon_timer;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootsel_via_double_reset;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_unique_id;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_printf;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_rand;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_semihosting;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_uart;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_rtt;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/tinyusb;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_usb;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_i2c_slave;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_async_context;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_btstack;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cyw43_driver;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mbedtls;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_lwip/tools;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_lwip;/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/cyw43-driver/src;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cyw43_arch;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_time_adapter;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_clib_interface;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_link;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib;/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/pico-sdk/src/extra_doxygen
-PICO_DOXYGEN_PRE_DEFINES:INTERNAL=PICO_RP2040=1;PICO_RP2350=0
+PICO_DOXYGEN_ENABLED_SECTIONS:INTERNAL=rp2350_specific
+PICO_DOXYGEN_EXCLUDE_PATHS:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_regs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis
+PICO_DOXYGEN_PATHS:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_riscv;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_hazard3;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_picobin_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_picoboot_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/boot_uf2_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_base_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_usb_reset_interface_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_bit_ops_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_binary_info;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_divider_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_sync;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_time;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_util;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/pico_stdlib_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/common/hardware_claim;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/pico_platform;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_regs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/hardware_structs;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350/boot_stage2;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_base;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_adc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_boot_lock;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_clocks;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_divider;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dma;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_exception;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_flash;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_gpio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_i2c;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_interp;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_irq;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pll;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_pwm;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_resets;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_spi;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sync_spin_lock;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_ticks;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_timer;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_uart;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_vreg;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_watchdog;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xip_cache;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_xosc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_powman;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_riscv_platform_timer;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_sha256;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_dcp;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/hardware_rcp;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/boot_bootrom_headers;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_common;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_compiler;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_sections;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_platform_panic;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_aon_timer;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootrom;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bootsel_via_double_reset;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_multicore;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_unique_id;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_atomic;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_bit_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_divider;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_double;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_int64_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_flash;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_float;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mem_ops;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_malloc;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_printf;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_rand;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_sha256;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_semihosting;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_uart;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_rtt;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/cmsis;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/tinyusb;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio_usb;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_i2c_slave;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_async_context;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_btstack;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cyw43_driver;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_mbedtls;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_lwip/tools;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_lwip;/Users/ssnow/.pico-sdk/sdk/2.2.0/lib/cyw43-driver/src;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cyw43_arch;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_time_adapter;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_crt0;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_clib_interface;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_cxx_options;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_binary_info;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_standard_link;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix/rp2040_usb_device_enumeration;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_fix;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_status_led;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime_init;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_runtime;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdio;/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2_common/pico_stdlib;/Users/ssnow/Documents/GitHub/PU-Winder/EP-0172_BLDC_test/build/pico-sdk/src/extra_doxygen
+PICO_DOXYGEN_PRE_DEFINES:INTERNAL=PICO_RP2040=0;PICO_RP2350=1;NUM_DOORBELLS=1
 PICO_GCC_TRIPLE:INTERNAL=arm-none-eabi
 PICO_NO_HARDWARE:INTERNAL=0
 PICO_ON_DEVICE:INTERNAL=1
-PICO_PLATFORM_CMAKE_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2040.cmake
+PICO_PIO_VERSION:INTERNAL=1
+PICO_PLATFORM_CMAKE_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/src/rp2350-arm-s.cmake
 //Saved CMAKE_TOOLCHAIN_FILE
-PICO_PREVIOUS_CMAKE_TOOLCHAIN_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake
+PICO_PREVIOUS_CMAKE_TOOLCHAIN_FILE:INTERNAL=/Users/ssnow/.pico-sdk/sdk/2.2.0/cmake/preload/toolchains/pico_arm_cortex_m33_gcc.cmake
 //Saved PICO Build platform (e.g. rp2040, rp2350, rp2350-riscv,
 //  host)
-PICO_PREVIOUS_PLATFORM:INTERNAL=rp2040
+PICO_PREVIOUS_PLATFORM:INTERNAL=rp2350-arm-s
 PICO_RISCV:INTERNAL=0
-PICO_RP2040:INTERNAL=1
-PICO_RP2350:INTERNAL=0
+PICO_RP2040:INTERNAL=0
+PICO_RP2350:INTERNAL=1
 //Enable build of SDK tests
 PICO_SDK_TESTS_ENABLED:INTERNAL=
 PICO_TOOLCHAIN_PATH:INTERNAL=/Users/ssnow/.pico-sdk/toolchain/14_2_Rel1
