@@ -42,6 +42,7 @@ add_executable(winder_project
     src/scheduler.cpp
     src/lcd_display.cpp
     src/winding_controller.cpp
+    src/spindle_step_pio.cpp
 )
 target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
