@@ -47,6 +47,8 @@ target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/sr
 
 # Generate PIO header for encoder (must be after add_executable)
 pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/encoder/encoder.pio)
+## Generate PIO header for spindle stepgen
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/spindle_step.pio)
 
 # Create map/bin/hex/uf2 files
 #pico_add_extra_outputs(winder_project)
