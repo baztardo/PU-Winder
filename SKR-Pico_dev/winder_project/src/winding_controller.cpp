@@ -16,6 +16,8 @@ spindle_step_pio_t spindle_step_pio;
 
 extern Scheduler scheduler;
 
+static spindle_step_pio_t g_spindle;
+
 // Optional helper: get current free heap in bytes
 static uint32_t get_free_heap() {
     extern char __StackLimit, __bss_end__;
