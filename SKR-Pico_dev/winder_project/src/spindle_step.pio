@@ -1,0 +1,47 @@
+.program spindle_step
+.side_set 1
+
+; TX FIFO protocol:
+;  - First pull: half_period_cycles (uint32)
+;  - Second pull: step_count (uint32)
+;
+; For each step:
+;  - Drive STEP high for half_period_cycles
+;  - Drive STEP low  for half_period_cycles
+
+.wrap_target
+pull       block           ; OSR = half_period_cycles
+mov        x, osr          ; X = half_period
+mov        isr, x          ; Stash half_period in ISR (free GPR)
+pull       block           ; OSR = step_count
+mov        y, osr          ; Y = step_count
+
+step_loop:
+mov        x, isr          ; restore half_period
+nop         side 1         ; STEP high
+high_wait:
+jmp        x--, high_wait  ; wait high half
+mov        x, isr          ; restore half_period
+nop         side 0         ; STEP low
+low_wait:
+jmp        x--, low_wait   ; wait low half
+jmp        y--, step_loop  ; next step until Y underflows
+.wrap
+
+% c-sdk {
+static inline void spindle_step_program_init(PIO pio, uint sm, uint offset, uint step_pin) {
+    pio_sm_config c = spindle_step_program_get_default_config(offset);
+    // Configure sideset pin as the STEP output
+    sm_config_set_sideset_pins(&c, step_pin);
+    // Make the pin an output under PIO control
+    pio_gpio_init(pio, step_pin);
+    pio_sm_set_consecutive_pindirs(pio, sm, step_pin, 1, true);
+    // Shift config
+    sm_config_set_in_shift(&c, true, false, 32);
+    sm_config_set_out_shift(&c, true, false, 32);
+    // Initialize SM
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_clear_fifos(pio, sm);
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

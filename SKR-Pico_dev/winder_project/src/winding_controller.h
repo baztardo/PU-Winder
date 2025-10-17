@@ -132,6 +132,11 @@ public:
      */
     void emergency_stop();
 
+    // PIO stepgen integration (spindle)
+    void spindle_pio_init();
+    void spindle_pio_queue_cv(uint32_t step_count, float steps_per_sec);
+    void spindle_pio_idle();
+
 private:
     MoveQueue* move_queue;
     Encoder* encoder;
