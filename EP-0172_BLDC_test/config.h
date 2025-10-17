@@ -7,10 +7,10 @@
 // =============================================================================
 // BLDC Motor Pins (EP-0172)
 // =============================================================================
-#define BLDC_PWM_PIN          10    // PWM speed control
-#define BLDC_DIR_PIN          11    // Direction control
-#define BLDC_BRAKE_PIN        18    // Brake control
-#define BLDC_SPEED_PULSE_PIN  19    // Speed pulse input (SC output)
+#define BLDC_PWM_PIN          18    // PWM speed control
+#define BLDC_DIR_PIN          19    // Direction control
+#define BLDC_BRAKE_PIN        20    // Brake control
+#define BLDC_SPEED_PULSE_PIN  21    // Speed pulse input (SC output)
 
 // =============================================================================
 // PWM Configuration
