@@ -72,6 +72,7 @@
 // TIMING PARAMETERS
 // =============================================================================
 #define HEARTBEAT_US         50     // ISR frequency: 50μs = 20 kHz
+#define HEARTBEAT_ENABLE      0     // 0: disable heartbeat toggle, 1: enable
 #define STEP_PULSE_US       2       // Step pulse width in microseconds
 
 // =============================================================================

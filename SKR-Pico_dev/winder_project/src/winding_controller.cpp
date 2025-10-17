@@ -347,6 +347,9 @@ void WindingController::ramp_up_spindle() {
             float target_rps = params.spindle_rpm / 60.0f;
             uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
             float target_sps = target_rps * steps_per_rev;
+            // Clamp to 80% of ISR capacity for stability
+            float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
+            if (target_sps > max_sps) target_sps = max_sps;
             uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);  // 1.0s buffer
             auto chunks = StepCompressor::compress_constant_velocity(spindle_steps, target_sps);
             for (const auto& c : chunks) move_queue->push_chunk(AXIS_SPINDLE, c);
@@ -362,10 +365,12 @@ void WindingController::execute_winding() {
     // Check if spindle queue is getting low and refill it
     if (move_queue->get_queue_depth(AXIS_SPINDLE) < 40) {    // was 20
         
-        // Calculate continuous spindle movement
+        // Calculate continuous spindle movement (clamped)
         float target_rps = params.spindle_rpm / 60.0f;
         uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
         float target_sps = target_rps * steps_per_rev;
+        float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
+        if (target_sps > max_sps) target_sps = max_sps;
         
         // Queue another second of spindle movement
         uint32_t spindle_steps = (uint32_t)(target_sps * 0.5f);  // was 1 
