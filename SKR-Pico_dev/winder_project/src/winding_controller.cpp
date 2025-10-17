@@ -10,6 +10,9 @@
 #include "pico/malloc.h"
 #include <cmath>
 #include <algorithm>
+#include "spindle_step_pio.h"
+
+spindle_step_pio_t spindle_step_pio;
 
 extern Scheduler scheduler;
 
@@ -36,6 +39,7 @@ WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lc
 
 void WindingController::init() {
     state = WindingState::IDLE;
+    spindle_pio_init(&g_spindle, pio0, 2, SPINDLE_STEP_PIN);
     lcd->clear();
     lcd->print_at(0, 0, "Winder Ready");
     lcd->print_at(0, 1, "Press Start...");
