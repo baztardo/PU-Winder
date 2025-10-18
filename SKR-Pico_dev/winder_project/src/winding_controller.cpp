@@ -202,6 +202,13 @@ void WindingController::home_traverse() {
     static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
     static bool lcd_updated = false;
     
+    if (homing_state == INIT && !lcd_updated) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Homing Traverse...");
+        printf("Starting traverse homing\n");
+        lcd_updated = true;
+    }
+    
     switch (homing_state) {
         case INIT:
             // Initialize home switch pin
@@ -553,9 +560,3 @@ float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * MOTOR_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
 }
-
-
- * TRAVERSE_PITCH_MM;
-}
-
-
