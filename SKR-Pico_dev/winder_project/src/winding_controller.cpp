@@ -576,6 +576,3 @@ float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * TRAVERSE_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
 }
- (200.0f * TRAVERSE_MICROSTEPS);
-    return revs * TRAVERSE_PITCH_MM;
-}
