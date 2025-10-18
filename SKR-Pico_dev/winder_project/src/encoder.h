@@ -78,6 +78,8 @@ private:
     bool last_b;
     bool last_z;
     bool z_pulse_detected;
+    int32_t z_trigger_position;  // Position where last Z was detected
+    bool z_armed;                 // True if ready to detect Z again
     int32_t z_debounce_position;  // Position when Z was last detected (for debouncing)
 
     // PIO-based quadrature sampling
