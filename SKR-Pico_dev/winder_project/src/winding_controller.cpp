@@ -367,10 +367,12 @@ void WindingController::ramp_up_spindle() {
         ramp_started = false;
 
         // FIXED: Use SPINDLE_MICROSTEPS (4x), not MOTOR_MICROSTEPS (16x)!
+        // Account for gear ratio: 40T→20T means stepper at HALF spindle speed
         float steps_per_rev_f = 200.0f * SPINDLE_MICROSTEPS;
-        float target_sps = (params.spindle_rpm / 60.0f) * steps_per_rev_f;
+        float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;  // 0.5 ratio
+        float target_sps = (stepper_rpm / 60.0f) * steps_per_rev_f;
         // Match ramp-up and continuous limits
-        const float max_sps = 6000.0f;  // Same as ramp-up limit
+        const float max_sps = 50000.0f;  // Allow high-speed winding!
         if (target_sps > max_sps) target_sps = max_sps;
 
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
