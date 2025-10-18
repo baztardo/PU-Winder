@@ -31,11 +31,34 @@ bool spindle_step_pio_init(spindle_step_pio_t* ctx, PIO pio, uint sm, uint step_
 }
 
 bool spindle_step_pio_queue_cv(spindle_step_pio_t* ctx, uint32_t step_count, float steps_per_sec) {
-    if (!ctx || step_count == 0 || steps_per_sec <= 0.0f) return false;
+    if (!ctx) {
+        printf("PIO_QUEUE ERROR: ctx is NULL!\n");
+        return false;
+    }
+    if (step_count == 0) {
+        printf("PIO_QUEUE ERROR: step_count is 0!\n");
+        return false;
+    }
+    if (steps_per_sec <= 0.0f) {
+        printf("PIO_QUEUE ERROR: steps_per_sec=%.1f invalid!\n", steps_per_sec);
+        return false;
+    }
+    
     uint32_t half_cycles = cycles_from_sps(steps_per_sec);
+    printf("  [PIO_QUEUE] %lu steps @ %.1f sps -> half_cycles=%lu\n", 
+           step_count, steps_per_sec, half_cycles);
+    
+    // Check FIFO status before pushing
+    uint32_t fifo_level = pio_sm_get_tx_fifo_level(ctx->pio, ctx->sm);
+    printf("  [PIO_FIFO] TX level=%lu/4 before push\n", fifo_level);
+    
     // Push half_period and step_count to TX FIFO (will block if full briefly)
     pio_sm_put_blocking(ctx->pio, ctx->sm, half_cycles);
     pio_sm_put_blocking(ctx->pio, ctx->sm, step_count);
+    
+    fifo_level = pio_sm_get_tx_fifo_level(ctx->pio, ctx->sm);
+    printf("  [PIO_FIFO] TX level=%lu/4 after push - SUCCESS!\n", fifo_level);
+    
     return true;
 }
 
