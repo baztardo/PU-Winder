@@ -91,13 +91,13 @@
 #define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
 #define WINDING_RAMP_TIME_SEC   5.0f    // Ramp up/down time (seconds)
 
-// Speed recommendations (SPINDLE RPM with 40T→20T gearing, 4x microstepping):
-//   60 RPM   = Safe, tested (stepper @ 30 RPM, 400 sps)
-//  120 RPM   = Current v1.7.5 speed (stepper @ 60 RPM, 800 sps)
-//  200 RPM   = Good speed (stepper @ 100 RPM, 1333 sps)
-//  500 RPM   = Fast (stepper @ 250 RPM, 3333 sps)
-// 1000 RPM   = Target average (stepper @ 500 RPM, 6667 sps) ✅
-// 1500 RPM   = Target maximum (stepper @ 750 RPM, 10000 sps) ✅
+// Speed recommendations (SPINDLE RPM with 2:1 gearing, 4x microstepping):
+//   60 RPM   = Safe, tested (stepper @ 120 RPM, 1600 sps) ✅
+//  120 RPM   = Good (stepper @ 240 RPM, 3200 sps) ✅
+//  150 RPM   = Recommended max for now (stepper @ 300 RPM, 4000 sps)
+//  200 RPM   = Pushing it (stepper @ 400 RPM, 5333 sps)
+//  240 RPM   = Motor stalls! (stepper @ 480 RPM, 6400 sps) ❌
+// Note: Higher speeds require tuning TMC2209 (voltage, current, chopper)
 
 // =============================================================================
 // TMC2209 MICROSTEPPING CONFIGURATION
