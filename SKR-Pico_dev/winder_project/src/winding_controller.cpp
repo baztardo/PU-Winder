@@ -403,7 +403,7 @@ void WindingController::execute_winding() {
         float target_sps = stepper_rps * steps_per_rev;
         
         // Apply max speed limit (same as ramp-up)
-        const float max_sps = 50000.0f;
+        const float max_sps = 4000.0f;  // ⚠️ FIXED! Was 50000!
         if (target_sps > max_sps) target_sps = max_sps;
         
         // Queue 1.5 seconds worth of steps (matches ramp-up logic)
