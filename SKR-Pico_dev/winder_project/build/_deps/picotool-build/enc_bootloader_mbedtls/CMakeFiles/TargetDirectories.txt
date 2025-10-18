@@ -1,2 +1,0 @@
-/workspace/SKR-Pico_dev/winder_project/build/_deps/picotool-build/enc_bootloader_mbedtls/CMakeFiles/edit_cache.dir
-/workspace/SKR-Pico_dev/winder_project/build/_deps/picotool-build/enc_bootloader_mbedtls/CMakeFiles/rebuild_cache.dir
