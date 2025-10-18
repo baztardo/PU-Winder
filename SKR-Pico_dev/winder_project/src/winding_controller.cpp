@@ -560,13 +560,11 @@ uint32_t WindingController::mm_to_steps(float mm) {
     // Lead screw: 5mm per revolution
     // Motor: 200 steps * microsteps per revolution
     float revs = mm / TRAVERSE_PITCH_MM;
-    uint32_t steps = (uint32_t)(revs * 200 * MOTOR_MICROSTEPS);
+    uint32_t steps = (uint32_t)(revs * 200 * TRAVERSE_MICROSTEPS);
     return steps;
 }
 
 float WindingController::steps_to_mm(uint32_t steps) {
-    float revs = steps / (200.0f * MOTOR_MICROSTEPS);
+    float revs = steps / (200.0f * TRAVERSE_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
-}
-revs * TRAVERSE_PITCH_MM;
 }
