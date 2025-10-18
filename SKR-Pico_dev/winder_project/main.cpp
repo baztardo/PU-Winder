@@ -248,11 +248,11 @@ void setup_winding_parameters() {
     
     // Configure winding job
     params.target_turns = 1000;          // 1000 turns total
-    params.spindle_rpm = 300.0f;         // 300 RPM spindle speed
+    params.spindle_rpm = 150.0f;         // 150 RPM spindle speed (REDUCED - motor limit!)
     params.wire_diameter_mm = 0.064f;    // 43 AWG wire (0.064mm)
     params.layer_width_mm = 50.0f;       // 50mm winding width
     params.start_position_mm = 20.0f;    // Start 20mm from home
-    params.ramp_time_sec = 3.0f;         // 3 second ramp up/down
+    params.ramp_time_sec = 5.0f;         // 5 second ramp up/down (INCREASED)
     
     // Calculate and set
     params.calculate_layers();
