@@ -76,10 +76,10 @@
 // MECHANICAL SETUP (CRITICAL!)
 // =============================================================================
 // Gear ratios:
-//   Stepper (20T) → Spindle (40T) = Reduction! Stepper goes 2× faster
+//   Stepper (40T) → Spindle (20T) = Speed-up! Spindle goes 2× faster than stepper
 //   Encoder (20T) → Spindle (20T) = 1:1 (encoder reads spindle directly)
-// Therefore: Stepper RPM = Spindle RPM × 2 (stepper goes FASTER!)
-#define SPINDLE_GEAR_RATIO      2.0f    // Stepper:Spindle ratio (2.0 = reduction)
+// Therefore: Stepper RPM = Spindle RPM ÷ 2 (stepper goes SLOWER!)
+#define SPINDLE_GEAR_RATIO      0.5f    // Multiply to get stepper RPM from spindle RPM
 
 // =============================================================================
 // WINDING PARAMETERS (Easy configuration!)
