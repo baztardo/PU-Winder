@@ -16,6 +16,9 @@
 #include "scheduler.h"
 #include "lcd_display.h"
 #include "winding_controller.h"
+
+// For test moves
+#include <vector>
 // -----------------------------------------------------------------------------
 // Diagnostic LED Controller
 // -----------------------------------------------------------------------------
@@ -149,8 +152,8 @@ int main() {
     sleep_ms(1000);
     
     // After constructing the Encoder object
-    encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
-    encoder.debug_status();    // optional: quick sanity print
+    spindle_encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
+    spindle_encoder.debug_status();    // optional: quick sanity print
 
     // Start scheduler ISR
     lcd.print_at(0, 3, "Scheduler...");
@@ -161,9 +164,44 @@ int main() {
         while (1) tight_loop_contents();
     }
 
-    //sleep_ms(500);
+    sleep_ms(1000);  // Let scheduler stabilize
+    
+    // SIMPLE MOTOR TEST - Direct GPIO pulses to verify hardware
+    lcd.clear();
+    lcd.print_at(0, 0, "Testing Motors...");
+    lcd.print_at(0, 1, "Spindle...");
+    
+    printf("\n=== MOTOR TEST START ===\n");
+    
+    // Spindle test - 200 direct GPIO pulses (no queue)
+    move_queue.set_enable(AXIS_SPINDLE, true);
+    move_queue.set_direction(AXIS_SPINDLE, true);
+    
+    for (int i = 0; i < 200; i++) {
+        gpio_put(SPINDLE_STEP_PIN, 1);
+        busy_wait_us(2);
+        gpio_put(SPINDLE_STEP_PIN, 0);
+        sleep_ms(10);  // 100Hz
+    }
+    printf("Spindle: 200 pulses sent\n");
+    
+    lcd.print_at(0, 2, "Traverse...");
+    // Traverse test - 200 direct GPIO pulses (no queue)
+    move_queue.set_enable(AXIS_TRAVERSE, true);
+    move_queue.set_direction(AXIS_TRAVERSE, true);
+    
+    for (int i = 0; i < 200; i++) {
+        gpio_put(TRAVERSE_STEP_PIN, 1);
+        busy_wait_us(2);
+        gpio_put(TRAVERSE_STEP_PIN, 0);
+        sleep_ms(10);  // 100Hz
+    }
+    printf("Traverse: 200 pulses sent\n");
+    
+    lcd.print_at(0, 3, "Tests complete!");
+    printf("=== MOTOR TEST DONE ===\n\n");
+    sleep_ms(2000);
 
-    sleep_ms(2000);  // Give time to read "Setting Current"
     show_tmc_status();  // This MUST be called!
     
     // Initialize winding controller
@@ -186,20 +224,23 @@ int main() {
     }
     
     // Main loop - winding controller runs here
+    static absolute_time_t hb_time = {0};
+    
     while (true) {
         winding_controller.update();
+        
+        // Main loop heartbeat LED (FAN2)
+        absolute_time_t now = get_absolute_time();
+        if (absolute_time_diff_us(now, hb_time) <= 0) {
+            gpio_xor_mask(1u << LED2_PIN);   // FAN2 heartbeat from main loop
+            hb_time = make_timeout_time_ms(250);
+        }
         
         // Small delay to prevent tight loop
         sleep_ms(10);
     }
-    static absolute_time_t hb_time;
-    absolute_time_t now = get_absolute_time();
-    if (absolute_time_diff_us(now, hb_time) <= 0) {
-        gpio_xor_mask(1u << LED2_PIN);   // FAN2 heartbeat from main loop
-        hb_time = make_timeout_time_ms(250);
-    }
 
-    return 0;
+    return 0;  // Never reached
 }
 
 // =============================================================================
@@ -208,6 +249,10 @@ int main() {
 void init_hardware() {
     // Initialize move queue (GPIO pins)
     move_queue.init();
+    
+    // CRITICAL: Enable motors immediately after init
+    move_queue.set_enable(AXIS_SPINDLE, true);
+    move_queue.set_enable(AXIS_TRAVERSE, true);
     
     // Initialize encoder
     spindle_encoder.init();

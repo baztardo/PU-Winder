@@ -1,0 +1,7 @@
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/pioasm.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/edit_cache.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/rebuild_cache.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/list_install_components.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/install.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/install/local.dir
+/workspace/SKR-Pico_dev/winder_project/build/pioasm/CMakeFiles/install/strip.dir

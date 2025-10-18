@@ -16,7 +16,7 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 
 cmake_minimum_required(VERSION 3.13)
 # --- Import Pico SDK ---
-include($ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
+include(pico_sdk_import.cmake)
 
 project(winder_project C CXX ASM)
 
@@ -36,8 +36,9 @@ add_executable(winder_project
 )
 target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-# Create map/bin/hex/uf2 files
-#pico_add_extra_outputs(winder_project)
+# Generate PIO headers (MUST be after add_executable)
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_LIST_DIR}/src/encoder.pio)
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_LIST_DIR}/src/stepper.pio)
 
 # Link libraries
 target_link_libraries(winder_project
@@ -50,6 +51,7 @@ target_link_libraries(winder_project
     hardware_dma
     hardware_pwm
     hardware_irq
+    hardware_pio
 )
 
 # Enable USB output, disable UART output (or vice versa)

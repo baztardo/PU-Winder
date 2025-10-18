@@ -1,0 +1,14 @@
+# Target labels
+ picotoolBuild
+# Source files and their labels
+/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild
+/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild-complete.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-build.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-configure.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-download.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-install.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-patch.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-test.rule
+/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-update.rule

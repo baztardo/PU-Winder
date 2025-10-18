@@ -8,6 +8,7 @@
 #include "pico/stdlib.h"
 #include <algorithm>
 #include <cstring>
+#include <cstdio>
 
 MoveQueue::MoveQueue() {
     memset((void*)head, 0, sizeof(head));
@@ -58,6 +59,15 @@ bool MoveQueue::push_chunk(uint8_t axis, const StepChunk& chunk) {
     queues[axis][h] = chunk;
     head[axis] = (h + 1) % MOVE_CHUNKS_CAPACITY;
     
+    // Debug first few pushes
+    static uint32_t push_count[2] = {0, 0};
+    if (push_count[axis] < 3) {
+        printf("PUSH axis=%u interval=%lu add=%ld count=%lu (depth now=%u)\n",
+               axis, chunk.interval_us, chunk.add_us, chunk.count,
+               (h >= t) ? (h - t + 1) : (MOVE_CHUNKS_CAPACITY - t + h + 1));
+        push_count[axis]++;
+    }
+    
     return true;
 }
 
@@ -102,7 +112,9 @@ void MoveQueue::clear_queue(uint8_t axis) {
 
 void MoveQueue::set_direction(uint8_t axis, bool forward) {
     uint pin = (axis == AXIS_SPINDLE) ? SPINDLE_DIR_PIN : TRAVERSE_DIR_PIN;
-    gpio_put(pin, forward ? 1 : 0);
+    bool invert = (axis == AXIS_SPINDLE) ? SPINDLE_DIR_INVERT : TRAVERSE_DIR_INVERT;
+    bool actual_dir = invert ? !forward : forward;
+    gpio_put(pin, actual_dir ? 1 : 0);
 }
 
 void MoveQueue::set_enable(uint8_t axis, bool enable) {
@@ -121,8 +133,9 @@ int32_t MoveQueue::get_step_count(uint8_t axis) {
 }
 
 void MoveQueue::execute_step_pulse(uint32_t step_pin) {
+    // Generate step pulse for TMC2209 (minimum 1us pulse width required)
     gpio_put(step_pin, 1);
-    busy_wait_us(STEP_PULSE_US);
+    busy_wait_us(STEP_PULSE_US);  // 2us pulse - safe for ISR
     gpio_put(step_pin, 0);
 }
 
@@ -140,6 +153,14 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
         tail[axis] = (tail[axis] + 1) % MOVE_CHUNKS_CAPACITY;
         active_running[axis] = true;
         last_step_time[axis] = time_us_32();
+        
+        // Debug: Print when loading first chunk (only occasionally to not spam)
+        static uint32_t last_debug = 0;
+        if ((time_us_32() - last_debug) > 1000000) {  // Once per second
+            printf("Axis %u: Loaded chunk interval=%lu count=%lu\n", 
+                   axis, active[axis].interval_us, active[axis].count);
+            last_debug = time_us_32();
+        }
         return;
     }
     
@@ -157,6 +178,13 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
     
     last_step_time[axis] = now;
     step_count[axis]++;
+    
+    // Debug first few steps
+    static uint32_t debug_steps[2] = {0, 0};
+    if (debug_steps[axis] < 5) {
+        printf("STEP axis=%u pin=%u count=%ld\n", axis, step_pin, step_count[axis]);
+        debug_steps[axis]++;
+    }
     
     // Decrement count
     if (active[axis].count > 0) {

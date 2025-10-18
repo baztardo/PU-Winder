@@ -1,4 +1,4 @@
-// Padded and checksummed version of: /Users/ssnow/Documents/GitHub/PU-Winder/SKR-Pico_dev/winder_project/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.bin
+// Padded and checksummed version of: /workspace/SKR-Pico_dev/winder_project/build/pico-sdk/src/rp2040/boot_stage2/bs2_default.bin
 
 .cpu cortex-m0plus
 .thumb

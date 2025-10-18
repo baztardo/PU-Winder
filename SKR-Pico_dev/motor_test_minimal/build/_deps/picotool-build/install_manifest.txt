@@ -1,0 +1,7 @@
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/picotool
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/picotoolTargets.cmake
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/picotoolTargets-release.cmake
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/picotoolConfig.cmake
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/picotoolConfigVersion.cmake
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/enc_bootloader.elf
+/workspace/SKR-Pico_dev/motor_test_minimal/build/_deps/picotool/enc_bootloader_mbedtls.elf

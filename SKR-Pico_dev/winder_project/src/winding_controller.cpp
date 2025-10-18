@@ -137,7 +137,23 @@ void WindingController::update() {
             break;
             
         case WindingState::ERROR:
-            // Stay in error state until reset
+            // Stay in error state
+            // Allow recovery by waiting 10 seconds then going to IDLE
+            static uint32_t error_start_time = 0;
+            if (error_start_time == 0) {
+                error_start_time = time_us_32();
+            }
+            
+            uint32_t error_elapsed = (time_us_32() - error_start_time) / 1000000;
+            if (error_elapsed > 10) {
+                lcd->clear();
+                lcd->print_at(0, 0, "Resetting...");
+                sleep_ms(1000);
+                state = WindingState::IDLE;
+                error_start_time = 0;
+            } else {
+                lcd->printf_at(0, 3, "Reset in %lus", 10 - error_elapsed);
+            }
             break;
     }
     
@@ -145,27 +161,38 @@ void WindingController::update() {
 }
 
 void WindingController::home_spindle() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Homing Spindle...");
-    lcd->print_at(0, 1, "Finding Z Index");
-    
-    // Wait for Z index pulse
-    // Rotate spindle slowly and watch for Z pulse
-    static bool waiting_for_z = true;
+    // Use class members instead of static locals to properly reset on state re-entry
     static uint32_t start_time = 0;
+    static bool moves_queued = false;
     
-    if (waiting_for_z) {
+    // First entry into this state
+    if (!moves_queued) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Homing Spindle...");
+        lcd->print_at(0, 1, "Finding Z Index");
+        
         start_time = time_us_32();
-        waiting_for_z = false;
+        moves_queued = true;
+        
+        // CRITICAL: Set motor direction before queuing moves!
+        bool spindle_dir = (SPINDLE_DIR_INVERT == 0);
+        move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
+        
+        // Ensure motor is enabled
+        move_queue->set_enable(AXIS_SPINDLE, true);
         
         // Generate slow rotation move (one revolution to find Z)
         auto chunks = StepCompressor::compress_constant_velocity(
-            3200,  // One revolution
+            3200,  // One revolution at 16 microsteps
             200    // Slow speed
         );
         
+        printf("Homing spindle: queuing %zu chunks\n", chunks.size());
         for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+            if (!move_queue->push_chunk(AXIS_SPINDLE, chunk)) {
+                lcd->print_at(0, 3, "Queue full!");
+                break;
+            }
         }
     }
     
@@ -179,14 +206,15 @@ void WindingController::home_spindle() {
         sleep_ms(500);
         
         state = WindingState::HOMING_TRAVERSE;
-        waiting_for_z = true;
+        moves_queued = false;  // Reset for next time
+        return;
     }
     
     // Timeout after 10 seconds
     if ((time_us_32() - start_time) > 10000000) {
         lcd->print_at(0, 3, "Z Index Timeout!");
         state = WindingState::ERROR;
-        waiting_for_z = true;
+        moves_queued = false;  // Reset for next time
     }
 }
 
@@ -202,6 +230,9 @@ void WindingController::home_traverse() {
             gpio_init(TRAVERSE_HOME_PIN);
             gpio_set_dir(TRAVERSE_HOME_PIN, GPIO_IN);
             gpio_pull_up(TRAVERSE_HOME_PIN);
+            
+            // Ensure motor is enabled
+            move_queue->set_enable(AXIS_TRAVERSE, true);
             
             // Set direction towards home
             move_queue->set_direction(AXIS_TRAVERSE, false);
@@ -261,22 +292,33 @@ void WindingController::home_traverse() {
 }
 
 void WindingController::move_to_start() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Moving to Start");
-    lcd->printf_at(0, 1, "Target: %.1fmm", params.start_position_mm);
-    
     static bool move_queued = false;
     
+    // First entry - queue the move
     if (!move_queued) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Moving to Start");
+        lcd->printf_at(0, 1, "Target: %.1fmm", params.start_position_mm);
+        
+        // Ensure motor is enabled
+        move_queue->set_enable(AXIS_TRAVERSE, true);
+        move_queue->set_direction(AXIS_TRAVERSE, true);
+        
         uint32_t steps = mm_to_steps(params.start_position_mm);
         auto chunks = StepCompressor::compress_trapezoid(
             steps, 0, TRAVERSE_RAPID_SPEED, TRAVERSE_RAPID_ACCEL, 20.0
         );
         
-        move_queue->set_direction(AXIS_TRAVERSE, true);
+        uint32_t queued = 0;
         for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_TRAVERSE, chunk);
+            if (move_queue->push_chunk(AXIS_TRAVERSE, chunk)) {
+                queued++;
+            } else {
+                printf("Warning: Traverse queue full after %u chunks\n", queued);
+                break;
+            }
         }
+        printf("Move to start: queued %u chunks for %u steps\n", queued, steps);
         
         move_queued = true;
     }
@@ -290,7 +332,7 @@ void WindingController::move_to_start() {
         sleep_ms(500);
         
         state = WindingState::RAMPING_UP;
-        move_queued = false;
+        move_queued = false;  // Reset for next time
     }
 }
 
@@ -310,6 +352,8 @@ void WindingController::ramp_up_spindle() {
         ramp_started = true;
         ramp_start_time = time_us_32();
 
+        // Ensure motor is enabled and set direction
+        move_queue->set_enable(AXIS_SPINDLE, true);
         bool spindle_dir = (SPINDLE_DIR_INVERT == 0);
         move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
 
@@ -357,23 +401,35 @@ void WindingController::ramp_up_spindle() {
 void WindingController::execute_winding() {
     // CRITICAL: Keep spindle running!
     // Check if spindle queue is getting low and refill it
-    if (!move_queue->is_active(AXIS_SPINDLE) || 
-        move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
-        
+    // Add hysteresis to prevent constant refilling
+    uint32_t spindle_depth = move_queue->get_queue_depth(AXIS_SPINDLE);
+    
+    if (spindle_depth < 5) {  // Refill threshold
         // Calculate continuous spindle movement
         float target_rps = params.spindle_rpm / 60.0f;
         uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
         float target_sps = target_rps * steps_per_rev;
         
-        // Queue another second of spindle movement
-        uint32_t spindle_steps = (uint32_t)(target_sps * 1.0f);  // 1 second worth
+        // Queue 0.5 seconds of spindle movement (don't queue too much at once)
+        uint32_t spindle_steps = (uint32_t)(target_sps * 0.5f);
         
         auto chunks = StepCompressor::compress_constant_velocity(
             spindle_steps, target_sps
         );
         
+        uint32_t pushed = 0;
         for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+            if (move_queue->push_chunk(AXIS_SPINDLE, chunk)) {
+                pushed++;
+            } else {
+                // Queue full - stop pushing
+                printf("Spindle queue full after %u chunks\n", pushed);
+                break;
+            }
+        }
+        
+        if (pushed > 0) {
+            printf("Refilled spindle: %u chunks (depth was %u)\n", pushed, spindle_depth);
         }
     }
     
@@ -393,14 +449,15 @@ void WindingController::sync_traverse_to_spindle() {
     int32_t delta = pos - last_encoder_position;
 
     if (delta <= 0) {
-        // no forward progress this tick
+        // No forward progress this tick (intentional for winding direction)
+        // If encoder goes backward, we don't unwind - this is correct behavior
         return;
     }
 
     // Full turns completed since last time
     uint32_t new_turns = (uint32_t)(delta / ENCODER_CPR);
     if (new_turns == 0) {
-        // Haven't crossed a full revolution yet; keep feeding spindle elsewhere
+        // Haven't crossed a full revolution yet
         return;
     }
 
@@ -422,9 +479,16 @@ void WindingController::sync_traverse_to_spindle() {
     uint32_t traverse_steps = mm_to_steps(traverse_mm);
     if (traverse_steps == 0) return;
 
+    // Check traverse queue depth before pushing
+    uint32_t traverse_depth = move_queue->get_queue_depth(AXIS_TRAVERSE);
+    if (traverse_depth > 100) {
+        // Queue is very full, skip this update to prevent overflow
+        printf("Warning: Traverse queue full (%u), skipping sync\n", traverse_depth);
+        return;
+    }
+
     // Use measured spindle RPM for true synchronization
-    // current_rpm is updated from encoder in update_rpm()
-    float spindle_rps_meas = current_rpm / 60.0f;
+    float spindle_rps_meas = (current_rpm > 0) ? (current_rpm / 60.0f) : 0.1f;
     // Traverse speed (mm/s) = spindle RPS * wire pitch
     float traverse_mmps = spindle_rps_meas * params.wire_pitch_mm;
 
@@ -440,18 +504,25 @@ void WindingController::sync_traverse_to_spindle() {
     // Queue the move
     move_queue->set_direction(AXIS_TRAVERSE, traverse_direction);
     auto chunks = StepCompressor::compress_constant_velocity(traverse_steps, traverse_sps);
+    
+    uint32_t pushed = 0;
     for (const auto& c : chunks) {
-        move_queue->push_chunk(AXIS_TRAVERSE, c);
+        if (move_queue->push_chunk(AXIS_TRAVERSE, c)) {
+            pushed++;
+        } else {
+            printf("Traverse queue full after %u/%zu chunks\n", pushed, chunks.size());
+            break;
+        }
     }
 }
 
 void WindingController::ramp_down_spindle() {
-    lcd->clear();
-    lcd->print_at(0, 0, "Ramping Down...");
-    
     static bool ramp_started = false;
     
     if (!ramp_started) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Ramping Down...");
+        
         move_queue->clear_queue(AXIS_SPINDLE);
         move_queue->clear_queue(AXIS_TRAVERSE);
         
@@ -466,8 +537,14 @@ void WindingController::ramp_down_spindle() {
             ramp_steps, current_sps, 0, -current_sps / params.ramp_time_sec, 20.0
         );
         
+        uint32_t queued = 0;
         for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+            if (move_queue->push_chunk(AXIS_SPINDLE, chunk)) {
+                queued++;
+            } else {
+                printf("Ramp-down queue full after %u chunks\n", queued);
+                break;
+            }
         }
         
         ramp_started = true;
@@ -480,7 +557,7 @@ void WindingController::ramp_down_spindle() {
         !move_queue->has_chunk(AXIS_SPINDLE)) {
         
         state = WindingState::COMPLETE;
-        ramp_started = false;
+        ramp_started = false;  // Reset for next time
     }
 }
 

@@ -6,34 +6,10 @@
 #include "pico/stdlib.h"
 #include "config.h"
 #include "pico/time.h"
+#include <cstdio>
 
-// Forward declaration of the stepper pulse handler
-void scheduler_tick();
-
-struct StepperState {
-    uint step_pin;
-    uint32_t interval_us;
-    int32_t add_us;
-    uint32_t remaining;
-    absolute_time_t next_pulse_time;
-    bool active;
-};
-
-static StepperState steppers[4];  // X, Y, Z, E or spindle/traverse
-
-// uint32_t Encoder::get_isr_hits() const { return g_isr_hits; }
-// uint32_t Encoder::get_isr_hits() const { return isr_hits; }
-
-void scheduler_queue_step(uint axis, uint32_t interval_us, int32_t add_us, uint32_t count) {
-    if (axis >= 4) return;  // safety check
-    auto &s = steppers[axis];
-
-    s.interval_us = interval_us;
-    s.add_us = add_us;
-    s.remaining = count;
-    s.next_pulse_time = make_timeout_time_us(interval_us);
-    s.active = true;
-}
+// Note: Dead code removed - steppers array and scheduler_queue_step were never used
+// The actual step execution happens in move_queue->handle_isr_tick()
 
 // Global pointer to scheduler instance for static callback
 static Scheduler* g_scheduler_instance = nullptr;
@@ -67,6 +43,8 @@ bool Scheduler::start(uint32_t interval) {
     interval_us = interval;
     tick_count = 0;
     
+    printf("Starting scheduler ISR at %lu us intervals...\n", interval_us);
+    
     // Start repeating timer
     // Negative interval means "call me every N microseconds from now"
     bool success = add_repeating_timer_us(
@@ -78,6 +56,9 @@ bool Scheduler::start(uint32_t interval) {
     
     if (success) {
         running = true;
+        printf("Scheduler ISR started successfully!\n");
+    } else {
+        printf("ERROR: Failed to start scheduler ISR!\n");
     }
     
     return success;
@@ -117,6 +98,13 @@ bool Scheduler::timer_callback(repeating_timer_t* rt) {
 
 void Scheduler::handle_isr() {
     tick_count++;
+    
+    // Debug: Print first few ISR calls
+    static bool isr_debug_done = false;
+    if (!isr_debug_done && tick_count <= 3) {
+        printf("ISR tick %lu\n", tick_count);
+        if (tick_count == 3) isr_debug_done = true;
+    }
 
     // Update encoder state
     if (spindle_encoder) {
@@ -137,36 +125,9 @@ void Scheduler::handle_isr() {
     // -----------------------------------------------------------------------------
     static uint32_t last_toggle = 0;
     static bool led_state = false;
-    if ((tick_count - last_toggle) >= 500) {   // toggle every ~0.5s
+    if ((tick_count - last_toggle) >= 5000) {   // toggle every ~0.5s at 10kHz
         led_state = !led_state;
         gpio_put(SCHED_HEARTBEAT_PIN, led_state);
         last_toggle = tick_count;
-    }
-    // Run stepper tick handler (stepper_event)
-    scheduler_tick();
-}
-
-// This runs periodically to step active motors
-void scheduler_tick() {
-    absolute_time_t now = get_absolute_time();
-
-    for (auto &s : steppers) {
-        if (!s.active || s.remaining == 0)
-            continue;
-
-        if (absolute_time_diff_us(now, s.next_pulse_time) <= 0) {
-            // Step pulse
-            gpio_put(s.step_pin, 1);
-            sleep_us(2);  // 2 µs pulse width
-            gpio_put(s.step_pin, 0);
-
-            s.remaining--;
-            s.interval_us += s.add_us;
-            s.next_pulse_time = delayed_by_us(s.next_pulse_time, s.interval_us);
-
-            if (s.remaining == 0) {
-                s.active = false;  // done
-            }
-        }
     }
 }

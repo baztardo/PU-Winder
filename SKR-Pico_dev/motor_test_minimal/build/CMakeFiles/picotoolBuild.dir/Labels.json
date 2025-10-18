@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/CMakeFiles/picotoolBuild-complete.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-build.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-configure.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-download.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-install.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-mkdir.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-patch.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-test.rule"
+		},
+		{
+			"file" : "/workspace/SKR-Pico_dev/motor_test_minimal/build/picotool/src/picotoolBuild-stamp/picotoolBuild-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"picotoolBuild"
+		],
+		"name" : "picotoolBuild"
+	}
+}
