@@ -174,6 +174,9 @@ void WindingController::home_spindle() {
     if (encoder->check_z_pulse()) {
         // Found Z index!
         encoder->reset();
+        
+        // CRITICAL: Stop the PIO immediately!
+        ::spindle_step_pio_stop(&spindle_step_pio);
         move_queue->clear_queue(AXIS_SPINDLE);
         
         lcd->print_at(0, 2, "Z Index Found!");

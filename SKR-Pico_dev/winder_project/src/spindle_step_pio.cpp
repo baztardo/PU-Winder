@@ -33,6 +33,17 @@ bool spindle_step_pio_queue_cv(spindle_step_pio_t* ctx, uint32_t step_count, flo
     return true;
 }
 
+void spindle_step_pio_stop(spindle_step_pio_t* ctx) {
+    if (!ctx) return;
+    // Disable state machine immediately
+    pio_sm_set_enabled(ctx->pio, ctx->sm, false);
+    // Clear TX FIFO to remove queued steps
+    pio_sm_clear_fifos(ctx->pio, ctx->sm);
+    // Re-enable state machine for next use
+    pio_sm_restart(ctx->pio, ctx->sm);
+    pio_sm_set_enabled(ctx->pio, ctx->sm, true);
+}
+
 void spindle_step_pio_deinit(spindle_step_pio_t* ctx) {
     if (!ctx) return;
     pio_sm_set_enabled(ctx->pio, ctx->sm, false);
