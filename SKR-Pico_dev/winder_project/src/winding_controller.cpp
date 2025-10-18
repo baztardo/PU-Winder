@@ -372,7 +372,7 @@ void WindingController::ramp_up_spindle() {
         float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;  // 0.5 ratio
         float target_sps = (stepper_rpm / 60.0f) * steps_per_rev_f;
         // Match ramp-up and continuous limits
-        const float max_sps = 50000.0f;  // Allow high-speed winding!
+        const float max_sps = 4000.0f;  // Safe limit (tuning needed for higher)
         if (target_sps > max_sps) target_sps = max_sps;
 
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);

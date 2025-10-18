@@ -85,7 +85,7 @@
 // WINDING PARAMETERS (Easy configuration!)
 // =============================================================================
 #define WINDING_TARGET_TURNS    1000    // Total turns to wind
-#define WINDING_SPINDLE_RPM     60.0f   // **SPINDLE** speed (RPM) - ADJUST THIS!
+#define WINDING_SPINDLE_RPM     120.0f  // **SPINDLE** speed (RPM) - Start conservative!
 #define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter (mm) - 43 AWG
 #define WINDING_WIDTH_MM        50.0f   // Winding width (mm)
 #define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
