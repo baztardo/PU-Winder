@@ -64,13 +64,20 @@ bool spindle_step_pio_queue_cv(spindle_step_pio_t* ctx, uint32_t step_count, flo
 
 void spindle_step_pio_stop(spindle_step_pio_t* ctx) {
     if (!ctx) return;
+    
+    printf("  [PIO_STOP] Stopping PIO SM%d...\n", ctx->sm);
+    
     // Disable state machine immediately
     pio_sm_set_enabled(ctx->pio, ctx->sm, false);
+    
     // Clear TX FIFO to remove queued steps
     pio_sm_clear_fifos(ctx->pio, ctx->sm);
-    // Re-enable state machine for next use
-    pio_sm_restart(ctx->pio, ctx->sm);
+    
+    // DO NOT RESTART! It breaks pin configuration!
+    // Just re-enable - the .wrap will naturally loop back to start
     pio_sm_set_enabled(ctx->pio, ctx->sm, true);
+    
+    printf("  [PIO_STOP] PIO stopped and cleared - ready for next move\n");
 }
 
 void spindle_step_pio_deinit(spindle_step_pio_t* ctx) {
