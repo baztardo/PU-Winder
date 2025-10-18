@@ -74,15 +74,15 @@
 // Lower microstepping = faster capable, less resolution
 // Higher microstepping = slower max speed, more resolution
 
-#define SPINDLE_MICROSTEPS  8       // 8x for spindle (SPEED - can run faster!)
+#define SPINDLE_MICROSTEPS  4       // 4x for spindle (Hardware-configured via MS pins!)
 #define TRAVERSE_MICROSTEPS 16      // 16x for traverse (PRECISION - slower but accurate)
 #define MOTOR_MICROSTEPS    16      // Legacy/default (kept for compatibility)
 
 // TMC2209 Microstepping values:
 // 0 = Full step (1x)
 // 1 = Half step (2x)
-// 2 = 4x
-// 3 = 8x    ← Spindle uses this
+// 2 = 4x    ← Spindle ACTUALLY uses this (SKR Pico hardware config)
+// 3 = 8x
 // 4 = 16x   ← Traverse uses this
 // 5 = 32x
 // 6 = 64x
