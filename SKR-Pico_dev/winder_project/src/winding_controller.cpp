@@ -330,23 +330,55 @@ void WindingController::ramp_up_spindle() {
         return;
     }
 
-    // Completion check (ignore queue_low)
     uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
     bool time_done = (elapsed_ms >= (uint32_t)(params.ramp_time_sec * 1000.0f));
 
     if (time_done) {
         ramp_started = false;
 
-        // Prefill 1.5s CV to avoid handoff starvation
         float steps_per_rev_f = 200.0f * MOTOR_MICROSTEPS;
         float target_sps = (params.spindle_rpm / 60.0f) * steps_per_rev_f;
         float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
         if (target_sps > max_sps) target_sps = max_sps;
+
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
         ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
 
         state = WindingState::WINDING;
         banner_printed = false;
+        return;
+    }
+}
+
+void WindingController::execute_winding() {
+    // CRITICAL: Keep spindle running!
+    // Check if spindle queue is getting low and refill it
+    if (!move_queue->is_active(AXIS_SPINDLE) || 
+        move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
+        
+        // Calculate continuous spindle movement
+        float target_rps = params.spindle_rpm / 60.0f;
+        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
+        float target_sps = target_rps * steps_per_rev;
+        
+        // Queue another second of spindle movement
+        uint32_t spindle_steps = (uint32_t)(target_sps * 1.0f);  // 1 second worth
+        
+        auto chunks = StepCompressor::compress_constant_velocity(
+            spindle_steps, target_sps
+        );
+        
+        for (const auto& chunk : chunks) {
+            move_queue->push_chunk(AXIS_SPINDLE, chunk);
+        }
+    }
+    
+    // Now sync traverse to spindle
+    sync_traverse_to_spindle();
+    
+    // Check if we've completed target turns
+    if (turns_completed >= params.target_turns) {
+        state = WindingState::RAMPING_DOWN;
         return;
     }
 }
