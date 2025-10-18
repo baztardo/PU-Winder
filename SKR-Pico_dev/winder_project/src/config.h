@@ -68,6 +68,23 @@
 #define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
 // =============================================================================
+// WINDING PARAMETERS (Easy configuration!)
+// =============================================================================
+#define WINDING_TARGET_TURNS    1000    // Total turns to wind
+#define WINDING_SPINDLE_RPM     60.0f   // Spindle speed (RPM) - ADJUST THIS!
+#define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter (mm) - 43 AWG
+#define WINDING_WIDTH_MM        50.0f   // Winding width (mm)
+#define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
+#define WINDING_RAMP_TIME_SEC   5.0f    // Ramp up/down time (seconds)
+
+// Speed recommendations with 4x microstepping:
+//   30 RPM  = Ultra-safe, very smooth
+//   60 RPM  = Safe, tested, smooth (default)
+//  100 RPM  = Good speed, should work fine
+//  150 RPM  = Fast, test carefully
+//  200 RPM  = Very fast, monitor for stalling
+
+// =============================================================================
 // TMC2209 MICROSTEPPING CONFIGURATION
 // =============================================================================
 // CRITICAL: Different microstepping for each axis!

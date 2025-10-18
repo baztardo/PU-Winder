@@ -337,7 +337,7 @@ void WindingController::ramp_up_spindle() {
         move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
         printf("Spindle motor enabled, direction: %d\n", spindle_dir);
 
-        const uint32_t steps_per_rev = 200u * MOTOR_MICROSTEPS;
+        const uint32_t steps_per_rev = 200u * SPINDLE_MICROSTEPS;  // Use SPINDLE, not MOTOR!
         const float target_sps_nom = (params.spindle_rpm / 60.0f) * steps_per_rev;
         // Limit to 3000 sps to avoid TMC2209 stalls (motor can't do more)
         const float max_sps = 3000.0f;
