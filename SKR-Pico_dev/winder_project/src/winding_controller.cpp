@@ -364,14 +364,16 @@ void WindingController::ramp_up_spindle() {
     if (time_done) {
         ramp_started = false;
 
-        float steps_per_rev_f = 200.0f * MOTOR_MICROSTEPS;
+        // FIXED: Use SPINDLE_MICROSTEPS (4x), not MOTOR_MICROSTEPS (16x)!
+        float steps_per_rev_f = 200.0f * SPINDLE_MICROSTEPS;
         float target_sps = (params.spindle_rpm / 60.0f) * steps_per_rev_f;
-        // CRITICAL: Limit to same max as ramp-up! Motor can't do more!
-        const float max_sps = 3000.0f;  // Same as ramp-up limit
+        // Match ramp-up and continuous limits
+        const float max_sps = 6000.0f;  // Same as ramp-up limit
         if (target_sps > max_sps) target_sps = max_sps;
 
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
-        printf("  [CONTINUOUS] Queuing %lu steps @ %.1f sps (150 RPM)\n", spindle_steps, target_sps);
+        printf("  [CONTINUOUS] Initial queue: %lu steps @ %.1f sps (%.1f RPM)\n", 
+               spindle_steps, target_sps, params.spindle_rpm);
         ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
 
         state = WindingState::WINDING;
