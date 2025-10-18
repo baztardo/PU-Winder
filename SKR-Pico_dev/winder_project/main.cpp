@@ -119,10 +119,12 @@ int main() {
     // Initialize all hardware
     init_hardware();
     
-    // Minimal init banner
+    // Show version on LCD (so you know what's running!)
     lcd.clear();
-    lcd.print_at(0, 0, "Wire Winder v1.0");
-    sleep_ms(500);
+    lcd.printf_at(0, 0, "Winder FW %s", FIRMWARE_VERSION);
+    lcd.printf_at(0, 1, "Build: %s", VERSION_DATE);
+    lcd.print_at(0, 2, VERSION_DESC);
+    sleep_ms(2000);  // Show version for 2 seconds
     
     // Initialize motor drivers
     // Suppress motor banner to avoid LCD contention
