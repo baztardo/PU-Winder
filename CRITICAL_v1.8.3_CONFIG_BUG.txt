@@ -1,0 +1,94 @@
+# 🚨 CRITICAL BUG FIXED - v1.8.3!
+
+## THE PROBLEM:
+Your config.h changes were **IGNORED**!
+
+```cpp
+main.cpp line 257:
+params.spindle_rpm = 60.0f;  // ❌ HARDCODED!
+```
+
+**It was NOT reading WINDING_SPINDLE_RPM from config.h!**
+
+---
+
+## WHAT WAS HAPPENING:
+
+| Your Config | Code Used | Encoder | Why? |
+|-------------|-----------|---------|------|
+| 60.0f | 60.0f | 30 RPM | Hardcoded 60! |
+| 120.0f | 60.0f | 30 RPM | Hardcoded 60! |
+| 240.0f | 60.0f | 30 RPM | Hardcoded 60! |
+
+No matter what you changed in config.h, it always ran at 60 RPM stepper!
+
+With ratio 2.0:
+- Stepper 60 RPM → Spindle 30 RPM (encoder reading)
+
+---
+
+## v1.8.3 FIX:
+
+```cpp
+// OLD (hardcoded):
+params.spindle_rpm = 60.0f;
+
+// NEW (reads config.h):
+params.spindle_rpm = WINDING_SPINDLE_RPM;
+```
+
+Now ALL parameters read from config.h:
+- ✅ target_turns
+- ✅ spindle_rpm
+- ✅ wire_diameter_mm
+- ✅ layer_width_mm
+- ✅ start_position_mm
+- ✅ ramp_time_sec
+
+---
+
+## 🧪 NOW TEST v1.8.3:
+
+### Test 1: Baseline (60 RPM)
+```cpp
+config.h:
+#define WINDING_SPINDLE_RPM 60.0f
+
+Expected:
+Serial: "(60.0 RPM)" ✅
+Stepper: 60 × 2.0 = 120 RPM (1600 sps)
+Encoder: 60 RPM ✅
+```
+
+### Test 2: Double (120 RPM)
+```cpp
+config.h:
+#define WINDING_SPINDLE_RPM 120.0f
+
+Expected:
+Serial: "(120.0 RPM)" ✅ (was stuck at 60 before!)
+Stepper: 120 × 2.0 = 240 RPM (3200 sps)
+Encoder: 120 RPM ✅
+```
+
+### Test 3: Your target! (1000 RPM)
+```cpp
+config.h:
+#define WINDING_SPINDLE_RPM 1000.0f
+
+Expected:
+Serial: "(1000.0 RPM)" ✅
+Stepper: 1000 × 2.0 = 2000 RPM (26,667 sps)
+Encoder: 1000 RPM ✅
+```
+
+---
+
+## 📁 FILE: winder_v1.8.3_CONFIG_FIXED.uf2
+
+**This is why your changes weren't working!**
+
+Now when you change config.h and recompile, it will ACTUALLY use your values! 🎯
+
+git pull
+Upload v1.8.3 and test!
