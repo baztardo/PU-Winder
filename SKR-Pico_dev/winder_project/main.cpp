@@ -110,9 +110,9 @@ int main() {
     
     printf("\n");
     printf("=====================================\n");
-    printf("  Winder Firmware v1.3.1\n");
-    printf("  Build: 2025-10-18\n");
-    printf("  FIX: PIO stop + lower max speed\n");
+    printf("  Winder Firmware %s\n", FIRMWARE_VERSION);
+    printf("  Build: %s\n", VERSION_DATE);
+    printf("  %s\n", VERSION_DESC);
     printf("=====================================\n");
     printf("\n");
     
