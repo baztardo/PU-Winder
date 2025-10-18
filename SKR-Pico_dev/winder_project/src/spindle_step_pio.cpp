@@ -1,6 +1,7 @@
 #include "spindle_step_pio.h"
 #include "spindle_step.pio.h"
 #include "hardware/clocks.h"
+#include <cstdio>
 
 static inline uint32_t cycles_from_sps(float sps) {
     if (sps <= 0.0f) return 0;
@@ -18,9 +19,14 @@ bool spindle_step_pio_init(spindle_step_pio_t* ctx, PIO pio, uint sm, uint step_
     ctx->sm = sm;
     ctx->step_gpio = step_gpio;
 
-    if (!pio_can_add_program(pio, &spindle_step_program)) return false;
+    if (!pio_can_add_program(pio, &spindle_step_program)) {
+        printf("ERROR: Cannot add spindle_step PIO program!\n");
+        return false;
+    }
     ctx->offset = pio_add_program(pio, &spindle_step_program);
     spindle_step_program_init(pio, sm, ctx->offset, step_gpio);
+    printf("PIO: Spindle step initialized on PIO%d SM%d, GPIO%d, offset=%d\n", 
+           pio == pio0 ? 0 : 1, sm, step_gpio, ctx->offset);
     return true;
 }
 
