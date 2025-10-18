@@ -199,9 +199,8 @@ void WindingController::home_spindle() {
 }
 
 void WindingController::home_traverse() {
-    // Quiet LCD during homing to prevent flicker
-    
     static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
+    static bool lcd_updated = false;
     
     switch (homing_state) {
         case INIT:
