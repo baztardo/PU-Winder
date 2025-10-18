@@ -1,0 +1,103 @@
+# ✅ v1.8.1 FINAL - CORRECT GEAR RATIO!
+
+## YOUR MATH WAS RIGHT! I HAD IT BACKWARDS!
+
+### Correct Calculation:
+```
+40T stepper → 20T spindle = SPEED-UP!
+Spindle goes 2× FASTER than stepper
+Stepper RPM = Spindle RPM ÷ 2 ✅
+
+Your targets:
+- 1000 RPM spindle → 500 RPM stepper ✅
+- 1500 RPM spindle → 750 RPM stepper ✅
+```
+
+---
+
+## 📊 CORRECT Speed Table (4x Microstepping):
+
+| Spindle RPM | Stepper RPM | Steps/Sec | Notes |
+|-------------|-------------|-----------|-------|
+| 60 | 30 | 400 | Ultra-safe |
+| 120 | 60 | 800 | Current v1.7.5! |
+| 200 | 100 | 1,333 | Good speed |
+| 500 | 250 | 3,333 | Fast |
+| **1000** | **500** | **6,667** | **Your target avg!** ✅ |
+| **1500** | **750** | **10,000** | **Your target max!** ✅ |
+
+---
+
+## 🎯 What v1.8.1 Does:
+
+```cpp
+config.h:
+#define SPINDLE_GEAR_RATIO 0.5f  // Stepper = Spindle × 0.5
+
+When you set:
+#define WINDING_SPINDLE_RPM 1000.0f
+
+Code calculates:
+- Stepper RPM = 1000 × 0.5 = 500 RPM
+- Steps/sec = 500 × 800 / 60 = 6667 sps
+- Encoder reads: 1000 RPM (spindle directly)
+```
+
+---
+
+## 🚀 TESTING PLAN:
+
+### Test 1: Verify 120 RPM (2× current speed)
+```cpp
+#define WINDING_SPINDLE_RPM 120.0f
+```
+Expected:
+- Stepper: 60 RPM (800 sps - same as v1.7.5!)
+- **Encoder: 120 RPM** (2× what you saw before!)
+
+This proves the ratio is correct!
+
+### Test 2: Your Target Average (1000 RPM)
+```cpp
+#define WINDING_SPINDLE_RPM 1000.0f
+```
+Expected:
+- Stepper: 500 RPM (6667 sps)
+- Encoder: 1000 RPM ✅
+
+### Test 3: Your Target Maximum (1500 RPM)
+```cpp
+#define WINDING_SPINDLE_RPM 1500.0f
+```
+Expected:
+- Stepper: 750 RPM (10000 sps)
+- Encoder: 1500 RPM ✅
+
+---
+
+## 📈 Performance Expectations:
+
+With 2.8A motor and 2:1 **torque advantage** (less speed = more torque):
+- ✅ **1000 RPM spindle** should be EASY!
+- ✅ **1500 RPM spindle** should work fine!
+- ⚡ Could potentially go even higher!
+
+---
+
+## 🔧 Direction Control (Next):
+
+After speed testing, we should add bidirectional:
+```cpp
+#define WINDING_DIRECTION CW  // or CCW
+```
+
+And test both directions work correctly!
+
+---
+
+## FILE: winder_v1.8.1_CORRECT_GEAR_RATIO.uf2
+
+git pull
+Upload and test!
+
+Start with 120 RPM to verify gear ratio, then go for your 1000/1500 targets! 🚀
