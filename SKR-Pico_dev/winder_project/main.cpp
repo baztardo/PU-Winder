@@ -105,7 +105,15 @@ int main() {
     stdio_init_all();
 
     // Short delay for hardware stabilization
-    sleep_ms(100);
+    sleep_ms(500);  // Extended for USB serial
+    
+    printf("\n");
+    printf("=====================================\n");
+    printf("  Winder Firmware v1.2.0\n");
+    printf("  Build: 2025-10-18\n");
+    printf("  PIO Stepper with Debug\n");
+    printf("=====================================\n");
+    printf("\n");
     
     // Initialize all hardware
     init_hardware();
