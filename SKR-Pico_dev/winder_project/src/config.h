@@ -73,21 +73,31 @@
 #define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
 // =============================================================================
+// MECHANICAL SETUP (CRITICAL!)
+// =============================================================================
+// Gear ratios:
+//   Stepper → Spindle: 40T:20T = 2:1 (stepper turns 2x for spindle 1x)
+//   Encoder → Spindle: 20T:20T = 1:1 (encoder reads spindle directly)
+// Therefore: Stepper RPM = 2 × Spindle RPM
+#define SPINDLE_GEAR_RATIO      2.0f    // Stepper:Spindle ratio
+
+// =============================================================================
 // WINDING PARAMETERS (Easy configuration!)
 // =============================================================================
 #define WINDING_TARGET_TURNS    1000    // Total turns to wind
-#define WINDING_SPINDLE_RPM     60.0f   // Spindle speed (RPM) - ADJUST THIS!
+#define WINDING_SPINDLE_RPM     60.0f   // **SPINDLE** speed (RPM) - ADJUST THIS!
 #define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter (mm) - 43 AWG
 #define WINDING_WIDTH_MM        50.0f   // Winding width (mm)
 #define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
 #define WINDING_RAMP_TIME_SEC   5.0f    // Ramp up/down time (seconds)
 
-// Speed recommendations with 4x microstepping:
-//   30 RPM  = Ultra-safe, very smooth
-//   60 RPM  = Safe, tested, smooth (default)
-//  100 RPM  = Good speed, should work fine
-//  150 RPM  = Fast, test carefully
-//  200 RPM  = Very fast, monitor for stalling
+// Speed recommendations (SPINDLE RPM with 2:1 gearing, 4x microstepping):
+//   60 RPM   = Safe, tested (stepper @ 120 RPM, 1600 sps)
+//  100 RPM   = Good speed (stepper @ 200 RPM, 2667 sps)
+//  200 RPM   = Fast (stepper @ 400 RPM, 5333 sps)
+//  500 RPM   = Very fast (stepper @ 1000 RPM, 13333 sps)
+// 1000 RPM   = Target average (stepper @ 2000 RPM, 26667 sps)
+// 1500 RPM   = Target maximum (stepper @ 3000 RPM, 40000 sps)
 
 // =============================================================================
 // TMC2209 MICROSTEPPING CONFIGURATION

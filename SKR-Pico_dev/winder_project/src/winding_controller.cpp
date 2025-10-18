@@ -338,9 +338,11 @@ void WindingController::ramp_up_spindle() {
         printf("Spindle motor enabled, direction: %d\n", spindle_dir);
 
         const uint32_t steps_per_rev = 200u * SPINDLE_MICROSTEPS;  // Use SPINDLE, not MOTOR!
-        const float target_sps_nom = (params.spindle_rpm / 60.0f) * steps_per_rev;
-        // Limit to 3000 sps to avoid TMC2209 stalls (motor can't do more)
-        const float max_sps = 3000.0f;
+        // Account for 2:1 gear ratio
+        const float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;
+        const float target_sps_nom = (stepper_rpm / 60.0f) * steps_per_rev;
+        // Increase limit for high-speed winding!
+        const float max_sps = 50000.0f;  // Allow up to ~3750 stepper RPM = 1875 spindle RPM
         const float target_sps = std::min(target_sps_nom, max_sps);
 
         const int   N_slices = 24;
@@ -572,5 +574,8 @@ uint32_t WindingController::mm_to_steps(float mm) {
 
 float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * TRAVERSE_MICROSTEPS);
+    return revs * TRAVERSE_PITCH_MM;
+}
+ (200.0f * TRAVERSE_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
 }
