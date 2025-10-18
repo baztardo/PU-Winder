@@ -381,26 +381,30 @@ void WindingController::ramp_up_spindle() {
 }
 
 void WindingController::execute_winding() {
-    // CRITICAL: Keep spindle running!
-    // Check if spindle queue is getting low and refill it
-    if (!move_queue->is_active(AXIS_SPINDLE) || 
-        move_queue->get_queue_depth(AXIS_SPINDLE) < 10) {
-        
+    // CRITICAL: Keep spindle running with PIO!
+    // PIO FIFO is 4 deep. We queue 2 values per move (half_period + step_count).
+    // So we can have at most 2 moves queued. Check if FIFO has room and refill.
+    
+    // Check PIO FIFO depth (TX FIFO)
+    uint32_t fifo_level = pio_sm_get_tx_fifo_level(spindle_step_pio.pio, spindle_step_pio.sm);
+    
+    // If FIFO has room (< 2 entries used out of 4), queue more steps
+    if (fifo_level < 2) {
         // Calculate continuous spindle movement
         float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Use spindle-specific!
+        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Spindle uses 8x
         float target_sps = target_rps * steps_per_rev;
         
-        // Queue another second of spindle movement
-        uint32_t spindle_steps = (uint32_t)(target_sps * 1.0f);  // 1 second worth
+        // Apply max speed limit (same as ramp-up)
+        const float max_sps = 6000.0f;
+        if (target_sps > max_sps) target_sps = max_sps;
         
-        auto chunks = StepCompressor::compress_constant_velocity(
-            spindle_steps, target_sps
-        );
+        // Queue 1.5 seconds worth of steps (matches ramp-up logic)
+        uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
         
-        for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
-        }
+        printf("  [CONTINUOUS] Re-queueing %lu steps @ %.1f sps (%.1f RPM)\n", 
+               spindle_steps, target_sps, params.spindle_rpm);
+        ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
     }
     
     // Now sync traverse to spindle
