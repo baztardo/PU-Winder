@@ -1,0 +1,104 @@
+🔍 DIAGNOSTIC VERSION v1.6.0
+
+============================================
+THE PROBLEM:
+============================================
+
+Motor is STILL STALLING at 3000 sps even with 8x microstepping!
+
+Position went to -14197 (massive missed steps)
+This means either:
+1. TMC2209 microstepping NOT being applied
+2. 3000 sps is STILL too fast
+3. Mechanical issue (load, binding, etc.)
+
+============================================
+v1.6.0 CHANGES (DIAGNOSTIC):
+============================================
+
+1. **ULTRA-SLOW SPEEDS:**
+   - Target RPM: 60 (was 300)
+   - Max SPS: 1000 (was 3000)
+   - 60 RPM × 8x = 1600 steps @ 1000 sps = 37.5 RPM actual
+
+2. **TMC2209 VERIFICATION:**
+   - Checks if set_microsteps() succeeds
+   - Reports on LCD and serial
+   - Look for "OK" or "FAILED"
+
+3. **DETAILED DEBUG:**
+   - Shows calculated steps/rev
+   - Shows target vs capped SPS
+   - Shows actual RPM achieved
+
+============================================
+FILE: winder_v1.6.0_DIAGNOSTIC_SLOW.uf2
+============================================
+
+============================================
+WHAT TO LOOK FOR:
+============================================
+
+1. **During Boot:**
+```
+TMC2209 Microstepping Config:
+  Spindle: 8x - OK      ← Should say OK!
+  Traverse: 16x - OK
+```
+
+LCD should show:
+```
+Spin: 8x OK    ← Check this!
+Trav: 16x OK
+```
+
+2. **During Ramp-Up:**
+```
+[RAMP_UP] Target: 60.0 RPM, Steps/rev: 1600, Target SPS: 1600.0, Capped at: 1000.0
+```
+
+3. **During Continuous:**
+```
+[CONTINUOUS] Queuing 1500 steps @ 1000.0 sps (37.5 RPM actual)
+```
+
+4. **Encoder Position:**
+```
+[ENC] pos=100 rpm=2.5   ← Should be POSITIVE!
+[ENC] pos=250 rpm=10.0  ← Should increase smoothly!
+[ENC] pos=500 rpm=20.0  ← NO huge negatives!
+```
+
+============================================
+IF THIS WORKS:
+============================================
+
+If position stays POSITIVE and motor runs smoothly:
+- 1000 sps is safe for your motor
+- Can gradually increase:
+  - Try 1500 sps (56 RPM)
+  - Try 2000 sps (75 RPM)
+  - Try 2500 sps (94 RPM)
+  - Find the max before stalling!
+
+============================================
+IF THIS STILL STALLS:
+============================================
+
+If position still goes negative:
+1. **Check TMC2209 config** - does it say "OK" or "FAILED"?
+2. **Check mechanical** - any binding when you turn by hand?
+3. **Check wiring** - all connections solid?
+4. **Check power** - 24V supply adequate?
+
+============================================
+TEST AND REPORT:
+============================================
+
+Upload v1.6.0 and send me:
+1. TMC2209 config status (OK or FAILED?)
+2. Encoder positions (positive or negative?)
+3. Does motor run smoothly at 1000 sps?
+4. Can you feel/hear smooth motion?
+
+============================================
