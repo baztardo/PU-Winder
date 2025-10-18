@@ -151,7 +151,9 @@ void WindingController::update() {
 }
 
 void WindingController::home_spindle() {
-    // Keep LCD quiet here to avoid competing messages
+    lcd->clear();
+    lcd->print_at(0, 0, "Homing Spindle...");
+    lcd->print_at(0, 1, "Finding Z-Index");
     
     // Wait for Z index pulse
     // Rotate spindle slowly and watch for Z pulse
@@ -179,8 +181,10 @@ void WindingController::home_spindle() {
         ::spindle_step_pio_stop(&spindle_step_pio);
         move_queue->clear_queue(AXIS_SPINDLE);
         
-        lcd->print_at(0, 2, "Z Index Found!");
-        sleep_ms(500);
+        lcd->clear();
+        lcd->print_at(0, 0, "Z Index Found!");
+        printf("Z-index detected! Moving to traverse homing\n");
+        sleep_ms(1000);
         
         state = WindingState::HOMING_TRAVERSE;
         waiting_for_z = true;
@@ -195,9 +199,15 @@ void WindingController::home_spindle() {
 }
 
 void WindingController::home_traverse() {
-    // Quiet LCD during homing to prevent flicker
-    
     static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
+    static bool lcd_updated = false;
+    
+    if (homing_state == INIT && !lcd_updated) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Homing Traverse...");
+        printf("Starting traverse homing\n");
+        lcd_updated = true;
+    }
     
     switch (homing_state) {
         case INIT:
@@ -306,11 +316,19 @@ void WindingController::ramp_up_spindle() {
     }
 
     if (!ramp_started) {
+        lcd->clear();
+        lcd->print_at(0, 0, "Ramping Up...");
+        lcd->printf_at(0, 1, "Target: %.0f RPM", params.spindle_rpm);
+        printf("Starting spindle ramp up to %.1f RPM over %.1f seconds\n", params.spindle_rpm, params.ramp_time_sec);
+        
         ramp_started = true;
         ramp_start_time = time_us_32();
 
+        // CRITICAL: Enable spindle motor!
+        move_queue->set_enable(AXIS_SPINDLE, true);
         bool spindle_dir = (SPINDLE_DIR_INVERT == 0);
         move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
+        printf("Spindle motor enabled, direction: %d\n", spindle_dir);
 
         const uint32_t steps_per_rev = 200u * MOTOR_MICROSTEPS;
         const float target_sps_nom = (params.spindle_rpm / 60.0f) * steps_per_rev;
