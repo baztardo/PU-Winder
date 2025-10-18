@@ -347,8 +347,10 @@ void WindingController::ramp_up_spindle() {
             float frac = (float)i / (float)N_slices;
             float sps  = sps_min + (target_sps - sps_min) * (frac * frac);
             uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
+            printf("Ramp slice %d: queuing %lu steps at %.1f sps\n", i, steps, sps);
             ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);
         }
+        printf("Ramp up: All %d slices queued to PIO\n", N_slices);
         return;
     }
 
