@@ -233,11 +233,15 @@ void init_motors() {
     lcd.print_at(0, 3, "Microsteps...");
     sleep_ms(500);
 
-    tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
-    tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);
+    // Configure microstepping (different for each axis!)
+    tmc_spindle.set_microsteps(SPINDLE_MICROSTEPS);   // 8x for speed
+    tmc_traverse.set_microsteps(TRAVERSE_MICROSTEPS); // 16x for precision
     
-    lcd.print_at(0, 3, "Done!");
-    sleep_ms(1000);
+    lcd.clear();
+    lcd.printf_at(0, 0, "Spindle: %dx", SPINDLE_MICROSTEPS);
+    lcd.printf_at(0, 1, "Traverse: %dx", TRAVERSE_MICROSTEPS);
+    lcd.print_at(0, 2, "Config OK!");
+    sleep_ms(1500);
 }
 
 // =============================================================================

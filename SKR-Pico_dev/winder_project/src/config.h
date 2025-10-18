@@ -60,17 +60,34 @@
 // =============================================================================
 // MOTOR CURRENT SETTINGS
 // =============================================================================
-#define SPINDLE_CURRENT_MA  2800    // Spindle motor RMS current
-#define TRAVERSE_CURRENT_MA 250     // Traverse motor RMS current (REDUCED from 500)
-#define MOTOR_MICROSTEPS    16      // Microstepping setting
+#define SPINDLE_CURRENT_MA  2800    // Spindle motor RMS current (mA)
+#define TRAVERSE_CURRENT_MA 250     // Traverse motor RMS current (mA)
 
 // TMC2209 Hold Current (percentage of run current when stationary)
 #define HOLD_CURRENT_PERCENT 30     // 30% of run current when holding
 #define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
-// CRITICAL: Spindle microstepping (separate from traverse!)
-#define SPINDLE_MICROSTEPS  8       // 8x for spindle (faster capable)
-#define TRAVERSE_MICROSTEPS 16      // 16x for traverse (precision)
+// =============================================================================
+// TMC2209 MICROSTEPPING CONFIGURATION
+// =============================================================================
+// CRITICAL: Different microstepping for each axis!
+// Lower microstepping = faster capable, less resolution
+// Higher microstepping = slower max speed, more resolution
+
+#define SPINDLE_MICROSTEPS  8       // 8x for spindle (SPEED - can run faster!)
+#define TRAVERSE_MICROSTEPS 16      // 16x for traverse (PRECISION - slower but accurate)
+#define MOTOR_MICROSTEPS    16      // Legacy/default (kept for compatibility)
+
+// TMC2209 Microstepping values:
+// 0 = Full step (1x)
+// 1 = Half step (2x)
+// 2 = 4x
+// 3 = 8x    ← Spindle uses this
+// 4 = 16x   ← Traverse uses this
+// 5 = 32x
+// 6 = 64x
+// 7 = 128x
+// 8 = 256x
 
 // =============================================================================
 // TIMING PARAMETERS

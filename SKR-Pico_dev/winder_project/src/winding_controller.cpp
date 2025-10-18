@@ -483,7 +483,7 @@ void WindingController::ramp_down_spindle() {
         
         // Generate ramp-down
         float current_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
+        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Spindle uses 8x
         float current_sps = current_rps * steps_per_rev;
         
         uint32_t ramp_steps = (uint32_t)(current_sps * params.ramp_time_sec);
@@ -567,4 +567,6 @@ uint32_t WindingController::mm_to_steps(float mm) {
 float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * MOTOR_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
+}
+revs * TRAVERSE_PITCH_MM;
 }
