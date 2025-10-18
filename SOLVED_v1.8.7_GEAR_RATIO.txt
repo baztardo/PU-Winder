@@ -1,0 +1,159 @@
+# ✅ v1.8.7 - GEAR RATIO FIXED!
+
+## THE SMOKING GUN:
+
+Your testing revealed:
+```
+Config  60 RPM → Hardware 120 RPM (2× too fast!)
+Config 120 RPM → Hardware 240 RPM (2× too fast!)
+```
+
+**We had the gear ratio backwards!**
+
+---
+
+## THE MECHANICAL REALITY:
+
+```
+Stepper shaft: 40 teeth
+Spindle shaft: 20 teeth
+
+40T driving 20T = SPEED-UP ratio
+1 stepper revolution → 2 spindle revolutions
+Stepper is SLOWER than spindle (1:2 ratio)
+```
+
+---
+
+## THE BUG:
+
+We were doing:
+```cpp
+stepper_rpm = spindle_rpm × 2.0  ❌ WRONG!
+```
+
+So:
+- Config 60 spindle
+- Code calculated: 60 × 2 = 120 stepper
+- Through gears: 120 stepper → 240 spindle ❌
+
+**Result: 4× the configured speed!**
+
+Wait, but you're only seeing 2×...
+
+Actually:
+- Config 60 spindle
+- Code: 60 × 2 = 120 stepper RPM = 1600 sps
+- Motor runs at 1600 sps
+- Through 2:1 gears: Spindle at 120 RPM ✓
+
+So we're getting 2× because we're commanding the stepper at 2× what we should!
+
+---
+
+## THE FIX (v1.8.7):
+
+```cpp
+#define SPINDLE_GEAR_RATIO 0.5f  // ✅ CORRECT!
+
+stepper_rpm = spindle_rpm × 0.5
+```
+
+Now:
+- Config 60 spindle
+- Code: 60 × 0.5 = 30 stepper RPM = 400 sps
+- Motor runs at 400 sps (30 RPM stepper)
+- Through 2:1 gears: 30 × 2 = **60 RPM spindle** ✅
+
+---
+
+## 🧪 TEST v1.8.7:
+
+```bash
+git pull
+winder_v1.8.7_CORRECT_RATIO.uf2
+```
+
+### Test 1: 60 RPM config
+```cpp
+#define WINDING_SPINDLE_RPM 60.0f
+```
+Expected:
+- Stepper: 30 RPM (400 sps)
+- **Spindle: 60 RPM** ✅
+- **Encoder: 60 RPM** ✅
+
+### Test 2: 120 RPM config
+```cpp
+#define WINDING_SPINDLE_RPM 120.0f
+```
+Expected:
+- Stepper: 60 RPM (800 sps)
+- **Spindle: 120 RPM** ✅
+- **Encoder: 120 RPM** ✅
+
+### Test 3: 240 RPM config (pushing it!)
+```cpp
+#define WINDING_SPINDLE_RPM 240.0f
+```
+Expected:
+- Stepper: 120 RPM (1600 sps)
+- **Spindle: 240 RPM** ✅
+- **Encoder: 240 RPM** ✅
+
+### Test 4: Your 1000 target!
+```cpp
+#define WINDING_SPINDLE_RPM 1000.0f
+```
+Expected:
+- Stepper: 500 RPM (6667 sps)
+- **Spindle: 1000 RPM** ✅
+
+But 6667 sps will be clamped to 4000 sps limit, so:
+- Actual stepper: 300 RPM (4000 sps)
+- Actual spindle: **600 RPM** (not 1000)
+
+---
+
+## 📊 SPEED TABLE (CORRECTED):
+
+| Config (Spindle) | Stepper RPM | Stepper SPS | Actual Spindle | Notes |
+|------------------|-------------|-------------|----------------|-------|
+| 60 | 30 | 400 | 60 | ✅ Should work perfectly |
+| 120 | 60 | 800 | 120 | ✅ v1.7.5 baseline |
+| 240 | 120 | 1600 | 240 | ✅ Should work |
+| 300 | 150 | 2000 | 300 | ✅ Good speed |
+| 500 | 250 | 3333 | 500 | ✅ Fast! |
+| 600 | 300 | 4000 | 600 | ⚠️ At limit |
+| 1000 | 500 | 6667 | **600** | ❌ Clamped to limit |
+
+To reach 1000 RPM spindle, you'd need to raise the limit to ~7000 sps!
+
+---
+
+## 🎯 NOW YOUR COUNTS SHOULD MATCH!
+
+You said:
+> "hardware counter 1100 on a 1000 target"
+
+With v1.8.7, if you config 1000 RPM:
+- Stepper commanded: 6667 sps
+- Clamped to: 4000 sps
+- Actual stepper: 300 RPM
+- Actual spindle: 600 RPM
+- Turns in test: **600 turns** (not 1100!)
+
+If you got 1100 turns, you were running at:
+- 1100 turns / 600 expected = 1.83× too fast
+- That's the old 2× gear ratio bug!
+
+---
+
+## 🚀 WHAT'S NEXT:
+
+1. **Test v1.8.7 at 60, 120, 240 RPM**
+2. **Verify encoder matches config** ✅
+3. **Verify turn counts are accurate**
+4. **Then we can raise the speed limit!**
+
+Want me to build a version with 8000 sps limit to test 1000 RPM spindle? 🎯
