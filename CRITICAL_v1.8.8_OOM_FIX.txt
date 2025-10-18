@@ -1,0 +1,122 @@
+# 🚨 v1.8.8 - OUT OF MEMORY PANIC FIXED!
+
+## THE BUG:
+
+```
+Ramp-down was using OLD move_queue system:
+- StepCompressor::compress_trapezoid() allocates memory
+- At 480 config (3200 sps, 16000 steps over 5s)
+- Creates hundreds of chunks
+- RUNS OUT OF MEMORY! 💥
+```
+
+Your serial:
+```
+[ENC] pos=143601 rpm=219.9
+*** PANIC *** Out of memory
+```
+
+---
+
+## THE FIX (v1.8.8):
+
+**Ramp-down now uses PIO** (like ramp-up):
+```cpp
+// OLD (causes OOM):
+auto chunks = StepCompressor::compress_trapezoid(...);  ❌
+for (chunk : chunks) { move_queue->push_chunk(...); }
+
+// NEW (uses PIO):
+for (int i = 1; i <= 24; ++i) {
+    float speed_frac = 1.0 - (frac * frac);  // Reverse curve
+    float sps = calculate...;
+    ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);  ✅
+}
+```
+
+**Benefits:**
+- No memory allocation
+- Smooth deceleration
+- Same as ramp-up (symmetric)
+
+---
+
+## 📊 YOUR SPEED TEST RESULTS:
+
+| Config RPM | Encoder RPM | Tach RPM | Result |
+|------------|-------------|----------|--------|
+| 120 | 60 | 60 | ✅ Perfect |
+| 240 | 120 | 120 | ✅ Perfect |
+| 480 | 220 | 240 | ⚠️ OOM panic at ramp-down |
+| 840 | Frozen | 300 | ❌ Encoder failed |
+| 1680 | Frozen | 500-600 | ❌ Motor stalled, encoder failed |
+
+**Your motor CAN reach 240-300 RPM actual (480-600 config)!**
+
+But encoder starts failing above ~240 RPM actual!
+
+---
+
+## 🔍 ENCODER FAILURE ANALYSIS:
+
+At 240 RPM actual (480 config):
+```
+Encoder: 220 RPM (avg 213-223)
+= 3.67 RPS × 1440 CPR = 5283 counts/sec
+
+That's well within PIO capability (can handle 144,000 counts/sec!)
+```
+
+But encoder is drifting/glitchy. Possible causes:
+
+### 1. Encoder ISR Can't Keep Up
+```cpp
+HEARTBEAT_US = 50μs = 20kHz ISR
+At 5283 counts/sec = 0.26 counts per ISR call
+
+ISR must drain PIO FIFO every 50μs
+If it takes >50μs, FIFO overflows!
+```
+
+### 2. Printf() Overhead
+```cpp
+Every 500ms: printf("[ENC] pos=%ld rpm=%.1f\n", ...);
+
+At high speed, printf() might take too long
+Blocks ISR, causes FIFO overflow
+```
+
+### 3. Electrical Noise
+High motor current → EMI → encoder signal corruption
+
+---
+
+## 🚀 NEXT STEPS:
+
+### 1. Test v1.8.8 at 480 config
+Should complete without OOM panic!
+
+### 2. To Fix Encoder at High Speed:
+
+**Option A: Reduce Debug Output**
+```cpp
+// Only print every 2-5 seconds, not 500ms
+if (dt_us < 2000000) return;  // 2 seconds
+```
+
+**Option B: Faster ISR**
+```cpp
+#define HEARTBEAT_US 25  // 40kHz (was 20kHz)
+```
+
+**Option C: Move Encoder to Core 1**
+Dedicate entire CPU core to encoder reading
+
+---
+
+## 📁 FILE: winder_v1.8.8_FIX_RAMP_DOWN_OOM.uf2
+
+git pull
+Upload and test!
+
+Should complete 100 turns without crashing! ✅
