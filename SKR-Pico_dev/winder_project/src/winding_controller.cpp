@@ -397,12 +397,13 @@ void WindingController::execute_winding() {
     // If FIFO has room (< 2 entries used out of 4), queue more steps
     if (fifo_level < 2) {
         // Calculate continuous spindle movement
-        float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Spindle uses 8x
-        float target_sps = target_rps * steps_per_rev;
+        // Account for gear ratio: stepper at HALF spindle speed
+        float stepper_rps = (params.spindle_rpm / 60.0f) * SPINDLE_GEAR_RATIO;
+        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Spindle uses 4x
+        float target_sps = stepper_rps * steps_per_rev;
         
         // Apply max speed limit (same as ramp-up)
-        const float max_sps = 6000.0f;
+        const float max_sps = 50000.0f;
         if (target_sps > max_sps) target_sps = max_sps;
         
         // Queue 1.5 seconds worth of steps (matches ramp-up logic)
