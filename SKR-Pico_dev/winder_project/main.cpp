@@ -252,13 +252,13 @@ void init_motors() {
 void setup_winding_parameters() {
     WindingParams params;
     
-    // Configure winding job
-    params.target_turns = 1000;          // 1000 turns total
-    params.spindle_rpm = 60.0f;          // 60 RPM - VERY SLOW for testing!
-    params.wire_diameter_mm = 0.064f;    // 43 AWG wire (0.064mm)
-    params.layer_width_mm = 50.0f;       // 50mm winding width
-    params.start_position_mm = 20.0f;    // Start 20mm from home
-    params.ramp_time_sec = 5.0f;         // 5 second ramp up/down
+    // Configure winding job (from config.h)
+    params.target_turns = WINDING_TARGET_TURNS;
+    params.spindle_rpm = WINDING_SPINDLE_RPM;
+    params.wire_diameter_mm = WINDING_WIRE_DIA_MM;
+    params.layer_width_mm = WINDING_WIDTH_MM;
+    params.start_position_mm = WINDING_START_POS_MM;
+    params.ramp_time_sec = WINDING_RAMP_TIME_SEC;
     
     // Calculate and set
     params.calculate_layers();
