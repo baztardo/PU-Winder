@@ -1,0 +1,14 @@
+# Target labels
+ pico_sdk-populate
+# Source files and their labels
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/CMakeFiles/pico_sdk-populate
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/CMakeFiles/pico_sdk-populate.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/CMakeFiles/pico_sdk-populate-complete.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-build.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-configure.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-download.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-install.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-mkdir.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-patch.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-test.rule
+/workspace/SKR-Pico_dev/winder_project/build/_deps/pico_sdk-subbuild/pico_sdk-populate-prefix/src/pico_sdk-populate-stamp/pico_sdk-populate-update.rule
