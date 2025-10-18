@@ -31,14 +31,24 @@ jmp        y--, step_loop  ; next step until Y underflows
 % c-sdk {
 static inline void spindle_step_program_init(PIO pio, uint sm, uint offset, uint step_pin) {
     pio_sm_config c = spindle_step_program_get_default_config(offset);
+    
     // Configure sideset pin as the STEP output
     sm_config_set_sideset_pins(&c, step_pin);
+    
+    // CRITICAL: Set sideset base pin
+    sm_config_set_sideset_base(&c, step_pin);
+    
     // Make the pin an output under PIO control
     pio_gpio_init(pio, step_pin);
     pio_sm_set_consecutive_pindirs(pio, sm, step_pin, 1, true);
+    
+    // Force pin low initially
+    pio_sm_set_pins_with_mask(pio, sm, 0, 1u << step_pin);
+    
     // Shift config
     sm_config_set_in_shift(&c, true, false, 32);
     sm_config_set_out_shift(&c, true, false, 32);
+    
     // Initialize SM
     pio_sm_init(pio, sm, offset, &c);
     pio_sm_clear_fifos(pio, sm);
