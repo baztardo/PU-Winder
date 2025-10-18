@@ -296,10 +296,8 @@ void WindingController::move_to_start() {
 }
 
 void WindingController::ramp_up_spindle() {
-    // One-time banner when state entered
     static bool banner_printed = false;
-    // Do not write to LCD here; update_display() owns UI during WINDING
-    if (!banner_printed) { banner_printed = true; }
+    if (!banner_printed) banner_printed = true;
 
     if (params.spindle_rpm <= 0.0f || params.ramp_time_sec <= 0.0f) {
         lcd->print_at(0, 1, "Param error!");
@@ -307,7 +305,6 @@ void WindingController::ramp_up_spindle() {
         return;
     }
 
-    // If ramp hasn't started, build and queue ramp segments
     if (!ramp_started) {
         ramp_started = true;
         ramp_start_time = time_us_32();
@@ -316,69 +313,40 @@ void WindingController::ramp_up_spindle() {
         move_queue->set_direction(AXIS_SPINDLE, spindle_dir);
 
         const uint32_t steps_per_rev = 200u * MOTOR_MICROSTEPS;
-        float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-        float target_sps = target_rps * steps_per_rev;
-        float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
-        if (target_sps > max_sps) target_sps = max_sps;
-        
-        uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
-        spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
-        uint32_t total_steps_queued = 0;
+        const float target_sps_nom = (params.spindle_rpm / 60.0f) * steps_per_rev;
+        const float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
+        const float target_sps = std::min(target_sps_nom, max_sps);
+
+        const int   N_slices = 24;
+        const float slice_s  = params.ramp_time_sec / (float)N_slices;
+        const float sps_min  = std::max(100.0f, target_sps * 0.02f);
+
         for (int i = 1; i <= N_slices; ++i) {
             float frac = (float)i / (float)N_slices;
-            float sps = sps_min + (target_sps - sps_min) * (frac * frac);
+            float sps  = sps_min + (target_sps - sps_min) * (frac * frac);
             uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
-        
             ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);
         }
-
-        // Keep ISR responsive; don't spam LCD here, UI handled in update_display()
         return;
     }
 
-    // ---- live completion check ---- (UI handled in update_display())
-
+    // Completion check (ignore queue_low)
     uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
     bool time_done = (elapsed_ms >= (uint32_t)(params.ramp_time_sec * 1000.0f));
-    
+
     if (time_done) {
         ramp_started = false;
-        // Ensure spindle queue is prefilled before switching (1.5s)
-        {
-            float target_rps = params.spindle_rpm / 60.0f;
-            uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-            float target_sps = target_rps * steps_per_rev;
-            float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
-            if (target_sps > max_sps) target_sps = max_sps;
-            uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
-            ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
-        }
-        state = WindingState::WINDING;
-        banner_printed = false;
-        return;
-    }
 
-    if (move_queue->get_queue_depth(AXIS_SPINDLE) < 40) { // was 20
-        // Calculate continuous spindle movement (clamped)
-        float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
-        float target_sps = target_rps * steps_per_rev;
+        // Prefill 1.5s CV to avoid handoff starvation
+        float steps_per_rev_f = 200.0f * MOTOR_MICROSTEPS;
+        float target_sps = (params.spindle_rpm / 60.0f) * steps_per_rev_f;
         float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
         if (target_sps > max_sps) target_sps = max_sps;
-    
-        // Queue half-second of spindle movement via PIO
-        uint32_t spindle_steps = (uint32_t)(target_sps * 0.5f);
+        uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
         ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
-    }
-    
-    
-    // Now sync traverse to spindle
-    sync_traverse_to_spindle();
-    
-    // Check if we've completed target turns
-    if (turns_completed >= params.target_turns) {
-        state = WindingState::RAMPING_DOWN;
+
+        state = WindingState::WINDING;
+        banner_printed = false;
         return;
     }
 }
