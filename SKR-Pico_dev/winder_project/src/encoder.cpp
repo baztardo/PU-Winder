@@ -94,5 +94,3 @@ void Encoder::debug_status() const {
 uint32_t Encoder::get_isr_hits() const {
     return isr_hits;
 }
-// Global encoder instance (used in main.cpp)
-Encoder encoder;

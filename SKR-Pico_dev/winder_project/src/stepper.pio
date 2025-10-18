@@ -1,0 +1,88 @@
+; =============================================================================
+; Stepper Motor PIO Program for RP2040
+; =============================================================================
+; Hardware-timed step pulse generation
+; This replaces software ISR stepping with hardware PIO state machine
+;
+; Features:
+; - Generates step pulses with precise timing
+; - Handles direction pin automatically
+; - Queues steps from CPU via FIFO
+; - Runs independently of CPU
+; =============================================================================
+
+.program stepper
+
+; Each word pushed to FIFO contains:
+; Bits 31-16: interval in microseconds
+; Bits 15-1:  unused
+; Bit 0:      direction (0=forward, 1=reverse)
+
+.wrap_target
+    pull block              ; wait for next command from CPU
+    out pins, 1             ; set direction pin (bit 0)
+    out null, 15            ; discard unused bits
+    out y, 16               ; load interval into Y register
+    
+delay_loop:
+    jmp y--, delay_loop     ; delay for Y cycles
+    
+    ; Generate step pulse (2us = ~250 cycles at 125MHz)
+    set pins, 1 [31]        ; STEP=1, delay 31 cycles
+    set pins, 1 [31]        ; continue high
+    set pins, 1 [31]
+    set pins, 1 [31]
+    set pins, 1 [31]
+    set pins, 1 [31]
+    set pins, 1 [31]
+    set pins, 0             ; STEP=0
+.wrap
+
+; =============================================================================
+; C SDK Helper Functions
+; =============================================================================
+
+% c-sdk {
+#include "hardware/clocks.h"
+
+static inline void stepper_program_init(PIO pio, uint sm, uint offset, 
+                                        uint step_pin, uint dir_pin) {
+    // Get default config
+    pio_sm_config c = stepper_program_get_default_config(offset);
+    
+    // Configure SET pins (step pin)
+    sm_config_set_set_pins(&c, step_pin, 1);
+    
+    // Configure OUT pins (direction pin)
+    sm_config_set_out_pins(&c, dir_pin, 1);
+    
+    // Initialize pins for PIO control
+    pio_gpio_init(pio, step_pin);
+    pio_gpio_init(pio, dir_pin);
+    
+    // Set pin directions: both outputs
+    pio_sm_set_consecutive_pindirs(pio, sm, step_pin, 1, true);
+    pio_sm_set_consecutive_pindirs(pio, sm, dir_pin, 1, true);
+    
+    // Configure output shift: shift right, autopull disabled
+    sm_config_set_out_shift(&c, true, false, 32);
+    
+    // Clock divider: run at 125 MHz for microsecond timing
+    sm_config_set_clkdiv(&c, 1.0f);
+    
+    // Initialize state machine
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Clear FIFO
+    pio_sm_clear_fifos(pio, sm);
+    
+    // Start the state machine
+    pio_sm_set_enabled(pio, sm, true);
+}
+
+// Helper function to queue a step with interval
+static inline void stepper_queue_step(PIO pio, uint sm, uint32_t interval_us, bool dir) {
+    uint32_t command = (interval_us << 16) | (dir ? 1 : 0);
+    pio_sm_put_blocking(pio, sm, command);
+}
+%}

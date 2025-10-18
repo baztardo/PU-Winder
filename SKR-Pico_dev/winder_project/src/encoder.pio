@@ -1,0 +1,110 @@
+; =============================================================================
+; Quadrature Encoder PIO Program for RP2040
+; =============================================================================
+; This program continuously samples 2 encoder pins (A and B) and pushes
+; their state to the FIFO for the CPU to decode.
+;
+; Features:
+; - Samples at a fixed rate determined by clock divider
+; - Non-blocking push to FIFO
+; - Simple 2-bit read (A and B channels)
+;
+; Clock configuration (set in C init function):
+; - Default: 125 MHz / 10 = 12.5 MHz base clock
+; - With [7] delay: 12.5 MHz / 8 = ~1.56 MHz sample rate
+; - This gives ~0.64 µs between samples
+;
+; For a 360 PPR encoder at 6000 RPM max:
+; - 6000 RPM = 100 rev/sec
+; - 360 PPR * 4 (quadrature) = 1440 counts/rev
+; - 100 rev/s * 1440 = 144,000 counts/s
+; - Period per count: ~6.9 µs
+; - Our sample rate: 0.64 µs (10x faster than needed - good!)
+; =============================================================================
+
+.program quadrature_encoder
+
+.wrap_target
+loop:
+    ; Sample current A/B into ISR (clear first so bits land in LSBs)
+    mov isr, null
+    in pins, 2 [3]     ; faster loop: ~4 PIO cycles between samples
+    mov y, isr           ; Y = current state (2 LSBs)
+
+    ; Only push when state changes compared to X (last state)
+    jmp x!=y changed
+    jmp loop             ; no change, loop
+
+changed:
+    mov isr, y
+    push noblock         ; push new state (2 LSBs)
+    mov x, y             ; X = last state
+    jmp loop
+.wrap
+
+; =============================================================================
+; C SDK Helper Functions
+; =============================================================================
+
+% c-sdk {
+static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset, uint pin_a) {
+    // Get default config
+    pio_sm_config c = quadrature_encoder_program_get_default_config(offset);
+    
+    // Configure input pins (A and B are consecutive)
+    // pin_a is the base pin, pin_a+1 is the B pin
+    sm_config_set_in_pins(&c, pin_a);
+    
+    // Set up pins for PIO control
+    // PIO will now control these pins - don't use gpio_get() on them!
+    pio_gpio_init(pio, pin_a);
+    pio_gpio_init(pio, pin_a + 1);
+    
+    // Set pin directions: both inputs
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_a, 2, false);
+    
+    // Input shift config: shift left so bits land in LSBs after 'in pins,2'
+    sm_config_set_in_shift(&c, false, false, 32);
+    
+    // Clock divider: increase sample rate for high RPM
+    // 125 MHz / 2 = 62.5 MHz; with [3] delay, ~15.6 MHz sampling
+    sm_config_set_clkdiv(&c, 2.0f);
+    
+    // Join FIFOs to make RX FIFO 8 words deep instead of 4
+    // This helps prevent overflow if CPU can't process fast enough
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
+    
+    // Initialize the state machine
+    pio_sm_init(pio, sm, offset, &c);
+    
+    // Clear any stale data in FIFO
+    pio_sm_clear_fifos(pio, sm);
+    
+    // Initialize last state register X to current pins so we don't push a bogus first change
+    uint32_t ab = ((gpio_get(pin_a) & 1) << 1) | (gpio_get(pin_a + 1) & 1);
+    pio_sm_exec(pio, sm, pio_encode_set(pio_isr, 0));
+    pio_sm_exec(pio, sm, pio_encode_in(pio_pins, 2));
+    pio_sm_exec(pio, sm, pio_encode_mov(pio_y, pio_isr));
+    // load X with initial state value in Y
+    pio_sm_exec(pio, sm, pio_encode_mov(pio_x, pio_y));
+
+    // Start the state machine!
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}
+
+; =============================================================================
+; Alternative configurations (commented out - for reference)
+; =============================================================================
+;
+; For faster sampling (if needed for very high speed encoders):
+;   sm_config_set_clkdiv(&c, 2.0f);   // 62.5 MHz / 8 = 7.8 MHz samples/sec
+;
+; For slower sampling (if you want to reduce CPU load):
+;   sm_config_set_clkdiv(&c, 50.0f);  // 2.5 MHz / 8 = 312 kHz samples/sec
+;
+; To change delay (affects sample rate):
+;   in pins, 2 [15]   // Longer delay = slower sampling
+;   in pins, 2 [1]    // Shorter delay = faster sampling
+;   in pins, 2        // No delay = maximum sampling rate
+;

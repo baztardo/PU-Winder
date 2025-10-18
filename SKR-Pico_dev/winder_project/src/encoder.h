@@ -77,5 +77,3 @@ private:
     bool last_z;
     bool z_pulse_detected;
 };
-
-extern Encoder encoder;
