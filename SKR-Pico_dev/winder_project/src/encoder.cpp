@@ -18,7 +18,8 @@ Encoder::Encoder()
     , last_a(false)
     , last_b(false)
     , last_z(false)
-    , z_pulse_detected(false) {
+    , z_pulse_detected(false)
+    , z_debounce_position(-9999) {  // Initialize far from zero
 }
 
 void Encoder::init() {
@@ -148,10 +149,16 @@ void Encoder::update() {
             last_a = a;
             last_b = b;
         }
-        // Also sample Z (index) and latch rising->low edge
+        // Also sample Z (index) and latch rising->low edge with debouncing
         bool z_now = gpio_get(ENCODER_Z_PIN);
         if (!z_now && last_z) {
-            z_pulse_detected = true;
+            // Debounce: Only trigger if we've moved at least 1/4 revolution since last Z
+            int32_t delta = position - z_debounce_position;
+            if (delta < 0) delta = -delta;  // absolute value
+            if (delta > (ENCODER_CPR / 4)) {  // More than 90 degrees away
+                z_pulse_detected = true;
+                z_debounce_position = position;
+            }
         }
         last_z = z_now;
         isr_hits++;
@@ -166,10 +173,16 @@ void Encoder::update() {
     position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
     last_a = a;
     last_b = b;
-    // Also sample Z (index) and latch edge
+    // Also sample Z (index) and latch edge with debouncing
     bool z_now = gpio_get(ENCODER_Z_PIN);
     if (!z_now && last_z) {
-        z_pulse_detected = true;
+        // Debounce: Only trigger if we've moved at least 1/4 revolution since last Z
+        int32_t delta = position - z_debounce_position;
+        if (delta < 0) delta = -delta;  // absolute value
+        if (delta > (ENCODER_CPR / 4)) {  // More than 90 degrees away
+            z_pulse_detected = true;
+            z_debounce_position = position;
+        }
     }
     last_z = z_now;
     isr_hits++;
