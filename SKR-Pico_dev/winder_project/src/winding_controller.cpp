@@ -40,8 +40,11 @@ WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lc
 }
 
 void WindingController::init() {
+    printf("WindingController::init() called\n");
     state = WindingState::IDLE;
-spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
+    printf("Initializing spindle PIO...\n");
+    bool pio_ok = spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
+    printf("Spindle PIO init result: %d\n", pio_ok);
     lcd->clear();
     lcd->print_at(0, 0, "Winder Ready");
     lcd->print_at(0, 1, "Press Start...");
