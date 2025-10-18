@@ -106,7 +106,7 @@ int main() {
     stdio_init_all();
 
     // Short delay for hardware stabilization
-    sleep_ms(500);  // Extended for USB serial
+    sleep_ms(5000);  // Extended for USB serial
     
     printf("\n");
     printf("=====================================\n");
@@ -124,7 +124,7 @@ int main() {
     lcd.printf_at(0, 0, "Winder FW %s", FIRMWARE_VERSION);
     lcd.printf_at(0, 1, "Build: %s", VERSION_DATE);
     lcd.print_at(0, 2, VERSION_DESC);
-    sleep_ms(2000);  // Show version for 2 seconds
+    sleep_ms(5000);  // Show version for 2 seconds
     
     // Initialize motor drivers
     // Suppress motor banner to avoid LCD contention
