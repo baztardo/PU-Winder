@@ -106,7 +106,7 @@ int main() {
     stdio_init_all();
 
     // Short delay for hardware stabilization
-    sleep_ms(5000);  // Extended for USB serial
+    sleep_ms(10000);  // Extended for USB serial
     
     printf("\n");
     printf("=====================================\n");
