@@ -199,15 +199,9 @@ void WindingController::home_spindle() {
 }
 
 void WindingController::home_traverse() {
-    static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
-    static bool lcd_updated = false;
+    // Quiet LCD during homing to prevent flicker
     
-    if (homing_state == INIT && !lcd_updated) {
-        lcd->clear();
-        lcd->print_at(0, 0, "Homing Traverse...");
-        printf("Starting traverse homing\n");
-        lcd_updated = true;
-    }
+    static enum { INIT, MOVING_TO_SWITCH, BACKING_OFF, DONE } homing_state = INIT;
     
     switch (homing_state) {
         case INIT:
@@ -266,9 +260,13 @@ void WindingController::home_traverse() {
             break;
             
         case DONE:
-            sleep_ms(500);
+            lcd->clear();
+            lcd->print_at(0, 0, "Traverse Homed!");
+            printf("Traverse homing complete\n");
+            sleep_ms(1000);
             state = WindingState::MOVING_TO_START;
             homing_state = INIT;
+            lcd_updated = false;
             break;
     }
 }
@@ -555,6 +553,10 @@ uint32_t WindingController::mm_to_steps(float mm) {
 float WindingController::steps_to_mm(uint32_t steps) {
     float revs = steps / (200.0f * MOTOR_MICROSTEPS);
     return revs * TRAVERSE_PITCH_MM;
+}
+
+
+ * TRAVERSE_PITCH_MM;
 }
 
 
