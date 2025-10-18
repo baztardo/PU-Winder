@@ -1,0 +1,105 @@
+# 🎯 v1.9.0 - STOP AT TARGET (NO OVERRUN!)
+
+## THE BUG:
+
+Your test: 100 turns target → **124 actual!** (+24 turns overrun!)
+
+---
+
+## ROOT CAUSE:
+
+**Motor kept running during ramp-down!**
+
+### Old Behavior:
+```
+1. Winding runs to 100 turns
+2. Code detects: turns_completed >= 100 ✓
+3. Transitions to RAMPING_DOWN state
+4. Ramp-down QUEUES 5 SECONDS of motion! ❌
+5. Motor runs at 240 RPM for 5 more seconds
+6. That's: 240/60 × 5 = 20 MORE turns!
+7. Total: 100 + 20 = 120+ turns ❌
+```
+
+**Your hardware counter confirmed: 124 turns!**
+
+---
+
+## THE FIX (v1.9.0):
+
+**Stop PIO IMMEDIATELY when target reached:**
+
+```cpp
+// In execute_winding():
+if (turns_completed >= params.target_turns) {
+    printf("Target reached! Stopping NOW!\n");
+    spindle_step_pio_stop(&spindle_step_pio);  // ✅ STOP!
+    state = RAMPING_DOWN;
+}
+
+// In ramp_down_spindle():
+// Spindle already stopped - just disable motor
+move_queue->set_enable(AXIS_SPINDLE, false);
+sleep_ms(500);  // Brief pause
+state = COMPLETE;
+```
+
+**No gradual ramp-down!** Motor stops instantly at target.
+
+---
+
+## 📊 EXPECTED v1.9.0 RESULTS:
+
+### Test 480 Config:
+```
+Target: 100 turns
+Software count: 100
+Hardware count: 100 ±2 ✅
+No overrun!
+```
+
+---
+
+## ⚠️ NOTE: INSTANT STOP
+
+This will cause the spindle to **STOP ABRUPTLY** at target.
+
+**Benefits:**
+- ✅ Accurate turn counts
+- ✅ No overrun
+- ✅ Predictable
+
+**Drawbacks:**
+- Motor stops instantly (small mechanical jerk)
+- Last layer might have tension spike
+
+**If you want gradual decel:**
+We'd need to **predict** when to start ramp-down:
+```cpp
+if (turns_completed >= (target - 20)) {  // Start early!
+    start_ramp_down();
+}
+```
+
+---
+
+## 🚀 ABOUT THE SPEED CAP:
+
+840 config → tach shows 300 RPM during winding.
+
+**Is your tach reading stepper or spindle?**
+
+If tach reads **stepper**:
+- 300 RPM stepper = 4000 sps ✓ (at limit!)
+- Want me to raise limit to 6000-8000 sps?
+
+If tach reads **spindle**:
+- 300 RPM spindle = 150 stepper = 2000 sps
+- Something else limiting it!
+
+---
+
+## FILE: winder_v1.9.0_STOP_AT_TARGET.uf2
+
+git pull
+Test at 480 config - should get exactly 100 turns! ✅

@@ -421,6 +421,9 @@ void WindingController::execute_winding() {
     
     // Check if we've completed target turns
     if (turns_completed >= params.target_turns) {
+        printf("Target turns reached! Stopping spindle immediately.\n");
+        // CRITICAL: Stop PIO immediately to prevent overrun!
+        spindle_step_pio_stop(&spindle_step_pio);
         state = WindingState::RAMPING_DOWN;
         return;
     }
@@ -486,59 +489,29 @@ void WindingController::sync_traverse_to_spindle() {
 
 void WindingController::ramp_down_spindle() {
     lcd->clear();
-    lcd->print_at(0, 0, "Ramping Down...");
+    lcd->print_at(0, 0, "Winding Complete!");
+    lcd->printf_at(0, 1, "Turns: %lu", turns_completed);
     
     static bool ramp_started = false;
     static uint32_t ramp_start_time = 0;
     
     if (!ramp_started) {
-        printf("Starting ramp-down from %.1f RPM\n", params.spindle_rpm);
+        printf("Ramp-down: Spindle already stopped at target turns.\n");
         
-        // Stop PIO stepping immediately
+        // PIO already stopped in execute_winding() when target reached
+        // Just ensure it's stopped
         spindle_step_pio_stop(&spindle_step_pio);
         
-        // Use same PIO ramp logic as ramp-up, but in reverse
-        const uint32_t steps_per_rev = 200u * SPINDLE_MICROSTEPS;
-        const float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;
-        const float target_sps_nom = (stepper_rpm / 60.0f) * steps_per_rev;
-        const float max_sps = 4000.0f;
-        const float target_sps = std::min(target_sps_nom, max_sps);
-        
-        const int N_slices = 24;
-        const float slice_s = params.ramp_time_sec / (float)N_slices;
-        const float sps_min = 100.0f;
-        
-        // Ramp DOWN: start at target_sps, end at sps_min
-        for (int i = 1; i <= N_slices; ++i) {
-            float frac = (float)i / (float)N_slices;
-            // Reverse: 1.0 → 0.0
-            float speed_frac = 1.0f - (frac * frac);
-            float sps = sps_min + (target_sps - sps_min) * speed_frac;
-            if (sps > max_sps) sps = max_sps;
-            uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
-            printf("Ramp-down slice %d: queuing %lu steps at %.1f sps\n", i, steps, sps);
-            ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);
-        }
-        
-        printf("Ramp-down: All %d slices queued to PIO\n", N_slices);
-        ramp_start_time = time_us_32();
+        // Spindle already stopped - just disable motor
+        move_queue->set_enable(AXIS_SPINDLE, false);
+        printf("Spindle motor disabled.\n");
         ramp_started = true;
     }
     
-    lcd->printf_at(0, 1, "RPM: %.0f", current_rpm);
-    
-    // Check if ramp-down time elapsed
-    uint32_t elapsed_us = time_us_32() - ramp_start_time;
-    float elapsed_s = elapsed_us / 1000000.0f;
-    
-    if (elapsed_s >= (params.ramp_time_sec + 1.0f)) {  // +1s buffer
-        printf("Ramp-down complete!\n");
-        spindle_step_pio_stop(&spindle_step_pio);
-        move_queue->set_enable(AXIS_SPINDLE, false);
-        
-        state = WindingState::COMPLETE;
-        ramp_started = false;
-    }
+    // Spindle already stopped, just wait a moment then complete
+    sleep_ms(500);
+    state = WindingState::COMPLETE;
+    ramp_started = false;
 }
 
 void WindingController::update_rpm() {
