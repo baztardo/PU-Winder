@@ -73,11 +73,14 @@ void spindle_step_pio_stop(spindle_step_pio_t* ctx) {
     // Clear TX FIFO to remove queued steps
     pio_sm_clear_fifos(ctx->pio, ctx->sm);
     
-    // DO NOT RESTART! It breaks pin configuration!
-    // Just re-enable - the .wrap will naturally loop back to start
-    pio_sm_set_enabled(ctx->pio, ctx->sm, true);
+    // CRITICAL: Restart to reset internal registers (X, Y, ISR)
+    // Then re-initialize pins to restore sideset configuration
+    pio_sm_restart(ctx->pio, ctx->sm);
     
-    printf("  [PIO_STOP] PIO stopped and cleared - ready for next move\n");
+    // Re-initialize the PIO program to restore pin configuration
+    spindle_step_program_init(ctx->pio, ctx->sm, ctx->offset, ctx->step_gpio);
+    
+    printf("  [PIO_STOP] PIO stopped, cleared, and re-initialized\n");
 }
 
 void spindle_step_pio_deinit(spindle_step_pio_t* ctx) {

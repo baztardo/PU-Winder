@@ -16,6 +16,7 @@
 #include "scheduler.h"
 #include "lcd_display.h"
 #include "winding_controller.h"
+#include "src/version.h"
 // -----------------------------------------------------------------------------
 // Diagnostic LED Controller
 // -----------------------------------------------------------------------------
@@ -109,9 +110,9 @@ int main() {
     
     printf("\n");
     printf("=====================================\n");
-    printf("  Winder Firmware v1.2.0\n");
+    printf("  Winder Firmware v1.3.1\n");
     printf("  Build: 2025-10-18\n");
-    printf("  PIO Stepper with Debug\n");
+    printf("  FIX: PIO stop + lower max speed\n");
     printf("=====================================\n");
     printf("\n");
     

@@ -339,7 +339,8 @@ void WindingController::ramp_up_spindle() {
 
         const uint32_t steps_per_rev = 200u * MOTOR_MICROSTEPS;
         const float target_sps_nom = (params.spindle_rpm / 60.0f) * steps_per_rev;
-        const float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
+        // Limit to 8000 sps to avoid TMC2209 stalls and PIO issues
+        const float max_sps = 8000.0f;
         const float target_sps = std::min(target_sps_nom, max_sps);
 
         const int   N_slices = 24;
