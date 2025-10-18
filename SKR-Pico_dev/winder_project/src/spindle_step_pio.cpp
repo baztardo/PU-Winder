@@ -25,8 +25,13 @@ bool spindle_step_pio_init(spindle_step_pio_t* ctx, PIO pio, uint sm, uint step_
     }
     ctx->offset = pio_add_program(pio, &spindle_step_program);
     spindle_step_program_init(pio, sm, ctx->offset, step_gpio);
+    
+    // DEBUG: Check system clock
+    uint32_t sys_clk = clock_get_hz(clk_sys);
     printf("PIO: Spindle step initialized on PIO%d SM%d, GPIO%d, offset=%d\n", 
            pio == pio0 ? 0 : 1, sm, step_gpio, ctx->offset);
+    printf("System clock: %lu Hz (expected: 125000000 Hz)\n", sys_clk);
+    
     return true;
 }
 

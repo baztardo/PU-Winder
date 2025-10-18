@@ -352,6 +352,8 @@ void WindingController::ramp_up_spindle() {
         for (int i = 1; i <= N_slices; ++i) {
             float frac = (float)i / (float)N_slices;
             float sps  = sps_min + (target_sps - sps_min) * (frac * frac);
+            // CRITICAL: Ensure each ramp slice respects max_sps limit!
+            if (sps > max_sps) sps = max_sps;
             uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
             printf("Ramp slice %d: queuing %lu steps at %.1f sps\n", i, steps, sps);
             ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);

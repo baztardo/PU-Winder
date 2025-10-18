@@ -1,0 +1,48 @@
+# 🚨 CRITICAL: Motor Running 1.8× Too Fast!
+
+## THE PROBLEM:
+
+Commanded: 3200 sps (120 RPM spindle)
+Encoder shows: 220 RPM spindle
+Actual: ~5867 sps (1.83× faster!)
+
+## POSSIBLE CAUSES:
+
+### 1. PIO Clock Divider Wrong?
+```cpp
+// spindle_step.pio line 43:
+// NO clock divider set! Defaults to 1.0
+```
+
+The PIO might not have a clock divider configured!
+
+### 2. PIO Timing Loop Bug?
+The PIO program might have incorrect cycle counting.
+
+### 3. System Clock Not 125 MHz?
+```cpp
+cycles_from_sps() assumes:
+uint32_t clk = clock_get_hz(clk_sys);  // Should be 125 MHz
+```
+
+Maybe system clock is different?
+
+## 🔍 NEED TO CHECK:
+
+1. What is actual system clock frequency?
+2. Does PIO have clock divider?
+3. Is PIO timing calculation correct?
+
+## 🧪 TEST REQUEST:
+
+Can you add this debug output to your serial?
+
+In `spindle_step_pio.cpp`, add to `spindle_step_pio_init()`:
+
+```cpp
+uint32_t sys_clk = clock_get_hz(clk_sys);
+printf("System clock: %lu Hz\n", sys_clk);
+printf("Expected: 125000000 Hz\n");
+```
+
+This will tell us if the clock is wrong!
