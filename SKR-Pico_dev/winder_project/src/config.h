@@ -68,6 +68,10 @@
 #define HOLD_CURRENT_PERCENT 30     // 30% of run current when holding
 #define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
+// CRITICAL: Spindle microstepping (separate from traverse!)
+#define SPINDLE_MICROSTEPS  8       // 8x for spindle (faster capable)
+#define TRAVERSE_MICROSTEPS 16      // 16x for traverse (precision)
+
 // =============================================================================
 // TIMING PARAMETERS
 // =============================================================================

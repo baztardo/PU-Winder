@@ -388,7 +388,7 @@ void WindingController::execute_winding() {
         
         // Calculate continuous spindle movement
         float target_rps = params.spindle_rpm / 60.0f;
-        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
+        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Use spindle-specific!
         float target_sps = target_rps * steps_per_rev;
         
         // Queue another second of spindle movement
