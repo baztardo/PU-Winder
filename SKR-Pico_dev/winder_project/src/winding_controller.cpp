@@ -41,7 +41,7 @@ WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lc
 
 void WindingController::init() {
     state = WindingState::IDLE;
-    ::spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
+spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
     lcd->clear();
     lcd->print_at(0, 0, "Winder Ready");
     lcd->print_at(0, 1, "Press Start...");
@@ -323,7 +323,7 @@ void WindingController::ramp_up_spindle() {
         if (target_sps > max_sps) target_sps = max_sps;
         
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
-        ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
+        spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
         uint32_t total_steps_queued = 0;
         for (int i = 1; i <= N_slices; ++i) {
             float frac = (float)i / (float)N_slices;
@@ -341,32 +341,25 @@ void WindingController::ramp_up_spindle() {
 
     uint32_t elapsed_ms = (time_us_32() - ramp_start_time) / 1000;
     bool time_done = (elapsed_ms >= (uint32_t)(params.ramp_time_sec * 1000.0f));
-    bool queue_low = (move_queue->get_queue_depth(AXIS_SPINDLE) <= 3);
-
-    if (time_done && queue_low) {
+    
+    if (time_done) {
         ramp_started = false;
-        // Ensure spindle queue is prefilled before switching
-        // (avoids a brief starvation that can pause updates)
+        // Ensure spindle queue is prefilled before switching (1.5s)
         {
             float target_rps = params.spindle_rpm / 60.0f;
             uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
             float target_sps = target_rps * steps_per_rev;
-            // Clamp to 80% of ISR capacity for stability
             float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
             if (target_sps > max_sps) target_sps = max_sps;
-            uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);  // 1.0s buffer
+            uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
             ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
         }
         state = WindingState::WINDING;
         banner_printed = false;
         return;
     }
-}
 
-void WindingController::execute_winding() {
-    // CRITICAL: Keep spindle running!
-    // Check if spindle queue is getting low and refill it
-    if (move_queue->get_queue_depth(AXIS_SPINDLE) < 40) {    // was 20
+    if (move_queue->get_queue_depth(AXIS_SPINDLE) < 40) { // was 20
         // Calculate continuous spindle movement (clamped)
         float target_rps = params.spindle_rpm / 60.0f;
         uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;
@@ -374,10 +367,11 @@ void WindingController::execute_winding() {
         float max_sps = 0.8f * (1000000.0f / HEARTBEAT_US);
         if (target_sps > max_sps) target_sps = max_sps;
     
-        // Queue another half‑second of spindle movement via PIO
+        // Queue half-second of spindle movement via PIO
         uint32_t spindle_steps = (uint32_t)(target_sps * 0.5f);
         ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
     }
+    
     
     // Now sync traverse to spindle
     sync_traverse_to_spindle();
