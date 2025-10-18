@@ -1,0 +1,71 @@
+🚨 CRITICAL: YOU UPLOADED THE WRONG FILE!
+
+============================================
+THE PROBLEM:
+============================================
+
+Your serial output shows:
+```
+  Winder Firmware 1.7.4  ← Says 1.7.4!
+  [CONTINUOUS] Queuing 4500 steps @ 3000.0 sps (150 RPM)  ← Old bug!
+```
+
+You uploaded a file NAMED v1.7.5, but it contains v1.7.4 code!
+
+The v1.7.5 binary wasn't committed correctly (my mistake!).
+
+============================================
+CORRECT FILE NOW READY:
+============================================
+
+File: winder_v1.7.5_SMOOTH_RAMP_FIXED.uf2
+
+SHA256: (will show after build)
+
+============================================
+VERIFY BEFORE UPLOAD:
+============================================
+
+The CORRECT file will show:
+```
+=====================================
+  Winder Firmware 1.7.5  ← MUST say 1.7.5!
+  Build: 2025-10-18
+  FIX: Smooth ramp-to-continuous
+=====================================
+```
+
+And the FIRST continuous message will say:
+```
+[CONTINUOUS] Initial queue: 1200 steps @ 800.0 sps (60.0 RPM)
+NOT 4500 steps!
+NOT 3000 sps!
+```
+
+============================================
+WHAT YOU'LL SEE IN CORRECT v1.7.5:
+============================================
+
+Ramp finishes:
+```
+Ramp slice 24: queuing 166 steps at 800.0 sps
+[ENC] pos=2987 rpm=54.5  ← Building up
+```
+
+Transition (SMOOTH!):
+```
+[CONTINUOUS] Initial queue: 1200 steps @ 800.0 sps (60.0 RPM)  ← Correct!
+[ENC] pos=4636 rpm=60.0  ← Should jump to ~60, not 136! ✅
+[CONTINUOUS] Re-queueing 1200 steps @ 800.0 sps (60.0 RPM)
+[ENC] pos=7331 rpm=60.1  ← Steady! ✅
+```
+
+NO SPIKE to 136 RPM or 224 RPM!
+
+============================================
+git pull AND UPLOAD THE CORRECT FILE!
+============================================
+
+File: winder_v1.7.5_SMOOTH_RAMP_FIXED.uf2
+
+Sorry for the confusion - the previous file was mislabeled!
