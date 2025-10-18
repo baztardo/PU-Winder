@@ -163,14 +163,11 @@ void WindingController::home_spindle() {
         waiting_for_z = false;
         
         // Generate slow rotation move (one revolution to find Z)
-        auto chunks = StepCompressor::compress_constant_velocity(
-            3200,  // One revolution
-            200    // Slow speed
-        );
+        // Use PIO for spindle stepping (not move_queue)
+        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;  // 3200 for 16x microstepping
+        float slow_sps = 200.0f;  // 200 steps/sec = slow rotation
         
-        for (const auto& chunk : chunks) {
-            move_queue->push_chunk(AXIS_SPINDLE, chunk);
-        }
+        ::spindle_step_pio_queue_cv(&spindle_step_pio, steps_per_rev, slow_sps);
     }
     
     // Check for Z pulse
