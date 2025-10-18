@@ -1,0 +1,98 @@
+# 🎯 v1.8.5 - ALL SPEED LIMITS FIXED!
+
+## THE BUG (v1.8.4):
+
+I updated 2 out of 3 speed limits to 4000 sps:
+- Line 345 (ramp-up): ✅ Fixed to 4000
+- Line 375 (continuous initial): ✅ Fixed to 4000
+- Line 406 (continuous refill): ❌ **STILL 50000!**
+
+Result at 200 RPM:
+```
+Initial queue: 6000 steps @ 4000.0 sps  ✅ Correct!
+Re-queueing: 7999 steps @ 5333.3 sps   ❌ Exceeded limit!
+Motor stalled! ❌
+```
+
+---
+
+## v1.8.5 FIX:
+
+**ALL 3 locations now use 4000 sps limit:**
+```cpp
+Line 345: const float max_sps = 4000.0f;  ✅
+Line 375: const float max_sps = 4000.0f;  ✅
+Line 406: const float max_sps = 4000.0f;  ✅ FIXED!
+```
+
+---
+
+## 🧪 SPEED TESTING PLAN:
+
+### Test 1: 120 RPM (should be smooth!)
+```cpp
+config.h:
+#define WINDING_SPINDLE_RPM 120.0f
+
+Expected:
+Stepper: 240 RPM (3200 sps)
+All queues: @ 3200 sps ✅
+Encoder: 120 RPM continuous
+No stalling!
+```
+
+### Test 2: 150 RPM (at the limit)
+```cpp
+#define WINDING_SPINDLE_RPM 150.0f
+
+Expected:
+Stepper: 300 RPM (4000 sps = LIMIT)
+All queues: @ 4000 sps ✅
+Encoder: 150 RPM (might slip slightly?)
+```
+
+### Test 3: 200 RPM (should be clamped)
+```cpp
+#define WINDING_SPINDLE_RPM 200.0f
+
+Calculated: 5333 sps
+Clamped to: 4000 sps ✅
+Result: Runs at ~150 RPM actual (not 200)
+```
+
+---
+
+## 🔬 FIND YOUR MOTOR'S REAL LIMIT:
+
+Try these in order and report which ones work:
+
+| Config RPM | Target SPS | Result |
+|------------|------------|--------|
+| 120 | 3200 | Should work perfectly! ✅ |
+| 135 | 3600 | Test this |
+| 150 | 4000 | Current limit |
+| 165 | 4400 | Over limit (if you raise it) |
+| 180 | 4800 | Over limit |
+
+**To test higher speeds:**
+Change all 3 limits in code:
+```cpp
+Line 345: const float max_sps = 5000.0f;  // Test 5000!
+Line 375: const float max_sps = 5000.0f;
+Line 406: const float max_sps = 5000.0f;
+```
+
+---
+
+## 📁 FILE: winder_v1.8.5_ALL_LIMITS_FIXED.uf2
+
+**Default:** 120 RPM spindle  
+**Limit:** 4000 sps (all code paths!)
+
+git pull
+Upload and test!
+
+Let me know:
+1. Does 120 RPM run smoothly now? ✅
+2. Does 150 RPM work? 
+3. Want me to build a test version with higher limits to find your motor's real max? 🚀
