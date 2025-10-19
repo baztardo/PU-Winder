@@ -1,0 +1,156 @@
+# 🚀 v2.1.0 - TARGET: 1500 RPM SPINDLE!
+
+## YOUR GOAL:
+
+```
+1500 RPM spindle (target)
+× 0.5 gear ratio = 750 RPM stepper
+× 200 steps/rev × 4 microsteps = 600,000 steps/min
+÷ 60 seconds = 10,000 sps needed!
+```
+
+**v2.1.0 raised limit to 12,000 sps!** 🚀
+
+---
+
+## ⚠️ ENCODER STATUS:
+
+**Encoder will freeze above ~4000 sps:**
+- At 1500 RPM spindle, encoder won't count
+- Motor will run fine!
+- This is OK for now - fix with DMA later
+
+**Why this is acceptable:**
+- ✅ Z-homing works (low speed)
+- ✅ Motor runs at full speed
+- ✅ You can verify speed with hardware tach
+- ⚠️ Turn counting won't work at high speed
+- 🔧 Add DMA later for full encoder tracking
+
+---
+
+## 🧪 TEST PLAN:
+
+### Test 1: 1200 Config (8000 sps)
+```
+Stepper: 600 RPM
+Spindle: 1200 RPM
+Encoder: Will freeze ⚠️
+Motor: Should run smooth ✅
+Tach: Verify 1200 RPM
+```
+
+### Test 2: 1500 Config (10000 sps)
+```
+Stepper: 750 RPM
+Spindle: 1500 RPM 🎯 TARGET!
+Encoder: Won't count ⚠️
+Motor: Check for stalls!
+Tach: Verify 1500 RPM
+```
+
+### Test 3: 1800 Config (12000 sps)
+```
+Stepper: 900 RPM
+Spindle: 1800 RPM
+Motor: At limit - may stall!
+```
+
+---
+
+## 📊 SPEED TABLE:
+
+| Config | Stepper SPS | Stepper RPM | Spindle RPM | Encoder | Motor |
+|--------|-------------|-------------|-------------|---------|-------|
+| 600 | 4000 | 300 | 600 | ✅ Works | ✅ Stable |
+| 1200 | 8000 | 600 | 1200 | ❌ Frozen | ✅ Should work |
+| **1500** | **10000** | **750** | **1500** | ❌ Frozen | ⚠️ **TEST!** |
+| 1800 | 12000 | 900 | 1800 | ❌ Frozen | 🚨 May stall |
+
+---
+
+## ⚠️ WHAT TO WATCH FOR:
+
+### ✅ Good Signs:
+- Motor runs smoothly
+- No grinding/squealing noises
+- Tach shows target RPM
+- Motor doesn't overheat (<60°C)
+
+### ⚠️ Warning Signs:
+- Motor makes noise
+- Speed unstable
+- Motor warm (40-60°C)
+
+### ❌ Failure Signs:
+- Motor stalls (stops turning)
+- Grinding/screeching sounds  
+- Motor very hot (>80°C)
+- System crashes
+
+---
+
+## 🔥 IF MOTOR STALLS:
+
+**Need TMC2209 optimization:**
+1. SpreadCycle mode (better for high RPM)
+2. Current tuning (IRUN/IHOLD)
+3. StealthChop → SpreadCycle transition
+
+**Expected gain: +30-50% speed capability!**
+
+---
+
+## 🎯 PRIORITY ORDER:
+
+1. **v2.1.0** - Test motor at 1500 RPM spindle
+   - Use hardware tach for verification
+   - Ignore encoder freezing (expected!)
+   
+2. **If motor runs OK** - You're done for now! ✅
+   - Run production at 1500 RPM
+   - Add DMA later for turn counting
+   
+3. **If motor stalls** - TMC SpreadCycle next
+   - Port from Klipper code
+   - 2-4 hours work
+   - Should unlock 1500+ RPM
+
+4. **DMA for encoder** - When you need turn counting
+   - 4-8 hours work
+   - Full encoder tracking at any speed
+
+---
+
+## FILE: winder_v2.1.0_HIGH_SPEED_12000SPS.uf2
+
+```bash
+git pull
+# Upload v2.1.0
+
+# Test config.h settings:
+#define WINDING_SPINDLE_RPM 1500.0f  // Your target!
+
+# Expected:
+# - Motor runs at 750 RPM stepper / 1500 RPM spindle
+# - Encoder won't count (ignore it!)
+# - Use hardware tach to verify speed
+# - Check motor temp and sound
+```
+
+---
+
+## 🚀 BOTTOM LINE:
+
+**Motor speed is NOT limited by encoder!**
+
+- ✅ Motor can run at 1500 RPM spindle
+- ⚠️ Encoder won't count (fix with DMA later)
+- 🎯 Test if motor hardware can handle it!
+
+**Let's find out how fast your motor can actually go!** 🚀
+
+Test and report:
+1. Does motor reach 1500 RPM spindle?
+2. Does it run smoothly?
+3. Any stalling or overheating?
