@@ -75,9 +75,10 @@
 // SPEED LIMITS
 // =============================================================================
 // Maximum steps per second for spindle motor
-// 4000 = 300 RPM stepper = 600 RPM spindle (STABLE - encoder works!)
-// 8000 = 600 RPM stepper = 1200 RPM spindle (encoder freezes - needs DMA!)
-#define MAX_SPINDLE_SPS  4000.0f    // Encoder limit with multicore!
+// Target: 1500 RPM spindle = 750 RPM stepper = 10,000 sps
+// Note: Encoder will freeze above ~4000 sps until DMA is implemented
+// Motor will run fine - encoder just won't count at high speed (OK for now!)
+#define MAX_SPINDLE_SPS  12000.0f    // For 1500 RPM spindle target!
 
 // =============================================================================
 // MECHANICAL SETUP (CRITICAL!)
