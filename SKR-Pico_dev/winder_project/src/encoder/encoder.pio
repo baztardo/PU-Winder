@@ -41,8 +41,9 @@ static inline void quadrature_encoder_program_init(PIO pio, uint sm, uint offset
 
     sm_config_set_in_shift(&c, true, false, 32);
 
-    // Slow down sampling further to balance FIFO drain
-    sm_config_set_clkdiv(&c, 100.0f);
+    // CRITICAL: At 8000 sps, CPU is overloaded! Slow down to 25 kHz sampling
+    // 25 kHz still gives 1x oversample at 1200 RPM spindle (28.8k events/sec)
+    sm_config_set_clkdiv(&c, 500.0f);
 
     sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_RX);
 

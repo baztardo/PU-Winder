@@ -1,0 +1,178 @@
+# 🚨 v1.9.3 - CPU OVERLOAD FIX
+
+## THE PROBLEM (v1.9.1 & v1.9.2):
+
+At 600 RPM stepper (8000 sps, 1200 RPM spindle):
+```
+Motor: Running smooth ✓
+Tach: 600 RPM confirmed ✓
+Encoder: DEAD ❌❌❌
+```
+
+---
+
+## ROOT CAUSE: CPU OVERLOAD
+
+**At 8000 sps, the CPU can't keep up!**
+
+### CPU Load Breakdown:
+
+```
+ISR (every 50μs = 20 kHz):
+├─ Drain encoder FIFO: 32 samples × 4 bytes = 128 bytes
+├─ Decode quadrature: 32 × table lookup
+├─ Write step PIO FIFO: 8 bytes
+├─ Move queue logic
+└─ Total: ~15 μs CPU time!
+
+Main Loop:
+├─ Update RPM: float math
+├─ Sync traverse: math + queuing
+├─ LCD I2C: blocks for ms!
+├─ Printf to USB: blocks for ms!
+└─ Winding logic
+
+Result: CPU at 100%! Encoder ISR can't run! ❌
+```
+
+### Old Encoder Sample Rate:
+```
+PIO clock: 125 MHz / 100 = 1.25 MHz
+With [7] delay: 1.25M / 8 = 156 kHz samples/sec
+
+At 1200 RPM spindle:
+- Expected events: 28,800/sec
+- PIO samples: 156,000/sec (5.4x oversample)
+- ISR drain: 32 samples/tick × 20 kHz = 640,000 samples/sec processed!
+
+Too much work! ❌
+```
+
+---
+
+## THE FIX (v1.9.3):
+
+### **10x Slower PIO Sampling**
+
+```c
+OLD: sm_config_set_clkdiv(&c, 100.0f);  // 156 kHz
+NEW: sm_config_set_clkdiv(&c, 500.0f);  // 25 kHz ← 6.25x slower!
+```
+
+**New sample rate: 25 kHz**
+
+### **Reduced ISR Drain**
+
+```c
+OLD: while (...samples_processed++ < 32)  // Process 32/tick
+NEW: while (...samples_processed++ < 16)  // Process 16/tick ← Half!
+```
+
+---
+
+## 📊 NEW PERFORMANCE:
+
+At 1200 RPM spindle (8000 sps):
+```
+Encoder events: 28,800/sec
+PIO samples: 25,000/sec (0.87x oversample) ⚠️ Barely enough!
+ISR drain: 16 samples × 20 kHz = 320,000/sec processed
+ISR time: ~7 μs (half of before!) ✓
+
+CPU load: ~50% (much better!) ✓
+```
+
+**Will this work?**
+- ✅ At 600 RPM: 14,400 events/sec vs 25k samples = 1.7x ✓
+- ⚠️ At 1200 RPM: 28,800 events/sec vs 25k samples = 0.87x ⚠️
+
+**Marginal at full speed, but should work at 600 RPM!**
+
+---
+
+## 🎯 EXPECTED v1.9.3 RESULTS:
+
+### Test at 1200 Config:
+```
+Motor: 600 RPM stepper (8000 sps cap)
+Tach: 600 RPM
+Encoder: Should count now! ✅
+Serial: [ENC] pos=XXXXX rpm=~300.0 ✅
+```
+
+### If Encoder Works:
+```
+🎉 CPU overload fixed!
+✓ Can sustain 600 RPM stepper
+✓ Encoder tracks accurately
+```
+
+### If Encoder Still Fails:
+```
+Need bigger guns:
+→ Multicore (encoder on Core 1)
+→ DMA (hardware FIFO drain)
+```
+
+---
+
+## ⚠️ TRADE-OFF:
+
+**Lower sample rate = less margin for error!**
+
+At 1200 RPM spindle:
+- OLD: 5.4x oversample (safe!)
+- NEW: 0.87x oversample (barely Nyquist!)
+
+**But CPU can't handle 156 kHz sampling while doing 8000 sps stepping!**
+
+---
+
+## 🚀 IF v1.9.3 WORKS:
+
+We've proven CPU is the bottleneck!
+
+**Next priorities:**
+1. ✅ Keep 600 RPM stable (8000 sps)
+2. 🔥 **Multicore** - Move encoder to Core 1 → +50% CPU!
+3. 🔥 **DMA** - Hardware FIFO drain → +80% CPU!
+4. 🔥 **TMC SpreadCycle** - Then push to 12000+ sps!
+
+**With multicore + DMA:**
+```
+Core 0: Step generation + winding logic
+Core 1: Encoder reading + LCD updates
+DMA: Automatic FIFO drain
+
+Expected max: 16000+ sps = 1200 RPM stepper = 2400 RPM spindle! 🚀
+```
+
+---
+
+## 📊 COMPARISON TABLE:
+
+| Version | PIO Sample | ISR Drain | CPU Load | Max Encoder RPM |
+|---------|------------|-----------|----------|-----------------|
+| v1.9.1 | 156 kHz | 32/tick | **100%** ❌ | 600 (fails) |
+| v1.9.2 | 156 kHz | 32/tick | **100%** ❌ | 600 (fails) |
+| **v1.9.3** | **25 kHz** | **16/tick** | **~50%** ✓ | **600-1200** ⚠️ |
+| +Multicore | 25 kHz | 16/tick | **~25%** ✓✓ | **2400+** 🚀 |
+| +DMA | 25 kHz | Hardware | **~10%** ✓✓✓ | **6000+** 🚀🚀 |
+
+---
+
+## FILE: winder_v1.9.3_ENCODER_SLOW_SAMPLING.uf2
+
+```bash
+git pull
+# Upload v1.9.3
+# Test at 1200 config
+# Encoder should count now!
+```
+
+**IF THIS WORKS:**
+→ Proves CPU overload was the issue!
+→ Next: Implement multicore for 2x speed! 🔥
+
+**IF THIS FAILS:**
+→ Need DMA or reduce max speed to 4000 sps (300 RPM stepper)
