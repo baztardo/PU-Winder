@@ -121,7 +121,7 @@
 // Lower microstepping = faster capable, less resolution
 // Higher microstepping = slower max speed, more resolution
 
-#define SPINDLE_MICROSTEPS  4       // 4x for spindle (Hardware-configured via MS pins!)
+#define SPINDLE_MICROSTEPS  2       // TEST: 2x (was 4x) for MORE TORQUE at high speed!
 #define TRAVERSE_MICROSTEPS 16      // 16x for traverse (PRECISION - slower but accurate)
 #define MOTOR_MICROSTEPS    16      // Legacy/default (kept for compatibility)
 
