@@ -2,7 +2,8 @@
 // dma_stepper.h - DMA-Driven PIO Stepper (Van Hunter Adams technique)
 // =============================================================================
 
-#pragma once
+#ifndef DMA_STEPPER_H
+#define DMA_STEPPER_H
 
 #include "hardware/pio.h"
 #include "hardware/dma.h"
