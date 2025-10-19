@@ -1,0 +1,43 @@
+.program dma_step
+.side_set 1 opt
+
+; DMA-driven stepper
+; DMA feeds delay intervals directly to TX FIFO
+; Each interval: number of cycles to wait between step pulses
+
+.wrap_target
+pull block          ; Get delay interval from DMA
+out x, 32           ; Load delay into X
+step_high:
+    nop side 1      ; STEP high
+delay_high:
+    jmp x--, delay_high  ; Wait delay cycles
+    nop side 0      ; STEP low
+pull block          ; Get next delay for low phase
+out x, 32
+delay_low:
+    jmp x--, delay_low   ; Wait delay cycles  
+.wrap
+
+% c-sdk {
+static inline void dma_step_program_init(PIO pio, uint sm, uint offset, uint step_pin, float clk_div) {
+    pio_sm_config c = dma_step_program_get_default_config(offset);
+    
+    // Set clock divider for timing precision
+    sm_config_set_clkdiv(&c, clk_div);
+    
+    // Configure sideset for STEP pin
+    sm_config_set_sideset_pins(&c, step_pin);
+    
+    // Initialize STEP pin as PIO output
+    pio_gpio_init(pio, step_pin);
+    pio_sm_set_consecutive_pindirs(pio, sm, step_pin, 1, true);
+    
+    // Autopull every 32 bits
+    sm_config_set_out_shift(&c, true, true, 32);
+    
+    // Initialize and start
+    pio_sm_init(pio, sm, offset, &c);
+    pio_sm_set_enabled(pio, sm, true);
+}
+%}

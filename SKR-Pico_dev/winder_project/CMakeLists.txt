@@ -43,6 +43,7 @@ add_executable(winder_project
     src/lcd_display.cpp
     src/winding_controller.cpp
     src/spindle_step_pio.cpp
+    src/dma_stepper.cpp
 )
 target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
@@ -50,6 +51,8 @@ target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/sr
 pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/encoder/encoder.pio)
 ## Generate PIO header for spindle stepgen
 pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/spindle_step.pio)
+## Generate PIO header for DMA stepper
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/dma_step.pio)
 
 # Create map/bin/hex/uf2 files
 #pico_add_extra_outputs(winder_project)
