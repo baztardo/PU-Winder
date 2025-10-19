@@ -97,7 +97,7 @@
 #define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter (mm) - 43 AWG
 #define WINDING_WIDTH_MM        50.0f   // Winding width (mm)
 #define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
-#define WINDING_RAMP_TIME_SEC   5.0f    // Ramp up/down time (seconds)
+#define WINDING_RAMP_TIME_SEC   10.0f   // Ramp up/down time (was 5s - too fast!)
 
 // Speed recommendations (SPINDLE RPM with 2:1 gearing, 4x microstepping):
 //   60 RPM   = Safe, tested (stepper @ 120 RPM, 1600 sps) ✅
