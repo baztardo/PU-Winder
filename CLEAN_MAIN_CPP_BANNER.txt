@@ -1,0 +1,58 @@
+# Clean main.cpp Banner Section (lines 124-170)
+
+```cpp
+int main() {
+    stdio_init_all();
+
+    // Short delay for hardware stabilization
+    sleep_ms(10000);  // Extended for USB serial
+    
+    // ===== SERIAL BANNER (KEEP THIS!) =====
+    printf("\n");
+    printf("=====================================\n");
+    printf("  Winder Firmware %s\n", FIRMWARE_VERSION);
+    printf("  Build: %s\n", VERSION_DATE);
+    printf("  %s\n", VERSION_DESC);
+    printf("=====================================\n");
+    printf("\n");
+    
+    // Initialize all hardware
+    init_hardware();
+    
+    // ===== LCD BANNER (KEEP THIS TOO!) =====
+    lcd.clear();
+    lcd.printf_at(0, 0, "Winder FW %s", FIRMWARE_VERSION);
+    lcd.printf_at(0, 1, "Build: %s", VERSION_DATE);
+    lcd.print_at(0, 2, VERSION_DESC);
+    sleep_ms(5000);  // Show version for 5 seconds
+    
+    // Initialize motor drivers
+    init_motors();
+    sleep_ms(1000);
+    
+    // After constructing the Encoder object
+    spindle_encoder.init();
+    
+    // ===== LAUNCH CORE 1 (CRITICAL!) =====
+    printf("\n🚀 Launching Core 1 for encoder...\n");
+    multicore_launch_core1(core1_entry);
+    sleep_ms(100);  // Let Core 1 start
+    printf("✓ Core 1 running!\n\n");
+
+    // Start scheduler ISR
+    if (!scheduler.start(HEARTBEAT_US)) {
+        lcd.clear();
+        lcd.print_at(0, 0, "ERROR:");
+        lcd.print_at(0, 1, "Scheduler failed!");
+        while (1) tight_loop_contents();
+    }
+    
+    // ... rest of init ...
+}
+```
+
+**IMPORTANT:**
+- ✅ **KEEP** serial banner (shows in terminal)
+- ✅ **KEEP** LCD banner (shows on display)
+- ✅ **KEEP** Core 1 launch (CRITICAL!)
+- ❌ **DELETE** any duplicate banners!
