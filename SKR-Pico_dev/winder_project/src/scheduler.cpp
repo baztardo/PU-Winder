@@ -118,10 +118,8 @@ bool Scheduler::timer_callback(repeating_timer_t* rt) {
 void Scheduler::handle_isr() {
     tick_count++;
 
-    // Update encoder state
-    if (spindle_encoder) {
-        spindle_encoder->update();
-    }
+    // Encoder now updated by Core 1 (see main.cpp core1_entry)
+    // Removed: spindle_encoder->update() to reduce Core 0 ISR load
     
     // Process move queues for both axes
     if (move_queue) {

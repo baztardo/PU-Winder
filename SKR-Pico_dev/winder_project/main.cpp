@@ -4,6 +4,7 @@
 // =============================================================================
 
 #include "pico/stdlib.h"
+#include "pico/multicore.h"  // For Core 1 encoder processing
 #include "hardware/i2c.h"
 #include <cstdio>
 
@@ -100,7 +101,25 @@ void init_motors();
 void setup_winding_parameters();
 
 // =============================================================================
-// Main Application
+// Core 1: Dedicated Encoder Processing
+// =============================================================================
+// This runs on Core 1 in a tight loop, reading encoder at maximum speed
+// without competing with Core 0's step generation and winding logic
+void core1_entry() {
+    printf("[CORE1] Starting dedicated encoder loop...\n");
+    
+    while (1) {
+        // Update encoder as fast as possible
+        // This is now the ONLY place encoder->update() is called!
+        spindle_encoder.update();
+        
+        // Yield to other Core 1 tasks (none currently, but good practice)
+        tight_loop_contents();
+    }
+}
+
+// =============================================================================
+// Main Application (Core 0)
 // =============================================================================
 int main() {
     stdio_init_all();
@@ -134,6 +153,12 @@ int main() {
     // After constructing the Encoder object
     spindle_encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
     // Suppress debug spam
+
+    // Launch Core 1 for dedicated encoder processing
+    printf("\n🚀 Launching Core 1 for encoder...\n");
+    multicore_launch_core1(core1_entry);
+    sleep_ms(100);  // Let Core 1 start
+    printf("✓ Core 1 running!\n\n");
 
     // Start scheduler ISR
     // Suppress scheduler banner
