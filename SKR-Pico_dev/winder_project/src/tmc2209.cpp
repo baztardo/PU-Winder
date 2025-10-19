@@ -265,7 +265,9 @@ bool TMC2209_UART::set_microsteps(uint8_t microsteps) {
 bool TMC2209_UART::enable_stealthchop(bool enable) {
     uint32_t gconf = 0;
     if (enable) {
-        gconf |= (1 << 2);
+        gconf |= (1 << 2);  // StealthChop: quiet but less torque
+    } else {
+        gconf &= ~(1 << 2); // SpreadCycle: noisy but MORE TORQUE!
     }
     writeRegister(TMC_REG_GCONF, gconf);
     return true;
@@ -283,11 +285,16 @@ bool TMC2209_UART::init_driver(float current_ma, uint8_t microsteps) {
         return false;
     }
     
-    if (!enable_stealthchop(true)) {
+    // BEAST MODE: SpreadCycle for HIGH TORQUE at high speeds!
+    if (!enable_stealthchop(false)) {  // false = SpreadCycle mode! 🔥
         return false;
     }
     
     writeRegister(TMC_REG_TPOWERDOWN, 20);
+    
+    // SpreadCycle tuned CHOPCONF (more aggressive for high speed!)
+    writeRegister(TMC_REG_CHOPCONF, 0x000100C3);  // Optimized for torque!
+    
     writeRegister(TMC_REG_PWMCONF, 0xC10D0024);
     
     return true;

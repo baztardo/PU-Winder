@@ -69,9 +69,9 @@
 #define R_SENSE             0.11f   // TMC2209 sense resistor value
 
 // =============================================================================
-// MOTOR CURRENT SETTINGS
+// MOTOR CURRENT SETTINGS (LDO-42STH48-2804AHS80: 2.8A rated)
 // =============================================================================
-#define SPINDLE_CURRENT_MA  2800    // Spindle motor RMS current (mA)
+#define SPINDLE_CURRENT_MA  3360    // 120% of rated (BEAST MODE!)
 #define TRAVERSE_CURRENT_MA 250     // Traverse motor RMS current (mA)
 
 // TMC2209 Hold Current (percentage of run current when stationary)
