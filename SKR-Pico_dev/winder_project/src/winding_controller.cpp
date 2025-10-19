@@ -341,8 +341,8 @@ void WindingController::ramp_up_spindle() {
         // Account for 2:1 gear ratio
         const float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;
         const float target_sps_nom = (stepper_rpm / 60.0f) * steps_per_rev;
-        // Increase limit for high-speed winding!
-        const float max_sps = 50000.0f;  // Allow up to ~3750 stepper RPM = 1875 spindle RPM
+        // Use centralized speed limit from config.h
+        const float max_sps = MAX_SPINDLE_SPS;
         const float target_sps = std::min(target_sps_nom, max_sps);
 
         const int   N_slices = 24;
@@ -374,7 +374,7 @@ void WindingController::ramp_up_spindle() {
         float stepper_rpm = params.spindle_rpm * SPINDLE_GEAR_RATIO;  // 0.5 ratio
         float target_sps = (stepper_rpm / 60.0f) * steps_per_rev_f;
         // Match ramp-up and continuous limits
-        const float max_sps = 4000.0f;  // Safe limit (tuning needed for higher)
+        const float max_sps = MAX_SPINDLE_SPS;  // From config.h
         if (target_sps > max_sps) target_sps = max_sps;
 
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
@@ -405,7 +405,7 @@ void WindingController::execute_winding() {
         float target_sps = stepper_rps * steps_per_rev;
         
         // Apply max speed limit (same as ramp-up)
-        const float max_sps = 4000.0f;  // ⚠️ FIXED! Was 50000!
+        const float max_sps = MAX_SPINDLE_SPS;  // From config.h
         if (target_sps > max_sps) target_sps = max_sps;
         
         // Queue 1.5 seconds worth of steps (matches ramp-up logic)
