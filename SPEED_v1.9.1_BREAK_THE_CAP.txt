@@ -1,0 +1,183 @@
+# 🚀 v1.9.1 - BREAK THE 300 RPM CAP!
+
+## THE PROBLEM:
+
+You kept hitting **300 RPM** no matter what you set:
+```
+Config 820  → 380 RPM briefly → dropped to 300 ❌
+Config 1000 → Maxed at 300 ❌
+```
+
+**ROOT CAUSE:**
+```
+300 RPM stepper = 300/60 × 200 × 4 = 4000 sps
+← HARDCODED LIMIT! ←
+```
+
+---
+
+## THE FIX (v1.9.1):
+
+**Doubled the speed limit!**
+
+```cpp
+// OLD (v1.9.0):
+const float max_sps = 4000.0f;  // 300 RPM stepper
+
+// NEW (v1.9.1):
+#define MAX_SPINDLE_SPS 8000.0f  // 600 RPM stepper!
+```
+
+**Now centralized in config.h for easy tuning!**
+
+---
+
+## 📊 EXPECTED RESULTS:
+
+### Test Progression:
+
+**480 Config:**
+```
+Target: 240 RPM stepper = 480 RPM spindle
+SPS: 240/60 × 800 = 3200 sps ✓ (under 8000 limit)
+Expected: Should reach 240 stepper / 480 spindle!
+```
+
+**840 Config:**
+```
+Target: 420 RPM stepper = 840 RPM spindle
+SPS: 420/60 × 800 = 5600 sps ✓ (under 8000 limit)
+Expected: Should reach 420 stepper / 840 spindle!
+```
+
+**1200 Config:**
+```
+Target: 600 RPM stepper = 1200 RPM spindle
+SPS: 600/60 × 800 = 8000 sps ✓ (AT limit!)
+Expected: Motor might stall or struggle!
+```
+
+---
+
+## ⚠️ TESTING GUIDELINES:
+
+### Start Low and Ramp Up:
+
+1. **480 config** - Should work smoothly ✅
+2. **600 config** - 300 stepper / 600 spindle (old limit)
+3. **840 config** - 420 stepper / 840 spindle (your previous test)
+4. **1000 config** - 500 stepper / 1000 spindle
+5. **1200 config** - 600 stepper / 1200 spindle (NEW LIMIT!)
+
+### Watch For:
+
+**✅ Good signs:**
+- Smooth acceleration
+- Stable RPM during winding
+- Encoder counts match turns
+- Motor sounds normal
+
+**⚠️ Warning signs:**
+- Motor makes grinding/squealing noise
+- RPM oscillates/unstable
+- Encoder freezes/glitches
+- Turn count errors
+- Motor gets hot (>60°C)
+
+**❌ Failure modes:**
+- Motor stalls (stops turning)
+- Skipped steps (turn count way off)
+- System crashes (OOM, watchdog)
+- Motor overheats (>80°C)
+
+---
+
+## 🔧 IF YOU HIT THE NEW LIMIT:
+
+**Motor stalls at 600 stepper / 1200 spindle?**
+
+Two options:
+
+### Option A: TMC2209 Optimization 🔥
+```
+Implement SpreadCycle mode (from Klipper code)
++ Current tuning
++ StallGuard monitoring
+= +30-50% more speed capability!
+```
+
+### Option B: Raise limit even higher 🚨
+```cpp
+#define MAX_SPINDLE_SPS 10000.0f  // 750 stepper / 1500 spindle!
+```
+
+**But TMC optimization is better!**
+
+---
+
+## 📊 SPEED REFERENCE TABLE:
+
+| Config RPM | Stepper RPM | Spindle RPM | SPS | Status |
+|------------|-------------|-------------|-----|--------|
+| 240 | 120 | 240 | 1600 | ✅ Safe |
+| 480 | 240 | 480 | 3200 | ✅ Safe |
+| 600 | 300 | 600 | 4000 | ⚠️ Old limit |
+| 840 | 420 | 840 | 5600 | ⚠️ May stall |
+| 1000 | 500 | 1000 | 6667 | ⚠️ Likely stall |
+| 1200 | 600 | 1200 | 8000 | 🚨 NEW LIMIT |
+| 1680 | 840 | 1680 | 11200 | ❌ Over limit |
+
+---
+
+## 🎯 TEST PLAN:
+
+### Quick Test (5 turns each):
+```cpp
+#define WINDING_TARGET_TURNS 5  // Fast test!
+
+Test at: 480, 600, 840, 1000, 1200 config
+Record: Max RPM reached, encoder behavior, stalls
+```
+
+### If 840+ works smoothly:
+```
+Congratulations! Your motor can handle high speed!
+→ Test turn accuracy at 840 config (100 turns)
+→ Then push toward 1200!
+```
+
+### If 600-840 stalls:
+```
+Motor needs help!
+→ Implement TMC SpreadCycle (next priority!)
+→ Or run production at 480-600 (safe zone)
+```
+
+---
+
+## 🔥 NEXT: TMC SpreadCycle Optimization
+
+If you hit motor limits, the **BIG** speed unlock is:
+
+**TMC2209 UART Configuration:**
+1. SpreadCycle mode (better for high RPM)
+2. Current tuning (IRUN/IHOLD)
+3. StallGuard monitoring
+4. Coolstep (automatic current reduction)
+
+**Expected gain: +30-50% speed!**
+
+I have the Klipper UART code ready to port! 🚀
+
+---
+
+## FILE: winder_v1.9.1_SPEED_8000SPS.uf2
+
+```bash
+git pull
+# Upload v1.9.1
+# Test at 480, 600, 840, 1000, 1200 config
+# Report max stable speed!
+```
+
+**LET'S SEE HOW FAST THIS BABY CAN GO!** 🚀🚀🚀

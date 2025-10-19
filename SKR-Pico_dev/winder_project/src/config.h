@@ -73,6 +73,14 @@
 #define POWER_DOWN_DELAY     20      // Delay before reducing to hold current (x 0.1s)
 
 // =============================================================================
+// SPEED LIMITS
+// =============================================================================
+// Maximum steps per second for spindle motor
+// 4000 = 300 RPM stepper = 600 RPM spindle (tested stable)
+// 8000 = 600 RPM stepper = 1200 RPM spindle (requires TMC tuning!)
+#define MAX_SPINDLE_SPS  8000.0f    // Raise carefully! Monitor for stalls.
+
+// =============================================================================
 // MECHANICAL SETUP (CRITICAL!)
 // =============================================================================
 // Gear ratios:
