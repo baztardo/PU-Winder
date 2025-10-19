@@ -39,6 +39,11 @@
 #define ENCODER_B_PIN       4
 #define ENCODER_Z_PIN       25
 
+// Hardware Counter (Optional - for high-speed turn counting)
+#define HARDWARE_COUNTER_ENABLE  0      // Set to 1 to use external hardware counter
+#define HARDWARE_COUNTER_PIN     26     // GPIO for counter output (relay/NPN/PNP)
+                                         // When target turns reached, counter triggers this pin
+
 // TMC2209 UART (Shared bus)
 #define TMC_UART_TX_PIN     8
 #define TMC_UART_RX_PIN     9
