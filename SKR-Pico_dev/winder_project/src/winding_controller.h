@@ -9,6 +9,7 @@
 #include "encoder.h"
 #include "stepcompress.h"
 #include "lcd_display.h"
+#include "dma_stepper.h"
 #include <cstdint>
 
 // =============================================================================
