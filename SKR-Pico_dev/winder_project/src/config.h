@@ -7,10 +7,9 @@
 
 #include <cstdint>
 
-
-#define FIRMWARE_VERSION "1.7.5"
-#define VERSION_DATE "2025-10-18"
-#define VERSION_DESC "Pickup winder firmware"
+// NOTE: Version info moved to src/version.h
+// Don't add FIRMWARE_VERSION, VERSION_DATE, or VERSION_DESC here!
+// They're in version.h now so they don't conflict when you edit config.h
 
 // =============================================================================
 // PIN DEFINITIONS (SKR Pico)
