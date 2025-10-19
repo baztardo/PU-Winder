@@ -8,6 +8,11 @@
 #include <cstdint>
 
 
+// NOTE: Version info moved to src/version.h
+// Don't add FIRMWARE_VERSION, VERSION_DATE, or VERSION_DESC here!
+// They're in version.h now so they don't conflict when you edit config.h
+
+
 // =============================================================================
 // PIN DEFINITIONS (SKR Pico)
 // =============================================================================
