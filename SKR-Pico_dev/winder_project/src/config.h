@@ -75,9 +75,9 @@
 // SPEED LIMITS
 // =============================================================================
 // Maximum steps per second for spindle motor
-// 4000 = 300 RPM stepper = 600 RPM spindle (tested stable)
-// 8000 = 600 RPM stepper = 1200 RPM spindle (requires TMC tuning!)
-#define MAX_SPINDLE_SPS  8000.0f    // Raise carefully! Monitor for stalls.
+// 4000 = 300 RPM stepper = 600 RPM spindle (STABLE - encoder works!)
+// 8000 = 600 RPM stepper = 1200 RPM spindle (encoder freezes - needs DMA!)
+#define MAX_SPINDLE_SPS  4000.0f    // Encoder limit with multicore!
 
 // =============================================================================
 // MECHANICAL SETUP (CRITICAL!)
