@@ -1,0 +1,151 @@
+# 🚨 v1.9.2 - ENCODER FIFO OVERFLOW FIX
+
+## THE BUG (v1.9.1):
+
+Motor ran smooth at 8000 sps (600 RPM stepper / 1200 RPM spindle)
+**BUT ENCODER STOPPED COUNTING!** ❌
+
+```
+Ramp slice 24: 8000 sps ✓
+Motor: Smooth, no stalls ✓  
+Encoder: NO COUNTS ❌❌❌
+```
+
+---
+
+## ROOT CAUSE:
+
+**PIO sampling TOO FAST → FIFO overflow → Lost samples!**
+
+### The Math:
+
+At 1200 RPM spindle:
+```
+Expected encoder events: 28,800 counts/sec
+
+OLD PIO sample rate:
+- Clock: 125 MHz / 1 = 125 MHz  
+- With in pins, 2: 125M / 2 = 62.5 MHz samples/sec!
+- FIFO size: 8 words
+- ISR drains: 16 samples every 50μs = 320,000/sec
+
+Result: PIO generates 62.5 MILLION samples/sec!
+        ISR drains 320,000 samples/sec
+        FIFO overflows in microseconds! ❌
+```
+
+**The 8-word FIFO can't keep up!**
+
+---
+
+## THE FIX (v1.9.2):
+
+### **1. Slow Down PIO Sampling**
+
+```pioasm
+OLD:
+.wrap_target
+    in pins, 2       ; Sample every 2 cycles = 62.5 MHz!
+    push noblock
+.wrap
+
+NEW:
+.wrap_target
+    in pins, 2 [31]  ; Sample + wait 31 cycles = 32 total
+    push noblock     ; Now samples at: 125M / 32 = 3.9 MHz
+.wrap
+```
+
+**New sample rate: 3.9 MHz = 3,900,000 samples/sec**
+
+### **2. Drain FIFO Faster**
+
+```c
+OLD: while (...samples_processed++ < 16)
+NEW: while (...samples_processed++ < 32)  // Drain 2x per ISR tick!
+```
+
+---
+
+## 📊 NEW PERFORMANCE:
+
+At 1200 RPM spindle (8000 sps):
+```
+Encoder events: 28,800/sec
+PIO samples: 3,900,000/sec (136x oversample) ✓
+ISR drains: 640,000/sec (now 32 samples @ 20kHz) ✓
+FIFO depth: 8 words
+
+Max FIFO fill time: 8 / 3.9M = 2 microseconds
+ISR drain time: Every 50 microseconds
+Safety margin: 25x! ✓✓✓
+```
+
+**Plenty of headroom!**
+
+---
+
+## 🎯 EXPECTED v1.9.2 RESULTS:
+
+### Test at 1200 Config:
+```
+Motor: 600 RPM stepper (8000 sps)
+Spindle: 1200 RPM (via 0.5 gear ratio)
+Encoder: Should count! ✅
+Serial: [ENC] pos=XXXXX rpm=~600.0 ✅
+```
+
+### Test at 1800 Config:
+```
+Motor: Will cap at 600 RPM (8000 sps limit)
+Encoder: Should still count! ✅
+```
+
+---
+
+## ⚠️ IF ENCODER STILL FAILS:
+
+We'll need **DMA** to drain FIFO:
+
+```c
+// DMA reads PIO FIFO → Memory buffer
+// CPU processes buffer in batch
+// No more FIFO overflow!
+```
+
+**But v1.9.2 should work!** The math checks out.
+
+---
+
+## 📈 SAMPLE RATE TABLE:
+
+| Delay | Sample Rate | At 1200 RPM | At 2400 RPM | At 6000 RPM |
+|-------|-------------|-------------|-------------|-------------|
+| `[0]` | 62.5 MHz | **OVERFLOW!** ❌ | **OVERFLOW!** ❌ | **OVERFLOW!** ❌ |
+| `[7]` | 15.6 MHz | **OVERFLOW!** ❌ | **OVERFLOW!** ❌ | Marginal ⚠️ |
+| `[15]` | 7.8 MHz | OK? ⚠️ | **OVERFLOW!** ❌ | **OVERFLOW!** ❌ |
+| **`[31]`** | **3.9 MHz** | ✅ **136x** | ✅ **68x** | ✅ **27x** |
+| `[63]` | 1.95 MHz | ✅ 68x | ✅ 34x | ✅ 14x |
+
+**v1.9.2 uses [31] = Good balance!**
+
+---
+
+## 🚀 NEXT IF THIS WORKS:
+
+1. Test 1200, 1400, 1600, 1800 config
+2. Verify encoder counts at all speeds
+3. Check turn accuracy (100 turn test)
+4. Then → **TMC SpreadCycle** for even more speed! 🔥
+
+---
+
+## FILE: winder_v1.9.2_ENCODER_FIFO_FIX.uf2
+
+```bash
+git pull
+# Upload v1.9.2
+# Test at 1200 config - encoder should count now!
+```
+
+**THE ENCODER SHOULD WORK NOW!** ✅

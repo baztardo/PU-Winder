@@ -136,7 +136,7 @@ void Encoder::update() {
     if (pio_initialized) {
         // Drain RX FIFO; apply transitions for each sample (cap per tick)
         int samples_processed = 0;
-        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 16) {    // cap per tick
+        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 32) {    // Increased from 16 to 32!
             uint32_t data = pio_sm_get(pio, sm);
             // Latest sample is in MSBs (bits 31:30) per right-shift IN
             uint8_t raw = (uint8_t)((data >> 30) & 0x3);
