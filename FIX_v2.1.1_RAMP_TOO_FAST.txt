@@ -1,0 +1,164 @@
+# 🔧 v2.1.1 - FIX: Ramp-Up Too Aggressive!
+
+## THE PROBLEM (v2.1.0):
+
+```
+1200 config: ✅ Works (tach 600 RPM)
+1400 config: ⚠️ Inconsistent!
+  - Sometimes stalls @ 300-400 RPM
+  - Sometimes reaches 700 RPM  
+  - "Depends on how smooth the start is"
+```
+
+**This is NOT a speed limit!**  
+**This is an ACCELERATION problem!**
+
+---
+
+## ROOT CAUSE:
+
+**Ramp-up is too fast!**
+
+```
+OLD: 0 → 1400 RPM in 5 seconds
+Acceleration: 280 RPM/second
+
+Like flooring the gas pedal!
+Motor can't accelerate that fast!
+Stalls during ramp-up!
+```
+
+**Once at speed, motor runs fine!**
+
+---
+
+## THE FIX (v2.1.1):
+
+**Doubled ramp time:**
+
+```c
+OLD: #define WINDING_RAMP_TIME_SEC 5.0f   // Too aggressive!
+NEW: #define WINDING_RAMP_TIME_SEC 10.0f  // Gentler acceleration
+```
+
+**New acceleration:**
+```
+0 → 1400 RPM in 10 seconds
+140 RPM/second (half the rate!)
+Much smoother!
+```
+
+---
+
+## 📊 ACCELERATION COMPARISON:
+
+| Ramp Time | Acceleration | Result |
+|-----------|--------------|--------|
+| **5 sec** | 280 RPM/s | ❌ Stalls @ 300-400 RPM |
+| **10 sec** | 140 RPM/s | ⚠️ Should be smooth! |
+| **15 sec** | 93 RPM/s | ✅ Very gentle |
+
+---
+
+## 🧪 TEST v2.1.1:
+
+```bash
+git pull
+Upload: winder_v2.1.1_SLOW_RAMP_10SEC.uf2
+
+Test 1: 1200 config (known working)
+- Should still work ✅
+- Just takes 10s instead of 5s
+
+Test 2: 1400 config (was inconsistent)
+- Should NO LONGER stall! ✅
+- Reaches target smoothly
+- Takes 10s to ramp up
+```
+
+---
+
+## 🎯 EXPECTED RESULTS:
+
+### With 10s ramp:
+```
+Motor accelerates smoothly
+No stalling at 300-400 RPM ✅
+Reaches 700 RPM consistently ✅
+Maybe reaches 900+ RPM! 🚀
+```
+
+---
+
+## ⚠️ IF STILL STALLS:
+
+**Need even slower ramp!**
+
+Try in config.h:
+```c
+#define WINDING_RAMP_TIME_SEC 15.0f  // Even gentler
+// Or
+#define WINDING_RAMP_TIME_SEC 20.0f  // Very gentle
+```
+
+---
+
+## 💡 WHY THIS HAPPENS:
+
+**Stepper motors have:**
+- ✅ High torque at low speed
+- ⚠️ Limited acceleration capability
+- ✅ Good torque at high speed (once spinning!)
+
+**Like a heavy flywheel:**
+- Hard to start spinning quickly
+- But easy to keep spinning once going!
+
+**Solution:**
+- Slow ramp-up (give motor time to accelerate)
+- Once at speed, can maintain high RPM!
+
+---
+
+## 🔥 OPTIMIZATION PATH:
+
+1. **Test v2.1.1** (10s ramp)
+   - Should eliminate stalling ✅
+   
+2. **If works consistently:**
+   - Find max speed (1400? 1600? 1800?)
+   - Test at target 1500 RPM!
+   
+3. **If still stalls:**
+   - Increase to 15s or 20s ramp
+   - Or tune TMC2209 current
+
+4. **Once stable at 1500 RPM:**
+   - Tune ramp time down (10s → 8s → 6s)
+   - Find fastest safe ramp
+
+---
+
+## 📈 YOUR MOTOR CAN HANDLE:
+
+```
+✅ 600 RPM spindle (proven)
+✅ 700 RPM spindle (reached it!)
+⚠️ Just needs smoother acceleration!
+🎯 Target: 1500 RPM with proper ramp
+```
+
+**The motor is NOT the limit - the ramp-up is!**
+
+---
+
+## FILE: winder_v2.1.1_SLOW_RAMP_10SEC.uf2
+
+```bash
+git pull
+# Upload v2.1.1
+# Test 1400 config
+# Should ramp smoothly without stalling! ✅
+```
+
+**This should fix the inconsistent stalling!** 🚀
