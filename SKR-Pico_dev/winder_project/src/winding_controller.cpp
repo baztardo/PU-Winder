@@ -10,12 +10,13 @@
 #include "pico/malloc.h"
 #include <cmath>
 #include <algorithm>
-#include "dma_stepper.h"
+#include "spindle_step_pio.h"
 
-// v3.0.0: DMA stepper replaces spindle_step_pio for ZERO CPU overhead!
-dma_stepper_t spindle_dma;
+spindle_step_pio_t spindle_step_pio;
 
 extern Scheduler scheduler;
+
+static spindle_step_pio_t g_spindle;
 
 // Optional helper: get current free heap in bytes
 static uint32_t get_free_heap() {
@@ -41,12 +42,12 @@ WindingController::WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lc
 void WindingController::init() {
     printf("WindingController::init() called\n");
     state = WindingState::IDLE;
-    printf("Initializing DMA stepper (Van Hunter Adams technique)...\n");
-    bool dma_ok = dma_stepper_init(&spindle_dma, pio0, 2, SPINDLE_STEP_PIN);
-    printf("DMA stepper init result: %d (ZERO CPU overhead!)\n", dma_ok);
+    printf("Initializing spindle PIO...\n");
+    bool pio_ok = spindle_step_pio_init(&spindle_step_pio, pio0, 2, SPINDLE_STEP_PIN);
+    printf("Spindle PIO init result: %d\n", pio_ok);
     lcd->clear();
     lcd->print_at(0, 0, "Winder Ready");
-    lcd->print_at(0, 1, "DMA v3.0.0");
+    lcd->print_at(0, 1, "Press Start...");
 }
 
 void WindingController::set_parameters(const WindingParams& p) {
@@ -167,12 +168,11 @@ void WindingController::home_spindle() {
         waiting_for_z = false;
         
         // Generate slow rotation move (one revolution to find Z)
-        // v3.0.0: Use DMA stepper (ZERO CPU overhead!)
-        uint32_t steps_per_rev = 200 * SPINDLE_MICROSTEPS;  // Use correct microsteps
+        // Use PIO for spindle stepping (not move_queue)
+        uint32_t steps_per_rev = 200 * MOTOR_MICROSTEPS;  // 3200 for 16x microstepping
         float slow_sps = 200.0f;  // 200 steps/sec = slow rotation
         
-        dma_stepper_queue_constant_velocity(&spindle_dma, steps_per_rev, slow_sps);
-        printf("[DMA] Z-homing: Queued %lu steps @ %.1f sps\n", steps_per_rev, slow_sps);
+        ::spindle_step_pio_queue_cv(&spindle_step_pio, steps_per_rev, slow_sps);
     }
     
     // Check for Z pulse
@@ -180,9 +180,8 @@ void WindingController::home_spindle() {
         // Found Z index!
         encoder->reset();
         
-        // CRITICAL: Stop DMA immediately!
-        dma_stepper_stop(&spindle_dma);
-        printf("[DMA] Z-index found - DMA stopped\n");
+        // CRITICAL: Stop the PIO immediately!
+        ::spindle_step_pio_stop(&spindle_step_pio);
         move_queue->clear_queue(AXIS_SPINDLE);
         
         lcd->clear();
@@ -350,13 +349,16 @@ void WindingController::ramp_up_spindle() {
         const float slice_s  = params.ramp_time_sec / (float)N_slices;
         const float sps_min  = std::max(100.0f, target_sps * 0.02f);
 
-        // v3.0.0: Use DMA ramp (pre-computed, zero CPU!)
-        printf("[DMA] Ramping from %.1f to %.1f sps over %.1f seconds\n", sps_min, target_sps, params.ramp_time_sec);
-        
-        uint32_t total_ramp_steps = (uint32_t)((sps_min + target_sps) / 2.0f * params.ramp_time_sec);
-        dma_stepper_queue_ramp(&spindle_dma, total_ramp_steps, sps_min, target_sps);
-        
-        printf("[DMA] Ramp queued: %lu steps (%.1f → %.1f sps)\n", total_ramp_steps, sps_min, target_sps);
+        for (int i = 1; i <= N_slices; ++i) {
+            float frac = (float)i / (float)N_slices;
+            float sps  = sps_min + (target_sps - sps_min) * (frac * frac);
+            // CRITICAL: Ensure each ramp slice respects max_sps limit!
+            if (sps > max_sps) sps = max_sps;
+            uint32_t steps = (uint32_t)std::max(1.0f, sps * slice_s);
+            printf("Ramp slice %d: queuing %lu steps at %.1f sps\n", i, steps, sps);
+            ::spindle_step_pio_queue_cv(&spindle_step_pio, steps, sps);
+        }
+        printf("Ramp up: All %d slices queued to PIO\n", N_slices);
         return;
     }
 
@@ -376,9 +378,9 @@ void WindingController::ramp_up_spindle() {
         if (target_sps > max_sps) target_sps = max_sps;
 
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
-        printf("  [DMA_CONTINUOUS] Initial queue: %lu steps @ %.1f sps (%.1f RPM spindle)\n", 
+        printf("  [CONTINUOUS] Initial queue: %lu steps @ %.1f sps (%.1f RPM)\n", 
                spindle_steps, target_sps, params.spindle_rpm);
-        dma_stepper_queue_constant_velocity(&spindle_dma, spindle_steps, target_sps);
+        ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
 
         state = WindingState::WINDING;
         banner_printed = false;
@@ -387,11 +389,15 @@ void WindingController::ramp_up_spindle() {
 }
 
 void WindingController::execute_winding() {
-    // v3.0.0: DMA handles stepping with ZERO CPU overhead!
-    // Just check if DMA is done and queue next batch
+    // CRITICAL: Keep spindle running with PIO!
+    // PIO FIFO is 4 deep. We queue 2 values per move (half_period + step_count).
+    // So we can have at most 2 moves queued. Check if FIFO has room and refill.
     
-    // Check if DMA needs refilling
-    if (!dma_stepper_is_busy(&spindle_dma)) {
+    // Check PIO FIFO depth (TX FIFO)
+    uint32_t fifo_level = pio_sm_get_tx_fifo_level(spindle_step_pio.pio, spindle_step_pio.sm);
+    
+    // If FIFO has room (< 2 entries used out of 4), queue more steps
+    if (fifo_level < 2) {
         // Calculate continuous spindle movement
         // Account for gear ratio: stepper at HALF spindle speed
         float stepper_rps = (params.spindle_rpm / 60.0f) * SPINDLE_GEAR_RATIO;
@@ -402,12 +408,12 @@ void WindingController::execute_winding() {
         const float max_sps = MAX_SPINDLE_SPS;  // From config.h
         if (target_sps > max_sps) target_sps = max_sps;
         
-        // Queue 1.5 seconds worth of steps
+        // Queue 1.5 seconds worth of steps (matches ramp-up logic)
         uint32_t spindle_steps = (uint32_t)(target_sps * 1.5f);
         
-        printf("  [DMA_CONTINUOUS] Re-queueing %lu steps @ %.1f sps (%.1f RPM spindle)\n", 
+        printf("  [CONTINUOUS] Re-queueing %lu steps @ %.1f sps (%.1f RPM)\n", 
                spindle_steps, target_sps, params.spindle_rpm);
-        dma_stepper_queue_constant_velocity(&spindle_dma, spindle_steps, target_sps);
+        ::spindle_step_pio_queue_cv(&spindle_step_pio, spindle_steps, target_sps);
     }
     
     // Now sync traverse to spindle
@@ -415,9 +421,9 @@ void WindingController::execute_winding() {
     
     // Check if we've completed target turns
     if (turns_completed >= params.target_turns) {
-        printf("Target turns reached! Stopping DMA immediately.\n");
-        // CRITICAL: Stop DMA immediately to prevent overrun!
-        dma_stepper_stop(&spindle_dma);
+        printf("Target turns reached! Stopping spindle immediately.\n");
+        // CRITICAL: Stop PIO immediately to prevent overrun!
+        spindle_step_pio_stop(&spindle_step_pio);
         state = WindingState::RAMPING_DOWN;
         return;
     }
@@ -492,9 +498,9 @@ void WindingController::ramp_down_spindle() {
     if (!ramp_started) {
         printf("Ramp-down: Spindle already stopped at target turns.\n");
         
-        // DMA already stopped in execute_winding() when target reached
+        // PIO already stopped in execute_winding() when target reached
         // Just ensure it's stopped
-        dma_stepper_stop(&spindle_dma);
+        spindle_step_pio_stop(&spindle_step_pio);
         
         // Spindle already stopped - just disable motor
         move_queue->set_enable(AXIS_SPINDLE, false);

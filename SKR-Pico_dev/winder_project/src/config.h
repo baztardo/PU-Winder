@@ -7,11 +7,9 @@
 
 #include <cstdint>
 
-
 // NOTE: Version info moved to src/version.h
 // Don't add FIRMWARE_VERSION, VERSION_DATE, or VERSION_DESC here!
 // They're in version.h now so they don't conflict when you edit config.h
-
 
 // =============================================================================
 // PIN DEFINITIONS (SKR Pico)
@@ -100,7 +98,7 @@
 // WINDING PARAMETERS (Easy configuration!)
 // =============================================================================
 #define WINDING_TARGET_TURNS    1000    // Total turns to wind
-#define WINDING_SPINDLE_RPM     1800.0f  // **SPINDLE** speed (RPM) - Start conservative!
+#define WINDING_SPINDLE_RPM     120.0f  // **SPINDLE** speed (RPM) - Start conservative!
 #define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter (mm) - 43 AWG
 #define WINDING_WIDTH_MM        50.0f   // Winding width (mm)
 #define WINDING_START_POS_MM    20.0f   // Start position from home (mm)
@@ -121,7 +119,7 @@
 // Lower microstepping = faster capable, less resolution
 // Higher microstepping = slower max speed, more resolution
 
-#define SPINDLE_MICROSTEPS  4       // REVERT: 4x (1/4 step) - 2x was WORSE!
+#define SPINDLE_MICROSTEPS  2       // TEST: 2x (was 4x) for MORE TORQUE at high speed!
 #define TRAVERSE_MICROSTEPS 16      // 16x for traverse (PRECISION - slower but accurate)
 #define MOTOR_MICROSTEPS    16      // Legacy/default (kept for compatibility)
 
