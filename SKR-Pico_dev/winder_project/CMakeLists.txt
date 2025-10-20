@@ -16,7 +16,16 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 
 cmake_minimum_required(VERSION 3.13)
 # --- Import Pico SDK ---
-include($ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
+# Prefer VSCode-provided path; otherwise try PICO_SDK_PATH or local file
+if (EXISTS $ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
+    include($ENV{HOME}/.pico-sdk/sdk/2.2.0/external/pico_sdk_import.cmake)
+elseif(DEFINED ENV{PICO_SDK_PATH})
+    include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
+elseif(EXISTS ${CMAKE_CURRENT_LIST_DIR}/pico_sdk_import.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/pico_sdk_import.cmake)
+else()
+    message(FATAL_ERROR "Pico SDK import not found. Set PICO_SDK_PATH or install VSCode Pico SDK.")
+endif()
 
 project(winder_project C CXX ASM)
 
@@ -33,8 +42,14 @@ add_executable(winder_project
     src/scheduler.cpp
     src/lcd_display.cpp
     src/winding_controller.cpp
+    src/spindle_step_pio.cpp
 )
 target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# Generate PIO header for encoder (must be after add_executable)
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/encoder/encoder.pio)
+## Generate PIO header for spindle stepgen
+pico_generate_pio_header(winder_project ${CMAKE_CURRENT_SOURCE_DIR}/src/spindle_step.pio)
 
 # Create map/bin/hex/uf2 files
 #pico_add_extra_outputs(winder_project)
@@ -43,6 +58,7 @@ target_include_directories(winder_project PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/sr
 target_link_libraries(winder_project
     pico_stdlib
     pico_multicore
+    hardware_pio
     hardware_gpio
     hardware_uart
     hardware_timer

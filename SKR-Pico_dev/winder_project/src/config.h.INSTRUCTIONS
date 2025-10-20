@@ -1,0 +1,53 @@
+=============================================================================
+HOW TO CHANGE MICROSTEPPING SETTINGS
+=============================================================================
+
+Edit config.h and change these values:
+
+#define SPINDLE_MICROSTEPS  8       // 8x for spindle (SPEED)
+#define TRAVERSE_MICROSTEPS 16      // 16x for traverse (PRECISION)
+
+-----------------------------------------------------------------------------
+SPINDLE MICROSTEPPING OPTIONS:
+-----------------------------------------------------------------------------
+
+Lower = Faster capable, less smooth
+Higher = Slower max speed, smoother
+
+Recommended values:
+  4x  - Very fast (up to 600 RPM possible)
+  8x  - Fast (up to 300 RPM) ← CURRENT DEFAULT
+  16x - Medium (up to 150 RPM)
+  32x - Slow (up to 75 RPM)
+
+Current math with 8x:
+  300 RPM × 8x = 4000 steps/second ✅
+
+If you want FASTER:
+  Use 4x: 600 RPM × 4x = 4000 steps/second
+
+If you want SMOOTHER:
+  Use 16x: 150 RPM × 16x = 4000 steps/second
+
+-----------------------------------------------------------------------------
+TRAVERSE MICROSTEPPING OPTIONS:
+-----------------------------------------------------------------------------
+
+Keep at 16x for precision positioning!
+(Traverse doesn't need high speed)
+
+-----------------------------------------------------------------------------
+AFTER CHANGING:
+-----------------------------------------------------------------------------
+
+1. Save config.h
+2. Rebuild:
+   cd build
+   make clean
+   make -j4
+
+3. Upload new firmware
+
+4. Motors will auto-configure to new microstepping!
+
+=============================================================================

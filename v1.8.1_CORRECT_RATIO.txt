@@ -1,0 +1,111 @@
+# v1.8.1 - CORRECT GEAR RATIO FIX
+
+## 🚨 I HAD IT BACKWARDS!
+
+### CORRECT Understanding:
+```
+Stepper: 40 teeth (LARGER)
+Spindle: 20 teeth (SMALLER)
+
+40T driving 20T = SPEED-UP RATIO!
+Spindle rotates 2× FASTER than stepper!
+```
+
+### Math (CORRECT):
+- Spindle RPM = Stepper RPM × 2
+- **Stepper RPM = Spindle RPM ÷ 2** ✅
+
+---
+
+## 📊 CORRECT Speed Table:
+
+| Spindle RPM (Target) | Stepper RPM | Steps/Sec | Status |
+|----------------------|-------------|-----------|--------|
+| 60 | 30 | 400 | Ultra-safe |
+| 120 | 60 | 800 | v1.7.5 actual! |
+| 200 | 100 | 1,333 | Good speed |
+| 500 | 250 | 3,333 | Fast |
+| **1000** | **500** | **6,667** | **Your target avg** ✅ |
+| **1500** | **750** | **10,000** | **Your target max** ✅ |
+
+---
+
+## 🎯 What This Means:
+
+### v1.7.5 Was Actually Running:
+```
+Set: 60 RPM
+Stepper: 60 RPM (800 sps)
+Encoder: 60 RPM
+
+But encoder is on SPINDLE!
+So spindle was actually: 60 × 2 = 120 RPM!
+```
+
+**Wait...** if encoder showed 60 RPM, and it's on the spindle, then stepper must have been at 30 RPM?
+
+Let me recalculate v1.7.5 actual behavior:
+- We commanded: 800 sps
+- That's: 800 / 800 = 1 RPS = 60 RPM **stepper**
+- Spindle (via 40T→20T): 60 × 2 = 120 RPM
+- Encoder (1:1 with spindle): Should read **120 RPM**
+
+But your serial showed **60 RPM** encoder! 🤔
+
+### Possible Explanations:
+1. **Encoder is actually on stepper shaft**, not spindle?
+2. Or there's additional gearing I don't know about?
+3. Or the 40T/20T is the other way around?
+
+---
+
+## 🔧 v1.8.1 Configuration:
+
+```cpp
+#define SPINDLE_GEAR_RATIO 0.5f  // Stepper = Spindle / 2
+
+// When you set:
+WINDING_SPINDLE_RPM 120.0f  // Spindle target
+
+// Code calculates:
+Stepper RPM = 120 × 0.5 = 60 RPM
+Steps/sec = 60 × 800 / 60 = 800 sps
+```
+
+---
+
+## 🧪 TEST to Verify Gear Ratio:
+
+### Upload v1.8.1 with:
+```cpp
+#define WINDING_SPINDLE_RPM 120.0f
+```
+
+### Expected Results:
+- **Stepper:** 60 RPM (800 sps)
+- **Encoder (if on spindle):** **120 RPM**
+- **Encoder (if on stepper):** **60 RPM**
+
+**Which will it be?** This will tell us where the encoder actually is!
+
+---
+
+## 📈 Your Targets NOW Achievable:
+
+With correct 0.5 ratio:
+- 1000 RPM spindle = 500 RPM stepper = 6667 sps ✅ Easy!
+- 1500 RPM spindle = 750 RPM stepper = 10000 sps ✅ Very doable!
+
+Much more reasonable than the 40000 sps I calculated before!
+
+---
+
+## 🚀 Next Steps:
+
+1. **Test v1.8.1 at 120 RPM** to verify encoder reading
+2. **Gradually increase**: 200 → 500 → 1000 → 1500 RPM
+3. **Report what encoder shows** - this confirms gear ratio!
+
+File: `winder_v1.8.1_CORRECT_GEAR_RATIO.uf2`
+
+Sorry for the confusion! Your math was correct! 👍

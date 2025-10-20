@@ -118,10 +118,8 @@ bool Scheduler::timer_callback(repeating_timer_t* rt) {
 void Scheduler::handle_isr() {
     tick_count++;
 
-    // Update encoder state
-    if (spindle_encoder) {
-        spindle_encoder->update();
-    }
+    // Encoder now updated by Core 1 (see main.cpp core1_entry)
+    // Removed: spindle_encoder->update() to reduce Core 0 ISR load
     
     // Process move queues for both axes
     if (move_queue) {
@@ -133,8 +131,9 @@ void Scheduler::handle_isr() {
         user_callback(user_callback_data);
     }
     // -----------------------------------------------------------------------------
-    // Heartbeat LED toggle (safe for ISR)
+    // Heartbeat LED toggle (guarded)
     // -----------------------------------------------------------------------------
+    #if defined(HEARTBEAT_ENABLE) && (HEARTBEAT_ENABLE)
     static uint32_t last_toggle = 0;
     static bool led_state = false;
     if ((tick_count - last_toggle) >= 500) {   // toggle every ~0.5s
@@ -142,8 +141,8 @@ void Scheduler::handle_isr() {
         gpio_put(SCHED_HEARTBEAT_PIN, led_state);
         last_toggle = tick_count;
     }
-    // Run stepper tick handler (stepper_event)
-    scheduler_tick();
+    #endif
+    // Legacy stepper path disabled; MoveQueue handles stepping
 }
 
 // This runs periodically to step active motors

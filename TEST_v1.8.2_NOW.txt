@@ -1,0 +1,54 @@
+# 🚨 TEST v1.8.2 - GEAR RATIO = 2.0!
+
+## What Happened:
+v1.8.1 with ratio 0.5:
+- Set: 120 RPM
+- Result: 30 RPM (HALF of v1.7.5!)
+- WRONG DIRECTION! ❌
+
+## New Theory:
+The gear ratio is **2.0** (stepper goes FASTER than spindle)!
+
+## v1.8.2 Calculation:
+```cpp
+#define SPINDLE_GEAR_RATIO 2.0f
+
+When you set:
+WINDING_SPINDLE_RPM 60.0f
+
+Code calculates:
+stepper_rpm = 60 × 2.0 = 120 RPM
+target_sps = 120/60 × 200 × 4 = 1600 sps
+```
+
+## Expected Results:
+- Set: 60 RPM → Encoder: **60 RPM** (match v1.7.5!)
+- Set: 120 RPM → Encoder: **120 RPM** (2× v1.7.5!)
+- Set: 1000 RPM → Encoder: **1000 RPM** ✅
+
+## 🧪 TEST PLAN:
+
+### Test 1: Match v1.7.5 baseline
+```cpp
+#define WINDING_SPINDLE_RPM 60.0f
+```
+Expected: Encoder = **60 RPM** (same as v1.7.5!)
+
+### Test 2: Double speed
+```cpp
+#define WINDING_SPINDLE_RPM 120.0f
+```
+Expected: Encoder = **120 RPM** (2× v1.7.5!)
+
+### Test 3: Your target!
+```cpp
+#define WINDING_SPINDLE_RPM 1000.0f
+```
+Expected: Encoder = **1000 RPM** ✅
+
+---
+
+## FILE: winder_v1.8.2_GEAR_RATIO_2.0.uf2
+
+Upload and test at 60 RPM first!
+If encoder matches v1.7.5, then 2.0 is correct! 🎯

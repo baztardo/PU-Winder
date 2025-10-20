@@ -1,0 +1,95 @@
+# ⚠️ v1.9.2 - ENCODER DEBUG (No changes from v1.9.1)
+
+## STATUS:
+
+**v1.9.2 = v1.9.1 (same encoder config!)** ← Recompiled fresh
+
+The encoder code I checked had:
+- ✅ Clock divider: 100.0f
+- ✅ Delay: [7]
+- ✅ Drain limit: 32 samples/tick
+
+**These settings SHOULD work!**
+
+Sample rate: 125 MHz / 100 / 8 = 156 kHz
+At 1200 RPM: 28,800 events/sec = 5.4x oversample ✓
+
+---
+
+## 🔍 WHY ENCODER STOPPED:
+
+Possible causes:
+1. **ISR not running** - Scheduler crashed?
+2. **PIO program wrong** - Sampling issue?
+3. **Encoder position not being read** - Main loop hung?
+4. **TMC2209 issue** - Stepper commands blocking?
+
+---
+
+## 🧪 TEST v1.9.2:
+
+**Serial output to watch:**
+
+```
+GOOD signs:
+[ENC] pos=XXXX rpm=Y.Y     ← Position changing!
+[PIO_QUEUE] ...            ← Motor running
+
+BAD signs:
+[ENC] pos=0 rpm=0.0        ← Stuck at zero!
+No [ENC] messages          ← ISR dead!
+```
+
+---
+
+## 🚨 IF ENCODER STILL DEAD:
+
+**Try these diagnostics:**
+
+1. Does encoder count during Z-homing?
+   - If YES → Problem only at high speed
+   - If NO → PIO/ISR broken
+
+2. Does serial show `[ENC] pos=...`?
+   - If YES → Counting but wrong
+   - If NO → ISR stopped
+
+3. Does ramp-up serial show steps being queued?
+   - If YES → Motor side OK
+   - If NO → System crashed
+
+---
+
+## 🔥 NEXT FIXES IF STILL BROKEN:
+
+### Option A: Slower PIO (156k → 12.5k)
+```c
+sm_config_set_clkdiv(&c, 1000.0f);  // 10x slower!
+```
+
+### Option B: Check ISR
+Add debug:
+```cpp
+void Encoder::update() {
+    static uint32_t debug_counter = 0;
+    if (++debug_counter % 1000 == 0) {
+        printf("[ENC-ISR] alive! pos=%ld\n", position);
+    }
+    // ... rest of update ...
+}
+```
+
+### Option C: Use DMA
+Bypass ISR entirely - let DMA drain FIFO!
+
+---
+
+## FILE: winder_v1.9.2_ENCODER_FIFO_FIX.uf2
+
+**This is a CLEAN REBUILD from scratch**
+
+Test and report:
+1. Does encoder count during Z-homing?
+2. Does encoder count during ramp-up?
+3. At what RPM does it stop?
+4. Any serial output changes?

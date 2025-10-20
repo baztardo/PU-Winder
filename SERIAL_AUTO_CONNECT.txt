@@ -1,0 +1,140 @@
+📡 AUTO-CONNECT SERIAL TERMINAL
+
+You asked: "Is there a way to make the serial auto connect and start?"
+
+YES! Here are your options:
+
+============================================
+OPTION 1: Use minicom (Linux/Mac)
+============================================
+
+Install:
+```bash
+# macOS
+brew install minicom
+
+# Linux
+sudo apt-get install minicom
+```
+
+Setup auto-connect:
+```bash
+# Configure minicom
+minicom -s
+# Navigate to: Serial port setup
+# Set: /dev/tty.usbmodem* (or /dev/ttyACM0 on Linux)
+# Set baud: 115200
+# Save as default
+
+# Now just run:
+minicom
+```
+
+It will auto-reconnect when Pico resets!
+
+============================================
+OPTION 2: screen with auto-reconnect script
+============================================
+
+Create a script: `auto_serial.sh`
+```bash
+#!/bin/bash
+while true; do
+    # Wait for device
+    while [ ! -e /dev/tty.usbmodem* ]; do
+        sleep 0.5
+    done
+    
+    # Connect
+    screen /dev/tty.usbmodem* 115200
+    
+    # If screen exits, wait and retry
+    sleep 1
+done
+```
+
+Run:
+```bash
+chmod +x auto_serial.sh
+./auto_serial.sh
+```
+
+============================================
+OPTION 3: Python script (cross-platform)
+============================================
+
+Create: `auto_connect.py`
+```python
+import serial
+import time
+import glob
+
+def find_pico():
+    # Try to find Pico
+    ports = glob.glob('/dev/tty.usbmodem*') or \
+            glob.glob('/dev/ttyACM*') or \
+            glob.glob('COM*')
+    return ports[0] if ports else None
+
+while True:
+    port = find_pico()
+    if port:
+        try:
+            ser = serial.Serial(port, 115200, timeout=1)
+            print(f"Connected to {port}")
+            while True:
+                if ser.in_waiting:
+                    print(ser.readline().decode('utf-8'), end='')
+        except:
+            print("Disconnected, waiting...")
+            time.sleep(1)
+    else:
+        time.sleep(0.5)
+```
+
+Run:
+```bash
+python3 auto_connect.py
+```
+
+============================================
+OPTION 4: Arduino Serial Monitor
+============================================
+
+The Arduino IDE serial monitor auto-reconnects!
+
+1. Open Arduino IDE
+2. Tools → Port → Select Pico
+3. Tools → Serial Monitor
+4. Set baud to 115200
+
+It will automatically reconnect when Pico resets!
+
+============================================
+RECOMMENDED: minicom or Arduino IDE
+============================================
+
+Both are simple and work great!
+
+For macOS (what you're using):
+```bash
+brew install minicom
+minicom -D /dev/tty.usbmodem314101 -b 115200
+```
+
+Press Ctrl+A, then Q to quit.
+
+============================================
+YOUR CURRENT ISSUE SOLVED!
+============================================
+
+With auto-connect, you'll ALWAYS see:
+```
+=====================================
+  Winder Firmware 1.7.5
+  Build: 2025-10-18
+  FIX: Smooth ramp-to-continuous
+=====================================
+```
+
+No more missing the version banner!

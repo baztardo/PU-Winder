@@ -1,0 +1,65 @@
+🚨 YOU'RE UPLOADING THE WRONG FILE!
+
+============================================
+FILES IN REPO:
+============================================
+
+❌ winder_v1.7.4_CONFIG_IN_HEADER.uf2
+   - This is OLD!
+   - Shows: "Config in config.h + version banner"
+   - Has the bug: 4500 steps @ 3000 sps
+
+✅ winder_v1.7.5_SMOOTH_RAMP_FIXED.uf2
+   - This is NEW!
+   - Shows: "FIX: Smooth ramp-to-continuous"
+   - Fixed: 1200 steps @ 800 sps
+
+============================================
+YOU UPLOADED v1.7.4 (WRONG FILE!)
+============================================
+
+Your serial output shows:
+```
+  Winder Firmware 1.7.4  ← Says 1.7.4!
+  Build: 2025-10-18
+  Config in config.h + version banner  ← v1.7.4 description!
+  [CONTINUOUS] Queuing 4500 steps @ 3000.0 sps  ← Old bug!
+```
+
+This proves you uploaded:
+  winder_v1.7.4_CONFIG_IN_HEADER.uf2  ❌
+
+============================================
+UPLOAD THIS FILE INSTEAD:
+============================================
+
+  winder_v1.7.5_SMOOTH_RAMP_FIXED.uf2  ✅
+
+Located in repo root after: git pull
+
+============================================
+HOW TO VERIFY YOU HAVE THE RIGHT FILE:
+============================================
+
+After upload, serial MUST show:
+```
+=====================================
+  Winder Firmware 1.7.5  ← 1.7.5 not 1.7.4!
+  Build: 2025-10-18
+  FIX: Smooth ramp-to-continuous  ← Different description!
+=====================================
+
+[CONTINUOUS] Initial queue: 1200 steps @ 800.0 sps (60.0 RPM)
+NOT 4500 steps!
+```
+
+If you see "1.7.4" or "4500 steps" - wrong file!
+
+============================================
+FILE SIZES FOR VERIFICATION:
+============================================
+
+v1.7.4: 143 KB (old)
+v1.7.5: 143 KB (new)
+
+Both same size, so check by VERSION STRING!

@@ -143,34 +143,23 @@ void MoveQueue::axis_isr_handler(uint8_t axis) {
         return;
     }
     
-    // Check if it's time for the next step
+    // Single-step per tick (stable)
     uint32_t now = time_us_32();
     int32_t time_diff = (int32_t)(now - last_step_time[axis]);
-    
-    if (time_diff < (int32_t)active[axis].interval_us) {
-        return;  // Not time yet
-    }
-    
-    // Execute step pulse
+    if (time_diff < (int32_t)active[axis].interval_us) return;
+
     uint step_pin = (axis == AXIS_SPINDLE) ? SPINDLE_STEP_PIN : TRAVERSE_STEP_PIN;
     execute_step_pulse(step_pin);
-    
-    last_step_time[axis] = now;
+
+    last_step_time[axis] += active[axis].interval_us;
     step_count[axis]++;
-    
-    // Decrement count
-    if (active[axis].count > 0) {
-        active[axis].count--;
-    }
-    
-    // Update interval with add
+
+    if (active[axis].count > 0) active[axis].count--;
+
     int64_t next_interval = (int64_t)active[axis].interval_us + (int64_t)active[axis].add_us;
     active[axis].interval_us = (uint32_t)std::max((int64_t)1, next_interval);
-    
-    // Check if chunk finished
-    if (active[axis].count == 0) {
-        active_running[axis] = false;
-    }
+
+    if (active[axis].count == 0) active_running[axis] = false;
 }
 
 // Alternating ISR dispatcher to balance spindle/traverse updates

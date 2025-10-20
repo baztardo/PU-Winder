@@ -1,0 +1,139 @@
+🚨 CRITICAL: YOU WERE RUNNING THE WRONG VERSION!
+
+============================================
+THE PROBLEM:
+============================================
+
+Your serial output showed:
+  [CONTINUOUS] Queuing 4500 steps @ 3000.0 sps (150 RPM)
+  
+This is v1.7.1, NOT v1.7.2!
+
+v1.7.2 should show:
+  [CONTINUOUS] Queuing 1200 steps @ 800.0 sps (60.0 RPM)
+
+That's why it stalled - you were running at 2x speed!
+
+============================================
+FILE: winder_v1.7.4_CONFIG_IN_HEADER.uf2
+============================================
+
+v1.7.4 includes EVERYTHING:
+✅ v1.7.0: Direction fixed (SPINDLE_DIR_INVERT=1)
+✅ v1.7.1: Continuous winding uses PIO
+✅ v1.7.2: Correct microstepping (4x)
+✅ v1.7.3: Z-index debouncing
+✅ v1.7.4: Config moved to config.h + VERSION BANNER!
+
+============================================
+WHAT YOU'LL SEE IN v1.7.4:
+============================================
+
+FIRST LINE OF OUTPUT (verify this!):
+```
+=====================================
+  Winder Firmware 1.7.4
+  Build: 2025-10-18
+  Config in config.h + version banner
+=====================================
+```
+
+↑↑↑ YOU MUST SEE THIS! If not, wrong file uploaded!
+
+Z-Homing:
+  [PIO_QUEUE] 3200 steps @ 200.0 sps
+  [ENC] pos=377 rpm=14.9
+  Z-index detected!
+
+Ramp-Up (CORRECT SPEED NOW!):
+  Starting spindle ramp up to 60.0 RPM...
+  [ENC] pos=7090 rpm=30.0   ← ~Half of target
+  [ENC] pos=12242 rpm=60.0  ← TARGET! Not 120!
+
+Continuous (VERIFY THIS LINE!):
+  [CONTINUOUS] Queuing 1200 steps @ 800.0 sps (60.0 RPM)
+  ↑↑↑ Should be 1200, not 4500!
+  ↑↑↑ Should be 800, not 3000!
+  ↑↑↑ Should say 60.0 RPM, not 150!
+  
+  [ENC] pos=20792 rpm=60.0  ← Correct!
+  [ENC] pos=23678 rpm=60.1  ← Steady!
+  [CONTINUOUS] Queuing 1200 steps...  ← Keeps looping!
+
+============================================
+CHANGING SPEED NOW IN config.h!
+============================================
+
+Open: SKR-Pico_dev/winder_project/src/config.h
+
+Find this section:
+```cpp
+// =============================================================================
+// WINDING PARAMETERS (Easy configuration!)
+// =============================================================================
+#define WINDING_TARGET_TURNS    1000    // Total turns
+#define WINDING_SPINDLE_RPM     60.0f   // ← CHANGE THIS!
+#define WINDING_WIRE_DIA_MM     0.064f  // Wire diameter
+#define WINDING_WIDTH_MM        50.0f   // Winding width
+#define WINDING_START_POS_MM    20.0f   // Start position
+#define WINDING_RAMP_TIME_SEC   5.0f    // Ramp time
+```
+
+To change speed:
+1. Edit WINDING_SPINDLE_RPM (e.g., 100.0f for 100 RPM)
+2. Save config.h
+3. Recompile:
+   ```
+   cd SKR-Pico_dev/winder_project/build
+   make
+   ```
+4. Upload: build/winder_project.uf2
+
+Speed recommendations:
+  30 RPM  = Ultra-safe
+  60 RPM  = Safe (default)
+ 100 RPM  = Good speed
+ 150 RPM  = Fast
+ 200 RPM  = Very fast
+
+============================================
+CRITICAL: VERIFY VERSION BANNER!
+============================================
+
+When you upload v1.7.4, THE FIRST THING you see must be:
+```
+=====================================
+  Winder Firmware 1.7.4
+  Build: 2025-10-18
+  Config in config.h + version banner
+=====================================
+```
+
+If you see v1.3.1 or anything else, YOU UPLOADED THE WRONG FILE!
+
+============================================
+FILE VERIFICATION:
+============================================
+
+Correct file details:
+  Name: winder_v1.7.4_CONFIG_IN_HEADER.uf2
+  Size: ~142 KB
+  Location: /workspace/winder_v1.7.4_CONFIG_IN_HEADER.uf2
+
+After git pull, this file will be in your repo root.
+
+============================================
+UPLOAD v1.7.4 NOW!
+============================================
+
+Steps:
+1. git pull
+2. Find: winder_v1.7.4_CONFIG_IN_HEADER.uf2
+3. Upload to Pico (drag to RPI-RP2 drive)
+4. Connect serial terminal
+5. VERIFY VERSION BANNER shows "1.7.4"!
+6. Watch for correct speeds (1200 steps, 800 sps, 60 RPM)
+
+If version banner doesn't say 1.7.4, STOP and check your file!
+
+This should work perfectly now! 🚀

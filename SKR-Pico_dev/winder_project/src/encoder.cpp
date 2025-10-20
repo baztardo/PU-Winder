@@ -5,6 +5,9 @@
 #include "encoder.h"
 #include "config.h"
 #include "hardware/gpio.h"
+#include "hardware/pio.h"
+#include "pico/time.h"
+#include "encoder.pio.h"
 #include <cstdio>
 
 static volatile uint32_t g_isr_hits = 0;
@@ -15,46 +18,175 @@ Encoder::Encoder()
     , last_a(false)
     , last_b(false)
     , last_z(false)
-    , z_pulse_detected(false) {
+    , z_pulse_detected(false)
+    , z_debounce_position(-9999) {  // Initialize far from zero
 }
 
 void Encoder::init() {
-    // Initialize GPIO pins as inputs with pull-ups
-    gpio_init(ENCODER_A_PIN);
-    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
-    gpio_pull_up(ENCODER_A_PIN);
-    
-    gpio_init(ENCODER_B_PIN);
-    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
-    gpio_pull_up(ENCODER_B_PIN);
-    
+    // Configure Z pin for index pulse
     gpio_init(ENCODER_Z_PIN);
     gpio_set_dir(ENCODER_Z_PIN, GPIO_IN);
     gpio_pull_up(ENCODER_Z_PIN);
-    
-    // Read initial state
+
+    // Determine base pin for PIO sampling: PIO reads base and base+1
+    // Use base=A so mapping matches test code (A=bit1, B=bit0)
+    const uint8_t a_pin = ENCODER_A_PIN;
+    const uint8_t b_pin = ENCODER_B_PIN;
+    pio_base_pin = a_pin;
+
+    // Bit mapping to match working PIO test: A in bit1, B in bit0
+    a_bit_index = 1;
+    b_bit_index = 0;
+
+    // Ensure pulls enabled (works with PIO as well)
+    gpio_pull_up(a_pin);
+    gpio_pull_up(b_pin);
+
+    // If PIO disabled via config, use GPIO polling immediately
+    #if defined(ENCODER_USE_PIO) && (ENCODER_USE_PIO==0)
+    pio_initialized = false;
+    gpio_init(ENCODER_A_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+    gpio_init(ENCODER_B_PIN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_B_PIN);
+    last_a = gpio_get(ENCODER_A_PIN);
+    last_b = gpio_get(ENCODER_B_PIN);
+    last_z = gpio_get(ENCODER_Z_PIN);
+    return;
+    #endif
+
+    // Try to initialize PIO program; if any step fails, fall back to GPIO polling
+    pio = pio0;
+    bool pio_ok = true;
+    uint local_offset = 0;
+    if (!pio_can_add_program(pio, &quadrature_encoder_program)) {
+        pio_ok = false;
+    } else {
+        local_offset = pio_add_program(pio, &quadrature_encoder_program);
+    }
+
+    int claimed = -1;
+    if (pio_ok) {
+        claimed = pio_claim_unused_sm(pio, false);
+        if (claimed < 0) pio_ok = false;
+    }
+
+    if (pio_ok) {
+        sm = (uint)claimed;
+        offset = local_offset;
+        quadrature_encoder_program_init(pio, sm, offset, pio_base_pin);
+        pio_initialized = true;
+
+        // Initialize last state from FIFO if available
+        last_state_bits = 0;
+        if (!pio_sm_is_rx_fifo_empty(pio, sm)) {
+            uint32_t data = pio_sm_get(pio, sm);
+            uint8_t raw = (uint8_t)((data >> 30) & 0x3); // MSBs hold latest sample
+            bool a = (raw >> a_bit_index) & 0x1;
+            bool b = (raw >> b_bit_index) & 0x1;
+            last_state_bits = (uint8_t)((a << 1) | b);
+        }
+
+        last_a = (last_state_bits >> 1) & 1;
+        last_b = (last_state_bits & 1);
+        last_z = gpio_get(ENCODER_Z_PIN);
+
+        // TEMP: dump a few FIFO entries to confirm A/B bit order on this hardware
+        for (int i = 0; i < 16 && !pio_sm_is_rx_fifo_empty(pio, sm); i++) {
+            uint32_t data_dbg = pio_sm_get(pio, sm);
+            printf("[PIO] raw=0x%08lx lsb=%u msb=%u\n",
+                   data_dbg,
+                   (unsigned)(data_dbg & 0x3),
+                   (unsigned)((data_dbg >> 30) & 0x3));
+        }
+
+        printf("[ENC] PIO0 ready. A=%u B=%u base=%u a_bit=%u b_bit=%u sm=%u\n",
+               (unsigned)a_pin, (unsigned)b_pin, (unsigned)pio_base_pin,
+               (unsigned)a_bit_index, (unsigned)b_bit_index, (unsigned)sm);
+        return;
+    }
+
+    // Fallback: Initialize GPIO pins as inputs with pull-ups and use polling
+    pio_initialized = false;
+    gpio_init(ENCODER_A_PIN);
+    gpio_set_dir(ENCODER_A_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_A_PIN);
+
+    gpio_init(ENCODER_B_PIN);
+    gpio_set_dir(ENCODER_B_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_B_PIN);
+
+    // Read initial state for polling
     last_a = gpio_get(ENCODER_A_PIN);
     last_b = gpio_get(ENCODER_B_PIN);
     last_z = gpio_get(ENCODER_Z_PIN);
 }
 
 void Encoder::update() {
-    bool a = gpio_get(ENCODER_A_PIN);
-    bool b = gpio_get(ENCODER_B_PIN);
-
-    uint8_t state = (a << 1) | b;
-    uint8_t last_state = (last_a << 1) | last_b;
-
-    int8_t table[4][4] = {
+    // Transition table identical to previous implementation
+    static const int8_t table[4][4] = {
         {  0, -1,  1,  0 },
         {  1,  0,  0, -1 },
         { -1,  0,  0,  1 },
         {  0,  1, -1,  0 }
     };
-    position += table[last_state][state];
 
+    if (pio_initialized) {
+        // Drain RX FIFO; apply transitions for each sample
+        // With Core 1 dedicated, can drain more efficiently
+        int samples_processed = 0;
+        while (!pio_sm_is_rx_fifo_empty(pio, sm) && samples_processed++ < 32) {
+            uint32_t data = pio_sm_get(pio, sm);
+            // Latest sample is in MSBs (bits 31:30) per right-shift IN
+            uint8_t raw = (uint8_t)((data >> 30) & 0x3);
+            bool a = (raw >> a_bit_index) & 0x1;
+            bool b = (raw >> b_bit_index) & 0x1;
+
+            uint8_t state = (uint8_t)((a << 1) | b);
+            uint8_t last_state = (uint8_t)((last_a << 1) | last_b);
+            position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
+            last_a = a;
+            last_b = b;
+        }
+        // Also sample Z (index) and latch rising->low edge with debouncing
+        bool z_now = gpio_get(ENCODER_Z_PIN);
+        if (!z_now && last_z) {
+            // Debounce: Only trigger if we've moved at least 1/4 revolution since last Z
+            int32_t delta = position - z_debounce_position;
+            if (delta < 0) delta = -delta;  // absolute value
+            if (delta > (ENCODER_CPR / 4)) {  // More than 90 degrees away
+                z_pulse_detected = true;
+                z_debounce_position = position;
+            }
+        }
+        last_z = z_now;
+        isr_hits++;
+        return;
+    }
+
+    // GPIO polling fallback
+    bool a = gpio_get(ENCODER_A_PIN);
+    bool b = gpio_get(ENCODER_B_PIN);
+    uint8_t state = (uint8_t)((a << 1) | b);
+    uint8_t last_state = (uint8_t)((last_a << 1) | last_b);
+    position += table[last_state][state] * (ENCODER_INVERT ? -1 : 1);
     last_a = a;
     last_b = b;
+    // Also sample Z (index) and latch edge with debouncing
+    bool z_now = gpio_get(ENCODER_Z_PIN);
+    if (!z_now && last_z) {
+        // Debounce: Only trigger if we've moved at least 1/4 revolution since last Z
+        int32_t delta = position - z_debounce_position;
+        if (delta < 0) delta = -delta;  // absolute value
+        if (delta > (ENCODER_CPR / 4)) {  // More than 90 degrees away
+            z_pulse_detected = true;
+            z_debounce_position = position;
+        }
+    }
+    last_z = z_now;
+    isr_hits++;
 }
 
 int32_t Encoder::get_position() const {
@@ -75,7 +207,11 @@ float Encoder::get_revolutions() const {
 }
 
 bool Encoder::check_z_pulse() {
-    return gpio_get(ENCODER_Z_PIN) == 0;
+    if (z_pulse_detected) {
+        z_pulse_detected = false;
+        return true;
+    }
+    return false;
 }
 
 float Encoder::get_velocity(float dt_seconds) {
@@ -94,5 +230,4 @@ void Encoder::debug_status() const {
 uint32_t Encoder::get_isr_hits() const {
     return isr_hits;
 }
-// Global encoder instance (used in main.cpp)
-Encoder encoder;
+// No global instance; main owns Encoder instances

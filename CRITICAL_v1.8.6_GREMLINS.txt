@@ -1,0 +1,121 @@
+# 🐛 v1.8.6 - FOUND THE GREMLINS!
+
+## BUG #1: RAMP IGNORES SPEED LIMIT! ❌
+
+Your 500 RPM test showed:
+```
+Ramp slice 24: queuing 2777 steps @ 13333.3 sps
+```
+
+**13333 sps is 3× the 4000 sps limit!**
+
+The ramp-up code calculated `target_sps` and applied the limit,  
+but then **each ramp slice recalculated speed WITHOUT checking the limit!**
+
+### Fix in v1.8.6:
+```cpp
+for (int i = 1; i <= N_slices; ++i) {
+    float sps = sps_min + (target_sps - sps_min) * (frac * frac);
+    if (sps > max_sps) sps = max_sps;  // ✅ NOW ADDED!
+    ...
+}
+```
+
+---
+
+## BUG #2: MOTOR RUNNING 1.8× TOO FAST! ❌
+
+Your 120 RPM test:
+```
+Commanded: 3200 sps (120 RPM spindle)
+Encoder shows: 220 RPM
+Actual motor: ~5867 sps (1.83× commanded!)
+```
+
+**Motor is running almost 2× commanded speed!**
+
+### Possible Causes:
+
+1. **System clock NOT 125 MHz?**
+   - PIO timing assumes 125 MHz
+   - If clock is different, all timing is wrong!
+
+2. **PIO clock divider missing?**
+   - spindle_step.pio doesn't set clock divider
+   - Might be running at wrong frequency
+
+3. **PIO program timing bug?**
+   - Cycle counting might be off
+
+### v1.8.6 Debug Added:
+```
+System clock: ?????? Hz (expected: 125000000 Hz)
+```
+
+**Upload v1.8.6 and tell me what system clock shows!**
+
+---
+
+## BUG #3: ENCODER FREEZES AT HIGH SPEED ❌
+
+Your 500 RPM test:
+```
+Ramp: rpm=57.0 ✓ (tracking during ramp)
+Continuous: rpm=75.4 → 4.9 → 0.2 ❌ (frozen!)
+Position stuck at ~7072
+But motor still physically turning!
+```
+
+### Why Encoder Freezes:
+
+1. **PIO FIFO Overflow**
+   ```pio
+   push noblock  ; If FIFO full, DISCARD!
+   ```
+   At high speed, CPU can't drain FIFO fast enough!
+
+2. **Speed Too High for ISR**
+   - Encoder ISR runs every 50μs (HEARTBEAT_US)
+   - At 500 RPM target (really 13333 sps during ramp!):
+     - That's ~10000 counts/sec
+     - ISR needs to process ~0.5 counts per call
+     - Might be overloading!
+
+3. **Electrical Noise**
+   - High motor current at high speed
+   - Encoder signals getting noisy
+
+---
+
+## 🧪 TEST v1.8.6:
+
+```bash
+git pull
+winder_v1.8.6_DEBUG_TIMING.uf2
+```
+
+### Test at 120 RPM:
+
+1. **Check system clock output:**
+   ```
+   System clock: ????? Hz
+   ```
+   Should be 125000000 Hz!
+
+2. **Check encoder RPM:**
+   ```
+   [ENC] rpm=???
+   ```
+   Should be **120 RPM**, NOT 220!
+
+3. **Report results!**
+
+---
+
+## 📊 WHAT TO TELL ME:
+
+1. What is the system clock frequency?
+2. Does encoder still show 220 RPM at 120 config?
+3. At what RPM does encoder freeze?
+
+Then I can fix the speed bug! 🎯

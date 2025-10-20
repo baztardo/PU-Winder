@@ -4,6 +4,7 @@
 // =============================================================================
 
 #include "pico/stdlib.h"
+#include "pico/multicore.h"  // For Core 1 encoder processing
 #include "hardware/i2c.h"
 #include <cstdio>
 
@@ -16,30 +17,11 @@
 #include "scheduler.h"
 #include "lcd_display.h"
 #include "winding_controller.h"
+#include "src/version.h"
 // -----------------------------------------------------------------------------
 // Diagnostic LED Controller
 // -----------------------------------------------------------------------------
 #include "pico/stdlib.h"
-
-static inline void diag_led_init() {
-    const uint pins[] = {LED1_PIN, LED2_PIN, LED3_PIN};
-    for (int i = 0; i < 3; i++) {
-        gpio_init(pins[i]);
-        gpio_set_dir(pins[i], GPIO_OUT);
-        gpio_put(pins[i], 0);
-    }
-}
-
-static inline void diag_led_pattern(uint8_t pattern, int delay_ms = 300) {
-    // Bit 0→LED1, Bit 1→LED2, Bit 2→LED3
-    gpio_put(LED1_PIN, pattern & 0x01);
-    gpio_put(LED2_PIN, pattern & 0x02);
-    gpio_put(LED3_PIN, pattern & 0x04);
-    sleep_ms(delay_ms);
-    gpio_put(LED1_PIN, 0);
-    gpio_put(LED2_PIN, 0);
-    gpio_put(LED3_PIN, 0);
-}
 
 static inline void heartbeat_led() {
     static absolute_time_t next = {0};
@@ -49,7 +31,6 @@ static inline void heartbeat_led() {
         next = make_timeout_time_ms(SCHED_HEARTBEAT_INTERVAL_MS);
     }
 }
-
 
 MoveQueue move_queue;
 Encoder spindle_encoder;
@@ -120,40 +101,67 @@ void init_motors();
 void setup_winding_parameters();
 
 // =============================================================================
-// Main Application
+// Core 1: Dedicated Encoder Processing
+// =============================================================================
+// This runs on Core 1 in a tight loop, reading encoder at maximum speed
+// without competing with Core 0's step generation and winding logic
+void core1_entry() {
+    printf("[CORE1] Starting dedicated encoder loop...\n");
+    
+    while (1) {
+        // Update encoder as fast as possible
+        // This is now the ONLY place encoder->update() is called!
+        spindle_encoder.update();
+        
+        // Yield to other Core 1 tasks (none currently, but good practice)
+        tight_loop_contents();
+    }
+}
+
+// =============================================================================
+// Main Application (Core 0)
 // =============================================================================
 int main() {
     stdio_init_all();
-    diag_led_init();
-
-    // Boot pattern: LED1+LED2 on = “power-up”
-    diag_led_pattern(0b011, 200);
-    diag_led_pattern(0b001, 200);
-    diag_led_pattern(0b111, 300);
 
     // Short delay for hardware stabilization
-    sleep_ms(100);
+    sleep_ms(10000);  // Extended for USB serial
+    
+    printf("\n");
+    printf("=====================================\n");
+    printf("  Winder Firmware %s\n", FIRMWARE_VERSION);
+    printf("  Build: %s\n", VERSION_DATE);
+    printf("  %s\n", VERSION_DESC);
+    printf("=====================================\n");
+    printf("\n");
     
     // Initialize all hardware
     init_hardware();
     
-    // Initialize LCD and show startup message
+    // Show version on LCD (so you know what's running!)
     lcd.clear();
-    lcd.print_at(0, 0, "Wire Winder v1.0");
-    lcd.print_at(0, 1, "Initializing...");
-    sleep_ms(1000);
+    lcd.printf_at(0, 0, "Winder FW %s", FIRMWARE_VERSION);
+    lcd.printf_at(0, 1, "Build: %s", VERSION_DATE);
+    lcd.print_at(0, 2, VERSION_DESC);
+    sleep_ms(5000);  // Show version for 2 seconds
     
     // Initialize motor drivers
-    lcd.print_at(0, 2, "Motors...");
+    // Suppress motor banner to avoid LCD contention
     init_motors();
     sleep_ms(1000);
     
     // After constructing the Encoder object
-    encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
-    encoder.debug_status();    // optional: quick sanity print
+    spindle_encoder.init();            // <-- REQUIRED: arms A/B/Z IRQs
+    // Suppress debug spam
+
+    // Launch Core 1 for dedicated encoder processing
+    printf("\n🚀 Launching Core 1 for encoder...\n");
+    multicore_launch_core1(core1_entry);
+    sleep_ms(100);  // Let Core 1 start
+    printf("✓ Core 1 running!\n\n");
 
     // Start scheduler ISR
-    lcd.print_at(0, 3, "Scheduler...");
+    // Suppress scheduler banner
     if (!scheduler.start(HEARTBEAT_US)) {
         lcd.clear();
         lcd.print_at(0, 0, "ERROR:");
@@ -163,8 +171,7 @@ int main() {
 
     //sleep_ms(500);
 
-    sleep_ms(2000);  // Give time to read "Setting Current"
-    show_tmc_status();  // This MUST be called!
+    // Suppress TMC status UI during bring-up (kept functional)
     
     // Initialize winding controller
     winding_controller.init();
@@ -208,9 +215,7 @@ int main() {
 void init_hardware() {
     // Initialize move queue (GPIO pins)
     move_queue.init();
-    
-    // Initialize encoder
-    spindle_encoder.init();
+    // was encode now moved
     
     // Initialize I2C bus for LCD
     i2c_init(i2c0, I2C_FREQ_HZ);
@@ -255,11 +260,15 @@ void init_motors() {
     lcd.print_at(0, 3, "Microsteps...");
     sleep_ms(500);
 
-    tmc_spindle.set_microsteps(MOTOR_MICROSTEPS);
-    tmc_traverse.set_microsteps(MOTOR_MICROSTEPS);
+    // Configure microstepping (different for each axis!)
+    tmc_spindle.set_microsteps(SPINDLE_MICROSTEPS);   // 8x for speed
+    tmc_traverse.set_microsteps(TRAVERSE_MICROSTEPS); // 16x for precision
     
-    lcd.print_at(0, 3, "Done!");
-    sleep_ms(1000);
+    lcd.clear();
+    lcd.printf_at(0, 0, "Spindle: %dx", SPINDLE_MICROSTEPS);
+    lcd.printf_at(0, 1, "Traverse: %dx", TRAVERSE_MICROSTEPS);
+    lcd.print_at(0, 2, "Config OK!");
+    sleep_ms(1500);
 }
 
 // =============================================================================
@@ -268,13 +277,13 @@ void init_motors() {
 void setup_winding_parameters() {
     WindingParams params;
     
-    // Configure winding job
-    params.target_turns = 1000;          // 1000 turns total
-    params.spindle_rpm = 300.0f;         // 300 RPM spindle speed
-    params.wire_diameter_mm = 0.064f;    // 43 AWG wire (0.064mm)
-    params.layer_width_mm = 50.0f;       // 50mm winding width
-    params.start_position_mm = 20.0f;    // Start 20mm from home
-    params.ramp_time_sec = 3.0f;         // 3 second ramp up/down
+    // Configure winding job (from config.h)
+    params.target_turns = WINDING_TARGET_TURNS;
+    params.spindle_rpm = WINDING_SPINDLE_RPM;
+    params.wire_diameter_mm = WINDING_WIRE_DIA_MM;
+    params.layer_width_mm = WINDING_WIDTH_MM;
+    params.start_position_mm = WINDING_START_POS_MM;
+    params.ramp_time_sec = WINDING_RAMP_TIME_SEC;
     
     // Calculate and set
     params.calculate_layers();

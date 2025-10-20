@@ -75,62 +75,18 @@ public:
      * @param lcd LCD display instance
      */
     WindingController(MoveQueue* mq, Encoder* enc, LCDDisplay* lcd);
-    
-    /**
-     * @brief Initialize controller
-     */
+
     void init();
-    
-    /**
-     * @brief Set winding parameters
-     * @param params Winding parameters
-     */
     void set_parameters(const WindingParams& params);
-    
-    /**
-     * @brief Start winding sequence
-     * @return true if started successfully
-     */
     bool start();
-    
-    /**
-     * @brief Stop winding sequence
-     */
     void stop();
-    
-    /**
-     * @brief Update state machine (call from main loop)
-     */
     void update();
-    
-    /**
-     * @brief Get current state
-     * @return Current winding state
-     */
     WindingState get_state() const { return state; }
-    
-    /**
-     * @brief Get current layer number
-     * @return Current layer (0-based)
-     */
     uint32_t get_current_layer() const { return current_layer; }
-    
-    /**
-     * @brief Get turns completed
-     * @return Number of turns wound
-     */
     uint32_t get_turns_completed() const { return turns_completed; }
-    
-    /**
-     * @brief Get current spindle RPM
-     * @return RPM from encoder
-     */
     float get_current_rpm() const { return current_rpm; }
-    
-    /**
-     * @brief Emergency stop
-     */
     void emergency_stop();
+
 
 private:
     MoveQueue* move_queue;

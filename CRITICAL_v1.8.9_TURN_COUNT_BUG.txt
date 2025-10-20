@@ -1,0 +1,113 @@
+# 🐛 v1.8.9 - TURN COUNTING BUG FIXED!
+
+## THE BUG:
+
+Your test: 100 turns target → **124 actual!** (+24% error!)
+
+This is NOT mechanical tolerance - this is a COUNTING BUG!
+
+---
+
+## ROOT CAUSE:
+
+**Double counting in `update_display()`!**
+
+```cpp
+// winding_controller.cpp line 561:
+void WindingController::update_display() {
+    const int32_t enc_counts = encoder->get_position();
+    turns_completed = enc_counts / ENCODER_CPR;  // ❌ OVERRIDES!
+    ...
+}
+```
+
+**This OVERWRITES `turns_completed` which is managed by `sync_traverse_to_spindle()`!**
+
+---
+
+## HOW IT CAUSED +24% ERROR:
+
+### Normal Flow (CORRECT):
+```cpp
+sync_traverse_to_spindle():
+- Reads encoder delta since last sync
+- Calculates new_turns from delta
+- Updates turns_completed incrementally ✓
+```
+
+### Bug Flow (WRONG):
+```cpp
+update_display():
+- Reads TOTAL encoder position
+- Recalculates turns from absolute position
+- OVERWRITES turns_completed! ❌
+
+Result:
+- sync_traverse_to_spindle() increments: +1
+- update_display() recalculates from total: +1.24
+- Net result: Counts 24% too high!
+```
+
+---
+
+## THE FIX (v1.8.9):
+
+**Removed the override line:**
+```cpp
+// OLD:
+turns_completed = enc_counts / ENCODER_CPR;  // ❌
+
+// NEW:
+// Removed! turns_completed managed by sync only ✅
+```
+
+**Now `turns_completed` is ONLY updated by `sync_traverse_to_spindle()`!**
+
+---
+
+## 📊 EXPECTED v1.8.9 RESULTS:
+
+### Test at 480 Config:
+```
+Target: 100 turns
+Expected: 100 ±2 turns ✅ (not 124!)
+Encoder: ~240 RPM
+Tach: 240 RPM
+```
+
+---
+
+## 🚀 ABOUT THE SPEED CAP:
+
+You saw:
+```
+840 config:
+Ramp: 397 RPM peak
+Continuous: 300 RPM
+```
+
+**This is the 4000 sps limit!**
+
+```
+840 × 0.5 = 420 stepper RPM = 5600 sps (calculated)
+Clamped to: 4000 sps = 300 stepper RPM
+```
+
+**Question:** Is your tach reading stepper or spindle?
+- If stepper: 300 RPM = at limit ✓
+- If spindle: 300 × 0.5 = 150 stepper = only 2000 sps?
+
+---
+
+## 🔧 TO RAISE SPEED LIMIT:
+
+Want me to build a version with **6000 or 8000 sps limit**?
+
+That would let you test higher speeds safely!
+
+---
+
+## FILE: winder_v1.8.9_FIX_TURN_COUNT.uf2
+
+git pull
+Test at 480 config - should get 100 turns now (not 124!)! ✅

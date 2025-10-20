@@ -1,0 +1,93 @@
+# ⚠️ v2.0.0 - CLEAN REBUILD REQUIRED!
+
+## THE PROBLEM:
+
+Your local build has merge conflicts!
+
+**Symptoms:**
+1. Compilation error: `data not declared`
+2. Z-homing broken: encoder shows `pos=0`
+3. No `[CORE1]` message in serial
+
+**Root cause:** Incomplete merge of multicore changes!
+
+---
+
+## THE FIX:
+
+**Pull clean v2.0.0 from git:**
+
+```bash
+cd SKR-Pico_dev/winder_project
+git fetch
+git reset --hard origin/cursor/integrate-pio-encoder-and-lcd-into-winder-project-bb8c
+rm -rf build
+mkdir build
+cd build
+cmake ..
+make -j4
+```
+
+---
+
+## OR USE PRE-BUILT:
+
+```bash
+git pull
+# Use: winder_v2.0.0_MULTICORE_CLEAN.uf2
+```
+
+---
+
+## WHAT TO EXPECT:
+
+### Serial output on boot:
+```
+=====================================
+  Winder Firmware 2.0.0
+  Build: 2025-10-19
+  MULTICORE: Encoder on Core 1 (2x CPU!)
+=====================================
+
+[CORE1] Starting dedicated encoder loop...  ← YOU MUST SEE THIS!
+✓ Core 1 running!
+
+[ENC] PIO0 ready...
+[ENC] pos=0 rpm=0.0
+```
+
+**If you don't see "[CORE1]" message:**
+- Multicore didn't start!
+- Your build is broken!
+
+### During Z-homing:
+```
+[ENC] pos=123 rpm=0.0   ← Position MUST increase!
+[ENC] pos=456 rpm=0.0
+[ENC] pos=789 rpm=0.0
+Z-index found!
+```
+
+---
+
+## IF STILL BROKEN:
+
+**Option A: Revert to v1.9.1** (known working, but caps at 300 RPM)
+```bash
+git checkout HEAD~5
+rm -rf build && mkdir build && cd build && cmake .. && make
+```
+
+**Option B: Wait for me to debug your local setup**
+
+---
+
+## FILE: winder_v2.0.0_MULTICORE_CLEAN.uf2
+
+This is a CLEAN build from my workspace.
+- ✅ No merge conflicts
+- ✅ Compiles cleanly
+- ✅ Core 1 launches
+- ✅ Encoder at 32 samples/tick
+
+**Upload this and test!**

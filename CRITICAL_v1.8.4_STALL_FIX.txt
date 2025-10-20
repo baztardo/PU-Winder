@@ -1,0 +1,138 @@
+# 🚨 v1.8.4 - MOTOR STALLING FIX!
+
+## THE PROBLEM (v1.8.3 @ 240 RPM):
+
+```
+Commanded: 6400 sps (240 RPM spindle, 480 RPM stepper)
+Result: MOTOR STALLED! ❌
+
+Evidence:
+- Ramp completed (encoder counted ~8000)
+- Continuous mode started
+- PIO kept queueing steps
+- But encoder STOPPED COUNTING (pos=7993, rpm=0.0)
+- Motor physically not turning!
+```
+
+---
+
+## ROOT CAUSE:
+
+**Your motor CAN'T sustain 6400 sps (480 RPM stepper)!**
+
+Problems:
+1. **Lost 62% of steps during ramp!**
+   - Expected: ~21,000 encoder counts
+   - Actual: 7,992 counts
+   - Motor slipping/stalling during acceleration
+
+2. **Complete stall at target speed**
+   - Encoder froze at 7993
+   - RPM went to 0.0
+   - Motor physically stopped
+
+3. **Speed limit too optimistic**
+   - `max_sps = 50000.0f` is unrealistic
+   - TMC2209 + your motor can't do 6400 sps reliably
+
+---
+
+## v1.8.4 FIX:
+
+### **New Conservative Speed Limit:**
+```cpp
+max_sps = 4000.0f  // Was 50000.0f!
+```
+
+### **Safe Operating Range:**
+```
+  60 RPM spindle = 120 RPM stepper = 1600 sps ✅ SAFE
+ 120 RPM spindle = 240 RPM stepper = 3200 sps ✅ GOOD
+ 150 RPM spindle = 300 RPM stepper = 4000 sps ✅ MAX (for now)
+ 200 RPM spindle = Would be 5333 sps ❌ CLAMPED to 4000
+ 240 RPM spindle = Would be 6400 sps ❌ CLAMPED to 4000
+```
+
+### **New Default:**
+```cpp
+#define WINDING_SPINDLE_RPM  120.0f  // Was 60, now 120!
+```
+
+---
+
+## 🧪 TEST v1.8.4:
+
+### Test 1: 120 RPM (Should work perfectly!)
+```cpp
+config.h:
+#define WINDING_SPINDLE_RPM 120.0f
+
+Expected:
+Stepper: 240 RPM (3200 sps)
+Encoder: 120 RPM continuous ✅
+No stalling!
+```
+
+### Test 2: Try 150 RPM (pushing the limit)
+```cpp
+#define WINDING_SPINDLE_RPM 150.0f
+
+Expected:
+Stepper: 300 RPM (4000 sps = max limit)
+Encoder: 150 RPM ✅ (hopefully!)
+Might show some slip
+```
+
+---
+
+## 📊 WHAT WE LEARNED:
+
+| RPM | Stepper SPS | Result |
+|-----|-------------|--------|
+| 60 | 1600 | ✅ Works perfectly |
+| 120 | 3200 | ✅ Should work |
+| 150 | 4000 | ⚠️ New limit |
+| 240 | 6400 | ❌ STALLS! |
+
+**Your motor's real limit is around 4000-4500 sps at 4x microstepping.**
+
+---
+
+## 🔧 FUTURE TUNING (To Go Faster):
+
+To reach 1000-1500 RPM spindle, you'd need:
+
+### Option 1: Tune TMC2209
+```cpp
+// Increase voltage/current
+// Adjust chopper settings (TOFF, TBL, HSTRT, HEND)
+// Enable SpreadCycle (not StealthChop)
+// Increase TPWMTHRS threshold
+```
+
+### Option 2: Lower Microstepping
+```cpp
+#define SPINDLE_MICROSTEPS 2  // 2x instead of 4x
+// Doubles max speed!
+// But half the resolution
+```
+
+### Option 3: Change Gear Ratio
+```
+Use 1:1 gearing (no reduction)
+Spindle goes same speed as motor
+Easier to hit high RPM
+But less torque
+```
+
+---
+
+## 📁 FILE: winder_v1.8.4_SAFE_SPEED.uf2
+
+**Safe speed limit: 4000 sps**  
+**Default: 120 RPM spindle**
+
+git pull
+Upload and test at 120 RPM first!
+
+Then try 150 RPM to see where the real limit is! 🎯

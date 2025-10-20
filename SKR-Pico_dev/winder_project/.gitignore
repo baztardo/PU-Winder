@@ -1,0 +1,45 @@
+# Build directories
+build/
+Build/
+cmake-build-*/
+
+# Compiled binaries
+*.elf
+*.bin
+*.hex
+*.uf2
+*.dis
+*.map
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.old
+*.orig
+
+# Pico SDK build artifacts
+pico-sdk/
+picotool/
+pioasm/
+_deps/
+generated/
+
+# Log files
+*.log
